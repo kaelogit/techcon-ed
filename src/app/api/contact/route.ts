@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
     <p><strong>Category:</strong> ${escapeHtml(parsed.category)}</p>
     ${parsed.story ? `<p><strong>Message:</strong></p><p>${escapeHtml(parsed.story)}</p>` : ""}
     <hr />
-    <p style="color:#666;font-size:12px;">Sent from the official Edwin Castro community support form.</p>
+    <p style="color:#666;font-size:12px;">Sent from the Edwin Castro community support form.</p>
   `;
 
   try {

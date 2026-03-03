@@ -1,30 +1,74 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #faf8f5;
-  --foreground: #1a1a1a;
-  --muted: #5c5c5c;
-  --accent: #b8860b;
-  --accent-hover: #9a7209;
-  --card: #ffffff;
-  --border: #e8e4de;
-  --trust: #1e3a2f;
-  --trust-light: #2d5a47;
+@theme {
+  /* Premium Civic Palette - No bright, cheap colors */
+  --color-edwin-black: #09090b;   /* Deepest contrast for strong headings */
+  --color-edwin-navy: #0f172a;    /* Official trust color for primary buttons */
+  --color-edwin-stone: #f4f4f5;   /* Very soft gray for alternating sections */
+  --color-edwin-chalk: #fafafa;   /* Warm off-white for the main background */
+  --color-edwin-muted: #52525b;   /* Easy-to-read color for long paragraphs */
+
+  /* High-end floating shadow for cards */
+  --shadow-premium: 0 10px 40px -10px rgba(0,0,0,0.06);
+  
+  /* Smooth, Apple-like Animation Timings */
+  --animate-reveal: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-fade: fade 1.2s ease-out forwards;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), Georgia, serif;
+:root {
+  --background: var(--color-edwin-chalk);
+  --foreground: var(--color-edwin-black);
 }
 
 body {
+  min-height: 100vh;
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  /* Makes text look incredibly crisp on all screens */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; 
+  
+  /* Prevents horizontal scrolling bugs on mobile phones */
+  overflow-x: hidden; 
 }
 
-.font-serif {
-  font-family: var(--font-serif);
+/* Premium Selection Highlight - Replaced the bright blue with an elegant dark highlight */
+body *::selection {
+  background: var(--color-edwin-black);
+  color: var(--color-edwin-chalk);
 }
+
+/* --- PREMIUM ANIMATIONS --- */
+
+@keyframes reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Utility classes to use inside your components. 
+  Just add "animate-on-load" to any View or Text to make it slide in smoothly.
+*/
+.animate-on-load {
+  opacity: 0;
+  animation: var(--animate-reveal);
+}
+
+/* Delays so things load one after another (1-2-3 effect) */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
