@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { View, Text } from '@/components/Themed';
+import Link from 'next/link';
 
 export default function ApplyPage() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
@@ -41,7 +42,6 @@ export default function ApplyPage() {
       {/* SECTION 1: THE ENCOURAGEMENT HERO */}
       <View className="bg-[#F7F5F0] pt-32 pb-20 px-6 border-b border-stone-200">
         <View className="max-w-4xl mx-auto text-center animate-on-load">
-          
           <Text className="block text-4xl md:text-6xl font-bold text-edwin-black mb-8 leading-tight">
             Tell us how we can <br className="hidden sm:block" />
             help you move forward.
@@ -73,47 +73,89 @@ export default function ApplyPage() {
         </View>
       </View>
 
-      {/* SECTION 3: THE REQUEST FORM */}
+      {/* SECTION 3: THE REQUEST FORM / SUCCESS STATE */}
       <View className="py-20 md:py-32 px-6 bg-white" id="request-form">
         <View className="max-w-3xl mx-auto">
           
           {status === 'success' ? (
-            <View className="bg-emerald-50 border border-emerald-100 p-12 rounded-[2rem] text-center animate-on-load">
-              <View className="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-8">
-                <Text className="text-white text-3xl">✓</Text>
+            <View className="bg-white border border-stone-100 p-8 md:p-16 rounded-[3rem] text-center shadow-2xl animate-on-load">
+              <View className="w-24 h-24 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-10 shadow-lg shadow-emerald-200">
+                <Text className="text-white text-4xl font-bold">✓</Text>
               </View>
-              <Text className="block text-3xl font-bold text-emerald-900 mb-4 text-center">Your Story Has Been Received</Text>
-              <Text className="block text-lg text-emerald-700 leading-relaxed text-center">
-                Thank you for being brave and sharing your needs. Our support team is reading your message right now. Please stay close to your email; you will hear from us very shortly.
+
+              <Text className="block text-3xl md:text-4xl font-black text-edwin-black mb-6">
+                Your story is safe <br /> with us.
               </Text>
+
+              <Text className="block text-lg text-stone-500 leading-relaxed mb-12 max-w-md mx-auto">
+                Thank you for your honesty. Our support team has received your request and is reviewing it personally right now.
+              </Text>
+
+              {/* ACTION ROADMAP */}
+              <View className="bg-[#F9F8F6] rounded-2xl p-8 text-left mb-12 border border-stone-100">
+                <Text className="block text-xs font-black text-stone-400 uppercase tracking-widest mb-6">Critical Next Steps</Text>
+                
+                <View className="space-y-6">
+                  <View className="flex gap-4">
+                    <View className="w-6 h-6 rounded-full bg-edwin-navy flex items-center justify-center shrink-0">
+                      <Text className="text-[10px] text-white font-bold">1</Text>
+                    </View>
+                    <Text className="text-sm text-stone-600 font-medium">
+                      Check your email in <strong className="text-edwin-black">5-10 minutes</strong> for our response.
+                    </Text>
+                  </View>
+
+                  <View className="flex gap-4">
+                    <View className="w-6 h-6 rounded-full bg-amber-400 flex items-center justify-center shrink-0">
+                      <Text className="text-[10px] text-edwin-black font-bold">!</Text>
+                    </View>
+                    <Text className="text-sm text-stone-600 font-medium">
+                      Check your <strong className="text-edwin-black">Spam or Junk</strong> folder immediately if you don&apos;t see our reply.
+                    </Text>
+                  </View>
+
+                  <View className="flex gap-4">
+                    <View className="w-6 h-6 rounded-full bg-edwin-navy flex items-center justify-center shrink-0">
+                      <Text className="text-[10px] text-white font-bold">2</Text>
+                    </View>
+                    <Text className="text-sm text-stone-600 font-medium">
+                      Add <strong className="text-edwin-black">support@edwinmega.com</strong> to your contacts to ensure safe delivery.
+                    </Text>
+                  </View>
+                </View>
+              </View>
+
+              <Link 
+                href="/"
+                className="inline-block text-xs font-black text-stone-400 uppercase tracking-widest hover:text-edwin-black transition-colors"
+              >
+                Return to Home
+              </Link>
             </View>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-8 animate-on-load delay-100">
-              
               <View className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* Full Name */}
                 <View className="flex flex-col gap-2">
-                  <label htmlFor="name" className="text-sm font-bold text-stone-500 uppercase tracking-widest pl-1">Full Name</label>
+                  <label htmlFor="name" className="text-xs font-black text-stone-400 uppercase tracking-widest pl-1">Full Name</label>
                   <input
                     required
                     type="text"
                     id="name"
                     placeholder="Enter your name"
-                    className="w-full px-6 py-4 bg-stone-50 border border-stone-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-edwin-navy transition-all"
+                    className="w-full px-6 py-5 bg-stone-50 border border-stone-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-edwin-navy transition-all"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   />
                 </View>
 
-                {/* Email Address */}
                 <View className="flex flex-col gap-2">
-                  <label htmlFor="email" className="text-sm font-bold text-stone-500 uppercase tracking-widest pl-1">Email Address</label>
+                  <label htmlFor="email" className="text-xs font-black text-stone-400 uppercase tracking-widest pl-1">Email Address</label>
                   <input
                     required
                     type="email"
                     id="email"
                     placeholder="Where should we reach you?"
-                    className="w-full px-6 py-4 bg-stone-50 border border-stone-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-edwin-navy transition-all"
+                    className="w-full px-6 py-5 bg-stone-50 border border-stone-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-edwin-navy transition-all"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   />
@@ -121,27 +163,25 @@ export default function ApplyPage() {
               </View>
 
               <View className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {/* State */}
                 <View className="flex flex-col gap-2">
-                  <label htmlFor="state" className="text-sm font-bold text-stone-500 uppercase tracking-widest pl-1">Your State</label>
+                  <label htmlFor="state" className="text-xs font-black text-stone-400 uppercase tracking-widest pl-1">Your State</label>
                   <input
                     required
                     type="text"
                     id="state"
                     placeholder="e.g. California"
-                    className="w-full px-6 py-4 bg-stone-50 border border-stone-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-edwin-navy transition-all"
+                    className="w-full px-6 py-5 bg-stone-50 border border-stone-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-edwin-navy transition-all"
                     value={formData.state}
                     onChange={(e) => setFormData({ ...formData, state: e.target.value })}
                   />
                 </View>
 
-                {/* Category Selection */}
                 <View className="flex flex-col gap-2">
-                  <label htmlFor="category" className="text-sm font-bold text-stone-500 uppercase tracking-widest pl-1">Support Type</label>
+                  <label htmlFor="category" className="text-xs font-black text-stone-400 uppercase tracking-widest pl-1">Support Type</label>
                   <select
                     required
                     id="category"
-                    className="w-full px-6 py-4 bg-stone-50 border border-stone-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-edwin-navy transition-all appearance-none"
+                    className="w-full px-6 py-5 bg-stone-50 border border-stone-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-edwin-navy transition-all appearance-none"
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                   >
@@ -156,34 +196,31 @@ export default function ApplyPage() {
                 </View>
               </View>
 
-              {/* The Story */}
               <View className="flex flex-col gap-2">
-                <label htmlFor="story" className="text-sm font-bold text-stone-500 uppercase tracking-widest pl-1">Share Your Story</label>
+                <label htmlFor="story" className="text-xs font-black text-stone-400 uppercase tracking-widest pl-1">Share Your Story</label>
                 <textarea
                   required
                   id="story"
                   rows={8}
                   placeholder="Tell us about your situation, exactly how much help you need, and how this will change your life..."
-                  className="w-full px-6 py-4 bg-stone-50 border border-stone-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-edwin-navy transition-all"
+                  className="w-full px-6 py-5 bg-stone-50 border border-stone-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-edwin-navy transition-all"
                   value={formData.story}
                   onChange={(e) => setFormData({ ...formData, story: e.target.value })}
                 />
               </View>
 
-              {/* Submit Button */}
               <View className="pt-4">
                 <button
                   disabled={status === 'sending'}
                   type="submit"
-                  className={`w-full py-5 rounded-full text-lg font-bold text-white transition-all shadow-xl ${status === 'sending' ? 'bg-stone-400 cursor-not-allowed' : 'bg-edwin-navy hover:bg-edwin-black hover:scale-[1.02] active:scale-[0.98]'}`}
+                  className={`w-full py-6 rounded-full text-lg font-black text-white transition-all shadow-xl uppercase tracking-widest ${status === 'sending' ? 'bg-stone-400 cursor-not-allowed' : 'bg-edwin-navy hover:bg-edwin-black active:scale-[0.98]'}`}
                 >
-                  {status === 'sending' ? 'Sending Your Story...' : 'Submit Your Request'}
+                  {status === 'sending' ? 'Reviewing Submission...' : 'Submit Your Request'}
                 </button>
                 {status === 'error' && (
                   <Text className="block text-center mt-6 text-red-600 font-bold">Something went wrong. Please check your internet and try again.</Text>
                 )}
               </View>
-
             </form>
           )}
 
@@ -197,7 +234,7 @@ export default function ApplyPage() {
             <Text className="text-xl">🔒</Text>
           </View>
           <Text className="block text-2xl font-bold text-edwin-black">Your Privacy is Protected</Text>
-          <Text className="block text-stone-500 leading-relaxed">
+          <Text className="block text-stone-500 leading-relaxed font-light">
             Every word you share is handled with absolute respect and privacy. Your story will never be shared without your explicit permission. We are here only to help you rebuild.
           </Text>
         </View>
@@ -212,7 +249,7 @@ function PrepStep({ number, title, desc }: { number: string; title: string; desc
     <View className="flex flex-col gap-4 animate-on-load">
       <Text className="text-3xl font-light text-stone-300">{number}</Text>
       <Text className="text-xl font-bold text-edwin-black">{title}</Text>
-      <Text className="text-stone-500 leading-relaxed">{desc}</Text>
+      <Text className="text-stone-500 leading-relaxed font-light">{desc}</Text>
     </View>
   );
 }

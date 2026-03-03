@@ -36,7 +36,7 @@ export function HeroSection() {
 
         {/* Reassuring, soft trust text */}
         <Text className="block mt-10 text-sm font-medium text-stone-400 animate-on-load delay-400">
-          Currently reviewing stories from all 50 states. No application fees, ever.
+          Currently reviewing stories from all 50 states.
         </Text>
 
       </View>
