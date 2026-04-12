@@ -125,9 +125,13 @@ function ChartTooltipContent({
     indicator?: "line" | "dot" | "dashed"
     nameKey?: string
     labelKey?: string
-  } & {
     payload?: any
     active?: boolean
+    label?: any
+    labelFormatter?: (value: any, payload: any) => React.ReactNode
+    labelClassName?: string
+    formatter?: (value: any) => React.ReactNode
+    color?: string
   }) {
   const { config } = useChart()
 
