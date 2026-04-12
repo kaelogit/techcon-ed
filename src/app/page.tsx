@@ -1,5 +1,5 @@
 import { HeroSection } from '@/components/home/HeroSection';
-import { VisionSection } from '@/components/home/VisionSection';
+import VisionSection from '@/components/home/VisionSection';
 import { ImpactStatsSection } from '@/components/home/ImpactStatsSection';
 import { SupportAreasSection } from '@/components/home/SupportAreasSection';
 import { ProcessSection } from '@/components/home/ProcessSection';

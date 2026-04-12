@@ -1,71 +1,223 @@
-import { View, Text } from '@/components/Themed';
+"use client";
 
-export function ImpactStatsSection() {
-  return (
-    <View className="bg-white py-16 md:py-32 px-6 relative z-20 border-b border-stone-100">
-      <View className="max-w-7xl mx-auto">
+import React, { useEffect, useState, useRef } from 'react';
+import { ShieldCheck, Globe2, Zap, ArrowUpRight, TrendingUp } from 'lucide-react';
+import Link from 'next/link';
+
+interface StatBlockProps {
+  icon: React.ReactNode;
+  value: number;
+  suffix: string;
+  label: string;
+  desc: string;
+  isVisible: boolean;
+  delay: number;
+  prefix?: string;
+}
+
+function StatBlock({ 
+  icon, value, suffix, label, desc, isVisible, delay, prefix = "" 
+}: StatBlockProps) {
+  const [count, setCount] = useState(0);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    if (isVisible && !hasAnimated.current) {
+      hasAnimated.current = true;
+      const timer = setTimeout(() => {
+        let start = 0;
+        const end = value;
+        const duration = 2000;
+        const startTime = performance.now();
         
-        {/* Context Header */}
-        <View className="mb-12 md:mb-24 flex flex-col md:flex-row md:items-end justify-between border-b border-stone-200 pb-10 gap-6 animate-on-load">
-          <View className="max-w-3xl">
-            <Text className="block text-stone-500 text-xs md:text-sm font-bold tracking-[0.2em] uppercase mb-4">
-              The Scale of Support
-            </Text>
-            <Text className="block text-2xl md:text-4xl font-light text-edwin-black leading-relaxed">
-              A massive commitment to rebuilding neighborhoods and empowering people, without complicated rules or long delays.
-            </Text>
-          </View>
-          <View className="flex items-center gap-3">
-            <View className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <Text className="text-stone-500 text-xs md:text-sm font-bold tracking-widest uppercase">
-              Actively Reviewing
-            </Text>
-          </View>
-        </View>
-
-        {/* The 3-Pillar Grid */}
-        <View className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-16">
+        const animate = (currentTime: number) => {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
           
-          <StatBlock 
-            value="50" 
-            suffix="States" 
-            label="National Reach" 
-            desc="We are currently accepting and reading personal stories from every part of the country."
-            delay="delay-100"
-          />
+          // Easing function for smooth deceleration
+          const easeOut = 1 - Math.pow(1 - progress, 3);
+          const current = Math.floor(easeOut * end);
           
-          <StatBlock 
-            value="7" 
-            suffix="Focus Areas" 
-            label="Complete Help" 
-            desc="Providing funding for education, housing, local businesses, health, and senior care."
-            delay="delay-200"
-          />
+          setCount(current);
+          
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          }
+        };
+        
+        requestAnimationFrame(animate);
+      }, delay);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible, value, delay]);
 
-          <StatBlock 
-            value="100%" 
-            suffix="Direct" 
-            label="No Middlemen" 
-            desc="Funding goes straight to the people and families who need it, passing no other agencies."
-            delay="delay-300"
-          />
+  return (
+    <div 
+      className={`group relative flex flex-col transition-all duration-1000 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+      }`}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {/* Vertical Accent Line */}
+      <div className="absolute -left-6 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[var(--accent-gold)] via-[var(--accent-gold)]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden md:block" />
+      
+      {/* Icon */}
+      <div className="mb-6 w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-[var(--accent-gold)] shadow-lg shadow-gray-200/50 border border-gray-100 group-hover:scale-110 group-hover:bg-[var(--trust)] group-hover:text-white group-hover:shadow-xl transition-all duration-500 ease-out">
+        {icon}
+      </div>
 
-        </View>
-      </View>
-    </View>
+      {/* Number */}
+      <div className="flex items-baseline gap-2 mb-4">
+        <span className="font-serif text-5xl lg:text-7xl font-semibold text-[var(--trust)] tracking-tighter transition-colors group-hover:text-[var(--accent-gold)]">
+          {prefix}{count}
+        </span>
+        <span className="text-lg lg:text-xl text-[var(--accent-gold)] font-bold tracking-tight uppercase">
+          {suffix}
+        </span>
+      </div>
+
+      {/* Label */}
+      <h3 className="text-sm font-bold text-[var(--trust)] uppercase tracking-[0.15em] mb-3">
+        {label}
+      </h3>
+      
+      {/* Description */}
+      <p className="text-gray-500 leading-relaxed max-w-[320px] group-hover:text-gray-700 transition-colors duration-500">
+        {desc}
+      </p>
+    </div>
   );
 }
 
-// Reusable micro-component with an architectural left-border for mobile devices
-function StatBlock({ value, suffix, label, desc, delay }: { value: string, suffix: string, label: string, desc: string, delay: string }) {
+export function ImpactStatsSection() {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15, rootMargin: '-50px' }
+    );
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
+
+  const stats = [
+    {
+      icon: <Globe2 className="w-6 h-6" />,
+      value: 50,
+      suffix: "States",
+      label: "National Reach",
+      desc: "Accepting and reviewing personal stories from every corner of the country.",
+      delay: 0,
+    },
+    {
+      icon: <Zap className="w-6 h-6" />,
+      value: 7,
+      prefix: "",
+      suffix: "Focus Areas",
+      label: "Holistic Help",
+      desc: "Targeted funding for education, housing, health, and local infrastructure.",
+      delay: 150,
+    },
+    {
+      icon: <ShieldCheck className="w-6 h-6" />,
+      value: 100,
+      suffix: "%",
+      label: "Direct Impact",
+      desc: "Funding moves straight to the families, bypassing traditional agency delays.",
+      delay: 300,
+    },
+  ];
+
   return (
-    <View className={`animate-on-load ${delay} flex flex-col border-l-2 border-stone-200 pl-6 md:border-none md:pl-0`}>
-      <View className="flex items-baseline gap-2 mb-3 md:mb-4">
-        <Text className="text-5xl md:text-7xl font-extrabold text-edwin-black tracking-tighter">{value}</Text>
-        <Text className="text-xl md:text-2xl text-edwin-navy font-bold">{suffix}</Text>
-      </View>
-      <Text className="block text-lg md:text-xl font-bold text-edwin-black mb-2 md:mb-3">{label}</Text>
-      <Text className="block text-base text-stone-600 leading-relaxed">{desc}</Text>
-    </View>
+    <section 
+      ref={sectionRef}
+      className="bg-[var(--warm-cream)] py-24 md:py-32 px-6 relative overflow-hidden"
+    >
+      {/* Background Elements */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[var(--accent-gold)] opacity-[0.03] rounded-full blur-[150px]" />
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[var(--trust)] opacity-[0.02] rounded-full blur-[100px]" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        
+        {/* Header */}
+        <div 
+          className={`mb-16 md:mb-24 flex flex-col lg:flex-row lg:items-end justify-between gap-8 transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
+          <div className="max-w-2xl space-y-4">
+            <div className="flex items-center gap-3">
+              <span className="w-10 h-[2px] bg-[var(--accent-gold)]" />
+              <p className="text-[var(--accent-gold)] text-xs font-bold tracking-[0.3em] uppercase">
+                The Scale of Impact
+              </p>
+            </div>
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-[var(--trust)] leading-tight">
+              A commitment to rebuilding,{" "}
+              <span className="italic text-[var(--accent-gold)]">without</span> the bureaucracy.
+            </h2>
+          </div>
+          
+          {/* Live Status Card */}
+          <Link 
+            href="/apply"
+            className="group flex items-center gap-4 bg-white px-6 py-4 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl hover:border-[var(--accent-gold)]/30 transition-all duration-500 self-start lg:self-auto"
+          >
+            <div className="relative flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+            </div>
+            <div className="flex flex-col">
+              <p className="text-[var(--trust)] text-xs font-bold tracking-widest uppercase">
+                Live Review Cycle
+              </p>
+              <p className="text-gray-400 text-[10px] font-medium">
+                Currently reviewing applications
+              </p>
+            </div>
+            <ArrowUpRight className="w-4 h-4 text-gray-300 group-hover:text-[var(--accent-gold)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+          </Link>
+        </div>
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+          {stats.map((stat, index) => (
+            <StatBlock 
+              key={index}
+              {...stat}
+              isVisible={isVisible}
+            />
+          ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <div 
+          className={`mt-20 text-center transition-all duration-1000 delay-500 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <Link
+            href="/impact"
+            className="inline-flex items-center gap-2 text-[var(--trust)] font-semibold hover:text-[var(--accent-gold)] transition-colors group"
+          >
+            <TrendingUp className="w-5 h-5" />
+            See the full impact report
+            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 }
