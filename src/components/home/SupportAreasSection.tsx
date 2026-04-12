@@ -35,7 +35,7 @@ function SupportCard({ title, description, icon, colorClass, delay, isVisible }:
       </div>
       
       {/* Title */}
-      <h3 className="text-xl font-serif font-semibold text-gray-900 mb-3 group-hover:text-[var(--trust)] transition-colors">
+      <h3 className="text-xl font-serif font-semibold text-gray-900 mb-3 group-hover:text-(--trust) transition-colors">
         {title}
       </h3>
       
@@ -47,7 +47,7 @@ function SupportCard({ title, description, icon, colorClass, delay, isVisible }:
       {/* Learn More Link */}
       <Link 
         href="/areas"
-        className="inline-flex items-center gap-2 text-sm font-medium text-[var(--accent-gold)] opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300"
+        className="inline-flex items-center gap-2 text-sm font-medium text-(--accent-gold) opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300"
       >
         Learn more
         <ArrowRight className="w-4 h-4" />
@@ -132,15 +132,15 @@ export function SupportAreasSection() {
           }`}
         >
           <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
-            <p className="text-[var(--accent-gold)] text-xs font-bold tracking-[0.3em] uppercase">
+            <span className="w-8 h-0.5 bg-(--accent-gold)" />
+            <p className="text-(--accent-gold) text-xs font-bold tracking-[0.3em] uppercase">
               How We Can Help
             </p>
-            <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
+            <span className="w-8 h-0.5 bg-(--accent-gold)" />
           </div>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight">
             Direct funding for the things that{" "}
-            <span className="text-[var(--accent-gold)]">matter most</span>.
+            <span className="text-(--accent-gold)">matter most</span>.
           </h2>
         </div>
         
@@ -164,7 +164,7 @@ export function SupportAreasSection() {
         >
           <Link
             href="/areas"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-[var(--trust)] text-white rounded-full font-semibold hover:bg-[var(--trust-light)] hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-xl"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-(--trust) text-white rounded-full font-semibold hover:bg-(--trust-light) hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-xl"
           >
             Explore All Support Areas
             <ArrowRight className="w-5 h-5" />

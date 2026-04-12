@@ -62,12 +62,12 @@ export function Navbar() {
           className="relative z-50 group"
         >
           <span className={`font-serif text-xl md:text-2xl font-semibold tracking-tight transition-colors duration-300 ${
-            isScrolled || isOpen ? 'text-[var(--trust)]' : 'text-white'
+            isScrolled || isOpen ? 'text-(--trust)' : 'text-white'
           }`}>
             Edwin Castro
           </span>
           <span className={`block h-0.5 w-0 group-hover:w-full transition-all duration-300 ${
-            isScrolled || isOpen ? 'bg-[var(--accent-gold)]' : 'bg-white'
+            isScrolled || isOpen ? 'bg-(--accent-gold)' : 'bg-white'
           }`} />
         </Link>
 
@@ -80,9 +80,9 @@ export function Navbar() {
                 href={link.href}
                 className={`text-sm font-medium transition-all duration-300 link-underline ${
                   isActive(link.href)
-                    ? 'text-[var(--accent-gold)]'
+                    ? 'text-(--accent-gold)'
                     : isScrolled 
-                      ? 'text-gray-600 hover:text-[var(--trust)]' 
+                      ? 'text-gray-600 hover:text-(--trust)' 
                       : 'text-white/90 hover:text-white'
                 }`}
               >
@@ -95,8 +95,8 @@ export function Navbar() {
             href="/apply"
             className={`px-6 py-3 text-sm font-semibold rounded-full transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg ${
               isScrolled 
-                ? 'bg-[var(--trust)] text-white hover:bg-[var(--trust-light)]' 
-                : 'bg-white text-[var(--trust)] hover:bg-[var(--warm-cream)]'
+                ? 'bg-(--trust) text-white hover:bg-(--trust-light)' 
+                : 'bg-white text-(--trust) hover:bg-(--warm-cream)'
             }`}
           >
             Request Support
@@ -108,7 +108,7 @@ export function Navbar() {
           onClick={() => setIsOpen(!isOpen)}
           className={`relative z-50 lg:hidden p-2 rounded-lg transition-colors ${
             isScrolled || isOpen 
-              ? 'text-[var(--trust)] hover:bg-gray-100' 
+              ? 'text-(--trust) hover:bg-gray-100' 
               : 'text-white hover:bg-white/10'
           }`}
           aria-label={isOpen ? 'Close menu' : 'Open menu'}
@@ -120,7 +120,7 @@ export function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div 
-        className={`fixed inset-0 bg-[var(--warm-cream)] z-40 flex flex-col transition-all duration-500 ease-out lg:hidden ${
+        className={`fixed inset-0 bg-(--warm-cream) z-40 flex flex-col transition-all duration-500 ease-out lg:hidden ${
           isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
       >
@@ -141,15 +141,15 @@ export function Navbar() {
               >
                 <span className={`text-2xl font-serif font-medium ${
                   isActive(link.href) 
-                    ? 'text-[var(--accent-gold)]' 
-                    : 'text-[var(--trust)]'
+                    ? 'text-(--accent-gold)' 
+                    : 'text-(--trust)'
                 }`}>
                   {link.label}
                 </span>
                 <ArrowRight className={`w-5 h-5 transition-all duration-300 group-hover:translate-x-1 ${
                   isActive(link.href) 
-                    ? 'text-[var(--accent-gold)]' 
-                    : 'text-gray-300 group-hover:text-[var(--accent-gold)]'
+                    ? 'text-(--accent-gold)' 
+                    : 'text-gray-300 group-hover:text-(--accent-gold)'
                 }`} />
               </Link>
             ))}
@@ -166,10 +166,10 @@ export function Navbar() {
           >
             <Link
               href="/apply"
-              className="flex items-center justify-center gap-3 w-full py-5 bg-[var(--trust)] text-white text-sm font-semibold rounded-2xl shadow-xl hover:bg-[var(--trust-light)] transition-colors active:scale-[0.98] mb-8"
+              className="flex items-center justify-center gap-3 w-full py-5 bg-(--trust) text-white text-sm font-semibold rounded-2xl shadow-xl hover:bg-(--trust-light) transition-colors active:scale-[0.98] mb-8"
             >
               Start Your Request
-              <Heart className="w-4 h-4 text-[var(--accent-gold)] fill-[var(--accent-gold)]" />
+              <Heart className="w-4 h-4 text-(--accent-gold) fill-(--accent-gold)" />
             </Link>
 
             {/* Contact Info */}
@@ -179,7 +179,7 @@ export function Navbar() {
               </p>
               <a 
                 href="mailto:support@edwinmega.com" 
-                className="text-lg font-serif font-medium text-[var(--trust)] hover:text-[var(--accent-gold)] transition-colors"
+                className="text-lg font-serif font-medium text-(--trust) hover:text-(--accent-gold) transition-colors"
               >
                 support@edwinmega.com
               </a>

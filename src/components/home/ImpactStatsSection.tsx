@@ -60,25 +60,25 @@ function StatBlock({
       style={{ transitionDelay: `${delay}ms` }}
     >
       {/* Vertical Accent Line */}
-      <div className="absolute -left-6 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[var(--accent-gold)] via-[var(--accent-gold)]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden md:block" />
+      <div className="absolute -left-6 top-0 bottom-0 w-0.5 bg-linear-to-b from-(--accent-gold) via-(--accent-gold)/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden md:block" />
       
       {/* Icon */}
-      <div className="mb-6 w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-[var(--accent-gold)] shadow-lg shadow-gray-200/50 border border-gray-100 group-hover:scale-110 group-hover:bg-[var(--trust)] group-hover:text-white group-hover:shadow-xl transition-all duration-500 ease-out">
+      <div className="mb-6 w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-(--accent-gold) shadow-lg shadow-gray-200/50 border border-gray-100 group-hover:scale-110 group-hover:bg-(--trust) group-hover:text-white group-hover:shadow-xl transition-all duration-500 ease-out">
         {icon}
       </div>
 
       {/* Number */}
       <div className="flex items-baseline gap-2 mb-4">
-        <span className="font-serif text-5xl lg:text-7xl font-semibold text-[var(--trust)] tracking-tighter transition-colors group-hover:text-[var(--accent-gold)]">
+        <span className="font-serif text-5xl lg:text-7xl font-semibold text-(--trust) tracking-tighter transition-colors group-hover:text-(--accent-gold)">
           {prefix}{count}
         </span>
-        <span className="text-lg lg:text-xl text-[var(--accent-gold)] font-bold tracking-tight uppercase">
+        <span className="text-lg lg:text-xl text-(--accent-gold) font-bold tracking-tight uppercase">
           {suffix}
         </span>
       </div>
 
       {/* Label */}
-      <h3 className="text-sm font-bold text-[var(--trust)] uppercase tracking-[0.15em] mb-3">
+      <h3 className="text-sm font-bold text-(--trust) uppercase tracking-[0.15em] mb-3">
         {label}
       </h3>
       
@@ -143,11 +143,11 @@ export function ImpactStatsSection() {
   return (
     <section 
       ref={sectionRef}
-      className="bg-[var(--warm-cream)] py-24 md:py-32 px-6 relative overflow-hidden"
+      className="bg-(--warm-cream) py-24 md:py-32 px-6 relative overflow-hidden"
     >
       {/* Background Elements */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-[var(--accent-gold)] opacity-[0.03] rounded-full blur-[150px]" />
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[var(--trust)] opacity-[0.02] rounded-full blur-[100px]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-225 h-225 bg-(--accent-gold) opacity-[0.03] rounded-full blur-[150px]" />
+      <div className="absolute top-0 right-0 w-100 h-100 bg-(--trust) opacity-[0.02] rounded-full blur-[100px]" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         
@@ -159,35 +159,35 @@ export function ImpactStatsSection() {
         >
           <div className="max-w-2xl space-y-4">
             <div className="flex items-center gap-3">
-              <span className="w-10 h-[2px] bg-[var(--accent-gold)]" />
-              <p className="text-[var(--accent-gold)] text-xs font-bold tracking-[0.3em] uppercase">
+              <span className="w-10 h-0.5 bg-(--accent-gold)" />
+              <p className="text-(--accent-gold) text-xs font-bold tracking-[0.3em] uppercase">
                 The Scale of Impact
               </p>
             </div>
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-[var(--trust)] leading-tight">
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-(--trust) leading-tight">
               A commitment to rebuilding,{" "}
-              <span className="italic text-[var(--accent-gold)]">without</span> the bureaucracy.
+              <span className="italic text-(--accent-gold)">without</span> the bureaucracy.
             </h2>
           </div>
           
           {/* Live Status Card */}
           <Link 
             href="/apply"
-            className="group flex items-center gap-4 bg-white px-6 py-4 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl hover:border-[var(--accent-gold)]/30 transition-all duration-500 self-start lg:self-auto"
+            className="group flex items-center gap-4 bg-white px-6 py-4 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl hover:border-(--accent-gold)/30 transition-all duration-500 self-start lg:self-auto"
           >
             <div className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
             </div>
             <div className="flex flex-col">
-              <p className="text-[var(--trust)] text-xs font-bold tracking-widest uppercase">
+              <p className="text-(--trust) text-xs font-bold tracking-widest uppercase">
                 Live Review Cycle
               </p>
               <p className="text-gray-400 text-[10px] font-medium">
                 Currently reviewing applications
               </p>
             </div>
-            <ArrowUpRight className="w-4 h-4 text-gray-300 group-hover:text-[var(--accent-gold)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+            <ArrowUpRight className="w-4 h-4 text-gray-300 group-hover:text-(--accent-gold) group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
           </Link>
         </div>
 
@@ -210,7 +210,7 @@ export function ImpactStatsSection() {
         >
           <Link
             href="/impact"
-            className="inline-flex items-center gap-2 text-[var(--trust)] font-semibold hover:text-[var(--accent-gold)] transition-colors group"
+            className="inline-flex items-center gap-2 text-(--trust) font-semibold hover:text-(--accent-gold) transition-colors group"
           >
             <TrendingUp className="w-5 h-5" />
             See the full impact report

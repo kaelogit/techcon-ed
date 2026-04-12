@@ -34,7 +34,7 @@ export default function VisionSection() {
     <section 
       ref={sectionRef} 
       id="vision" 
-      className="bg-[var(--warm-cream)] py-24 md:py-32 overflow-hidden"
+      className="bg-(--warm-cream) py-24 md:py-32 overflow-hidden"
     >
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
@@ -52,12 +52,12 @@ export default function VisionSection() {
                 alt="Hands planting a tree - symbolizing growth and hope"
                 className="w-full h-auto object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-tr from-[var(--trust)]/10 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-tr from-(--trust)/10 to-transparent" />
             </div>
             
             {/* Decorative Elements */}
-            <div className="absolute -bottom-6 -right-6 w-40 h-40 bg-[var(--accent-gold)]/10 rounded-full -z-10" />
-            <div className="absolute -top-6 -left-6 w-28 h-28 bg-[var(--trust)]/10 rounded-full -z-10" />
+            <div className="absolute -bottom-6 -right-6 w-40 h-40 bg-(--accent-gold)/10 rounded-full -z-10" />
+            <div className="absolute -top-6 -left-6 w-28 h-28 bg-(--trust)/10 rounded-full -z-10" />
             
             {/* Floating Badge */}
             <div 
@@ -66,11 +66,11 @@ export default function VisionSection() {
               }`}
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-[var(--soft-sage)] rounded-lg flex items-center justify-center">
-                  <CheckCircle className="w-5 h-5 text-[var(--trust)]" />
+                <div className="w-10 h-10 bg-(--soft-sage) rounded-lg flex items-center justify-center">
+                  <CheckCircle className="w-5 h-5 text-(--trust)" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-[var(--trust)]">100% Direct</p>
+                  <p className="text-sm font-semibold text-(--trust)">100% Direct</p>
                   <p className="text-xs text-gray-500">No fees, no middlemen</p>
                 </div>
               </div>
@@ -85,15 +85,15 @@ export default function VisionSection() {
           >
             {/* Section Label */}
             <div className="inline-flex items-center gap-2">
-              <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
-              <p className="text-sm font-medium uppercase tracking-widest text-[var(--accent-gold)]">
+              <span className="w-8 h-0.5 bg-(--accent-gold)" />
+              <p className="text-sm font-medium uppercase tracking-widest text-(--accent-gold)">
                 The Vision
               </p>
             </div>
             
             {/* Headline */}
             <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight">
-              A Foundation Built on <span className="text-[var(--trust)]">Values</span>
+              A Foundation Built on <span className="text-(--trust)">Values</span>
             </h2>
 
             {/* Body Text */}
@@ -106,7 +106,7 @@ export default function VisionSection() {
               <p>
                 Starting with the rebuilding of residential properties in Altadena after the severe wildfires, 
                 this platform was created to expand that same hands-on support to the rest of the country. 
-                We don't just offer help; we <strong className="text-[var(--accent-gold)]">invest in people</strong> who want to build a better future.
+                We don't just offer help; we <strong className="text-(--accent-gold)">invest in people</strong> who want to build a better future.
               </p>
               <p className="text-base">
                 Every dollar goes directly to those in need. <span className="font-semibold text-gray-900">No administrative fees.</span> 
@@ -126,8 +126,8 @@ export default function VisionSection() {
                   className="flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow"
                   style={{ transitionDelay: `${600 + index * 100}ms` }}
                 >
-                  <div className="w-12 h-12 bg-[var(--soft-sage)] rounded-xl flex items-center justify-center flex-shrink-0">
-                    <value.icon className="w-6 h-6 text-[var(--trust)]" />
+                  <div className="w-12 h-12 bg-(--soft-sage) rounded-xl flex items-center justify-center shrink-0">
+                    <value.icon className="w-6 h-6 text-(--trust)" />
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900">{value.label}</p>
@@ -144,10 +144,10 @@ export default function VisionSection() {
               }`}
             >
               <div className="flex -space-x-3">
-                <div className="w-12 h-12 bg-[var(--trust)] rounded-full flex items-center justify-center text-white text-sm font-bold border-4 border-white shadow-lg">
+                <div className="w-12 h-12 bg-(--trust) rounded-full flex items-center justify-center text-white text-sm font-bold border-4 border-white shadow-lg">
                   EC
                 </div>
-                <div className="w-12 h-12 bg-[var(--accent-gold)] rounded-full flex items-center justify-center text-white text-sm font-bold border-4 border-white shadow-lg">
+                <div className="w-12 h-12 bg-(--accent-gold) rounded-full flex items-center justify-center text-white text-sm font-bold border-4 border-white shadow-lg">
                   ES
                 </div>
               </div>

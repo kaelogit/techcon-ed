@@ -5,7 +5,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[var(--deep-charcoal)] pt-20 pb-8 px-6">
+    <footer className="bg-(--deep-charcoal) pt-20 pb-8 px-6">
       <div className="max-w-7xl mx-auto">
         
         {/* TOP SECTION: Main Content */}
@@ -23,7 +23,7 @@ export function Footer() {
               A personal commitment to rebuilding communities.
             </p>
             <div className="flex items-center gap-2 text-sm">
-              <Heart className="w-4 h-4 text-[var(--accent-gold)] fill-[var(--accent-gold)]" />
+              <Heart className="w-4 h-4 text-(--accent-gold) fill-(--accent-gold)" />
               <span className="text-gray-500">100% Debt-Free Funding</span>
             </div>
           </div>
@@ -45,7 +45,7 @@ export function Footer() {
                 <Link 
                   key={link.href}
                   href={link.href} 
-                  className="text-gray-400 hover:text-[var(--accent-gold)] transition-colors duration-300"
+                  className="text-gray-400 hover:text-(--accent-gold) transition-colors duration-300"
                 >
                   {link.label}
                 </Link>
@@ -61,13 +61,13 @@ export function Footer() {
             <div className="flex flex-col gap-4">
               <a 
                 href="mailto:support@edwinmega.com" 
-                className="flex items-center gap-3 text-gray-400 hover:text-[var(--accent-gold)] transition-colors duration-300 group"
+                className="flex items-center gap-3 text-gray-400 hover:text-(--accent-gold) transition-colors duration-300 group"
               >
                 <Mail className="w-4 h-4 group-hover:scale-110 transition-transform" />
                 <span>support@edwinmega.com</span>
               </a>
               <div className="flex items-start gap-3 text-gray-500 text-sm">
-                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
                 <span>Responses typically sent within minutes during active review hours.</span>
               </div>
             </div>
@@ -87,7 +87,7 @@ export function Footer() {
                 <Link 
                   key={link.href}
                   href={link.href} 
-                  className="text-gray-400 hover:text-[var(--accent-gold)] transition-colors duration-300"
+                  className="text-gray-400 hover:text-(--accent-gold) transition-colors duration-300"
                 >
                   {link.label}
                 </Link>

@@ -19,8 +19,7 @@ export function ProcessSection() {
         <View className="relative">
           
           {/* Architectural Connecting Line (Hidden on mobile phones) */}
-          <View className="hidden md:block absolute top-8 left-[10%] right-[10%] h-[2px] bg-stone-200 z-0" />
-          
+        <View className="hidden md:block absolute top-8 left-[10%] right-[10%] h-0.5 bg-stone-200 z-0" />
           <View className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12">
             
             <ProcessStep 

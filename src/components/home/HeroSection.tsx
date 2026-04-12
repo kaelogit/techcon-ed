@@ -17,12 +17,12 @@ export function HeroSection() {
     <section id="home" className="relative min-h-screen flex flex-col overflow-hidden">
       
       {/* Background Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[var(--trust)] via-[var(--trust)] to-[var(--trust-light)]" />
+      <div className="absolute inset-0 bg-linear-to-br from-(--trust) via-(--trust) to-(--trust-light)" />
       
       {/* Animated Decorative Orbs */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[var(--accent-gold)] opacity-[0.06] rounded-full blur-[150px] -translate-y-1/3 translate-x-1/4 animate-pulse" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-white opacity-[0.04] rounded-full blur-[120px] translate-y-1/3 -translate-x-1/4" />
-      <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-[var(--accent-gold)] opacity-[0.03] rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute top-0 right-0 w-150 h-150 bg-(--accent-gold) opacity-[0.06] rounded-full blur-[150px] -translate-y-1/3 translate-x-1/4 animate-pulse" />
+      <div className="absolute bottom-0 left-0 w-125 h-125 bg-white opacity-[0.04] rounded-full blur-[120px] translate-y-1/3 -translate-x-1/4" />
+      <div className="absolute top-1/2 left-1/2 w-75 h-75 bg-(--accent-gold) opacity-[0.03] rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2" />
 
       {/* Main Content */}
       <div className="relative flex-1 flex items-center pt-28 pb-16 lg:pt-36 lg:pb-24 z-10">
@@ -39,10 +39,10 @@ export function HeroSection() {
                 }`}
               >
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent-gold)] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--accent-gold)]"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-(--accent-gold) opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-(--accent-gold)"></span>
                 </span>
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--accent-gold)]">
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-(--accent-gold)">
                   2026 Direct Support Initiative
                 </p>
               </div>
@@ -55,7 +55,7 @@ export function HeroSection() {
               >
                 Rebuilding lives.
                 <br />
-                <span className="text-[var(--accent-gold)] italic">Empowering</span> your <br className="hidden sm:block" /> next chapter.
+                <span className="text-(--accent-gold) italic">Empowering</span> your <br className="hidden sm:block" /> next chapter.
               </h1>
               
               {/* Description */}
@@ -76,7 +76,7 @@ export function HeroSection() {
               >
                 <Link
                   href="/apply"
-                  className="group inline-flex items-center justify-center gap-3 rounded-full bg-[var(--accent-gold)] px-8 py-4 text-sm font-bold text-white transition-all hover:bg-[var(--accent-hover)] hover:scale-[1.02] hover:shadow-xl hover:shadow-[var(--accent-gold)]/20"
+                  className="group inline-flex items-center justify-center gap-3 rounded-full bg-(--accent-gold) px-8 py-4 text-sm font-bold text-white transition-all hover:bg-(--accent-hover) hover:scale-[1.02] hover:shadow-xl hover:shadow-(--accent-gold)/20"
                 >
                   Request Funding Now
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -97,11 +97,11 @@ export function HeroSection() {
                 }`}
               >
                 <div className="flex items-center gap-2 text-xs font-medium text-white/50 uppercase tracking-widest">
-                  <ShieldCheck className="w-4 h-4 text-[var(--accent-gold)]" />
+                  <ShieldCheck className="w-4 h-4 text-(--accent-gold)" />
                   Verified Personal Funding
                 </div>
                 <div className="flex items-center gap-2 text-xs font-medium text-white/50 uppercase tracking-widest">
-                  <Heart className="w-4 h-4 text-[var(--accent-gold)] fill-[var(--accent-gold)]" />
+                  <Heart className="w-4 h-4 text-(--accent-gold) fill-(--accent-gold)" />
                   All 50 States
                 </div>
               </div>
@@ -113,22 +113,22 @@ export function HeroSection() {
                 isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
               }`}
             >
-              <div className="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl shadow-black/30 border border-white/10 group">
+              <div className="relative rounded-3xl overflow-hidden aspect-4/5 shadow-2xl shadow-black/30 border border-white/10 group">
                 <img 
                   src="/hero-image.jpg" 
                   alt="Community members working together to rebuild" 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[var(--trust)]/60 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-(--trust)/60 via-transparent to-transparent" />
               </div>
               
               {/* Floating Stat Card */}
-              <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-6 shadow-2xl max-w-[260px] animate-float">
+              <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-6 shadow-2xl max-w-65 animate-float">
                 <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 bg-[var(--soft-sage)] rounded-full flex items-center justify-center">
-                    <Heart className="w-5 h-5 text-[var(--trust)]" />
+                  <div className="w-10 h-10 bg-(--soft-sage) rounded-full flex items-center justify-center">
+                    <Heart className="w-5 h-5 text-(--trust)" />
                   </div>
-                  <p className="text-[var(--trust)] font-serif font-bold text-3xl">$50M+</p>
+                  <p className="text-(--trust) font-serif font-bold text-3xl">$50M+</p>
                 </div>
                 <p className="text-gray-600 text-sm leading-relaxed">
                   Committed to community & family stability across America
@@ -136,7 +136,7 @@ export function HeroSection() {
               </div>
 
               {/* Decorative Element */}
-              <div className="absolute -top-4 -right-4 w-20 h-20 border-2 border-[var(--accent-gold)]/30 rounded-full" />
+              <div className="absolute -top-4 -right-4 w-20 h-20 border-2 border-(--accent-gold)/30 rounded-full" />
             </div>
 
           </div>
@@ -144,7 +144,7 @@ export function HeroSection() {
       </div>
 
       {/* Bottom Gradient Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--warm-cream)] to-transparent z-20" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-linear-to-t from-(--warm-cream) to-transparent z-20" />
     </section>
   );
 }
