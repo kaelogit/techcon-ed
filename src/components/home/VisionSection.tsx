@@ -109,8 +109,8 @@ export default function VisionSection() {
                 We don't just offer help; we <strong className="text-(--accent-gold)">invest in people</strong> who want to build a better future.
               </p>
               <p className="text-base">
-                Every dollar goes directly to those in need. <span className="font-semibold text-gray-900">No administrative fees.</span> 
-                No complicated applications. Just real support for real people.
+                Every dollar goes directly to those in need. <span className="font-semibold text-gray-900">No complicated applications. </span> 
+                Just real support for real people.
               </p>
             </div>
             

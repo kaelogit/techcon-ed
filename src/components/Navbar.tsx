@@ -127,12 +127,12 @@ export function Navbar() {
         <div className="flex flex-col min-h-full px-8 pt-28 pb-12">
           
           {/* Mobile Nav Links */}
-          <nav className="flex flex-col space-y-2">
+          <nav className="flex flex-col space-y-2 bg-slate-50 p-6 rounded-xl mb-6">
             {navLinks.map((link, index) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`group flex items-center justify-between border-b border-gray-200 py-5 transition-all duration-500 ${
+                className={`group flex items-center justify-between py-4 px-2 transition-all duration-500 ${
                   isOpen 
                     ? 'translate-x-0 opacity-100' 
                     : '-translate-x-8 opacity-0'
