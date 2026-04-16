@@ -120,7 +120,7 @@ export function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div 
-        className={`fixed inset-0 bg-(--warm-cream) z-40 flex flex-col transition-all duration-500 ease-out lg:hidden ${
+        className={`fixed inset-0 bg-white z-40 flex flex-col transition-all duration-500 ease-out lg:hidden ${
           isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
       >
