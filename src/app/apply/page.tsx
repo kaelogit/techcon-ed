@@ -213,7 +213,7 @@ export default function ApplyPage() {
                 <button
                   disabled={status === 'sending'}
                   type="submit"
-                  className={`w-full py-6 rounded-full text-lg font-black text-white transition-all shadow-xl uppercase tracking-widest ${status === 'sending' ? 'bg-stone-400 cursor-not-allowed' : 'bg-edwin-navy hover:bg-edwin-black active:scale-[0.98]'}`}
+                  className={`w-full py-6 rounded-full text-lg font-black text-white transition-all shadow-xl uppercase tracking-widest ${status === 'sending' ? 'bg-stone-400 cursor-not-allowed' : 'bg-[#0a2540] hover:bg-[#061b2d] active:scale-[0.98]'}`}
                 >
                   {status === 'sending' ? 'Reviewing Submission...' : 'Submit Your Request'}
                 </button>
