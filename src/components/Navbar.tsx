@@ -51,7 +51,7 @@ export function Navbar() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled 
           ? 'bg-white/95 backdrop-blur-lg shadow-sm py-4' 
-          : 'bg-transparent py-6'
+          : 'bg-white/90 backdrop-blur-sm py-6'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -62,12 +62,12 @@ export function Navbar() {
           className="relative z-50 group"
         >
           <span className={`font-serif text-xl md:text-2xl font-semibold tracking-tight transition-colors duration-300 ${
-            isScrolled || isOpen ? 'text-(--trust)' : 'text-white'
+            isScrolled || isOpen ? 'text-(--trust)' : 'text-gray-800'
           }`}>
             Edwin Castro
           </span>
           <span className={`block h-0.5 w-0 group-hover:w-full transition-all duration-300 ${
-            isScrolled || isOpen ? 'bg-(--accent-gold)' : 'bg-white'
+            isScrolled || isOpen ? 'bg-(--accent-gold)' : 'bg-gray-800'
           }`} />
         </Link>
 
@@ -83,7 +83,7 @@ export function Navbar() {
                     ? 'text-(--accent-gold)'
                     : isScrolled 
                       ? 'text-gray-600 hover:text-(--trust)' 
-                      : 'text-white/90 hover:text-white'
+                      : 'text-gray-700 hover:text-gray-900'
                 }`}
               >
                 {link.label}
@@ -96,7 +96,7 @@ export function Navbar() {
             className={`px-6 py-3 text-sm font-semibold rounded-full transition-all duration-300 transform hover:scale-[1.02] hover:shadow-lg ${
               isScrolled 
                 ? 'bg-(--trust) text-white hover:bg-(--trust-light)' 
-                : 'bg-white text-(--trust) hover:bg-(--warm-cream)'
+                : 'bg-(--trust) text-white hover:bg-(--trust-light)'
             }`}
           >
             Request Support
@@ -109,7 +109,7 @@ export function Navbar() {
           className={`relative z-50 lg:hidden p-2 rounded-lg transition-colors ${
             isScrolled || isOpen 
               ? 'text-(--trust) hover:bg-gray-100' 
-              : 'text-white hover:bg-white/10'
+              : 'text-gray-800 hover:bg-gray-200'
           }`}
           aria-label={isOpen ? 'Close menu' : 'Open menu'}
         >
