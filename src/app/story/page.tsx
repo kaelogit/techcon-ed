@@ -1,119 +1,136 @@
 'use client';
 
-import { View, Text } from '@/components/Themed';
 import Link from 'next/link';
+import { Quote, Target, Zap, Shield, ArrowRight } from 'lucide-react';
 
 export default function StoryPage() {
   return (
-    <View className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white">
       
-      {/* SECTION 1: THE PERSPECTIVE (HERO) */}
-      <View className="bg-[#F7F5F0] pt-32 pb-20 md:pt-48 md:pb-32 px-6">
-        <View className="max-w-4xl mx-auto text-center animate-on-load">
-          <Text className="block text-stone-500 text-sm font-bold tracking-[0.2em] uppercase mb-6">
-            Our Purpose
-          </Text>
-          <Text className="block text-4xl md:text-7xl font-bold text-edwin-black mb-8 leading-tight">
+      {/* SECTION 1: HERO */}
+      <section className="bg-[var(--warm-cream)] pt-32 pb-20 md:pt-44 md:pb-32 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
+            <p className="text-[var(--accent-gold)] text-xs font-bold tracking-[0.3em] uppercase">
+              Our Purpose
+            </p>
+            <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
+          </div>
+          <h1 className="font-serif text-4xl md:text-5xl lg:text-7xl font-semibold text-gray-900 mb-8 leading-tight">
             Success is only meaningful <br className="hidden md:block" />
-            when it is shared.
-          </Text>
-          <Text className="block text-lg md:text-2xl text-stone-600 font-light leading-relaxed max-w-3xl mx-auto">
+            when it is <span className="text-[var(--accent-gold)]">shared</span>.
+          </h1>
+          <p className="text-lg md:text-2xl text-gray-600 font-light leading-relaxed max-w-3xl mx-auto">
             Edwin Castro believes that great fortune comes with a great responsibility: to strengthen the neighborhoods we live in and the people who make them special.
-          </Text>
-        </View>
-      </View>
+          </p>
+        </div>
+      </section>
 
       {/* SECTION 2: THE TURNING POINT */}
-      <View className="py-24 md:py-40 px-6 bg-white overflow-hidden">
-        <View className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
-          <View className="animate-on-load delay-100">
-            <View className="w-16 h-1 bg-edwin-navy mb-10" />
-            <Text className="block text-3xl md:text-5xl font-bold text-edwin-black mb-8 leading-tight">
+      <section className="py-24 md:py-32 px-6 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
+          {/* Text Content */}
+          <div className="space-y-8">
+            <div className="w-16 h-1 bg-[var(--trust)]" />
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight">
               A personal commitment to real change.
-            </Text>
-            <View className="space-y-6">
-              <Text className="block text-lg text-stone-600 leading-relaxed">
+            </h2>
+            <div className="space-y-6">
+              <p className="text-lg text-gray-600 leading-relaxed">
                 After experiencing a life-changing event, Edwin didn't just want to look at the numbers—he wanted to look at the people. He saw families struggling to rebuild after disasters, talented students unable to finish school, and small business owners fighting to keep their doors open.
-              </Text>
-              <Text className="block text-lg text-stone-600 leading-relaxed">
+              </p>
+              <p className="text-lg text-gray-600 leading-relaxed">
                 He realized that the fastest way to help was to remove the middleman. No long waits, no complicated rules, and no unnecessary paperwork. Just direct support, given freely to those who are ready to take their next step.
-              </Text>
-            </View>
-          </View>
+              </p>
+            </div>
+          </div>
           
-          {/* Visual Element: A premium quote block */}
-          <View className="relative p-10 md:p-16 bg-[#F9F8F6] rounded-[3rem] animate-on-load delay-300">
-            <Text className="absolute top-8 left-8 text-8xl text-stone-200 font-serif leading-none">“</Text>
-            <Text className="relative z-10 block text-2xl md:text-3xl font-light italic text-edwin-black leading-relaxed mb-8">
+          {/* Quote Block */}
+          <div className="relative p-10 md:p-14 bg-[var(--warm-cream)] rounded-3xl">
+            <Quote className="absolute top-6 left-6 w-12 h-12 text-[var(--accent-gold)]/30" />
+            <blockquote className="relative z-10 text-xl md:text-2xl font-serif italic text-gray-900 leading-relaxed mb-8">
               My goal isn't just to provide a one-time gift. It's to provide a foundation so that people can rebuild their own lives and eventually help someone else.
-            </Text>
-            <View className="flex items-center gap-4">
-              <View className="w-10 h-[1px] bg-stone-400" />
-              <Text className="text-sm font-bold uppercase tracking-widest text-stone-500">Edwin Castro</Text>
-            </View>
-          </View>
-        </View>
-      </View>
+            </blockquote>
+            <div className="flex items-center gap-4">
+              <span className="w-10 h-[2px] bg-[var(--accent-gold)]" />
+              <p className="text-sm font-bold uppercase tracking-widest text-gray-500">Edwin Castro</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      {/* SECTION 3: THE PHILOSOPHY (3 PILLARS) */}
-      <View className="py-24 md:py-32 px-6 bg-edwin-navy">
-        <View className="max-w-7xl mx-auto">
-          <View className="text-center mb-20 animate-on-load">
-            <Text className="block text-amber-400 text-sm font-bold tracking-[0.2em] uppercase mb-4">How We Operate</Text>
-            <Text className="block text-4xl md:text-5xl font-bold text-white">Three Core Beliefs</Text>
-          </View>
+      {/* SECTION 3: THREE CORE BELIEFS */}
+      <section className="py-24 md:py-32 px-6 bg-[var(--trust)] relative overflow-hidden">
+        {/* Background */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--accent-gold)]/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          {/* Header */}
+          <div className="text-center mb-16 md:mb-20">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
+              <p className="text-[var(--accent-gold)] text-xs font-bold tracking-[0.3em] uppercase">How We Operate</p>
+              <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
+            </div>
+            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-white">
+              Three Core Beliefs
+            </h2>
+          </div>
           
-          <View className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
+          {/* Pillars */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
             <PhilosophyBlock 
+              icon={<Target className="w-6 h-6" />}
               title="Radical Trust"
               desc="We believe in the honesty of our neighbors. When you share your story, we listen with an open mind and a desire to help."
-              delay="delay-100"
             />
             <PhilosophyBlock 
+              icon={<Zap className="w-6 h-6" />}
               title="Extreme Speed"
               desc="Waiting weeks for help can be the difference between a new start and a total collapse. We aim for 24-hour funding."
-              delay="delay-200"
             />
             <PhilosophyBlock 
+              icon={<Shield className="w-6 h-6" />}
               title="Pure Privacy"
               desc="Your struggle is personal. We keep your request strictly confidential, treating your story with the respect it deserves."
-              delay="delay-300"
             />
-          </View>
-        </View>
-      </View>
+          </div>
+        </div>
+      </section>
 
-      {/* SECTION 4: THE OPEN INVITATION */}
-      <View className="py-24 md:py-40 px-6 bg-white text-center">
-        <View className="max-w-3xl mx-auto animate-on-load">
-          <Text className="block text-4xl md:text-6xl font-black text-edwin-black mb-8 leading-tight">
+      {/* SECTION 4: CTA */}
+      <section className="py-24 md:py-32 px-6 bg-white text-center">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6 leading-tight">
             Ready to start <br />
             your next chapter?
-          </Text>
-          <Text className="block text-xl text-stone-500 mb-12 leading-relaxed">
+          </h2>
+          <p className="text-xl text-gray-500 mb-12 leading-relaxed">
             The Vision is simple: A community where no one has to face a crisis alone. If you have a story to share and a need that can be met, we are waiting to hear from you.
-          </Text>
+          </p>
           <Link 
             href="/apply" 
-            className="inline-block px-12 py-5 bg-edwin-navy text-white text-lg font-bold rounded-full hover:bg-edwin-black transition-all shadow-xl hover:scale-105 active:scale-95"
+            className="group inline-flex items-center gap-3 px-10 py-5 bg-[var(--trust)] text-white text-lg font-semibold rounded-full hover:bg-[var(--trust-light)] transition-all shadow-xl hover:shadow-2xl hover:scale-[1.02]"
           >
             Submit Your Request
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
-        </View>
-      </View>
+        </div>
+      </section>
 
-    </View>
+    </div>
   );
 }
 
-function PhilosophyBlock({ title, desc, delay }: { title: string; desc: string; delay: string }) {
+function PhilosophyBlock({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
   return (
-    <View className={`flex flex-col gap-6 animate-on-load ${delay}`}>
-      <View className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center">
-        <View className="w-2 h-2 rounded-full bg-amber-400" />
-      </View>
-      <Text className="block text-2xl font-bold text-white">{title}</Text>
-      <Text className="block text-slate-400 leading-relaxed text-lg">{desc}</Text>
-    </View>
+    <div className="flex flex-col gap-6 group">
+      <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-[var(--accent-gold)] group-hover:bg-[var(--accent-gold)] group-hover:text-white transition-all duration-300">
+        {icon}
+      </div>
+      <h3 className="text-2xl font-serif font-semibold text-white">{title}</h3>
+      <p className="text-gray-400 leading-relaxed text-lg">{desc}</p>
+    </div>
   );
 }

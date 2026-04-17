@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { View, Text } from '@/components/Themed';
+import { useState, useEffect, useRef } from 'react';
+import { Plus, Minus, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 const faqs = [
   {
@@ -14,7 +15,7 @@ const faqs = [
   },
   {
     question: "What kind of verification will you ask for?",
-    answer: "We only ask for simple, standard ID to make sure we are speaking to the real you and sending funds to the right place, Your security is just as important as your funding."
+    answer: "We only ask for simple, standard ID to make sure we are speaking to the real you and sending funds to the right place. Your security is just as important as your funding."
   },
   {
     question: "How much support should I ask for?",
@@ -43,79 +44,127 @@ const faqs = [
 ];
 
 export function FaqPreviewSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // First one opens by default
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: '-50px' }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const toggleFaq = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <View className="bg-white py-24 md:py-32 px-6 border-t border-stone-200">
-      <View className="max-w-4xl mx-auto">
+    <section 
+      ref={sectionRef}
+      id="faq"
+      className="bg-white py-24 md:py-32 px-6"
+    >
+      <div className="max-w-4xl mx-auto">
         
         {/* Header */}
-        <View className="text-center mb-16 md:mb-20 animate-on-load">
-        
-          <Text className="block text-4xl md:text-5xl font-bold text-edwin-black mb-6">
-            Common Questions
-          </Text>
-          <Text className="block text-lg text-stone-600 max-w-2xl mx-auto">
+        <div 
+          className={`text-center mb-16 md:mb-20 transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
+            <p className="text-[var(--accent-gold)] text-xs font-bold tracking-[0.3em] uppercase">
+              Common Questions
+            </p>
+            <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
+          </div>
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6">
+            Straight Answers
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             We believe you deserve straight answers. Here is exactly how our platform works.
-          </Text>
-        </View>
+          </p>
+        </div>
 
         {/* FAQ Accordion List */}
-        <View className="space-y-4">
+        <div className="space-y-4">
           {faqs.map((faq, index) => {
             const isOpen = openIndex === index;
             
             return (
-              <View 
+              <div 
                 key={index} 
-                className={`border border-stone-200 rounded-2xl overflow-hidden transition-all duration-300 animate-on-load delay-${(index % 4) * 100 + 100} ${isOpen ? 'bg-[#F7F5F0] shadow-sm' : 'bg-white hover:border-stone-300'}`}
+                className={`border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 ${
+                  isOpen 
+                    ? 'bg-[var(--warm-cream)] shadow-lg' 
+                    : 'bg-white hover:border-gray-300 hover:shadow-sm'
+                } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+                style={{ transitionDelay: `${200 + index * 50}ms` }}
               >
                 <button
                   onClick={() => toggleFaq(index)}
-                  className="w-full text-left px-6 py-6 md:px-8 md:py-8 flex items-center justify-between focus:outline-none"
+                  className="w-full text-left px-6 py-6 md:px-8 md:py-7 flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-gold)] focus-visible:ring-offset-2 rounded-2xl"
                   aria-expanded={isOpen}
                 >
-                  <Text className="text-lg md:text-xl font-bold text-edwin-black pr-8">
+                  <span className="text-lg md:text-xl font-semibold text-gray-900 pr-4">
                     {faq.question}
-                  </Text>
+                  </span>
                   
-                  {/* Premium Animated Plus/Minus Icon */}
-                  <View className={`w-8 h-8 rounded-full border border-stone-300 flex items-center justify-center transition-all duration-300 shrink-0 ${isOpen ? 'bg-edwin-navy border-edwin-navy text-white rotate-180' : 'bg-transparent text-stone-500'}`}>
-                    <Text className="text-xl font-light leading-none relative -top-[1px]">
-                      {isOpen ? '−' : '+'}
-                    </Text>
-                  </View>
+                  {/* Animated Plus/Minus Icon */}
+                  <span className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 shrink-0 ${
+                    isOpen 
+                      ? 'bg-[var(--trust)] border-[var(--trust)] text-white rotate-0' 
+                      : 'bg-transparent border-gray-300 text-gray-500 hover:border-[var(--accent-gold)] hover:text-[var(--accent-gold)]'
+                  }`}>
+                    {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                  </span>
                 </button>
                 
-                {/* Smooth sliding answer container */}
-                <View className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
-                  <View className="overflow-hidden">
-                    <Text className="block px-6 pb-6 md:px-8 md:pb-8 text-base md:text-lg text-stone-600 leading-relaxed pt-2">
+                {/* Answer */}
+                <div className={`grid transition-all duration-300 ease-in-out ${
+                  isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                }`}>
+                  <div className="overflow-hidden">
+                    <p className="px-6 pb-6 md:px-8 md:pb-8 text-base text-gray-600 leading-relaxed">
                       {faq.answer}
-                    </Text>
-                  </View>
-                </View>
+                    </p>
+                  </div>
+                </div>
 
-              </View>
+              </div>
             );
           })}
-        </View>
+        </div>
 
-        {/* Final push to apply */}
-        <View className="text-center mt-16 animate-on-load delay-400">
-          <a
+        {/* CTA */}
+        <div 
+          className={`text-center mt-16 transition-all duration-1000 delay-500 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}
+        >
+          <Link
             href="/apply"
-            className="inline-block px-10 py-4 bg-edwin-navy text-white text-base font-bold rounded-full hover:bg-edwin-black transition-colors shadow-sm"
+            className="inline-flex items-center gap-3 px-10 py-5 bg-[var(--trust)] text-white text-base font-semibold rounded-full hover:bg-[var(--trust-light)] transition-all hover:scale-[1.02] shadow-lg"
           >
             Ready to reach out? Start here.
-          </a>
-        </View>
+            <ArrowRight className="w-5 h-5" />
+          </Link>
+        </div>
 
-      </View>
-    </View>
+      </div>
+    </section>
   );
 }
