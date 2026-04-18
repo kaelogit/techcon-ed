@@ -48,7 +48,7 @@ export function Navbar() {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-500 overflow-x-hidden ${
         isScrolled 
           ? 'bg-white/95 backdrop-blur-lg shadow-sm py-4' 
           : 'bg-transparent py-6'
@@ -120,7 +120,7 @@ export function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div 
-        className={`fixed inset-0 bg-[var(--warm-cream)] z-40 flex flex-col transition-all duration-500 ease-out lg:hidden ${
+        className={`fixed inset-0 w-full h-full bg-[var(--warm-cream)] z-40 flex flex-col transition-all duration-500 ease-out lg:hidden ${
           isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
       >
