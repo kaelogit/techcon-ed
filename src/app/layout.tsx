@@ -10,6 +10,9 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-ZR6ZXRW988';
 const siteTitle = 'Edwin Castro — Community Support Initiative';
 const siteDescription = 'A personal commitment to rebuilding lives across America. Edwin Castro provides direct, debt-free funding for education, housing, disaster recovery, medical needs, and community projects — with support reaching all 50 states. No middlemen. No complicated paperwork. Just real help for real people.';
 
+// FIX: Remove trailing spaces from URLs
+const siteUrl = 'https://edwinmega.com';
+
 export const metadata: Metadata = {
   title: {
     default: siteTitle,
@@ -20,20 +23,21 @@ export const metadata: Metadata = {
   authors: [{ name: 'Edwin Castro' }],
   creator: 'Edwin Castro',
   publisher: 'Edwin Castro Community Support',
-  metadataBase: new URL('https://edwinmega.com'),
+  metadataBase: new URL(siteUrl), // FIX: Clean URL without trailing space
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: siteTitle,
     description: siteDescription,
-    url: 'https://edwinmega.com',
+    url: siteUrl, // FIX: Clean URL
     siteName: 'Edwin Castro Community Support',
     locale: 'en_US',
     type: 'website',
     images: [
       {
-        url: '/hero-image.jpg',
+        url: '/hero-image.jpg', // With metadataBase, this becomes absolute
+        secureUrl: `${siteUrl}/hero-image.jpg`, // FIX: Add secureUrl for Instagram/Facebook
         width: 1200,
         height: 630,
         alt: 'Edwin Castro Community Support — Direct Funding for Families Across America',
@@ -45,7 +49,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: siteTitle,
     description: siteDescription,
-    images: ['/hero-image.jpg'],
+    images: [`${siteUrl}/hero-image.jpg`], // FIX: Absolute URL for Twitter
     creator: '@edwinmega',
   },
   robots: {
@@ -71,11 +75,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {/* Preconnect to Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
+
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        
+
         {GA_ID && (
           <>
             {/* Google Analytics */}
