@@ -54,14 +54,14 @@ export function Navbar() {
           : 'bg-transparent py-6'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className="w-full max-w-7xl mx-auto px-6 flex items-center justify-between overflow-hidden">
         
         {/* Logo */}
         <Link 
           href="/" 
-          className="relative z-50 group"
+          className="relative z-50 group flex-shrink-0"
         >
-          <span className={`font-serif text-xl md:text-2xl font-semibold tracking-tight transition-colors duration-300 ${
+          <span className={`font-serif text-xl md:text-2xl font-semibold tracking-tight transition-colors duration-300 whitespace-nowrap ${
             isScrolled || isOpen ? 'text-[var(--trust)]' : 'text-white'
           }`}>
             Edwin Castro
@@ -106,7 +106,7 @@ export function Navbar() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className={`relative z-50 lg:hidden p-2 rounded-lg transition-colors ${
+          className={`relative z-50 lg:hidden p-2 rounded-lg transition-colors flex-shrink-0 ml-auto ${
             isScrolled || isOpen 
               ? 'text-[var(--trust)] hover:bg-gray-100' 
               : 'text-white hover:bg-white/10'
@@ -124,7 +124,7 @@ export function Navbar() {
           isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
       >
-        <div className="flex flex-col min-h-full px-8 pt-28 pb-12">
+        <div className="flex flex-col min-h-full w-full px-8 pt-28 pb-12 overflow-hidden">
           
           {/* Mobile Nav Links */}
           <nav className="flex flex-col space-y-2">
