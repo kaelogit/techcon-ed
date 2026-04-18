@@ -7,10 +7,16 @@ import { Footer } from '@/components/home/Footer';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-ZR6ZXRW988';
 
+const siteTitle = 'Edwin Castro — Community Support Initiative';
+const siteDescription = 'A personal commitment to rebuilding lives across America. Edwin Castro provides direct, debt-free funding for education, housing, disaster recovery, medical needs, and community projects — with support reaching all 50 states. No middlemen. No complicated paperwork. Just real help for real people.';
+
 export const metadata: Metadata = {
-  title: 'Edwin Castro - Community Support Initiative',
-  description: 'Direct funding for education, housing, disaster recovery, and more. Rebuilding lives and empowering communities across the United States.',
-  keywords: ['Edwin Castro', 'community support', 'funding', 'education', 'housing', 'disaster recovery', 'Altadena', 'Powerball'],
+  title: {
+    default: siteTitle,
+    template: '%s | Edwin Castro Community Support',
+  },
+  description: siteDescription,
+  keywords: ['Edwin Castro', 'community support', 'funding', 'education', 'housing', 'disaster recovery', 'Altadena', 'Powerball', 'direct support', 'debt-free funding', 'family support'],
   authors: [{ name: 'Edwin Castro' }],
   creator: 'Edwin Castro',
   publisher: 'Edwin Castro Community Support',
@@ -19,8 +25,8 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Edwin Castro - Community Support Initiative',
-    description: 'Direct funding for families, students, and neighborhoods across the United States.',
+    title: siteTitle,
+    description: siteDescription,
     url: 'https://edwinmega.com',
     siteName: 'Edwin Castro Community Support',
     locale: 'en_US',
@@ -30,15 +36,17 @@ export const metadata: Metadata = {
         url: '/hero-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Edwin Castro Community Support',
+        alt: 'Edwin Castro Community Support — Direct Funding for Families Across America',
+        type: 'image/jpeg',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Edwin Castro - Community Support Initiative',
-    description: 'Direct funding for families, students, and neighborhoods across the United States.',
+    title: siteTitle,
+    description: siteDescription,
     images: ['/hero-image.jpg'],
+    creator: '@edwinmega',
   },
   robots: {
     index: true,
