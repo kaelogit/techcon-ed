@@ -116,7 +116,7 @@ export default function VisionSection() {
             
             {/* Values Cards */}
             <div 
-              className={`grid grid-cols-2 gap-4 pt-4 transition-all duration-700 delay-500 ${
+              className={`grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 transition-all duration-700 delay-500 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
