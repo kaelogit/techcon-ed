@@ -42,9 +42,7 @@ export function HeroSection() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-(--accent-gold) opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-(--accent-gold)"></span>
                 </span>
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-(--accent-gold)">
-                  2026 Direct Support Initiative
-                </p>
+          
               </div>
               
               {/* Headline */}

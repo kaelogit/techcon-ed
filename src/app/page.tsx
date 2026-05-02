@@ -14,10 +14,10 @@ export default function HomePage() {
   return (
     <div className='flex flex-col w-full'>
       <HeroSection />
-      <VideoSection />
-      <ImpactStatsSection />
       <CommunityWinsSection />
       <VisionSection />
+      <ImpactStatsSection />
+      <VideoSection />
       <SupportAreasSection />
       <ImpactStoriesSection />
       <MediaMentions />
