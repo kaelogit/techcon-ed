@@ -2,8 +2,8 @@ import './globals.css';
 import { ReactNode } from 'react';
 import Script from 'next/script';
 import { Metadata, Viewport } from 'next';
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/home/Footer';
+import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-ZR6ZXRW988';
 

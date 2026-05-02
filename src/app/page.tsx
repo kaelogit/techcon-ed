@@ -8,6 +8,7 @@ import { FaqPreviewSection } from '@/components/home/FaqPreviewSection';
 import { TrustBanner } from '@/components/home/TrustBanner';
 import { MediaMentions } from '@/components/home/MediaMentions';
 import VideoSection from '@/components/home/VideoSection';
+import { CommunityWinsSection } from '@/components/home/CommunityWinsSection';
 
 export default function HomePage() {
   return (
@@ -15,6 +16,7 @@ export default function HomePage() {
       <HeroSection />
       <VideoSection />
       <ImpactStatsSection />
+      <CommunityWinsSection />
       <VisionSection />
       <SupportAreasSection />
       <ImpactStoriesSection />
