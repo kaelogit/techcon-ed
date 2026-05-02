@@ -151,7 +151,7 @@ export const communityWins: CommunityWin[] = [
     date: 'Apr 15, 2026',
     caption: 'Thank you for this amazing blessing! We are forever thankful! 🏡❤️',
     images: ['/beneficiaries/story-15-01.jpg', '/beneficiaries/story-15-02.jpg', '/beneficiaries/story-15-03.jpg'],
-    category: 'Disaster Relief',
+    category: 'Business & Career',
   },
   {
     id: '16',
