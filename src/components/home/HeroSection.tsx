@@ -63,7 +63,7 @@ export function HeroSection() {
                 }`}
               >
                 A personal initiative providing direct funding, stability, and growth 
-                for families, students, and neighborhoods across the United States.
+                for families, students, and neighborhoods worldwide.
               </p>
               
               {/* CTA Buttons */}
@@ -100,7 +100,7 @@ export function HeroSection() {
                 </div>
                 <div className="flex items-center gap-2 text-xs font-medium text-white/50 uppercase tracking-widest">
                   <Heart className="w-4 h-4 text-(--accent-gold) fill-(--accent-gold)" />
-                  All 50 States
+                  Global Reach
                 </div>
               </div>
             </div>
@@ -129,7 +129,7 @@ export function HeroSection() {
                   <p className="text-(--trust) font-serif font-bold text-3xl">$50M+</p>
                 </div>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  Committed to community & family stability across America
+                  Committed to community & family stability worldwide
                 </p>
               </div>
 

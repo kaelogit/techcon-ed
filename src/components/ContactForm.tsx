@@ -12,9 +12,34 @@ const CATEGORIES = [
   "Other",
 ] as const;
 
+// NEW: Country options for the contact form
+const COUNTRIES = [
+  { value: "USA", label: "United States" },
+  { value: "Canada", label: "Canada" },
+  { value: "UK", label: "United Kingdom" },
+  { value: "Germany", label: "Germany" },
+  { value: "France", label: "France" },
+  { value: "Netherlands", label: "Netherlands" },
+  { value: "Spain", label: "Spain" },
+  { value: "Italy", label: "Italy" },
+  { value: "Sweden", label: "Sweden" },
+  { value: "Switzerland", label: "Switzerland" },
+  { value: "Ireland", label: "Ireland" },
+  { value: "Belgium", label: "Belgium" },
+  { value: "Austria", label: "Austria" },
+  { value: "Norway", label: "Norway" },
+  { value: "Denmark", label: "Denmark" },
+  { value: "Australia", label: "Australia" },
+  { value: "New Zealand", label: "New Zealand" },
+  { value: "Mexico", label: "Mexico" },
+  { value: "Other", label: "Other — Not Listed" },
+] as const;
+
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
+  // NEW: Track selected country for dynamic labels
+  const [selectedCountry, setSelectedCountry] = useState("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -23,6 +48,7 @@ export default function ContactForm() {
     const body = {
       name: data.get("name"),
       email: data.get("email"),
+      country: data.get("country"),
       state: data.get("state"),
       category: data.get("category"),
       story: data.get("story"),
@@ -47,11 +73,57 @@ export default function ContactForm() {
       setStatus("success");
       setMessage("Your message was sent. We'll be in touch.");
       form.reset();
+      setSelectedCountry(""); // NEW: Reset country state
     } catch {
       setStatus("error");
       setMessage("Could not send. Please check your connection and try again.");
     }
   }
+
+  // NEW: Dynamic label based on country
+  const getRegionLabel = () => {
+    if (selectedCountry === "Other") return "Country & Region";
+    if (selectedCountry === "UK") return "Region / County";
+    if (selectedCountry === "Germany") return "Bundesland";
+    if (selectedCountry === "France") return "Department / Region";
+    if (selectedCountry === "Netherlands") return "Province";
+    if (selectedCountry === "Spain") return "Autonomous Community";
+    if (selectedCountry === "Italy") return "Region";
+    if (selectedCountry === "Sweden") return "County";
+    if (selectedCountry === "Switzerland") return "Canton";
+    if (selectedCountry === "Ireland") return "County";
+    if (selectedCountry === "Belgium") return "Province";
+    if (selectedCountry === "Austria") return "State";
+    if (selectedCountry === "Norway") return "County";
+    if (selectedCountry === "Denmark") return "Region";
+    if (selectedCountry === "Canada") return "Province";
+    if (selectedCountry === "Australia" || selectedCountry === "New Zealand") return "State / Territory";
+    if (selectedCountry === "Mexico") return "State";
+    return "State / Province";
+  };
+
+  // NEW: Dynamic placeholder based on country
+  const getRegionPlaceholder = () => {
+    if (selectedCountry === "Other") return "e.g. Brazil, São Paulo";
+    if (selectedCountry === "UK") return "e.g. Greater London";
+    if (selectedCountry === "Germany") return "e.g. Bavaria";
+    if (selectedCountry === "France") return "e.g. Île-de-France";
+    if (selectedCountry === "Netherlands") return "e.g. North Holland";
+    if (selectedCountry === "Spain") return "e.g. Catalonia";
+    if (selectedCountry === "Italy") return "e.g. Lombardy";
+    if (selectedCountry === "Sweden") return "e.g. Stockholm County";
+    if (selectedCountry === "Switzerland") return "e.g. Zurich";
+    if (selectedCountry === "Ireland") return "e.g. County Dublin";
+    if (selectedCountry === "Belgium") return "e.g. Flanders";
+    if (selectedCountry === "Austria") return "e.g. Vienna";
+    if (selectedCountry === "Norway") return "e.g. Oslo";
+    if (selectedCountry === "Denmark") return "e.g. Capital Region";
+    if (selectedCountry === "Canada") return "e.g. Ontario";
+    if (selectedCountry === "Australia") return "e.g. New South Wales";
+    if (selectedCountry === "New Zealand") return "e.g. Auckland";
+    if (selectedCountry === "Mexico") return "e.g. Jalisco";
+    return "e.g. California, Texas";
+  };
 
   return (
     <form
@@ -98,17 +170,39 @@ export default function ContactForm() {
         />
       </div>
 
-      {/* State Field */}
+      {/* NEW: Country Field */}
+      <div>
+        <label htmlFor="country" className="mb-2 block text-sm font-semibold text-gray-700">
+          Country <span className="text-red-500">*</span>
+        </label>
+        <select
+          id="country"
+          name="country"
+          required
+          value={selectedCountry}
+          onChange={(e) => setSelectedCountry(e.target.value)}
+          className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-5 py-4 text-gray-900 focus:border-[var(--accent-gold)] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all appearance-none cursor-pointer"
+        >
+          <option value="">Select your country</option>
+          {COUNTRIES.map((country) => (
+            <option key={country.value} value={country.value}>
+              {country.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* UPDATED: State/Region Field — dynamic label & placeholder */}
       <div>
         <label htmlFor="state" className="mb-2 block text-sm font-semibold text-gray-700">
-          State (USA) <span className="text-red-500">*</span>
+          {getRegionLabel()} <span className="text-red-500">*</span>
         </label>
         <input
           id="state"
           name="state"
           type="text"
           required
-          placeholder="e.g. California, Texas"
+          placeholder={getRegionPlaceholder()}
           className="w-full rounded-xl border border-gray-200 bg-gray-50/50 px-5 py-4 text-gray-900 placeholder:text-gray-400 focus:border-[var(--accent-gold)] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all"
         />
       </div>

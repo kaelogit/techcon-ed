@@ -28,56 +28,56 @@ import Link from 'next/link';
 const TESTIMONIALS = [
   {
     name: "James",
-    location: "Texas",
+    location: "Texas, USA",
     amount: "$65,000",
     story: "After losing my job, I needed to retrain for a new career in tech. This support covered my coding bootcamp and living expenses while I studied.",
     timeAgo: "2 hours ago"
   },
   {
     name: "Maria",
-    location: "Florida",
+    location: "Florida, USA",
     amount: "$125,000",
     story: "My daughter needed a life-saving surgery not covered by insurance. This support paid for the procedure and recovery care.",
     timeAgo: "5 hours ago"
   },
   {
     name: "Robert",
-    location: "Ohio",
+    location: "Ohio, USA",
     amount: "$85,000",
     story: "Single dad working two jobs while trying to finish my nursing degree. This support covered tuition and allowed me to focus on school.",
     timeAgo: "1 day ago"
   },
   {
     name: "Sarah",
-    location: "California",
-    amount: "$250,000",
+    location: "Ontario, Canada",
+    amount: "C$250,000",
     story: "Started a community kitchen to feed homeless families in my neighborhood. This support renovated the space and bought commercial equipment.",
     timeAgo: "3 hours ago"
   },
   {
     name: "David",
-    location: "Michigan",
-    amount: "$175,000",
+    location: "Bavaria, Germany",
+    amount: "€175,000",
     story: "Veteran with PTSD trying to start a veteran support center. This funding made our dream of helping others a reality.",
     timeAgo: "6 hours ago"
   },
   {
     name: "Angela",
-    location: "New York",
-    amount: "$150,000",
+    location: "London, UK",
+    amount: "£150,000",
     story: "My small bakery was failing after equipment broke down. This support replaced everything and kept my 8 employees working.",
     timeAgo: "4 hours ago"
   },
   {
     name: "Michael",
-    location: "Arizona",
-    amount: "$320,000",
+    location: "New South Wales, Australia",
+    amount: "A$320,000",
     story: "Built a youth STEM education center in an underserved community. This support funded computers, robotics kits, and teacher salaries.",
     timeAgo: "8 hours ago"
   },
   {
     name: "Lisa",
-    location: "Georgia",
+    location: "Michigan, USA",
     amount: "$95,000",
     story: "Needed to relocate for my child's specialized medical treatment. This support covered moving costs and first year's rent.",
     timeAgo: "12 hours ago"
@@ -86,21 +86,21 @@ const TESTIMONIALS = [
 
 // Recently helped ticker data - diverse amounts
 const RECENTLY_HELPED = [
-  { name: "James", location: "Texas", amount: "$65,000" },
-  { name: "Maria", location: "Florida", amount: "$125,000" },
-  { name: "Sarah", location: "California", amount: "$250,000" },
-  { name: "Robert", location: "Ohio", amount: "$85,000" },
-  { name: "David", location: "Michigan", amount: "$175,000" },
-  { name: "Angela", location: "New York", amount: "$150,000" },
-  { name: "Michael", location: "Arizona", amount: "$320,000" },
-  { name: "Lisa", location: "Georgia", amount: "$95,000" },
+  { name: "James", location: "Texas, USA", amount: "$65,000" },
+  { name: "Sarah", location: "Ontario, Canada", amount: "C$250,000" },
+  { name: "Angela", location: "London, UK", amount: "£150,000" },
+  { name: "Robert", location: "Ohio, USA", amount: "$85,000" },
+  { name: "David", location: "Bavaria, Germany", amount: "€175,000" },
+  { name: "Michael", location: "NSW, Australia", amount: "A$320,000" },
+  { name: "Maria", location: "Florida, USA", amount: "$125,000" },
+  { name: "Lisa", location: "Michigan, USA", amount: "$95,000" },
 ];
 
 // FAQ data
 const FAQS = [
   { 
     q: "Is this real?", 
-    a: "Yes. We are a legitimate direct support organization. Every application is reviewed by our team personally. We've provided support to thousands of people across the country." 
+        a: "Yes. We are a legitimate direct support organization. Every application is reviewed by our team personally. We've provided support to thousands of people across the USA, Canada, United Kingdom, Germany, Australia, and beyond." 
   },
   { 
     q: "Will my info be private?", 
@@ -148,10 +148,11 @@ const GUIDED_QUESTIONS = [
 
 export default function ApplyPage() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-  const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
+    country: '',
     state: '',
     category: '',
     story: '',
@@ -286,7 +287,7 @@ export default function ApplyPage() {
 
       if (response.ok) {
         setStatus('success');
-        setFormData({ name: '', email: '', phone: '', state: '', category: '', story: '', amount: '' });
+        setFormData({ name: '', email: '', phone: '', country: '', state: '', category: '', story: '', amount: '' });
         setGuidedAnswers({ challenge: '', amount: '', impact: '' });
         setCurrentQuestion(0);
       } else {
@@ -490,22 +491,101 @@ export default function ApplyPage() {
                         />
                       </div>
 
-                      {/* State & Category Row */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="flex flex-col gap-2">
-                          <label htmlFor="state" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
-                            Your State *
-                          </label>
-                          <input
-                            required
-                            type="text"
-                            id="state"
-                            placeholder="e.g. California"
-                            className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[var(--accent-gold)] focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all"
-                            value={formData.state}
-                            onChange={(e) => setFormData({ ...formData, state: e.target.value })}
-                          />
-                        </div>
+                      {/* Country & State/Province Row */}
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div className="flex flex-col gap-2">
+    <label htmlFor="country" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+      Country *
+    </label>
+    <select
+      required
+      id="country"
+      className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[var(--accent-gold)] focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all appearance-none cursor-pointer"
+      value={formData.country}
+      onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+    >
+      <option value="">Select your country</option>
+      <optgroup label="North America">
+        <option value="USA">United States</option>
+        <option value="Canada">Canada</option>
+        <option value="Mexico">Mexico</option>
+      </optgroup>
+      <optgroup label="Europe">
+        <option value="UK">United Kingdom</option>
+        <option value="Germany">Germany</option>
+        <option value="France">France</option>
+        <option value="Netherlands">Netherlands</option>
+        <option value="Spain">Spain</option>
+        <option value="Italy">Italy</option>
+        <option value="Sweden">Sweden</option>
+        <option value="Switzerland">Switzerland</option>
+        <option value="Ireland">Ireland</option>
+        <option value="Belgium">Belgium</option>
+        <option value="Austria">Austria</option>
+        <option value="Norway">Norway</option>
+        <option value="Denmark">Denmark</option>
+      </optgroup>
+      <optgroup label="Oceania">
+        <option value="Australia">Australia</option>
+        <option value="New Zealand">New Zealand</option>
+      </optgroup>
+      <optgroup label="Other">
+        <option value="Other">Not Listed — Type Below</option>
+      </optgroup>
+    </select>
+  </div>
+
+  <div className="flex flex-col gap-2">
+    <label htmlFor="state" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+      {formData.country === 'Other' ? 'Country & Region' :
+       formData.country === 'UK' ? 'Region / County' : 
+       formData.country === 'Germany' ? 'Bundesland' : 
+       formData.country === 'France' ? 'Department / Region' :
+       formData.country === 'Netherlands' ? 'Province' :
+       formData.country === 'Spain' ? 'Autonomous Community' :
+       formData.country === 'Italy' ? 'Region' :
+       formData.country === 'Sweden' ? 'County' :
+       formData.country === 'Switzerland' ? 'Canton' :
+       formData.country === 'Ireland' ? 'County' :
+       formData.country === 'Belgium' ? 'Province' :
+       formData.country === 'Austria' ? 'State' :
+       formData.country === 'Norway' ? 'County' :
+       formData.country === 'Denmark' ? 'Region' :
+       formData.country === 'Canada' ? 'Province' : 
+       formData.country === 'Australia' || formData.country === 'New Zealand' ? 'State / Territory' : 
+       formData.country === 'Mexico' ? 'State' :
+       'State / Province'} *
+    </label>
+    <input
+      required
+      type="text"
+      id="state"
+      placeholder={
+        formData.country === 'Other' ? 'e.g. Brazil, São Paulo' :
+        formData.country === 'UK' ? 'e.g. Greater London' : 
+        formData.country === 'Germany' ? 'e.g. Bavaria' : 
+        formData.country === 'France' ? 'e.g. Île-de-France' :
+        formData.country === 'Netherlands' ? 'e.g. North Holland' :
+        formData.country === 'Spain' ? 'e.g. Catalonia' :
+        formData.country === 'Italy' ? 'e.g. Lombardy' :
+        formData.country === 'Sweden' ? 'e.g. Stockholm County' :
+        formData.country === 'Switzerland' ? 'e.g. Zurich' :
+        formData.country === 'Ireland' ? 'e.g. County Dublin' :
+        formData.country === 'Belgium' ? 'e.g. Flanders' :
+        formData.country === 'Austria' ? 'e.g. Vienna' :
+        formData.country === 'Norway' ? 'e.g. Oslo' :
+        formData.country === 'Denmark' ? 'e.g. Capital Region' :
+        formData.country === 'Canada' ? 'e.g. Ontario' : 
+        formData.country === 'Australia' ? 'e.g. New South Wales' :
+        formData.country === 'New Zealand' ? 'e.g. Auckland' :
+        formData.country === 'Mexico' ? 'e.g. Jalisco' :
+        'e.g. California'
+      }
+      className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[var(--accent-gold)] focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all"
+      value={formData.state}
+      onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+    />
+  </div>
 
                         <div className="flex flex-col gap-2">
                           <label htmlFor="category" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
@@ -1007,7 +1087,7 @@ function WhatsAppOption({ setSubmissionMethod }: { setSubmissionMethod: (m: 'for
           Apply via WhatsApp
         </h3>
         <p className="text-gray-600 max-w-md mx-auto">
-          Send us a message with your name, state, and what you need support with. Our team will guide you through the application.
+          Send us a message with your name, country, and what you need support with. Our team will guide you through the application.
         </p>
       </div>
 

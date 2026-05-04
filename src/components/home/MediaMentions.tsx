@@ -120,7 +120,7 @@ export function MediaMentions() {
             Recognized Across the Nation
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Edwin Castro's commitment to community support has been featured by major news outlets nationwide.
+            Edwin Castro's commitment to community support has been featured by major news outlets worldwide.
           </p>
         </div>
 
@@ -236,12 +236,12 @@ export function MediaMentions() {
             <div className="w-px h-6 bg-gray-300" />
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <Tv className="w-5 h-5 text-[var(--accent-gold)]" />
-              <span className="font-medium">National Coverage</span>
+              <span className="font-medium">Worldwide Coverage</span>
             </div>
             <div className="w-px h-6 bg-gray-300" />
             <div className="flex items-center gap-2 text-sm text-gray-600">
               <Globe className="w-5 h-5 text-[var(--accent-gold)]" />
-              <span className="font-medium">All 50 States Reached</span>
+              <span className="font-medium">60+ Country Reached</span>
             </div>
           </div>
         </div>

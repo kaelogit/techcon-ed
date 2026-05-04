@@ -59,7 +59,7 @@ export function CommunityWinsSection() {
             Real People. Real Support.
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            Meet the families and individuals whose lives have been touched across America.
+            Meet the families and individuals whose lives have been touched.
           </p>
         </div>
 

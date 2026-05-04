@@ -12,7 +12,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '00',
     name: 'The Phillip Family',
-    location: 'Houston, TX',
+    location: 'Houston, TX, USA',
     date: 'Feb 14, 2026',
     caption: 'Thank you Edwin, Starting a foundation in the family name! 🏠❤️ God bless you and your family!',
     images: ['/beneficiaries/story-00-01.jpg', '/beneficiaries/story-00-02.jpg', '/beneficiaries/story-00-03.jpg'],
@@ -21,7 +21,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '01',
     name: 'James & Lisa',
-    location: 'Miami, FL',
+    location: 'Miami, FL, USA',
     date: 'Feb 22, 2026',
     caption: 'Our family is so grateful. Thank you for changing our lives! 🙏❤️',
     images: ['/beneficiaries/story-01-01.jpg', '/beneficiaries/story-01-02.jpg'],
@@ -30,7 +30,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '02',
     name: 'Sarah Jenkins',
-    location: 'Tampa, FL',
+    location: 'Tampa, FL, USA',
     date: 'Mar 3, 2026',
     caption: 'Blessed! Thank you Edwin for the support!',
     images: ['/beneficiaries/story-02-01.jpg'],
@@ -39,7 +39,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '03',
     name: 'Michael',
-    location: 'Phoenix, AZ',
+    location: 'Phoenix, AZ, USA',
     date: 'Mar 8, 2026',
     caption: 'New beginnings thanks to you, Edwin! Our dreams came true',
     images: ['/beneficiaries/story-03-01.jpg', '/beneficiaries/story-03-02.jpg', '/beneficiaries/story-03-03.jpg', '/beneficiaries/story-03-05.jpg'],
@@ -48,7 +48,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '04',
     name: 'Angela Brooks',
-    location: 'Charlotte, NC',
+    location: 'Toronto, Ontario, Canada',
     date: 'Mar 12, 2026',
     caption: 'Forever grateful to Edwin Castro! I paid my Student❤️🙏',
     images: ['/beneficiaries/story-04-01.jpg', '/beneficiaries/story-04-02.jpg'],
@@ -57,7 +57,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '05',
     name: 'David Lee',
-    location: 'Chicago, IL',
+    location: 'Chicago, IL, USA',
     date: 'Mar 15, 2026',
     caption: 'I and my wife can live with good health for the rest of our days ! This means everything. 🙏',
     images: ['/beneficiaries/story-05-01.jpg'],
@@ -66,7 +66,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '06',
     name: 'The Rodriguez Family',
-    location: 'Columbus, OH',
+    location: 'Columbus, OH, USA',
     date: 'Mar 18, 2026',
     caption: 'God bless Edwin❤️ So thankful!',
     images: ['/beneficiaries/story-06-01.jpg'],
@@ -75,7 +75,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '07',
     name: 'Julie & Husband',
-    location: 'Detroit, MI',
+    location: 'London, UK',
     date: 'Mar 21, 2026',
     caption: 'From the bottom of our hearts, thank you Edwin! 💙🙏',
     images: ['/beneficiaries/story-07-01.jpg'],
@@ -84,7 +84,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '08',
     name: 'Pat Vega',
-    location: 'Las Vegas, NV',
+    location: 'Las Vegas, NV, USA',
     date: 'Mar 25, 2026',
     caption: 'Miracles do happen. Thank you Edwin! 🙏✨',
     images: ['/beneficiaries/story-08-01.jpg'],
@@ -93,7 +93,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '09',
     name: 'Jasmine Carter',
-    location: 'Atlanta, GA',
+    location: 'Atlanta, GA, USA',
     date: 'Mar 28, 2026',
     caption: 'So thankful for this amazing blessing! 🏠❤️',
     images: ['/beneficiaries/story-09-01.jpg'],
@@ -102,7 +102,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '10',
     name: 'Harold Benson',
-    location: 'Birmingham, AL',
+    location: 'Birmingham, AL, USA',
     date: 'Apr 1, 2026',
     caption: 'Edwin, you are a true angel! Thank you! 😇🙏',
     images: ['/beneficiaries/story-10-01.jpg'],
@@ -111,7 +111,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '11',
     name: 'Naomi Chen',
-    location: 'Seattle, WA',
+    location: 'Munich, Bavaria, Germany',
     date: 'Apr 4, 2026',
     caption: 'Our new home! Thank you Edwin Castro! 🏠🙌',
     images: ['/beneficiaries/story-11-01.jpg'],
@@ -120,7 +120,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '12',
     name: 'Danielle Rivers',
-    location: 'Philadelphia, PA',
+    location: 'Philadelphia, PA, USA',
     date: 'Apr 7, 2026',
     caption: 'Blessed and highly favored. Thank you! 🙏❤️',
     images: ['/beneficiaries/story-12-01.jpg'],
@@ -129,7 +129,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '13',
     name: 'Malik Thompson',
-    location: 'Savannah, GA',
+    location: 'Sydney, NSW, Australia',
     date: 'Apr 10, 2026',
     caption: 'Dreams come true! Thank you Edwin! ✨🙏',
     images: ['/beneficiaries/story-13-01.jpg'],
@@ -138,7 +138,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '14',
     name: 'Elena Morales',
-    location: 'Denver, CO',
+    location: 'Denver, CO, USA',
     date: 'Apr 12, 2026',
     caption: 'Grateful beyond words. Thank you Edwin! 🙏❤️',
     images: ['/beneficiaries/story-14-01.jpg'],
@@ -147,7 +147,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '15',
     name: 'The Ortega Family',
-    location: 'Colorado Springs, CO',
+    location: 'Vancouver, BC, Canada',
     date: 'Apr 15, 2026',
     caption: 'Thank you for this amazing blessing! We are forever thankful! 🏡❤️',
     images: ['/beneficiaries/story-15-01.jpg', '/beneficiaries/story-15-02.jpg', '/beneficiaries/story-15-03.jpg'],
@@ -156,7 +156,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '16',
     name: 'John Lawson',
-    location: 'Pasadena, CA',
+    location: 'Pasadena, CA, USA',
     date: 'Apr 18, 2026',
     caption: 'New house, Happy Retirement! Thank you Edwin!',
     images: ['/beneficiaries/story-16-01.jpg', '/beneficiaries/story-16-02.jpg', '/beneficiaries/story-16-03.jpg', '/beneficiaries/story-16-04.jpg', '/beneficiaries/story-16-05.jpg'],
@@ -165,7 +165,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '17',
     name: 'Lyon & Deborah',
-    location: 'Austin, TX',
+    location: 'Manchester, UK',
     date: 'Apr 21, 2026',
     caption: 'Thank you Edwin we are now debt free! God bless! 🙏❤️',
     images: ['/beneficiaries/story-17-01.jpg', '/beneficiaries/story-17-02.jpg'],
@@ -174,7 +174,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '18',
     name: 'The Thompson Family',
-    location: 'Orlando, FL',
+    location: 'Orlando, FL, USA',
     date: 'Apr 24, 2026',
     caption: 'We got a new car! God bless you Edwin! 🙏✨',
     images: ['/beneficiaries/story-18-01.jpg', '/beneficiaries/story-18-02.jpg', '/beneficiaries/story-18-03.jpg', '/beneficiaries/story-18-04.jpg'],
@@ -183,7 +183,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '19',
     name: 'Patricia Moore',
-    location: 'Dallas, TX',
+    location: 'Dallas, TX, USA',
     date: 'Apr 27, 2026',
     caption: 'This means the world to us. Thank you Edwin! ❤️🙏',
     images: ['/beneficiaries/story-19-01.jpg'],
@@ -192,7 +192,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '20',
     name: 'Jonathan Clark',
-    location: 'Nashville, TN',
+    location: 'Nashville, TN, USA',
     date: 'Apr 29, 2026',
     caption: 'So much gratitude! Thank you Edwin! 🙌❤️',
     images: ['/beneficiaries/story-20-01.jpg'],
@@ -201,7 +201,7 @@ export const communityWins: CommunityWin[] = [
   {
     id: '21',
     name: 'Maria Gonzalez',
-    location: 'San Antonio, TX',
+    location: 'Berlin, Germany',
     date: 'May 1, 2026',
     caption: 'Thank you Edwin for our new beginning! 🏠🙏❤️',
     images: ['/beneficiaries/story-21-01.jpg'],

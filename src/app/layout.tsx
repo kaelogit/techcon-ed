@@ -8,10 +8,10 @@ import { Footer } from '@/components/layout/Footer';
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-ZR6ZXRW988';
 
 const siteTitle = 'Edwin Castro — Community Support Initiative';
-const siteDescription = 'A personal commitment to rebuilding lives across America. Edwin Castro provides direct, debt-free funding for education, housing, disaster recovery, medical needs, and community projects — with support reaching all 50 states. No middlemen. No complicated paperwork. Just real help for real people.';
+const siteDescription = 'A personal commitment to rebuilding lives worldwide. Edwin Castro provides direct, debt-free funding for education, housing, disaster recovery, medical needs, and community projects — with support reaching families across the USA, Canada, United Kingdom, Germany, Australia, and beyond. No middlemen. No complicated paperwork. Just real help for real people.';
 
 const siteUrl = 'https://edwinmega.com';
-const ogImageUrl = `${siteUrl}/hero-image.jpg`; // Absolute URL for OG image
+const ogImageUrl = `${siteUrl}/hero-image.jpg`;
 
 export const metadata: Metadata = {
   title: {
@@ -19,7 +19,25 @@ export const metadata: Metadata = {
     template: '%s | Edwin Castro Community Support',
   },
   description: siteDescription,
-  keywords: ['Edwin Castro', 'community support', 'funding', 'education', 'housing', 'disaster recovery', 'Altadena', 'Powerball', 'direct support', 'debt-free funding', 'family support'],
+  keywords: [
+    'Edwin Castro',
+    'community support',
+    'funding',
+    'education',
+    'housing',
+    'disaster recovery',
+    'direct support',
+    'debt-free funding',
+    'family support',
+    'international support',
+    'Canada',
+    'United Kingdom',
+    'Germany',
+    'Australia',
+    'USA',
+    'global funding',
+    'worldwide help'
+  ],
   authors: [{ name: 'Edwin Castro' }],
   creator: 'Edwin Castro',
   publisher: 'Edwin Castro Community Support',
@@ -36,11 +54,11 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: ogImageUrl, // FIXED: Absolute URL
-        secureUrl: ogImageUrl, // FIXED: Explicit secure URL
+        url: ogImageUrl,
+        secureUrl: ogImageUrl,
         width: 1200,
         height: 630,
-        alt: 'Edwin Castro Community Support — Direct Funding for Families Across America',
+        alt: 'Edwin Castro Community Support — Direct Funding for Families Worldwide',
         type: 'image/jpeg',
       },
     ],
@@ -49,7 +67,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: siteTitle,
     description: siteDescription,
-    images: [ogImageUrl], // FIXED: Absolute URL
+    images: [ogImageUrl],
     creator: '@edwinmega',
   },
   robots: {
@@ -75,7 +93,6 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  // JSON-LD Structured Data
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -90,15 +107,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        {/* Preconnect to Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
-        {/* Favicon */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-        {/* JSON-LD Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -106,7 +120,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
         {GA_ID && (
           <>
-            {/* Google Analytics */}
             <Script
               async
               src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}

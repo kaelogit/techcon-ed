@@ -115,10 +115,10 @@ export function ImpactStatsSection() {
   const stats = [
     {
       icon: <Globe2 className="w-6 h-6" />,
-      value: 50,
-      suffix: "States",
-      label: "National Reach",
-      desc: "Accepting and reviewing personal stories from every corner of the country.",
+      value: 20,
+      suffix: "+ Countries",
+      label: "Global Reach",
+      desc: "Accepting and reviewing personal stories from families across the USA, Canada, UK, Germany, Australia, and beyond.",
       delay: 0,
     },
     {
@@ -127,7 +127,7 @@ export function ImpactStatsSection() {
       prefix: "",
       suffix: "Focus Areas",
       label: "Holistic Help",
-      desc: "Targeted funding for education, housing, health, and local infrastructure.",
+      desc: "Targeted funding for education, housing, health, and local infrastructure — wherever you are.",
       delay: 150,
     },
     {
@@ -135,7 +135,7 @@ export function ImpactStatsSection() {
       value: 100,
       suffix: "%",
       label: "Direct Impact",
-      desc: "Funding moves straight to the families, bypassing traditional agency delays.",
+      desc: "Funding moves straight to the families, bypassing traditional agency delays worldwide.",
       delay: 300,
     },
   ];

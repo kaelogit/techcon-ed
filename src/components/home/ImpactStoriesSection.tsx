@@ -47,7 +47,7 @@ const stories = [
   },
   {
     name: "Robert & Angela Brooks",
-    location: "North Carolina",
+    location: "Ontario, Canada",
     category: "Medical Hardship Support",
     amount: "$210,000",
     paragraphs: [
@@ -86,14 +86,14 @@ const stories = [
   },
   {
     name: "Aisha Rahman",
-    location: "Michigan",
+    location: "London, UK",
     category: "STEM Education Support",
     amount: "$120,000",
     paragraphs: [
       "Aisha always excelled in science and mathematics. Growing up in a low-income household, she often studied under dim lighting to conserve electricity and shared textbooks with classmates. Her dream was to become a biomedical engineer and design affordable medical devices for underserved communities.",
       "She earned admission into a top engineering program but faced a harsh reality — tuition, housing, and lab fees exceeded what her family could manage. Scholarships covered only part of the cost. She considered deferring enrollment despite years of hard work.",
       "The Edwin Castro Foundation awarded Aisha $120,000 in comprehensive educational support. That funding covered tuition gaps, housing, books, lab equipment, and research materials for the duration of her program.",
-      "Freed from financial anxiety, Aisha immersed herself in research and internships. She now works on developing lower-cost prosthetic technology that could significantly reduce medical expenses for patients nationwide.",
+      "Freed from financial anxiety, Aisha immersed herself in research and internships. She now works on developing lower-cost prosthetic technology that could significantly reduce medical expenses for patients worldwide.",
       "\"This support allowed me to focus on innovation instead of invoices,\" Aisha says. \"One day, the devices I design will improve thousands of lives. That ripple effect began with someone believing in my potential.\""
     ]
   },
@@ -125,7 +125,7 @@ const stories = [
   },
   {
     name: "Naomi Chen",
-    location: "Washington",
+    location: "Bavaria, Germany",
     category: "Medical Innovation Support",
     amount: "$250,000",
     paragraphs: [
@@ -164,7 +164,7 @@ const stories = [
   },
   {
     name: "The Northside Learning Collective",
-    location: "New York",
+    location: "New South Wales, Australia",
     category: "Educational Infrastructure Support",
     amount: "$500,000",
     paragraphs: [
@@ -202,8 +202,8 @@ const stories = [
     ]
   },
   {
-    name: "The Greenwood Rural Health Clinic",
-    location: "Mississippi",
+    name: "The Rural Health Clinic",
+    location: "Alberta, Canada",
     category: "Healthcare Expansion Support",
     amount: "$650,000",
     paragraphs: [
@@ -211,7 +211,7 @@ const stories = [
       "The community relied heavily on this clinic. Elderly residents, uninsured families, and low-income workers had few alternatives. Long wait times and limited resources created strain, yet the staff remained deeply committed.",
       "The Edwin Castro Foundation provided $650,000 in healthcare expansion support. The funding allowed the clinic to purchase modern diagnostic equipment, renovate patient rooms, expand telehealth services, and hire two additional nurse practitioners and one full-time physician.",
       "Within a year, patient capacity increased by nearly 40%. Preventative screenings rose significantly, and emergency hospital transfers decreased. Residents now receive timely care without leaving their community.",
-      "\"Our patients feel seen and valued,\" the clinic director shares. \"This support didn't just upgrade equipment. It strengthened the health of entire counties.\""
+      "\"Our patients feel seen and valued,\" the clinic director shares. \"This support didn't just upgrade equipment. It strengthened the health of entire community.\""
     ]
   },
   {
@@ -242,20 +242,20 @@ const stories = [
   },
   {
     name: "Malik Thompson",
-    location: "Georgia",
+    location: "Manchester, UK",
     category: "Technology Startup Acceleration Support",
     amount: "$300,000",
     paragraphs: [
       "Malik, a software engineer, developed a logistics platform designed to help small trucking companies optimize routes and reduce fuel costs. His prototype demonstrated strong potential but lacked capital for scaling, regulatory compliance, and enterprise-level infrastructure.",
       "Without funding, he risked shelving years of innovation.",
-      "The Edwin Castro Foundation provided $300,000 in startup acceleration support. The funding secured cloud infrastructure, expanded development teams, and supported pilot testing across three states.",
+      "The Edwin Castro Foundation provided $300,000 in startup acceleration support. The funding secured cloud infrastructure, expanded development teams, and supported pilot testing across multiple regions.",
       "Within 18 months, Malik's platform reduced operational costs for participating companies by up to 18%. The startup now employs 22 people and continues expanding.",
-      "\"This support turned an idea into impact,\" Malik says. \"We're not just building software. We're strengthening small businesses nationwide.\""
+      "\"This support turned an idea into impact,\" Malik says. \"We're not just building software. We're strengthening small businesses worldwide.\""
     ]
   },
   {
     name: "The Westbrook Scholarship Fund",
-    location: "South Carolina",
+    location: "Baden-Württemberg, Germany",
     category: "Educational Endowment Support",
     amount: "$750,000",
     paragraphs: [
