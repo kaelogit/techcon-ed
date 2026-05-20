@@ -106,7 +106,7 @@ export function Footer() {
                 © {currentYear} Edwin Castro
               </p>
               <p className="text-xs text-gray-500 mt-1">
-                Direct Community Support Initiative
+                The Uplift Program
               </p>
             </div>
 

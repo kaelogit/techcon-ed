@@ -16,7 +16,7 @@ const mediaItems: MediaItem[] = [
   {
     image: '/media-news1.jpg',
     outlet: 'Global News Network',
-    headline: 'Billionaire Winner Gives Back — Community Support Initiative',
+    headline: 'Billionaire Winner Gives Back — The Uplift Program',
     date: 'March 2024',
     type: 'broadcast',
   },

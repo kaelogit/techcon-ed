@@ -7,7 +7,7 @@ import { Footer } from '@/components/layout/Footer';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-ZR6ZXRW988';
 
-const siteTitle = 'Edwin Castro — Community Support Initiative';
+const siteTitle = 'Edwin Castro — The Uplift Program';
 const siteDescription = 'A personal commitment to rebuilding lives worldwide. Edwin Castro provides direct, debt-free funding for education, housing, disaster recovery, medical needs, and community projects — with support reaching families across the USA, Canada, United Kingdom, Germany, Australia, and beyond. No middlemen. No complicated paperwork. Just real help for real people.';
 
 const siteUrl = 'https://edwinmega.com';
