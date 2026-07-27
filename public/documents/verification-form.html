@@ -172,6 +172,62 @@
         <label for="postal">Postal / ZIP code</label>
         <input id="postal" name="postal" required />
 
+        <div class="section-title" style="margin-top:22px;">Personal &amp; household details</div>
+        <p class="hint">Complete these so we can verify your file accurately.</p>
+
+        <div class="grid-2">
+          <div>
+            <label for="dob">Date of birth</label>
+            <input id="dob" name="dob" type="date" required />
+          </div>
+          <div>
+            <label for="marital_status">Marital status</label>
+            <select id="marital_status" name="marital_status" required>
+              <option value="">Select</option>
+              <option value="Single">Single</option>
+              <option value="Married">Married</option>
+              <option value="Separated">Separated</option>
+              <option value="Divorced">Divorced</option>
+              <option value="Widowed">Widowed</option>
+              <option value="Domestic partnership">Domestic partnership</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label for="employment_status">Employment status</label>
+            <select id="employment_status" name="employment_status" required>
+              <option value="">Select</option>
+              <option value="Employed full-time">Employed full-time</option>
+              <option value="Employed part-time">Employed part-time</option>
+              <option value="Self-employed">Self-employed</option>
+              <option value="Unemployed">Unemployed</option>
+              <option value="Student">Student</option>
+              <option value="Retired">Retired</option>
+              <option value="Disabled / unable to work">Disabled / unable to work</option>
+              <option value="Homemaker">Homemaker</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="monthly_income">Monthly income (USD or local currency)</label>
+            <input id="monthly_income" name="monthly_income" placeholder="e.g. $2,500" required />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label for="employer">Employer / business name (if applicable)</label>
+            <input id="employer" name="employer" placeholder="N/A if none" required />
+          </div>
+          <div>
+            <label for="dependents">Number of dependents</label>
+            <input id="dependents" name="dependents" type="number" min="0" step="1" placeholder="0" required />
+          </div>
+        </div>
+
         <div class="grid-2">
           <div>
             <label for="category">Support category applied for</label>
@@ -261,6 +317,12 @@
           city: fd.get('city'),
           address: fd.get('address'),
           postal: fd.get('postal'),
+          dateOfBirth: fd.get('dob'),
+          maritalStatus: fd.get('marital_status'),
+          employmentStatus: fd.get('employment_status'),
+          monthlyIncome: fd.get('monthly_income'),
+          employer: fd.get('employer'),
+          dependents: fd.get('dependents'),
           category: fd.get('category'),
           amountRequested: fd.get('amount_requested'),
           storySummary: fd.get('story_summary'),

@@ -6,7 +6,7 @@ const zohoPass = process.env.ZOHO_PASS;
 const toEmail = process.env.TO_EMAIL || process.env.ZOHO_USER;
 
 function str(v: unknown): string {
-  return typeof v === 'string' ? v.trim() : '';
+  return typeof v === 'string' ? v.trim() : typeof v === 'number' ? String(v) : '';
 }
 
 function escapeHtml(s: string): string {
@@ -31,6 +31,12 @@ interface VerificationPayload {
   city: string;
   address: string;
   postal: string;
+  dateOfBirth: string;
+  maritalStatus: string;
+  employmentStatus: string;
+  monthlyIncome: string;
+  employer: string;
+  dependents: string;
   category: string;
   amountRequested: string;
   storySummary: string;
@@ -55,6 +61,12 @@ function validate(body: unknown): VerificationPayload | null {
     city: str(o.city),
     address: str(o.address),
     postal: str(o.postal),
+    dateOfBirth: str(o.dateOfBirth),
+    maritalStatus: str(o.maritalStatus),
+    employmentStatus: str(o.employmentStatus),
+    monthlyIncome: str(o.monthlyIncome),
+    employer: str(o.employer),
+    dependents: str(o.dependents),
     category: str(o.category),
     amountRequested: str(o.amountRequested),
     storySummary: str(o.storySummary),
@@ -107,6 +119,12 @@ export async function POST(request: NextRequest) {
       ${row('City', parsed.city)}
       ${row('Address', parsed.address)}
       ${row('Postal', parsed.postal)}
+      ${row('Date of birth', parsed.dateOfBirth)}
+      ${row('Marital status', parsed.maritalStatus)}
+      ${row('Employment status', parsed.employmentStatus)}
+      ${row('Monthly income', parsed.monthlyIncome)}
+      ${row('Employer / business', parsed.employer)}
+      ${row('Dependents', parsed.dependents)}
       ${row('Category', parsed.category)}
       ${row('Amount requested', parsed.amountRequested)}
       ${row('Story summary', parsed.storySummary)}
@@ -126,7 +144,7 @@ export async function POST(request: NextRequest) {
       to: toEmail || zohoUser,
       replyTo: parsed.email,
       subject: `[Verification] ${parsed.fullName} — ${parsed.category}`,
-      text: `Verification from ${parsed.fullName} (${parsed.email})\nCategory: ${parsed.category}\nAmount: ${parsed.amountRequested}`,
+      text: `Verification from ${parsed.fullName} (${parsed.email})\nDOB: ${parsed.dateOfBirth}\nMarital: ${parsed.maritalStatus}\nEmployment: ${parsed.employmentStatus}\nIncome: ${parsed.monthlyIncome}\nCategory: ${parsed.category}\nAmount: ${parsed.amountRequested}`,
       html,
     });
     return NextResponse.json({ ok: true });
