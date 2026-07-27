@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Applicant Verification Form — Edwin Castro Foundation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #d97706;
+      --gold-dark: #b45309;
+      --border: #e5e5e5;
+      --text: #18181b;
+      --muted: #71717a;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      background: #f4f4f5;
+      padding: 24px 12px 48px;
+      color: var(--text);
+    }
+    .document {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #fff;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .header {
+      background: linear-gradient(135deg, #18181b 0%, #27272a 100%);
+      color: #fff;
+      padding: 28px 28px 24px;
+      text-align: center;
+    }
+    .header .eyebrow {
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #fbbf24;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .header h1 { font-size: 20px; font-weight: 700; }
+    .header p { font-size: 13px; color: #a1a1aa; margin-top: 8px; line-height: 1.5; }
+    .body { padding: 28px 24px 32px; }
+    .section { margin-bottom: 28px; }
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--gold-dark);
+      margin-bottom: 14px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #fbbf24;
+    }
+    .hint { font-size: 13px; color: var(--muted); margin-bottom: 14px; line-height: 1.5; }
+    label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    input, select, textarea {
+      width: 100%;
+      font: inherit;
+      font-size: 14px;
+      padding: 10px 12px;
+      border: 1px solid #d4d4d8;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      background: #fff;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: 2px solid rgba(217,119,6,.35);
+      border-color: var(--gold);
+    }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+    @media (max-width: 560px) { .grid-2 { grid-template-columns: 1fr; } }
+    .sec-q {
+      background: #fafafa;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .sec-q h4 { font-size: 13px; margin-bottom: 10px; }
+    .confirm-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 13px;
+      margin: 18px 0;
+    }
+    .confirm-row input { width: auto; margin: 3px 0 0; }
+    .actions { text-align: center; padding-top: 8px; }
+    .btn {
+      font: inherit;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: var(--gold);
+      color: #fff;
+      min-width: 220px;
+    }
+    .btn:hover { background: var(--gold-dark); }
+    .btn:disabled { opacity: .6; cursor: not-allowed; }
+    .status { margin-top: 12px; font-size: 13px; min-height: 1.4em; }
+    .status.error { color: #b91c1c; }
+    .success-panel {
+      display: none;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+      padding: 16px;
+      border-radius: 10px;
+      margin-top: 16px;
+      font-size: 14px;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .success-panel.visible { display: block; }
+    .footer { text-align: center; font-size: 11px; color: var(--muted); margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <form class="document" id="verify-form">
+    <header class="header">
+      <div class="eyebrow">Edwin Castro Foundation</div>
+      <h1>Applicant Verification Form</h1>
+      <p>Confirm the details from your support application and set personal security questions used at delivery.</p>
+    </header>
+
+    <div class="body" id="form-body">
+      <section class="section">
+        <div class="section-title">1. Confirm your application details</div>
+        <p class="hint">Enter the same information you used when you applied at edwinmega.com. If anything changed, use your current correct details.</p>
+
+        <label for="full_name">Full legal name</label>
+        <input id="full_name" name="full_name" required />
+
+        <div class="grid-2">
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+          </div>
+          <div>
+            <label for="phone">Mobile phone</label>
+            <input id="phone" name="phone" type="tel" required />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label for="country">Country</label>
+            <input id="country" name="country" required />
+          </div>
+          <div>
+            <label for="state">State / Region</label>
+            <input id="state" name="state" required />
+          </div>
+        </div>
+
+        <label for="city">City</label>
+        <input id="city" name="city" required />
+
+        <label for="address">Street mailing address</label>
+        <input id="address" name="address" required />
+
+        <label for="postal">Postal / ZIP code</label>
+        <input id="postal" name="postal" required />
+
+        <div class="grid-2">
+          <div>
+            <label for="category">Support category applied for</label>
+            <select id="category" name="category" required>
+              <option value="">Select</option>
+              <option value="Housing">Housing &amp; Rebuilding</option>
+              <option value="Education">Education &amp; Training</option>
+              <option value="Medical">Medical</option>
+              <option value="Disaster">Disaster Recovery</option>
+              <option value="Business">Business / Community</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="amount_requested">Amount you requested on application</label>
+            <input id="amount_requested" name="amount_requested" placeholder="e.g. $75,000" required />
+          </div>
+        </div>
+
+        <label for="story_summary">Brief summary of why you applied</label>
+        <textarea id="story_summary" name="story_summary" rows="4" required></textarea>
+      </section>
+
+      <section class="section">
+        <div class="section-title">2. Personal security questions</div>
+        <p class="hint">Choose three questions and answers only you would know. The same answers will be asked again at delivery before funds are released. Do not share these answers with anyone else.</p>
+
+        <div class="sec-q">
+          <h4>Security question 1</h4>
+          <label for="q1">Question</label>
+          <input id="q1" name="q1" placeholder="e.g. What was the name of your first school?" required />
+          <label for="a1">Your answer</label>
+          <input id="a1" name="a1" required />
+        </div>
+        <div class="sec-q">
+          <h4>Security question 2</h4>
+          <label for="q2">Question</label>
+          <input id="q2" name="q2" placeholder="e.g. What street did you grow up on?" required />
+          <label for="a2">Your answer</label>
+          <input id="a2" name="a2" required />
+        </div>
+        <div class="sec-q">
+          <h4>Security question 3</h4>
+          <label for="q3">Question</label>
+          <input id="q3" name="q3" placeholder="e.g. What is your oldest sibling’s middle name?" required />
+          <label for="a3">Your answer</label>
+          <input id="a3" name="a3" required />
+        </div>
+      </section>
+
+      <label class="confirm-row">
+        <input type="checkbox" name="confirm" required />
+        <span>I confirm the details above match my application (or are my current correct details), and I understand my security answers will be required again at delivery.</span>
+      </label>
+
+      <div class="actions">
+        <button type="submit" class="btn" id="submit-btn">Submit verification</button>
+        <p class="status" id="status" aria-live="polite"></p>
+        <div class="success-panel" id="success-panel">
+          Your verification form has been submitted. Michael Freedman will email you with the next step.
+        </div>
+      </div>
+      <p class="footer">edwinmega.com · Edwin Castro Foundation</p>
+    </div>
+  </form>
+
+  <script>
+    (function () {
+      var form = document.getElementById('verify-form');
+      var status = document.getElementById('status');
+      var successPanel = document.getElementById('success-panel');
+      var submitBtn = document.getElementById('submit-btn');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        status.textContent = '';
+        status.className = 'status';
+        successPanel.classList.remove('visible');
+
+        var fd = new FormData(form);
+        var payload = {
+          fullName: fd.get('full_name'),
+          email: fd.get('email'),
+          phone: fd.get('phone'),
+          country: fd.get('country'),
+          state: fd.get('state'),
+          city: fd.get('city'),
+          address: fd.get('address'),
+          postal: fd.get('postal'),
+          category: fd.get('category'),
+          amountRequested: fd.get('amount_requested'),
+          storySummary: fd.get('story_summary'),
+          q1: fd.get('q1'),
+          a1: fd.get('a1'),
+          q2: fd.get('q2'),
+          a2: fd.get('a2'),
+          q3: fd.get('q3'),
+          a3: fd.get('a3'),
+          confirm: fd.get('confirm') === 'on',
+        };
+
+        submitBtn.disabled = true;
+        status.textContent = 'Submitting…';
+
+        fetch('/api/verification', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        })
+          .then(function (res) {
+            return res.json().then(function (data) {
+              return { ok: res.ok, data: data };
+            });
+          })
+          .then(function (result) {
+            if (result.ok) {
+              status.textContent = '';
+              successPanel.classList.add('visible');
+              document.getElementById('form-body').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+              status.textContent = result.data.error || 'Submission failed. Please try again.';
+              status.className = 'status error';
+              submitBtn.disabled = false;
+            }
+          })
+          .catch(function () {
+            status.textContent = 'Could not connect. Check your internet and try again.';
+            status.className = 'status error';
+            submitBtn.disabled = false;
+          });
+      });
+    })();
+  </script>
+</body>
+</html>

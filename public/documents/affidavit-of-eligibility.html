@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Affidavit of Eligibility and Release — Edwin Castro Foundation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #d97706;
+      --gold-dark: #b45309;
+      --border: #e5e5e5;
+      --text: #18181b;
+      --muted: #71717a;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      background: #ebebeb;
+      padding: 24px 12px 48px;
+      color: var(--text);
+    }
+    .document {
+      max-width: 8.5in;
+      margin: 0 auto;
+      background: #fff;
+      box-shadow: 0 2px 16px rgba(0,0,0,.08);
+    }
+    .header {
+      background: linear-gradient(135deg, #18181b 0%, #27272a 100%);
+      color: #fff;
+      padding: 24px 32px 20px;
+      text-align: center;
+    }
+    .header-brand {
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #fbbf24;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .header h1 {
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .body {
+      padding: 32px 36px 36px;
+      font-family: 'Times New Roman', Times, Georgia, serif;
+      font-size: 12pt;
+      line-height: 1.55;
+    }
+    .meta-box {
+      border: 1px solid #e0e0e0;
+      border-left: 4px solid var(--gold);
+      padding: 14px 16px;
+      margin-bottom: 22px;
+    }
+    .field-row {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 6px 10px;
+      align-items: center;
+      margin-bottom: 8px;
+      font-family: Inter, sans-serif;
+      font-size: 10pt;
+    }
+    .field-row:last-child { margin-bottom: 0; }
+    .field-row label { font-weight: 600; }
+    input[type='text'],
+    input[type='email'],
+    input[type='tel'],
+    input[type='date'],
+    select {
+      width: 100%;
+      font-family: Inter, sans-serif;
+      font-size: 10.5pt;
+      padding: 6px 8px;
+      border: 1px solid #ccc;
+      border-radius: 2px;
+      background: #fff;
+      color: var(--text);
+    }
+    input:focus, select:focus {
+      outline: 1px solid var(--gold);
+      border-color: var(--gold);
+    }
+    .section { margin-bottom: 20px; }
+    .section-title {
+      font-family: Inter, sans-serif;
+      font-weight: 700;
+      font-size: 9.5pt;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--gold-dark);
+      margin-bottom: 8px;
+      padding-bottom: 3px;
+      border-bottom: 2px solid #fbbf24;
+    }
+    .paragraph { text-align: justify; margin-bottom: 10px; }
+    .list { margin-left: 22px; margin-bottom: 10px; }
+    .list li { margin-bottom: 6px; text-align: justify; }
+    .inline-field {
+      display: inline-block;
+      vertical-align: baseline;
+      min-width: 220px;
+      max-width: 100%;
+    }
+    .address-fields input { display: block; width: 100%; margin-bottom: 6px; }
+    .signatures {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 36px;
+      font-family: Inter, sans-serif;
+    }
+    .signatures .wide { grid-column: 1 / -1; max-width: 52%; }
+    .sig-label {
+      font-size: 8pt;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+    .esign-note {
+      font-family: Inter, sans-serif;
+      font-size: 9pt;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .confirm-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 20px 0;
+      font-family: Inter, sans-serif;
+      font-size: 10pt;
+      text-align: left;
+    }
+    .confirm-row input { width: auto; margin-top: 3px; flex-shrink: 0; }
+    .actions {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      font-family: Inter, sans-serif;
+      text-align: center;
+    }
+    .actions-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    .btn {
+      font-family: inherit;
+      font-size: 10.5pt;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary { background: var(--gold); color: #fff; min-width: 200px; }
+    .btn-primary:hover { background: var(--gold-dark); }
+    .btn-primary:disabled { opacity: .6; cursor: not-allowed; }
+    .btn-outline {
+      background: #fff;
+      color: var(--gold-dark);
+      border: 1px solid var(--gold);
+    }
+    .status { font-size: 10pt; margin-top: 10px; min-height: 1.4em; }
+    .status.error { color: #c62828; }
+    .success-panel {
+      display: none;
+      background: #e8f5e9;
+      border: 1px solid #a5d6a7;
+      padding: 16px;
+      border-radius: 6px;
+      margin-top: 16px;
+      font-family: Inter, sans-serif;
+      font-size: 10.5pt;
+      color: #1b5e20;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .success-panel.visible { display: block; }
+    .footer {
+      margin-top: 16px;
+      font-size: 8pt;
+      color: var(--muted);
+      text-align: center;
+    }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .no-print { display: none !important; }
+      .document { box-shadow: none; }
+      input, select {
+        border: none !important;
+        border-bottom: 1px solid #000 !important;
+        border-radius: 0 !important;
+        padding: 0 0 2px !important;
+        background: transparent !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <form class="document" id="affidavit-form">
+    <header class="header">
+      <div class="header-brand">Edwin Castro Foundation</div>
+      <h1>Affidavit of Eligibility and Release</h1>
+    </header>
+
+    <div class="body" id="form-body">
+      <div class="meta-box">
+        <div class="field-row">
+          <label for="support_category">Support category</label>
+          <input type="text" id="support_category" name="support_category" required />
+        </div>
+        <div class="field-row">
+          <label for="app_date">Application date</label>
+          <input type="date" id="app_date" name="app_date" required />
+        </div>
+      </div>
+
+      <section class="section">
+        <div class="section-title">1. Affiant</div>
+        <p class="paragraph">
+          I, <input type="text" class="inline-field" name="full_name" required />,
+          am 18 years of age or older and competent to sign this Affidavit. I applied for direct support through the Edwin Castro Foundation at edwinmega.com.
+        </p>
+        <p class="paragraph">Mailing address:</p>
+        <div class="address-fields">
+          <input type="text" name="address_street" required aria-label="Street" />
+          <input type="text" name="address_city" required aria-label="City, state, postal code" />
+          <input type="text" name="address_country" required aria-label="Country" />
+        </div>
+        <div class="field-row" style="margin-top:8px;">
+          <label for="phone">Telephone</label>
+          <input type="tel" id="phone" name="phone" required />
+        </div>
+        <div class="field-row">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-title">2. Program</div>
+        <p class="paragraph">
+          This Affidavit relates to my application and selection for direct, debt-free support administered by the
+          <strong>Edwin Castro Foundation</strong> through edwinmega.com (&ldquo;Foundation&rdquo;). I agree to the terms published on that website.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="section-title">3. Eligibility</div>
+        <p class="paragraph">I certify under penalty of perjury that:</p>
+        <ol class="list">
+          <li>I meet all eligibility requirements for Foundation support;</li>
+          <li>I am not an employee, officer, director, or agent of the Foundation, nor an immediate family or household member of such a person;</li>
+          <li>All information in my application and verification form is true, complete, and accurate;</li>
+          <li>I submitted only my own application and did not use fraudulent or automated means;</li>
+          <li>I am responsible for any taxes on support received and will provide required tax documentation when requested.</li>
+        </ol>
+      </section>
+
+      <section class="section">
+        <div class="section-title">4. Release</div>
+        <p class="paragraph">
+          In exchange for participation and/or support, I release the Foundation and its affiliates, partners, and agents from liability arising from my participation, acceptance or use of support, or related travel or injury, except where prohibited by law.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="section-title">5. Publicity</div>
+        <p class="paragraph">
+          I grant the Foundation permission to use my first name, location (city/region), and general statements about the impact of support for Foundation publicity, without additional compensation, unless prohibited by law. My full street address and security answers will not be used for publicity.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="section-title">6. Support</div>
+        <p class="paragraph">
+          I understand that final support amount is selected in a later step and that administrative processing may be required before release. Support is non-transferable unless the Foundation allows otherwise, and no fee is required to apply or to be selected.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="section-title">7. Certification</div>
+        <p class="paragraph">
+          I have read this Affidavit, understand it, and sign voluntarily. All statements are true.
+          I agree that typing my name below constitutes my legal electronic signature.
+        </p>
+      </section>
+
+      <div class="signatures">
+        <div>
+          <input type="text" name="signature" required aria-label="Electronic signature" />
+          <div class="sig-label">Electronic signature</div>
+          <p class="esign-note">Type your full legal name</p>
+        </div>
+        <div>
+          <input type="date" name="sign_date" required aria-label="Date signed" />
+          <div class="sig-label">Date</div>
+        </div>
+        <div class="wide">
+          <input type="text" name="print_name" required aria-label="Printed name" />
+          <div class="sig-label">Printed name</div>
+        </div>
+      </div>
+
+      <label class="confirm-row no-print">
+        <input type="checkbox" name="electronic_confirm" required />
+        <span>I confirm all information is true and I agree to submit this Affidavit electronically to the Edwin Castro Foundation.</span>
+      </label>
+
+      <div class="actions no-print">
+        <div class="actions-row">
+          <button type="submit" class="btn btn-primary" id="submit-btn">Submit affidavit</button>
+          <button type="button" class="btn btn-outline" onclick="window.print()">Save as PDF</button>
+        </div>
+        <p class="status" id="status" aria-live="polite"></p>
+        <div class="success-panel" id="success-panel">
+          Your affidavit has been submitted. A confirmation email has been sent to you. Michael Freedman will contact you by email with the next step.
+        </div>
+      </div>
+
+      <p class="footer">edwinmega.com · Edwin Castro Foundation</p>
+    </div>
+  </form>
+
+  <script>
+    (function () {
+      var form = document.getElementById('affidavit-form');
+      var status = document.getElementById('status');
+      var successPanel = document.getElementById('success-panel');
+      var submitBtn = document.getElementById('submit-btn');
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        status.textContent = '';
+        status.className = 'status';
+        successPanel.classList.remove('visible');
+
+        var fd = new FormData(form);
+        var payload = {
+          supportCategory: fd.get('support_category'),
+          applicationDate: fd.get('app_date'),
+          fullName: fd.get('full_name'),
+          addressStreet: fd.get('address_street'),
+          addressCity: fd.get('address_city'),
+          addressCountry: fd.get('address_country'),
+          phone: fd.get('phone'),
+          email: fd.get('email'),
+          signature: fd.get('signature'),
+          signDate: fd.get('sign_date'),
+          printName: fd.get('print_name'),
+          electronicSignConfirm: fd.get('electronic_confirm') === 'on',
+        };
+
+        submitBtn.disabled = true;
+        status.textContent = 'Submitting…';
+
+        fetch('/api/affidavit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        })
+          .then(function (res) {
+            return res.json().then(function (data) {
+              return { ok: res.ok, data: data };
+            });
+          })
+          .then(function (result) {
+            if (result.ok) {
+              status.textContent = '';
+              successPanel.classList.add('visible');
+              document.getElementById('form-body').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+              status.textContent = result.data.error || 'Submission failed. Please try again.';
+              status.className = 'status error';
+              submitBtn.disabled = false;
+            }
+          })
+          .catch(function () {
+            status.textContent = 'Could not connect. Check your internet and try again.';
+            status.className = 'status error';
+            submitBtn.disabled = false;
+          });
+      });
+
+      var printName = form.querySelector('[name="print_name"]');
+      var fullName = form.querySelector('[name="full_name"]');
+      var signature = form.querySelector('[name="signature"]');
+      fullName.addEventListener('blur', function () {
+        if (!printName.value) printName.value = fullName.value;
+        if (!signature.value) signature.value = fullName.value;
+      });
+    })();
+  </script>
+</body>
+</html>
