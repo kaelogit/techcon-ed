@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Operator playbook (local only)
+/docs/edwin-follow-up-playbook.md
