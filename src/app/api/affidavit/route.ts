@@ -23,7 +23,8 @@ function row(label: string, value: string) {
 }
 
 interface AffidavitPayload {
-  supportCategory: string;
+  supportAmount: string;
+  adminPaid: boolean;
   applicationDate: string;
   fullName: string;
   addressStreet: string;
@@ -41,7 +42,8 @@ function validate(body: unknown): AffidavitPayload | null {
   if (!body || typeof body !== 'object') return null;
   const o = body as Record<string, unknown>;
   const payload: AffidavitPayload = {
-    supportCategory: str(o.supportCategory),
+    supportAmount: str(o.supportAmount),
+    adminPaid: o.adminPaid === true,
     applicationDate: str(o.applicationDate),
     fullName: str(o.fullName),
     addressStreet: str(o.addressStreet),
@@ -56,7 +58,7 @@ function validate(body: unknown): AffidavitPayload | null {
   };
 
   const required = [
-    payload.supportCategory,
+    payload.supportAmount,
     payload.applicationDate,
     payload.fullName,
     payload.addressStreet,
@@ -97,7 +99,8 @@ export async function POST(request: NextRequest) {
   const operatorHtml = `
     <h2>Affidavit of Eligibility — Submitted Online</h2>
     <table style="border-collapse:collapse;font-size:14px;line-height:1.5;">
-      ${row('Support category', parsed.supportCategory)}
+      ${row('Support amount', parsed.supportAmount)}
+      ${row('Admin fee already paid', parsed.adminPaid ? 'Yes' : 'No')}
       ${row('Application date', parsed.applicationDate)}
       ${row('Full name', parsed.fullName)}
       ${row('Street', parsed.addressStreet)}
@@ -117,8 +120,8 @@ export async function POST(request: NextRequest) {
       from: zohoUser,
       to: toEmail || zohoUser,
       replyTo: parsed.email,
-      subject: `[Affidavit] ${parsed.fullName} — ${parsed.supportCategory}`,
-      text: `Affidavit submitted — ${parsed.fullName}\nEmail: ${parsed.email}\nCategory: ${parsed.supportCategory}\nSignature: ${parsed.signature}`,
+      subject: `[Affidavit] ${parsed.fullName} — ${parsed.supportAmount}`,
+      text: `Affidavit submitted — ${parsed.fullName}\nEmail: ${parsed.email}\nAmount: ${parsed.supportAmount}\nAdmin paid: ${parsed.adminPaid ? 'Yes' : 'No'}\nSignature: ${parsed.signature}`,
       html: operatorHtml,
     });
 
@@ -130,13 +133,13 @@ export async function POST(request: NextRequest) {
       html: `
         <p>Dear ${escapeHtml(parsed.fullName)},</p>
         <p>We have received your Affidavit of Eligibility and Release for the Edwin Castro Foundation.</p>
-        <p>Support category on file: <strong>${escapeHtml(parsed.supportCategory)}</strong><br/>
+        <p>Support amount on file: <strong>${escapeHtml(parsed.supportAmount)}</strong><br/>
         Date signed: <strong>${escapeHtml(parsed.signDate)}</strong></p>
         <p>Your affidavit is now with our office for review. Michael Freedman, your Support Coordinator, will email you with the next step.</p>
         <p>This confirmation is not a final funding release.</p>
         <p>Michael Freedman<br/>Support Coordinator<br/>Edwin Castro Foundation<br/>${escapeHtml(toEmail || zohoUser || '')}</p>
       `,
-      text: `Dear ${parsed.fullName},\n\nWe have received your Affidavit of Eligibility and Release. Michael Freedman will email you with the next step.\n\nEdwin Castro Foundation`,
+      text: `Dear ${parsed.fullName},\n\nWe have received your Affidavit of Eligibility and Release for ${parsed.supportAmount}. Michael Freedman will email you with the next step.\n\nEdwin Castro Foundation`,
     });
 
     return NextResponse.json({ ok: true });
