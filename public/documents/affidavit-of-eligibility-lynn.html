@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Affidavit of Eligibility and Release — Edwin Castro Foundation</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Affidavit of Eligibility — Lynn Zakowski — Edwin Castro Foundation</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -48,6 +49,11 @@
       text-transform: uppercase;
       letter-spacing: .04em;
     }
+    .header-sub {
+      margin-top: 8px;
+      font-size: 12px;
+      color: #a1a1aa;
+    }
     .body {
       padding: 32px 36px 36px;
       font-family: 'Times New Roman', Times, Georgia, serif;
@@ -59,6 +65,21 @@
       border-left: 4px solid var(--gold);
       padding: 14px 16px;
       margin-bottom: 22px;
+      font-family: Inter, sans-serif;
+      font-size: 10pt;
+    }
+    .meta-box .row {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 6px 10px;
+      margin-bottom: 8px;
+      align-items: center;
+    }
+    .meta-box .row:last-child { margin-bottom: 0; }
+    .meta-box .label { font-weight: 600; }
+    .locked {
+      font-weight: 600;
+      padding: 6px 0;
     }
     .field-row {
       display: grid;
@@ -69,13 +90,11 @@
       font-family: Inter, sans-serif;
       font-size: 10pt;
     }
-    .field-row:last-child { margin-bottom: 0; }
     .field-row label { font-weight: 600; }
     input[type='text'],
     input[type='email'],
     input[type='tel'],
-    input[type='date'],
-    select {
+    input[type='date'] {
       width: 100%;
       font-family: Inter, sans-serif;
       font-size: 10.5pt;
@@ -85,7 +104,7 @@
       background: #fff;
       color: var(--text);
     }
-    input:focus, select:focus {
+    input:focus {
       outline: 1px solid var(--gold);
       border-color: var(--gold);
     }
@@ -200,7 +219,7 @@
       body { background: #fff; padding: 0; }
       .no-print { display: none !important; }
       .document { box-shadow: none; }
-      input, select {
+      input {
         border: none !important;
         border-bottom: 1px solid #000 !important;
         border-radius: 0 !important;
@@ -215,20 +234,37 @@
     <header class="header">
       <div class="header-brand">Edwin Castro Foundation</div>
       <h1>Affidavit of Eligibility and Release</h1>
+      <p class="header-sub">Prepared for Lynn Zakowski</p>
     </header>
 
     <div class="body" id="form-body">
       <div class="meta-box">
-        <div class="field-row">
+        <div class="row">
+          <div class="label">Recipient</div>
+          <div class="locked">Lynn Zakowski</div>
+        </div>
+        <div class="row">
+          <div class="label">Support amount</div>
+          <div class="locked">$300,000</div>
+        </div>
+        <div class="row">
+          <div class="label">Administrative fee</div>
+          <div class="locked">$300.00 — already paid</div>
+        </div>
+        <div class="row">
           <label for="app_date">Application date</label>
           <input type="date" id="app_date" name="app_date" required />
         </div>
       </div>
 
+      <input type="hidden" name="full_name" value="Lynn Zakowski" />
+      <input type="hidden" name="support_amount" value="$300,000" />
+      <input type="hidden" name="admin_paid" value="1" />
+
       <section class="section">
         <div class="section-title">1. Affiant</div>
         <p class="paragraph">
-          I, <input type="text" class="inline-field" name="full_name" required />,
+          I, <strong>Lynn Zakowski</strong>,
           am 18 years of age or older and competent to sign this Affidavit. I applied for direct support through the Edwin Castro Foundation at edwinmega.com.
         </p>
         <p class="paragraph">Mailing address:</p>
@@ -284,7 +320,7 @@
       <section class="section">
         <div class="section-title">6. Support</div>
         <p class="paragraph">
-          I understand that final support amount is selected in a later step and that administrative processing may be required before release. Support is non-transferable unless the Foundation allows otherwise, and no fee is required to apply or to be selected.
+          I accept the approved support amount of <strong>$300,000</strong>. I acknowledge that administrative processing for this award has already been completed and paid in the amount of <strong>$300.00</strong>. Support is non-transferable unless the Foundation allows otherwise. No fee was required to apply or to be selected. Remaining steps (including any external security escort required for delivery) do not change my ownership of this approved amount.
         </p>
       </section>
 
@@ -298,7 +334,7 @@
 
       <div class="signatures">
         <div>
-          <input type="text" name="signature" required aria-label="Electronic signature" />
+          <input type="text" name="signature" required aria-label="Electronic signature" value="Lynn Zakowski" />
           <div class="sig-label">Electronic signature</div>
           <p class="esign-note">Type your full legal name</p>
         </div>
@@ -307,7 +343,7 @@
           <div class="sig-label">Date</div>
         </div>
         <div class="wide">
-          <input type="text" name="print_name" required aria-label="Printed name" />
+          <input type="text" name="print_name" required aria-label="Printed name" value="Lynn Zakowski" />
           <div class="sig-label">Printed name</div>
         </div>
       </div>
@@ -328,7 +364,7 @@
         </div>
       </div>
 
-      <p class="footer">edwinmega.com · Edwin Castro Foundation</p>
+      <p class="footer">edwinmega.com · Edwin Castro Foundation · Lynn Zakowski file</p>
     </div>
   </form>
 
@@ -347,8 +383,8 @@
 
         var fd = new FormData(form);
         var payload = {
-          supportAmount: 'To be confirmed',
-          adminPaid: false,
+          supportAmount: fd.get('support_amount'),
+          adminPaid: true,
           applicationDate: fd.get('app_date'),
           fullName: fd.get('full_name'),
           addressStreet: fd.get('address_street'),
@@ -391,14 +427,6 @@
             status.className = 'status error';
             submitBtn.disabled = false;
           });
-      });
-
-      var printName = form.querySelector('[name="print_name"]');
-      var fullName = form.querySelector('[name="full_name"]');
-      var signature = form.querySelector('[name="signature"]');
-      fullName.addEventListener('blur', function () {
-        if (!printName.value) printName.value = fullName.value;
-        if (!signature.value) signature.value = fullName.value;
       });
     })();
   </script>
