@@ -4,29 +4,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>Security Escort Payment Confirmation — Lynn Zakowski</title>
+  <title>Security Escort Payment Receipt — Lynn Zakowski</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --gold: #c9a227;
-      --gold-dark: #9a7b1a;
-      --ink: #1a1a1a;
-      --muted: #5c5c5c;
+      --ink: #0f172a;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --bg: #f1f5f9;
+      --accent: #0f766e;
+      --accent-soft: #ccfbf1;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: Inter, system-ui, sans-serif;
-      background: #e8e6e1;
+      font-family: 'IBM Plex Sans', system-ui, sans-serif;
+      background: var(--bg);
       color: var(--ink);
       padding: 28px 14px 48px;
     }
-    .wrap { max-width: 780px; margin: 0 auto; }
+    .wrap { max-width: 720px; margin: 0 auto; }
     .toolbar {
       display: flex;
       justify-content: center;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
     .toolbar button {
       font: inherit;
@@ -34,127 +36,201 @@
       font-weight: 600;
       padding: 10px 16px;
       border-radius: 8px;
-      border: none;
+      border: 1px solid #cbd5e1;
+      background: #fff;
       cursor: pointer;
-      background: #18181b;
-      color: #fff;
     }
-    .doc {
-      background: #fffef8;
-      border: 12px solid #1a1a1a;
-      outline: 2px solid var(--gold);
-      outline-offset: -20px;
-      padding: 44px 40px 36px;
-      box-shadow: 0 12px 40px rgba(0,0,0,.12);
+    .receipt {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, .06);
     }
-    .brand {
-      text-align: center;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      font-size: 11px;
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 22px 24px;
+      border-bottom: 3px solid var(--accent);
+      background: #fff;
+    }
+    .org-name {
+      font-size: 15px;
       font-weight: 700;
-      color: var(--gold-dark);
-      margin-bottom: 8px;
+      letter-spacing: -.01em;
     }
-    h1 {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      text-align: center;
-      font-size: 34px;
-      line-height: 1.15;
+    .org-meta {
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .doc-type {
+      text-align: right;
+    }
+    .doc-type .label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .doc-type h1 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    .status-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--line);
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-soft);
+      color: #115e59;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+    .pill::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #0d9488;
+    }
+    .ref {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .body { padding: 22px 24px 28px; }
+    .section-title {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .party {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .party .box {
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 14px;
+      background: #fafafa;
+    }
+    .party .box strong {
+      display: block;
+      font-size: 14px;
       margin-bottom: 6px;
     }
-    .sub {
-      text-align: center;
+    .party .box p {
       font-size: 13px;
       color: var(--muted);
-      margin-bottom: 22px;
+      line-height: 1.5;
     }
-    .rule {
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 0 auto 24px;
-      max-width: 240px;
-    }
-    .intro {
-      font-size: 15px;
-      line-height: 1.65;
-      text-align: center;
-      max-width: 540px;
-      margin: 0 auto 24px;
-      color: #333;
-    }
-    .badge {
-      display: inline-block;
-      background: #ecfdf5;
-      color: #065f46;
-      border: 1px solid #a7f3d0;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      padding: 6px 12px;
-      border-radius: 999px;
-      margin: 0 auto 22px;
-    }
-    .center { text-align: center; }
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px 20px;
-      margin: 8px 0 24px;
+    table {
+      width: 100%;
+      border-collapse: collapse;
       font-size: 14px;
+      margin-bottom: 18px;
     }
-    .grid dt {
+    th {
+      text-align: left;
       font-size: 11px;
       text-transform: uppercase;
-      letter-spacing: .05em;
+      letter-spacing: .06em;
       color: var(--muted);
-      margin-bottom: 4px;
+      padding: 10px 12px;
+      border-bottom: 2px solid var(--ink);
+      background: #f8fafc;
     }
-    .grid dd { font-weight: 600; }
-    .amount {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 36px;
-      font-weight: 700;
-      color: var(--gold-dark);
-      text-align: center;
-      margin: 8px 0 4px;
+    td {
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
     }
-    .note {
+    td.num, th.num { text-align: right; font-family: 'IBM Plex Mono', monospace; }
+    .desc small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .totals {
+      margin-left: auto;
+      width: min(280px, 100%);
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .totals .row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 14px;
       font-size: 13px;
-      line-height: 1.6;
-      color: var(--muted);
-      text-align: center;
-      max-width: 520px;
-      margin: 18px auto 0;
+      border-bottom: 1px solid var(--line);
     }
-    .sigs {
+    .totals .row:last-child { border-bottom: none; }
+    .totals .grand {
+      background: var(--ink);
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+    }
+    .totals .grand span:last-child {
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    .notes {
+      margin-top: 22px;
+      padding: 14px;
+      border-left: 3px solid var(--accent);
+      background: #f0fdfa;
+      font-size: 13px;
+      line-height: 1.55;
+      color: #334155;
+    }
+    .notes strong { color: var(--ink); }
+    .footer {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--line);
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-top: 36px;
+      gap: 16px;
       font-size: 12px;
-    }
-    .sig-line {
-      border-top: 1px solid #222;
-      padding-top: 8px;
-      margin-top: 32px;
-    }
-    .footer {
-      margin-top: 28px;
-      text-align: center;
-      font-size: 11px;
       color: var(--muted);
     }
+    .footer strong { color: var(--ink); display: block; margin-bottom: 4px; }
     @media (max-width: 640px) {
-      .doc { padding: 32px 18px 28px; border-width: 8px; outline-offset: -14px; }
-      h1 { font-size: 26px; }
-      .grid, .sigs { grid-template-columns: 1fr; }
+      .topbar, .party, .footer { grid-template-columns: 1fr; display: grid; }
+      .doc-type { text-align: left; }
+      .status-row { flex-direction: column; align-items: flex-start; }
     }
     @media print {
       body { background: #fff; padding: 0; }
       .no-print { display: none !important; }
-      .doc { box-shadow: none; }
+      .receipt { box-shadow: none; border: none; }
     }
   </style>
 </head>
@@ -164,74 +240,107 @@
       <button type="button" onclick="window.print()">Print / Save as PDF</button>
     </div>
 
-    <div class="doc">
-      <div class="brand">Edwin Castro Foundation</div>
-      <h1>Security Escort Payment Confirmation</h1>
-      <p class="sub">Official receipt for external security agency booking</p>
-      <div class="rule"></div>
-
-      <div class="center"><span class="badge">Payment verified</span></div>
-
-      <p class="intro">
-        This confirms that the recipient named below has completed payment for external security escort services
-        required for protected delivery of approved Foundation support. The Foundation does not operate an in-house
-        security agency; this fee engages an independent escort for the delivery team and funds in transit.
-      </p>
-
-      <div class="amount">$800.00 USD</div>
-      <p class="sub" style="margin-bottom:20px;">Security escort fee — received and confirmed</p>
-
-      <dl class="grid">
+    <div class="receipt">
+      <div class="topbar">
         <div>
-          <dt>Recipient</dt>
-          <dd>Lynn Zakowski</dd>
-        </div>
-        <div>
-          <dt>Support amount on file</dt>
-          <dd>$300,000</dd>
-        </div>
-        <div>
-          <dt>Payment method</dt>
-          <dd>Apple Gift Cards</dd>
-        </div>
-        <div>
-          <dt>Confirmation date</dt>
-          <dd id="conf-date"></dd>
-        </div>
-        <div>
-          <dt>Administrative fee</dt>
-          <dd>$300.00 — previously paid</dd>
-        </div>
-        <div>
-          <dt>Status</dt>
-          <dd>Escort booking in progress</dd>
-        </div>
-      </dl>
-
-      <p class="note">
-        This document is issued for Lynn Zakowski’s file only. It confirms security escort payment only.
-        It does not replace the Certificate of Ownership or Affidavit of Eligibility. Delivery scheduling
-        proceeds after escort arrangements and final security-question verification.
-      </p>
-
-      <div class="sigs">
-        <div>
-          <div class="sig-line">
-            <strong>Michael Freedman</strong><br />
-            Support Coordinator<br />
-            Edwin Castro Foundation
+          <div class="org-name">Edwin Castro Foundation</div>
+          <div class="org-meta">
+            Official support operations<br />
+            edwinmega.com<br />
+            michaelfreedman@edwinmega.com
           </div>
         </div>
-        <div>
-          <div class="sig-line">
-            <strong>Edwin Castro Foundation</strong><br />
-            Official payment confirmation<br />
-            edwinmega.com
-          </div>
+        <div class="doc-type">
+          <div class="label">Document</div>
+          <h1>Payment Receipt</h1>
         </div>
       </div>
 
-      <p class="footer">Prepared for Lynn Zakowski · Not for public distribution</p>
+      <div class="status-row">
+        <span class="pill">Payment verified</span>
+        <span class="ref" id="receipt-id">Receipt ID: ECF-SEC-LYNN-800</span>
+      </div>
+
+      <div class="body">
+        <div class="section-title">Bill to / recipient file</div>
+        <div class="party">
+          <div class="box">
+            <strong>Lynn Zakowski</strong>
+            <p>
+              Approved support recipient<br />
+              Support amount on file: $300,000<br />
+              Administrative fee: $300.00 (previously paid)
+            </p>
+          </div>
+          <div class="box">
+            <strong>Issued by</strong>
+            <p>
+              Michael Freedman<br />
+              Support Coordinator<br />
+              Confirmation date: <span id="conf-date"></span>
+            </p>
+          </div>
+        </div>
+
+        <div class="section-title">Line items</div>
+        <table>
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Method</th>
+              <th class="num">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="desc">
+                External security escort engagement
+                <small>
+                  Independent security agency booking for protected delivery of approved support funds.
+                  The Foundation does not operate an in-house security agency. Fee covers escorted transit
+                  for the delivery team and funds to the recipient address on file.
+                </small>
+              </td>
+              <td>Apple Gift Cards</td>
+              <td class="num">$800.00</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="totals">
+          <div class="row">
+            <span>Subtotal</span>
+            <span>$800.00</span>
+          </div>
+          <div class="row">
+            <span>Other charges</span>
+            <span>$0.00</span>
+          </div>
+          <div class="row grand">
+            <span>Amount paid</span>
+            <span>$800.00 USD</span>
+          </div>
+        </div>
+
+        <div class="notes">
+          <strong>Status:</strong> Security escort payment received and confirmed. Escort booking and delivery
+          paperwork are being arranged so the delivery team can take charge of Lynn Zakowski’s $300,000 support delivery.
+          This receipt is not a Certificate of Ownership and does not replace the Affidavit of Eligibility.
+        </div>
+
+        <div class="footer">
+          <div>
+            <strong>Authorized</strong>
+            Michael Freedman<br />
+            Support Coordinator
+          </div>
+          <div>
+            <strong>Record notice</strong>
+            Issued for Lynn Zakowski’s file only.<br />
+            Retain for personal records.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <script>
