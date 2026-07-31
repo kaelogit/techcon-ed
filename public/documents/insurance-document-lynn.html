@@ -351,20 +351,145 @@
       .seal { display: none; }
     }
     @media print {
-      body { background: #fff; padding: 0; display: block; }
+      @page {
+        size: 11in 8.5in landscape;
+        margin: 0.35in;
+      }
+      html, body {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #fff !important;
+        display: block !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
       .toolbar { display: none !important; }
       .doc {
-        width: 100%;
-        max-width: none;
-        aspect-ratio: 4 / 3;
-        box-shadow: none;
-        border: none;
+        width: 100% !important;
+        max-width: none !important;
+        height: auto !important;
+        min-height: 0 !important;
+        aspect-ratio: auto !important;
+        overflow: visible !important;
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-rows: none !important;
+        box-shadow: none !important;
+        border: 1px solid #8a93a0 !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .doc::before {
+        inset: 8px;
+      }
+      .masthead {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 18px !important;
+        flex-shrink: 0;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .masthead h1 { font-size: 22px !important; }
+      .masthead .subtitle { font-size: 12px !important; }
+      .seal {
+        display: flex !important;
+        width: 70px !important;
+        height: 70px !important;
+      }
+      .seal .core { font-size: 12px !important; }
+      .body {
+        display: flex !important;
+        flex-direction: column !important;
+        grid-template-rows: none !important;
+        gap: 10px !important;
+        padding: 12px 18px !important;
+        min-height: 0 !important;
+        flex: 1 1 auto;
+        background: #fff !important;
+      }
+      .status-strip {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        padding: 8px 10px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .status-strip .badge { font-size: 11px !important; }
+      .status-strip .note { font-size: 11px !important; }
+      .meta-row {
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important;
+        gap: 8px !important;
+      }
+      .meta {
+        padding: 6px 8px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .meta strong { font-size: 11px !important; }
+      .main-grid {
+        display: grid !important;
+        grid-template-columns: 1.15fr 0.85fr !important;
+        gap: 10px !important;
+        min-height: 0 !important;
+      }
+      .panel {
+        display: block !important;
+        padding: 10px 12px !important;
+        min-height: 0 !important;
+      }
+      .panel h2 { font-size: 13px !important; }
+      .kv { font-size: 11px !important; }
+      .sum {
+        display: flex !important;
+        margin-top: 10px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .sum strong { font-size: 20px !important; }
+      .coverage-list { font-size: 11px !important; }
+      .premium-box {
+        margin-top: 12px !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .premium-box .amt { font-size: 24px !important; }
+      .terms { font-size: 10px !important; }
+      .sign-row {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr 1fr !important;
+        gap: 10px !important;
+        margin-top: 4px;
+      }
+      .sign {
+        min-height: 40px !important;
+      }
+      .sign .name { font-size: 12px !important; }
+      .foot {
+        display: flex !important;
+        padding: 8px 18px !important;
+        flex-shrink: 0;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .watermark {
+        position: absolute !important;
+        inset: 0 !important;
+        z-index: 5 !important;
       }
       .watermark span {
-        color: rgba(154, 52, 18, .22);
-        border-color: rgba(154, 52, 18, .24);
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
+        font-size: 64px !important;
+        color: rgba(154, 52, 18, .22) !important;
+        border-color: rgba(154, 52, 18, .24) !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
     }
   </style>
@@ -372,6 +497,9 @@
 <body>
   <div class="toolbar">
     <button type="button" onclick="window.print()">Print / Save as PDF</button>
+    <span style="display:block;margin-top:6px;font-size:12px;color:#64748b;text-align:center;">
+      In the print dialog, choose Landscape and “Save as PDF”
+    </span>
   </div>
 
   <article class="doc" aria-label="Support Award Insurance Document">
