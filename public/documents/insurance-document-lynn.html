@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Support Award Insurance Document — Lynn Zakowski</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&family=Source+Code+Pro:wght@500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #15202b;
+      --muted: #5a6a7a;
+      --line: #c5ced6;
+      --navy: #1a365d;
+      --navy-mid: #2c5282;
+      --gold: #8b7355;
+      --warn: #9a3412;
+      --paper: #f7f5f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: #d4d8de;
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 18px 10px 40px;
+    }
+    .toolbar { margin-bottom: 12px; }
+    .toolbar button {
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 14px;
+      border-radius: 8px;
+      border: 1px solid #94a3b8;
+      background: #fff;
+      cursor: pointer;
+    }
+    .doc {
+      width: min(1000px, 100%);
+      aspect-ratio: 4 / 3;
+      background: #fff;
+      border: 1px solid #8a93a0;
+      box-shadow: 0 18px 48px rgba(21, 32, 43, .16);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      overflow: hidden;
+      position: relative;
+    }
+    .doc::before {
+      content: '';
+      position: absolute;
+      inset: 10px;
+      border: 1px solid rgba(26, 54, 93, .18);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .masthead {
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(180deg, #1a365d 0%, #243b63 100%);
+      color: #fff;
+      padding: clamp(12px, 1.8vw, 18px) clamp(16px, 2.2vw, 24px);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+    .masthead .org {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      opacity: .82;
+    }
+    .masthead h1 {
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-size: clamp(18px, 2.6vw, 26px);
+      font-weight: 700;
+      margin-top: 4px;
+      line-height: 1.2;
+    }
+    .masthead .subtitle {
+      margin-top: 4px;
+      font-size: clamp(11px, 1.35vw, 13px);
+      opacity: .88;
+    }
+    .seal {
+      width: clamp(72px, 10vw, 92px);
+      height: clamp(72px, 10vw, 92px);
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,.55);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: rgba(255,255,255,.06);
+      flex-shrink: 0;
+    }
+    .seal .ring {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      opacity: .85;
+    }
+    .seal .core {
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-size: clamp(11px, 1.5vw, 13px);
+      font-weight: 700;
+      margin: 3px 0;
+      line-height: 1.1;
+    }
+    .body {
+      position: relative;
+      z-index: 2;
+      padding: clamp(10px, 1.5vw, 16px) clamp(16px, 2.2vw, 24px);
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: clamp(8px, 1.2vw, 12px);
+      min-height: 0;
+      background:
+        radial-gradient(ellipse at 85% 20%, rgba(26,54,93,.04), transparent 50%),
+        #fff;
+    }
+    .status-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      border-left: 4px solid var(--warn);
+    }
+    .status-strip .badge {
+      font-family: 'Source Code Pro', monospace;
+      font-size: clamp(11px, 1.4vw, 13px);
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--warn);
+    }
+    .status-strip .note {
+      font-size: clamp(11px, 1.35vw, 13px);
+      color: #7c2d12;
+      font-weight: 500;
+    }
+    .meta-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .meta {
+      border: 1px solid #d8dee6;
+      background: var(--paper);
+      padding: 7px 10px;
+    }
+    .meta label {
+      display: block;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .meta strong {
+      font-family: 'Source Code Pro', monospace;
+      font-size: clamp(11px, 1.35vw, 13px);
+      font-weight: 600;
+      color: var(--navy);
+    }
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 10px;
+      min-height: 0;
+    }
+    .panel {
+      border: 1px solid #d0d7e0;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+    .panel h2 {
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-size: clamp(12px, 1.5vw, 14px);
+      color: var(--navy);
+      border-bottom: 1px solid #d0d7e0;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+    }
+    .kv {
+      display: grid;
+      grid-template-columns: 42% 1fr;
+      gap: 4px 8px;
+      font-size: clamp(11px, 1.35vw, 13px);
+      line-height: 1.35;
+    }
+    .kv dt { color: var(--muted); }
+    .kv dd { font-weight: 600; color: var(--ink); }
+    .sum {
+      margin-top: 8px;
+      padding: 8px 10px;
+      background: #edf2f7;
+      border: 1px solid #cbd5e1;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .sum span {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--navy-mid);
+    }
+    .sum strong {
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-size: clamp(18px, 2.4vw, 24px);
+      color: var(--navy);
+    }
+    .coverage-list {
+      list-style: none;
+      font-size: clamp(11px, 1.3vw, 12.5px);
+      line-height: 1.4;
+      color: #2d3748;
+    }
+    .coverage-list li {
+      position: relative;
+      padding-left: 14px;
+      margin-bottom: 5px;
+    }
+    .coverage-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: .45em;
+      width: 6px;
+      height: 6px;
+      background: var(--navy-mid);
+    }
+    .premium-box {
+      margin-top: auto;
+      border: 2px solid var(--navy);
+      padding: 10px 12px;
+      background: linear-gradient(180deg, #f8fafc, #eef2f7);
+    }
+    .premium-box .lbl {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--navy-mid);
+    }
+    .premium-box .amt {
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 700;
+      color: var(--navy);
+      margin: 2px 0 4px;
+    }
+    .premium-box .pay-status {
+      font-family: 'Source Code Pro', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--warn);
+      letter-spacing: .04em;
+    }
+    .terms {
+      border-top: 1px solid #d0d7e0;
+      padding-top: 8px;
+      font-size: clamp(10px, 1.2vw, 11.5px);
+      line-height: 1.4;
+      color: var(--muted);
+    }
+    .terms strong { color: #334155; }
+    .sign-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      align-items: end;
+    }
+    .sign {
+      border-top: 1px solid #94a3b8;
+      padding-top: 6px;
+      min-height: 52px;
+    }
+    .sign .name {
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-size: clamp(12px, 1.4vw, 14px);
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .sign .role {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .watermark {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 0;
+      opacity: .055;
+      transform: rotate(-18deg);
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-size: clamp(48px, 9vw, 84px);
+      font-weight: 700;
+      letter-spacing: .08em;
+      color: var(--warn);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .foot {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 8px clamp(16px, 2.2vw, 24px);
+      background: var(--paper);
+      border-top: 2px solid var(--navy);
+      font-size: 10px;
+      color: var(--muted);
+    }
+    .foot strong { color: var(--navy); }
+    @media (max-width: 760px) {
+      .doc { aspect-ratio: auto; }
+      .meta-row, .main-grid, .sign-row { grid-template-columns: 1fr; }
+      .masthead { grid-template-columns: 1fr; }
+      .seal { display: none; }
+    }
+    @media print {
+      body { background: #fff; padding: 0; display: block; }
+      .toolbar { display: none !important; }
+      .doc {
+        width: 100%;
+        max-width: none;
+        aspect-ratio: 4 / 3;
+        box-shadow: none;
+        border: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+
+  <article class="doc" aria-label="Support Award Insurance Document">
+    <div class="watermark" aria-hidden="true">Premium Outstanding</div>
+
+    <header class="masthead">
+      <div>
+        <div class="org">Edwin Castro Foundation · Insurance Office</div>
+        <h1>Support Award Insurance Document</h1>
+        <div class="subtitle">Schedule of Cover · Transit &amp; Post-Delivery Protection</div>
+      </div>
+      <div class="seal" aria-hidden="true">
+        <div class="ring">Official</div>
+        <div class="core">ECF<br />INS</div>
+        <div class="ring">Document</div>
+      </div>
+    </header>
+
+    <div class="body">
+      <div class="status-strip">
+        <div class="badge">Premium outstanding — cover not in force</div>
+        <div class="note">This document remains incomplete until premium is received and endorsed.</div>
+      </div>
+
+      <div class="meta-row">
+        <div class="meta">
+          <label>Document No.</label>
+          <strong>ECF-INS-2026-LZ-300</strong>
+        </div>
+        <div class="meta">
+          <label>Issue Date</label>
+          <strong id="issue-date"></strong>
+        </div>
+        <div class="meta">
+          <label>Class of Cover</label>
+          <strong>Award Delivery</strong>
+        </div>
+        <div class="meta">
+          <label>File Status</label>
+          <strong style="color:#9a3412;">UNPAID</strong>
+        </div>
+      </div>
+
+      <div class="main-grid">
+        <div class="panel">
+          <h2>1. Named Insured &amp; Award</h2>
+          <dl class="kv">
+            <dt>Named insured</dt>
+            <dd>Lynn Zakowski</dd>
+            <dt>Insured interest</dt>
+            <dd>Support award / grant proceeds</dd>
+            <dt>Sum insured</dt>
+            <dd>$300,000.00 USD</dd>
+            <dt>Territory</dt>
+            <dd>United States — delivery to insured address</dd>
+            <dt>Issuing office</dt>
+            <dd>Insurance Office, Edwin Castro Foundation</dd>
+            <dt>Responsible officer</dt>
+            <dd>Raphael Harrison</dd>
+          </dl>
+          <div class="sum">
+            <span>Total sum insured</span>
+            <strong>$300,000 USD</strong>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>2. Scope of Cover</h2>
+          <ul class="coverage-list">
+            <li>Insurance on the awarded sum during transit from Foundation control to the named insured</li>
+            <li>Protection against loss, damage, theft, or disruption while funds are in transit</li>
+            <li>Post-delivery cover on the $300,000 once received by the named insured</li>
+            <li>Activation required before final dispatch by the delivery / security team</li>
+            <li>This schedule forms part of the recipient’s official support file</li>
+          </ul>
+          <div class="premium-box">
+            <div class="lbl">Premium due to place cover</div>
+            <div class="amt">$500.00 USD</div>
+            <div class="pay-status">STATUS: PREMIUM NOT RECEIVED</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="terms">
+        <strong>3. Conditions.</strong>
+        Cover under this document does not commence until the stated premium of $500.00 USD has been received in full and endorsed by the Insurance Office.
+        Until endorsement, no claim may be made and delivery of the insured award shall remain withheld.
+        Upon payment, this document will be reissued or endorsed as <strong>IN FORCE</strong> and added to the named insured’s completed file.
+        Premium is separate from any administrative or security charges already processed on the award file.
+      </div>
+
+      <div class="sign-row">
+        <div class="sign">
+          <div class="name">Raphael Harrison</div>
+          <div class="role">Insurance Officer · Issued for file</div>
+        </div>
+        <div class="sign">
+          <div class="name">Pending endorsement</div>
+          <div class="role">Cover activation (after premium)</div>
+        </div>
+        <div class="sign">
+          <div class="name">Lynn Zakowski</div>
+          <div class="role">Named insured · For records</div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="foot">
+      <div><strong>Retain with award documents.</strong> Incomplete until premium cleared.</div>
+      <div>insuranceoffice@edwinmega.com · ECF Insurance Office</div>
+    </footer>
+  </article>
+
+  <script>
+    document.getElementById('issue-date').textContent = new Date().toLocaleDateString('en-US', {
+      year: 'numeric', month: 'short', day: 'numeric'
+    });
+  </script>
+</body>
+</html>
