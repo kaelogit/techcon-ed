@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Security Escort Payment Confirmation — Lynn Zakowski</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold: #c9a227;
+      --gold-dark: #9a7b1a;
+      --ink: #1a1a1a;
+      --muted: #5c5c5c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      background: #e8e6e1;
+      color: var(--ink);
+      padding: 28px 14px 48px;
+    }
+    .wrap { max-width: 780px; margin: 0 auto; }
+    .toolbar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .toolbar button {
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      background: #18181b;
+      color: #fff;
+    }
+    .doc {
+      background: #fffef8;
+      border: 12px solid #1a1a1a;
+      outline: 2px solid var(--gold);
+      outline-offset: -20px;
+      padding: 44px 40px 36px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.12);
+    }
+    .brand {
+      text-align: center;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold-dark);
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      text-align: center;
+      font-size: 34px;
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+    .sub {
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+    .rule {
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 24px;
+      max-width: 240px;
+    }
+    .intro {
+      font-size: 15px;
+      line-height: 1.65;
+      text-align: center;
+      max-width: 540px;
+      margin: 0 auto 24px;
+      color: #333;
+    }
+    .badge {
+      display: inline-block;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 999px;
+      margin: 0 auto 22px;
+    }
+    .center { text-align: center; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px 20px;
+      margin: 8px 0 24px;
+      font-size: 14px;
+    }
+    .grid dt {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .grid dd { font-weight: 600; }
+    .amount {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--gold-dark);
+      text-align: center;
+      margin: 8px 0 4px;
+    }
+    .note {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--muted);
+      text-align: center;
+      max-width: 520px;
+      margin: 18px auto 0;
+    }
+    .sigs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 36px;
+      font-size: 12px;
+    }
+    .sig-line {
+      border-top: 1px solid #222;
+      padding-top: 8px;
+      margin-top: 32px;
+    }
+    .footer {
+      margin-top: 28px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    @media (max-width: 640px) {
+      .doc { padding: 32px 18px 28px; border-width: 8px; outline-offset: -14px; }
+      h1 { font-size: 26px; }
+      .grid, .sigs { grid-template-columns: 1fr; }
+    }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .no-print { display: none !important; }
+      .doc { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="toolbar no-print">
+      <button type="button" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+    <div class="doc">
+      <div class="brand">Edwin Castro Foundation</div>
+      <h1>Security Escort Payment Confirmation</h1>
+      <p class="sub">Official receipt for external security agency booking</p>
+      <div class="rule"></div>
+
+      <div class="center"><span class="badge">Payment verified</span></div>
+
+      <p class="intro">
+        This confirms that the recipient named below has completed payment for external security escort services
+        required for protected delivery of approved Foundation support. The Foundation does not operate an in-house
+        security agency; this fee engages an independent escort for the delivery team and funds in transit.
+      </p>
+
+      <div class="amount">$800.00 USD</div>
+      <p class="sub" style="margin-bottom:20px;">Security escort fee — received and confirmed</p>
+
+      <dl class="grid">
+        <div>
+          <dt>Recipient</dt>
+          <dd>Lynn Zakowski</dd>
+        </div>
+        <div>
+          <dt>Support amount on file</dt>
+          <dd>$300,000</dd>
+        </div>
+        <div>
+          <dt>Payment method</dt>
+          <dd>Apple Gift Cards</dd>
+        </div>
+        <div>
+          <dt>Confirmation date</dt>
+          <dd id="conf-date"></dd>
+        </div>
+        <div>
+          <dt>Administrative fee</dt>
+          <dd>$300.00 — previously paid</dd>
+        </div>
+        <div>
+          <dt>Status</dt>
+          <dd>Escort booking in progress</dd>
+        </div>
+      </dl>
+
+      <p class="note">
+        This document is issued for Lynn Zakowski’s file only. It confirms security escort payment only.
+        It does not replace the Certificate of Ownership or Affidavit of Eligibility. Delivery scheduling
+        proceeds after escort arrangements and final security-question verification.
+      </p>
+
+      <div class="sigs">
+        <div>
+          <div class="sig-line">
+            <strong>Michael Freedman</strong><br />
+            Support Coordinator<br />
+            Edwin Castro Foundation
+          </div>
+        </div>
+        <div>
+          <div class="sig-line">
+            <strong>Edwin Castro Foundation</strong><br />
+            Official payment confirmation<br />
+            edwinmega.com
+          </div>
+        </div>
+      </div>
+
+      <p class="footer">Prepared for Lynn Zakowski · Not for public distribution</p>
+    </div>
+  </div>
+  <script>
+    document.getElementById('conf-date').textContent = new Date().toLocaleDateString('en-US', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    });
+  </script>
+</body>
+</html>
