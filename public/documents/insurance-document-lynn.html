@@ -315,16 +315,21 @@
       align-items: center;
       justify-content: center;
       pointer-events: none;
-      z-index: 0;
-      opacity: .055;
-      transform: rotate(-18deg);
+      z-index: 5;
+      overflow: hidden;
+    }
+    .watermark span {
+      transform: rotate(-28deg);
       font-family: 'Libre Baskerville', Georgia, serif;
-      font-size: clamp(48px, 9vw, 84px);
+      font-size: clamp(42px, 7.5vw, 72px);
       font-weight: 700;
-      letter-spacing: .08em;
-      color: var(--warn);
+      letter-spacing: .14em;
       text-transform: uppercase;
+      color: rgba(154, 52, 18, .18);
+      border: 5px solid rgba(154, 52, 18, .2);
+      padding: .35em .55em;
       white-space: nowrap;
+      user-select: none;
     }
     .foot {
       position: relative;
@@ -355,6 +360,12 @@
         box-shadow: none;
         border: none;
       }
+      .watermark span {
+        color: rgba(154, 52, 18, .22);
+        border-color: rgba(154, 52, 18, .24);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
     }
   </style>
 </head>
@@ -364,7 +375,7 @@
   </div>
 
   <article class="doc" aria-label="Support Award Insurance Document">
-    <div class="watermark" aria-hidden="true">Premium Outstanding</div>
+    <div class="watermark" aria-hidden="true"><span>Unpaid</span></div>
 
     <header class="masthead">
       <div>
