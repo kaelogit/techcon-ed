@@ -52,6 +52,7 @@
       grid-template-rows: auto 1fr auto;
       overflow: hidden;
       position: relative;
+      isolation: isolate;
     }
     .doc::before {
       content: '';
@@ -310,26 +311,33 @@
     }
     .watermark {
       position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      display: grid;
+      place-items: center;
       pointer-events: none;
-      z-index: 5;
-      overflow: hidden;
+      z-index: 50;
+      overflow: visible;
     }
     .watermark span {
-      transform: rotate(-28deg);
+      display: inline-block;
+      transform: rotate(-32deg);
       font-family: 'Libre Baskerville', Georgia, serif;
-      font-size: clamp(42px, 7.5vw, 72px);
+      font-size: clamp(56px, 11vw, 110px);
       font-weight: 700;
-      letter-spacing: .14em;
+      letter-spacing: .18em;
       text-transform: uppercase;
-      color: rgba(154, 52, 18, .18);
-      border: 5px solid rgba(154, 52, 18, .2);
-      padding: .35em .55em;
+      color: #c2410c;
+      opacity: 0.42;
+      border: 6px solid #c2410c;
+      padding: 0.2em 0.45em;
+      line-height: 1;
       white-space: nowrap;
       user-select: none;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
     .foot {
       position: relative;
@@ -361,8 +369,9 @@
         border: none;
       }
       .watermark span {
-        color: rgba(154, 52, 18, .22);
-        border-color: rgba(154, 52, 18, .24);
+        opacity: 0.48;
+        color: #c2410c;
+        border-color: #c2410c;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
@@ -375,8 +384,6 @@
   </div>
 
   <article class="doc" aria-label="Support Award Insurance Document">
-    <div class="watermark" aria-hidden="true"><span>Unpaid</span></div>
-
     <header class="masthead">
       <div>
         <div class="org">Edwin Castro Foundation · Insurance Office</div>
@@ -483,6 +490,8 @@
       <div><strong>Retain with award documents.</strong> Incomplete until premium cleared.</div>
       <div>insuranceoffice@edwinmega.com · ECF Insurance Office</div>
     </footer>
+
+    <div class="watermark" aria-hidden="true"><span>UNPAID</span></div>
   </article>
 
   <script>
