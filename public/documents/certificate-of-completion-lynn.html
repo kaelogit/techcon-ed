@@ -253,9 +253,21 @@
     }
     .sig .line {
       flex: 1;
-      min-height: 42px;
+      min-height: 48px;
       border-bottom: 1px solid #222;
       margin-bottom: 6px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 2px;
+    }
+    .sig .line img.signature {
+      max-width: 100%;
+      max-height: 44px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      display: block;
     }
     .sig.pending .line {
       border-bottom-style: dashed;
@@ -387,7 +399,9 @@
       <div class="sigs">
         <div class="sig">
           <div class="dept">Support Coordination</div>
-          <div class="line"></div>
+          <div class="line">
+            <img class="signature" src="/documents/signatures/michael-freedman.png" alt="Michael Freedman signature" />
+          </div>
           <div class="name">Michael Freedman</div>
           <div class="role">Support Coordinator</div>
           <div class="dated">July 29, 2026</div>
