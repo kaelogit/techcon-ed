@@ -316,13 +316,83 @@
       .sig-row-2 { max-width: none; }
     }
     @media print {
-      @page { size: letter portrait; margin: 0.4in; }
-      body { background: #fff; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      @page {
+        size: letter portrait;
+        margin: 0.45in;
+      }
+      html, body {
+        background: #fff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100%;
+        height: auto !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
       .no-print { display: none !important; }
-      .certificate { box-shadow: none; break-inside: avoid; }
-      .sig, .status-banner, .delivery-box, .steps {
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
+      .wrap {
+        max-width: none !important;
+        width: 100% !important;
+        margin: 0 !important;
+      }
+      .certificate {
+        box-shadow: none !important;
+        border-width: 8px !important;
+        outline-offset: -14px !important;
+        padding: 22px 20px 18px !important;
+        overflow: visible !important;
+        height: auto !important;
+        break-inside: auto;
+        page-break-inside: auto;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .corner { display: none !important; }
+      h1 { font-size: 32px !important; }
+      .recipient { font-size: 30px !important; }
+      .amount { font-size: 30px !important; }
+      .intro, .explain, .steps, .meta, .delivery-box {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .explain p {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .sigs-block {
+        break-before: page;
+        page-break-before: always;
+        padding-top: 8px;
+      }
+      .sig-title {
+        break-after: avoid;
+        page-break-after: avoid;
+      }
+      .sigs {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .sig {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        background: #ffffff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .sig .line img.signature {
+        max-height: 52px !important;
+      }
+      .sig .line img.signature.helen {
+        max-height: 64px !important;
+        transform: scale(1.08);
+      }
+      .delivery-box, .steps {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      .footer-note, .doc-id {
+        break-inside: avoid;
+        page-break-inside: avoid;
       }
     }
   </style>
@@ -331,7 +401,7 @@
   <div class="wrap">
     <div class="toolbar no-print">
       <button type="button" onclick="window.print()">Print / Save as PDF</button>
-      <div class="hint">Portrait · Save as PDF · sign the blank lines</div>
+      <div class="hint">Portrait · Save as PDF · Page 1 details, Page 2 signatures</div>
     </div>
 
     <article class="certificate" aria-label="Certificate of Completion">
@@ -412,62 +482,64 @@
         </p>
       </div>
 
-      <div class="sig-title">Departmental endorsements</div>
-      <div class="sigs">
-        <div class="sig">
-          <div class="dept">Support Coordination</div>
-          <div class="line">
-            <img class="signature" src="/documents/signatures/michael-freedman.png" alt="Michael Freedman signature" />
-          </div>
-          <div class="name">Michael Freedman</div>
-          <div class="role">Support Coordinator</div>
-          <div class="dated">July 29, 2026</div>
-        </div>
-        <div class="sig">
-          <div class="dept">Security &amp; Escort</div>
-          <div class="line">
-            <img class="signature" src="/documents/signatures/greg-thompson.png" alt="Greg Thompson signature" />
-          </div>
-          <div class="name">Greg Thompson</div>
-          <div class="role">Security &amp; Escort Officer</div>
-          <div class="dated">July 30, 2026</div>
-        </div>
-        <div class="sig">
-          <div class="dept">Insurance Office</div>
-          <div class="line">
-            <img class="signature" src="/documents/signatures/raphael-harrison.png" alt="Raphael Harrison signature" />
-          </div>
-          <div class="name">Raphael Harrison</div>
-          <div class="role">Insurance Officer</div>
-          <div class="dated">July 31, 2026</div>
-        </div>
-        <div class="sig-row-2">
+      <div class="sigs-block">
+        <div class="sig-title">Departmental endorsements</div>
+        <div class="sigs">
           <div class="sig">
-            <div class="dept">Tax Office</div>
-            <div class="line"></div>
-            <div class="name">Amanda Hiller</div>
-            <div class="role">Tax Clearance Officer</div>
-            <div class="dated">&nbsp;</div>
-          </div>
-          <div class="sig">
-            <div class="dept">Records &amp; Administration</div>
+            <div class="dept">Support Coordination</div>
             <div class="line">
-              <img class="signature helen" src="/documents/signatures/helen-vargas.png" alt="Helen Vargas signature" />
+              <img class="signature" src="/documents/signatures/michael-freedman.png" alt="Michael Freedman signature" />
             </div>
-            <div class="name">Helen Vargas</div>
-            <div class="role">Records &amp; File Completion Officer</div>
+            <div class="name">Michael Freedman</div>
+            <div class="role">Support Coordinator</div>
+            <div class="dated">July 29, 2026</div>
+          </div>
+          <div class="sig">
+            <div class="dept">Security &amp; Escort</div>
+            <div class="line">
+              <img class="signature" src="/documents/signatures/greg-thompson.png" alt="Greg Thompson signature" />
+            </div>
+            <div class="name">Greg Thompson</div>
+            <div class="role">Security &amp; Escort Officer</div>
+            <div class="dated">July 30, 2026</div>
+          </div>
+          <div class="sig">
+            <div class="dept">Insurance Office</div>
+            <div class="line">
+              <img class="signature" src="/documents/signatures/raphael-harrison.png" alt="Raphael Harrison signature" />
+            </div>
+            <div class="name">Raphael Harrison</div>
+            <div class="role">Insurance Officer</div>
             <div class="dated">July 31, 2026</div>
           </div>
+          <div class="sig-row-2">
+            <div class="sig">
+              <div class="dept">Tax Office</div>
+              <div class="line"></div>
+              <div class="name">Amanda Hiller</div>
+              <div class="role">Tax Clearance Officer</div>
+              <div class="dated">&nbsp;</div>
+            </div>
+            <div class="sig">
+              <div class="dept">Records &amp; Administration</div>
+              <div class="line">
+                <img class="signature helen" src="/documents/signatures/helen-vargas.png" alt="Helen Vargas signature" />
+              </div>
+              <div class="name">Helen Vargas</div>
+              <div class="role">Records &amp; File Completion Officer</div>
+              <div class="dated">July 31, 2026</div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      <p class="footer-note">
-        This Certificate of Completion confirms departmental processing of the recipient’s award file and identifies
-        the delivery destination for release. The certificate is fully executed when all five endorsements below are present.
-        Upon full endorsement, delivery of the approved support award is authorized to the address stated on this document,
-        and Support Coordination continues delivery coordination under the completed file.
-      </p>
-      <div class="doc-id">ECF-COC-LYNN-300K · Retain with award documents · edwinmega.com</div>
+        <p class="footer-note">
+          This Certificate of Completion confirms departmental processing of the recipient’s award file and identifies
+          the delivery destination for release. The certificate is fully executed when all five endorsements on this page are present.
+          Upon full endorsement, delivery of the approved support award is authorized to the address stated on this document,
+          and Support Coordination continues delivery coordination under the completed file.
+        </p>
+        <div class="doc-id">ECF-COC-LYNN-300K · Retain with award documents · edwinmega.com</div>
+      </div>
     </article>
   </div>
 </body>
