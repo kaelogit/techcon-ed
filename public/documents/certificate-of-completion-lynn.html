@@ -113,12 +113,14 @@
       padding-bottom: 4px;
     }
     .amount {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Source Sans 3', system-ui, sans-serif;
       font-size: clamp(28px, 4.5vw, 36px);
       font-weight: 700;
       color: var(--gold-dark);
       text-align: center;
       margin-bottom: 2px;
+      letter-spacing: .02em;
+      font-variant-numeric: lining-nums tabular-nums;
     }
     .amount-label {
       text-align: center;
@@ -188,11 +190,13 @@
       margin-bottom: 6px;
     }
     .delivery-box .addr {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 20px;
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      font-size: 18px;
       font-weight: 700;
       color: var(--ink);
       margin-bottom: 6px;
+      letter-spacing: .01em;
+      font-variant-numeric: lining-nums;
     }
     .delivery-box p {
       font-size: 12.5px;
@@ -243,6 +247,9 @@
       display: flex;
       flex-direction: column;
     }
+    .sig:has(img.signature.helen) {
+      min-height: 138px;
+    }
     .sig .dept {
       font-size: 10px;
       font-weight: 700;
@@ -268,6 +275,12 @@
       height: auto;
       object-fit: contain;
       display: block;
+    }
+    .sig .line img.signature.helen {
+      max-height: 72px;
+      max-width: 115%;
+      transform: scale(1.15);
+      transform-origin: bottom center;
     }
     .sig.pending .line {
       border-bottom-style: dashed;
@@ -435,7 +448,7 @@
           <div class="sig">
             <div class="dept">Records &amp; Administration</div>
             <div class="line">
-              <img class="signature" src="/documents/signatures/helen-vargas.png" alt="Helen Vargas signature" />
+              <img class="signature helen" src="/documents/signatures/helen-vargas.png" alt="Helen Vargas signature" />
             </div>
             <div class="name">Helen Vargas</div>
             <div class="role">Records &amp; File Completion Officer</div>
