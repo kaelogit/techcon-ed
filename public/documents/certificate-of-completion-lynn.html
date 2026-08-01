@@ -7,7 +7,7 @@
   <title>Certificate of Completion — Lynn Zakowski</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=Great+Vibes&family=Allura&family=Dancing+Script:wght@600;700&family=Satisfy&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --gold: #c9a227;
@@ -207,41 +207,23 @@
       flex: 1;
       display: flex;
       align-items: flex-end;
-      min-height: 36px;
+      min-height: 44px;
       border-bottom: 1px solid #222;
       margin-bottom: 6px;
       padding-bottom: 2px;
     }
-    .sig .sign-space .script {
-      line-height: 1;
-      color: #1e3a5f;
-      user-select: none;
+    .sig .sign-space .ink {
+      width: 100%;
+      max-width: 168px;
+      height: 42px;
+      display: block;
+      overflow: visible;
     }
-    .sig .sign-space .script.michael {
-      font-family: 'Great Vibes', cursive;
-      font-size: 28px;
-      transform: rotate(-4deg);
-      display: inline-block;
-    }
-    .sig .sign-space .script.greg {
-      font-family: 'Satisfy', cursive;
-      font-size: 24px;
-      transform: rotate(-2deg);
-      display: inline-block;
-      letter-spacing: .02em;
-    }
-    .sig .sign-space .script.raphael {
-      font-family: 'Allura', cursive;
-      font-size: 30px;
-      transform: rotate(-3deg);
-      display: inline-block;
-    }
-    .sig .sign-space .script.helen {
-      font-family: 'Dancing Script', cursive;
-      font-size: 26px;
-      font-weight: 700;
-      transform: rotate(-5deg);
-      display: inline-block;
+    .sig .sign-space .ink path {
+      fill: none;
+      stroke: #152238;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
     .sig.pending .sign-space {
       border-bottom-style: dashed;
@@ -374,7 +356,13 @@
       <div class="sigs">
         <div class="sig">
           <div class="dept">Support Coordination</div>
-          <div class="sign-space"><span class="script michael">Michael Freedman</span></div>
+          <div class="sign-space" aria-hidden="true">
+            <svg class="ink" viewBox="0 0 180 48" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 30 C14 12, 22 10, 28 22 C32 30, 30 36, 24 34 C34 18, 48 14, 58 26 C64 34, 62 38, 56 36 C68 16, 88 12, 102 24 C110 32, 118 28, 126 20 C132 14, 140 18, 146 28 C150 34, 158 30, 168 22" stroke-width="2.2"/>
+              <path d="M22 38 C48 40, 90 41, 150 36" stroke-width="1.3"/>
+              <path d="M158 18 C162 14, 168 20, 164 26" stroke-width="1.6"/>
+            </svg>
+          </div>
           <div class="name">Michael Freedman</div>
           <div class="role">Support Coordinator</div>
           <div class="dated">Signed · July 29, 2026</div>
@@ -382,7 +370,13 @@
 
         <div class="sig">
           <div class="dept">Security &amp; Escort</div>
-          <div class="sign-space"><span class="script greg">Greg Thompson</span></div>
+          <div class="sign-space" aria-hidden="true">
+            <svg class="ink" viewBox="0 0 180 48" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 34 L18 12 C22 8, 28 18, 24 28 C36 10, 52 8, 60 22 L68 34 C72 20, 86 10, 98 18 C108 24, 112 34, 120 28 C130 18, 142 16, 152 26 C158 32, 166 24, 172 20" stroke-width="2.4"/>
+              <path d="M14 36 C40 38, 100 39, 160 34" stroke-width="1.4"/>
+              <path d="M64 14 C70 8, 78 14, 74 22" stroke-width="1.5"/>
+            </svg>
+          </div>
           <div class="name">Greg Thompson</div>
           <div class="role">Security &amp; Escort Officer</div>
           <div class="dated">Signed · July 30, 2026</div>
@@ -390,7 +384,13 @@
 
         <div class="sig">
           <div class="dept">Insurance Office</div>
-          <div class="sign-space"><span class="script raphael">Raphael Harrison</span></div>
+          <div class="sign-space" aria-hidden="true">
+            <svg class="ink" viewBox="0 0 180 48" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 28 C18 8, 34 6, 42 20 C46 28, 40 36, 34 32 C50 10, 74 8, 88 22 C96 30, 104 26, 112 16 C120 8, 132 12, 138 24 C144 34, 156 28, 170 14" stroke-width="2.1"/>
+              <path d="M20 38 C55 42, 110 40, 165 32" stroke-width="1.2"/>
+              <path d="M148 16 C156 8, 168 10, 172 18 C174 22, 168 24, 164 20" stroke-width="1.7"/>
+            </svg>
+          </div>
           <div class="name">Raphael Harrison</div>
           <div class="role">Insurance Officer</div>
           <div class="dated">Signed · July 31, 2026</div>
@@ -407,7 +407,13 @@
 
           <div class="sig">
             <div class="dept">Records &amp; Administration</div>
-            <div class="sign-space"><span class="script helen">Helen Vargas</span></div>
+            <div class="sign-space" aria-hidden="true">
+              <svg class="ink" viewBox="0 0 180 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 32 C16 14, 28 8, 36 18 C40 24, 38 34, 30 32 C44 12, 62 10, 74 24 C80 32, 90 28, 98 18 C108 8, 122 12, 128 24 C132 30, 140 34, 150 26 C158 18, 166 22, 172 28" stroke-width="2.3"/>
+                <path d="M18 39 C50 41, 95 42, 155 37" stroke-width="1.3"/>
+                <path d="M108 14 C114 6, 124 8, 122 18" stroke-width="1.5"/>
+              </svg>
+            </div>
             <div class="name">Helen Vargas</div>
             <div class="role">Records &amp; File Completion Officer</div>
             <div class="dated">Signed · July 31, 2026</div>
