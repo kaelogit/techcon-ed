@@ -2,8 +2,7 @@ import './globals.css';
 import { ReactNode } from 'react';
 import Script from 'next/script';
 import { Metadata, Viewport } from 'next';
-import { Navbar } from '@/components/layout/Navbar';
-import { Footer } from '@/components/layout/Footer';
+import { SiteChrome } from '@/components/layout/SiteChrome';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-ZR6ZXRW988';
 
@@ -141,9 +140,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         )}
       </head>
       <body className="antialiased min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );
