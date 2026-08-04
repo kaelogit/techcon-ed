@@ -7,9 +7,10 @@ import { Footer } from '@/components/layout/Footer';
 
 export function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname() || '';
-  const isBanking = pathname.startsWith('/banking');
+  const isIsolated =
+    pathname.startsWith('/banking') || pathname.startsWith('/trackdelivery');
 
-  if (isBanking) {
+  if (isIsolated) {
     return <>{children}</>;
   }
 
