@@ -26,13 +26,13 @@ export default function BankingHomePage() {
           <div className="mt-7 flex flex-wrap gap-2 sm:mt-9 sm:gap-3">
             <Link
               href="/banking/login"
-              className="rounded bg-white px-4 py-2.5 text-xs font-semibold text-[var(--ecf-navy)] no-underline hover:bg-[var(--ecf-sky)] sm:px-5 sm:py-2.5 sm:text-sm"
+              className="banking-btn-light rounded bg-white px-4 py-2.5 text-xs font-semibold no-underline hover:bg-[var(--ecf-sky)] sm:px-5 sm:py-2.5 sm:text-sm"
             >
               Sign in
             </Link>
             <Link
               href="/banking/register"
-              className="rounded border border-white/40 bg-white/10 px-4 py-2.5 text-xs font-semibold text-white no-underline backdrop-blur-sm hover:bg-white/20 sm:px-5 sm:py-2.5 sm:text-sm"
+              className="banking-btn-ghost rounded border border-white/40 bg-white/10 px-4 py-2.5 text-xs font-semibold no-underline backdrop-blur-sm hover:bg-white/20 sm:px-5 sm:py-2.5 sm:text-sm"
             >
               Enroll
             </Link>
