@@ -98,7 +98,7 @@ export default function DeliveryAdminPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ecf-blue)]">
               ECF Delivery Ops
             </p>
-            <h1 className="display text-xl font-semibold text-[var(--ecf-navy)]">Movement control</h1>
+            <h1 className="display text-xl font-semibold text-[var(--ecf-navy)]">Delivery admin</h1>
           </div>
           <Link href="/trackdelivery" className="text-sm font-semibold text-[var(--ecf-navy)]">
             Public tracking

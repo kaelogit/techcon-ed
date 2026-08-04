@@ -210,6 +210,14 @@ export default function BankingAdminPage() {
           <code className="rounded bg-[#f1f5f9] px-1">ECF_BANKING_ADMIN_KEY</code> (demo:{' '}
           <code className="rounded bg-[#f1f5f9] px-1">ecf-admin-demo</code>).
         </p>
+        <p className="mt-3">
+          <a
+            href="/trackdelivery/admin"
+            className="inline-flex rounded-xl border border-[#cbd5e1] bg-white px-4 py-2.5 text-sm font-semibold text-[#0b1f33] no-underline hover:bg-[#f8fafc]"
+          >
+            Open delivery tracking admin →
+          </a>
+        </p>
 
         {!authed ? (
           <form onSubmit={unlock} className="mt-8 max-w-md space-y-3 rounded-2xl border border-[#d5dde6] bg-white p-5">
