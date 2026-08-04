@@ -17,6 +17,7 @@ export type BankingMe = {
     creditDate: string;
     creditDescription: string;
     accountType: string;
+    status: 'active' | 'frozen' | 'archived';
     maskedAccountNumber: string;
     balance: number;
     pendingBalance: number;

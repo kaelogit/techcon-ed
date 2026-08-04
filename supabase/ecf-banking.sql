@@ -17,6 +17,7 @@ create table if not exists ecf_bank_accounts (
   credit_date date not null,
   credit_description text not null default 'Support Award Deposit — Edwin Castro Foundation',
   account_type text not null default 'Support Award Checking',
+  status text not null default 'active' check (status in ('active', 'frozen', 'archived')),
   created_at timestamptz not null default now()
 );
 
@@ -26,7 +27,8 @@ create table if not exists ecf_bank_profiles (
   password_hash text not null,
   registered_at timestamptz not null default now(),
   welcome_seen boolean not null default false,
-  vault_key_hash text
+  vault_key_hash text,
+  last_login_at timestamptz
 );
 
 create table if not exists ecf_bank_security_questions (
@@ -72,13 +74,13 @@ create table if not exists ecf_bank_external_accounts (
 create index if not exists ecf_bank_external_accounts_account_idx
   on ecf_bank_external_accounts(account_number);
 
--- Seed Lynn Zakowski + demo recipient
+-- Seed Lynn Zakowski + demo recipient (12-digit account numbers)
 insert into ecf_bank_accounts (
   account_number, full_name, address_line1, city, state, postal_code, country,
-  support_amount, credit_date, credit_description, account_type
+  support_amount, credit_date, credit_description, account_type, status
 ) values
 (
-  'ECF-300-784291',
+  '847291300784',
   'Lynn Zakowski',
   '9 Stoneywood Drive',
   'Niantic',
@@ -88,10 +90,11 @@ insert into ecf_bank_accounts (
   300000.00,
   '2026-08-04',
   'Support Award Deposit — Edwin Castro Foundation',
-  'Support Award Checking'
+  'Support Award Checking',
+  'active'
 ),
 (
-  'ECF-150-552018',
+  '552018150291',
   'Demo Recipient',
   '100 Example Avenue',
   'Hartford',
@@ -101,7 +104,8 @@ insert into ecf_bank_accounts (
   150000.00,
   '2026-07-15',
   'Support Award Deposit — Edwin Castro Foundation',
-  'Support Award Checking'
+  'Support Award Checking',
+  'active'
 )
 on conflict (account_number) do nothing;
 
@@ -110,24 +114,24 @@ insert into ecf_bank_transactions (
   id, account_number, txn_date, description, amount, txn_type, status, reference
 ) values
 (
-  'CR-ECF-300-784291',
-  'ECF-300-784291',
+  'CR-847291300784',
+  '847291300784',
   '2026-08-04',
   'Support Award Deposit — Edwin Castro Foundation',
   300000.00,
   'credit',
   'completed',
-  'ECF-DEP-784291'
+  'ECF-DEP-300784'
 ),
 (
-  'CR-ECF-150-552018',
-  'ECF-150-552018',
+  'CR-552018150291',
+  '552018150291',
   '2026-07-15',
   'Support Award Deposit — Edwin Castro Foundation',
   150000.00,
   'credit',
   'completed',
-  'ECF-DEP-552018'
+  'ECF-DEP-150291'
 )
 on conflict (id) do nothing;
 

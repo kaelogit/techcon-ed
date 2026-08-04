@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { normalizeAccountNumber } from '@/data/ecf-banking-seed';
 import { hashPassword, verifyAnswer } from '@/lib/banking/crypto';
 import { getProfile, getSeed, updatePasswordHash } from '@/lib/banking/store';
 
@@ -6,7 +7,7 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const action = String(body.action || 'questions');
-    const accountNumber = String(body.accountNumber || '').trim().toUpperCase();
+    const accountNumber = normalizeAccountNumber(String(body.accountNumber || ''));
 
     if (!accountNumber) {
       return NextResponse.json({ error: 'Account number is required.' }, { status: 400 });

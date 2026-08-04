@@ -79,7 +79,9 @@ export default function RecoverPage() {
           <form onSubmit={loadQuestions} className="mt-8 space-y-4 rounded-2xl border border-[#d5dde6] bg-white p-6 shadow-sm">
             <input
               className="w-full rounded-xl border border-[#cbd5e1] px-3 py-2.5"
-              placeholder="Account number"
+              placeholder="12-digit account number"
+              inputMode="numeric"
+              maxLength={12}
               value={accountNumber}
               onChange={(e) => setAccountNumber(e.target.value)}
               required

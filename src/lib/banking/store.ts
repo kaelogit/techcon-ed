@@ -1,6 +1,8 @@
-import type { SeedAccount } from '@/data/ecf-banking-seed';
+import { normalizeAccountNumber, type SeedAccount } from '@/data/ecf-banking-seed';
 import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import type { AccountProfile, BankTransaction, ExternalAccount, PublicAccountView } from './types';
+
+export type AccountStatus = 'active' | 'frozen' | 'archived';
 
 type AccountRow = {
   account_number: string;
@@ -15,6 +17,8 @@ type AccountRow = {
   credit_date: string;
   credit_description: string;
   account_type: string;
+  status?: AccountStatus | null;
+  created_at?: string;
 };
 
 type ProfileRow = {
@@ -23,14 +27,10 @@ type ProfileRow = {
   registered_at: string;
   welcome_seen: boolean;
   vault_key_hash?: string | null;
+  last_login_at?: string | null;
 };
 
-type QuestionRow = {
-  question: string;
-  answer_hash: string;
-  sort_order: number;
-};
-
+type QuestionRow = { question: string; answer_hash: string; sort_order: number };
 type TxnRow = {
   id: string;
   txn_date: string;
@@ -40,7 +40,6 @@ type TxnRow = {
   status: 'completed' | 'pending';
   reference: string | null;
 };
-
 type ExtRow = {
   id: string;
   bank_name: string;
@@ -66,6 +65,7 @@ function rowToSeed(row: AccountRow): SeedAccount {
     creditDate: row.credit_date,
     creditDescription: row.credit_description,
     accountType: row.account_type,
+    status: row.status || 'active',
   };
 }
 
@@ -95,7 +95,8 @@ function rowToExternal(row: ExtRow): ExternalAccount {
 }
 
 export async function getSeed(accountNumber: string): Promise<SeedAccount | undefined> {
-  const normalized = accountNumber.trim().toUpperCase();
+  const normalized = normalizeAccountNumber(accountNumber);
+  if (!normalized) return undefined;
   const { data, error } = await getSupabaseAdmin()
     .from('ecf_bank_accounts')
     .select('*')
@@ -115,7 +116,10 @@ export async function listAllSeeds(): Promise<SeedAccount[]> {
 }
 
 export async function addSeedAccount(seed: SeedAccount): Promise<void> {
-  const accountNumber = seed.accountNumber.toUpperCase();
+  const accountNumber = normalizeAccountNumber(seed.accountNumber);
+  if (accountNumber.length !== 12) {
+    throw new Error('Account number must be exactly 12 digits.');
+  }
   const sb = getSupabaseAdmin();
 
   const { error: accErr } = await sb.from('ecf_bank_accounts').insert({
@@ -131,6 +135,7 @@ export async function addSeedAccount(seed: SeedAccount): Promise<void> {
     credit_date: seed.creditDate,
     credit_description: seed.creditDescription,
     account_type: seed.accountType,
+    status: seed.status || 'active',
   });
   if (accErr) throw accErr;
 
@@ -147,8 +152,47 @@ export async function addSeedAccount(seed: SeedAccount): Promise<void> {
   if (txnErr) throw txnErr;
 }
 
+export async function updateAccountDetails(
+  accountNumber: string,
+  patch: Partial<{
+    fullName: string;
+    addressLine1: string;
+    addressLine2: string | null;
+    city: string;
+    state: string;
+    postalCode: string;
+    country: string;
+    supportAmount: number;
+    creditDate: string;
+    creditDescription: string;
+    accountType: string;
+    status: AccountStatus;
+  }>
+): Promise<void> {
+  const normalized = normalizeAccountNumber(accountNumber);
+  const row: Record<string, unknown> = {};
+  if (patch.fullName !== undefined) row.full_name = patch.fullName;
+  if (patch.addressLine1 !== undefined) row.address_line1 = patch.addressLine1;
+  if (patch.addressLine2 !== undefined) row.address_line2 = patch.addressLine2;
+  if (patch.city !== undefined) row.city = patch.city;
+  if (patch.state !== undefined) row.state = patch.state;
+  if (patch.postalCode !== undefined) row.postal_code = patch.postalCode;
+  if (patch.country !== undefined) row.country = patch.country;
+  if (patch.supportAmount !== undefined) row.support_amount = patch.supportAmount;
+  if (patch.creditDate !== undefined) row.credit_date = patch.creditDate;
+  if (patch.creditDescription !== undefined) row.credit_description = patch.creditDescription;
+  if (patch.accountType !== undefined) row.account_type = patch.accountType;
+  if (patch.status !== undefined) row.status = patch.status;
+
+  const { error } = await getSupabaseAdmin()
+    .from('ecf_bank_accounts')
+    .update(row)
+    .eq('account_number', normalized);
+  if (error) throw error;
+}
+
 export async function getProfile(accountNumber: string): Promise<AccountProfile | undefined> {
-  const normalized = accountNumber.trim().toUpperCase();
+  const normalized = normalizeAccountNumber(accountNumber);
   const sb = getSupabaseAdmin();
 
   const { data: profile, error } = await sb
@@ -160,20 +204,13 @@ export async function getProfile(accountNumber: string): Promise<AccountProfile 
   if (!profile) return undefined;
 
   const p = profile as ProfileRow;
-
-  const [{ data: questions }, { data: externals }, { data: txns }] = await Promise.all([
+  const [{ data: questions }, { data: externals }] = await Promise.all([
     sb
       .from('ecf_bank_security_questions')
       .select('question, answer_hash, sort_order')
       .eq('account_number', normalized)
       .order('sort_order', { ascending: true }),
     sb.from('ecf_bank_external_accounts').select('*').eq('account_number', normalized),
-    sb
-      .from('ecf_bank_transactions')
-      .select('*')
-      .eq('account_number', normalized)
-      .neq('id', `CR-${normalized}`)
-      .order('txn_date', { ascending: false }),
   ]);
 
   return {
@@ -183,17 +220,18 @@ export async function getProfile(accountNumber: string): Promise<AccountProfile 
     welcomeSeen: p.welcome_seen,
     vaultKeyHash: p.vault_key_hash || null,
     hasVaultKey: Boolean(p.vault_key_hash),
+    lastLoginAt: p.last_login_at || null,
     securityQuestions: ((questions || []) as QuestionRow[]).map((q) => ({
       question: q.question,
       answerHash: q.answer_hash,
     })),
     externalAccounts: ((externals || []) as ExtRow[]).map(rowToExternal),
-    extraTransactions: ((txns || []) as TxnRow[]).map(rowToTxn),
+    extraTransactions: [],
   };
 }
 
 export async function setProfile(profile: AccountProfile): Promise<void> {
-  const accountNumber = profile.accountNumber.toUpperCase();
+  const accountNumber = normalizeAccountNumber(profile.accountNumber);
   const sb = getSupabaseAdmin();
 
   const { error: upsertErr } = await sb.from('ecf_bank_profiles').upsert({
@@ -223,7 +261,15 @@ export async function markWelcomeSeen(accountNumber: string): Promise<void> {
   const { error } = await getSupabaseAdmin()
     .from('ecf_bank_profiles')
     .update({ welcome_seen: true })
-    .eq('account_number', accountNumber.toUpperCase());
+    .eq('account_number', normalizeAccountNumber(accountNumber));
+  if (error) throw error;
+}
+
+export async function touchLastLogin(accountNumber: string): Promise<void> {
+  const { error } = await getSupabaseAdmin()
+    .from('ecf_bank_profiles')
+    .update({ last_login_at: new Date().toISOString() })
+    .eq('account_number', normalizeAccountNumber(accountNumber));
   if (error) throw error;
 }
 
@@ -231,15 +277,45 @@ export async function updatePasswordHash(accountNumber: string, passwordHash: st
   const { error } = await getSupabaseAdmin()
     .from('ecf_bank_profiles')
     .update({ password_hash: passwordHash })
-    .eq('account_number', accountNumber.toUpperCase());
+    .eq('account_number', normalizeAccountNumber(accountNumber));
   if (error) throw error;
 }
 
-export async function setVaultKeyHash(accountNumber: string, vaultKeyHash: string): Promise<void> {
+export async function setVaultKeyHash(accountNumber: string, vaultKeyHash: string | null): Promise<void> {
   const { error } = await getSupabaseAdmin()
     .from('ecf_bank_profiles')
     .update({ vault_key_hash: vaultKeyHash })
-    .eq('account_number', accountNumber.toUpperCase());
+    .eq('account_number', normalizeAccountNumber(accountNumber));
+  if (error) throw error;
+}
+
+export async function clearSecurityQuestions(accountNumber: string): Promise<void> {
+  const { error } = await getSupabaseAdmin()
+    .from('ecf_bank_security_questions')
+    .delete()
+    .eq('account_number', normalizeAccountNumber(accountNumber));
+  if (error) throw error;
+}
+
+export async function deleteProfile(accountNumber: string): Promise<void> {
+  const normalized = normalizeAccountNumber(accountNumber);
+  const sb = getSupabaseAdmin();
+  await sb.from('ecf_bank_external_accounts').delete().eq('account_number', normalized);
+  await sb.from('ecf_bank_security_questions').delete().eq('account_number', normalized);
+  const { error } = await sb.from('ecf_bank_profiles').delete().eq('account_number', normalized);
+  if (error) throw error;
+}
+
+export async function archiveAccount(accountNumber: string): Promise<void> {
+  await updateAccountDetails(accountNumber, { status: 'archived' });
+}
+
+export async function deleteAccountHard(accountNumber: string): Promise<void> {
+  const normalized = normalizeAccountNumber(accountNumber);
+  const sb = getSupabaseAdmin();
+  await sb.from('ecf_bank_transactions').delete().eq('account_number', normalized);
+  await deleteProfile(normalized);
+  const { error } = await sb.from('ecf_bank_accounts').delete().eq('account_number', normalized);
   if (error) throw error;
 }
 
@@ -247,7 +323,7 @@ export async function isRegistered(accountNumber: string): Promise<boolean> {
   const { data, error } = await getSupabaseAdmin()
     .from('ecf_bank_profiles')
     .select('account_number')
-    .eq('account_number', accountNumber.trim().toUpperCase())
+    .eq('account_number', normalizeAccountNumber(accountNumber))
     .maybeSingle();
   if (error) throw error;
   return Boolean(data);
@@ -267,6 +343,7 @@ export async function toPublicView(seed: SeedAccount): Promise<PublicAccountView
     creditDate: seed.creditDate,
     creditDescription: seed.creditDescription,
     accountType: seed.accountType,
+    status: seed.status || 'active',
     registered: await isRegistered(seed.accountNumber),
   };
 }
@@ -275,7 +352,7 @@ export async function buildTransactions(accountNumber: string): Promise<BankTran
   const { data, error } = await getSupabaseAdmin()
     .from('ecf_bank_transactions')
     .select('*')
-    .eq('account_number', accountNumber.toUpperCase())
+    .eq('account_number', normalizeAccountNumber(accountNumber))
     .order('txn_date', { ascending: false })
     .order('created_at', { ascending: false });
   if (error) throw error;
@@ -284,25 +361,34 @@ export async function buildTransactions(accountNumber: string): Promise<BankTran
 
 export async function computeBalance(accountNumber: string): Promise<number> {
   const txns = await buildTransactions(accountNumber);
-  return txns.filter((t) => t.status === 'completed').reduce((sum, t) => sum + t.amount, 0);
+  // Completed ledger + pending outbound (negative) so ACH holds reduce available funds
+  return txns.reduce((sum, t) => {
+    if (t.status === 'completed') return sum + t.amount;
+    if (t.status === 'pending' && t.amount < 0) return sum + t.amount;
+    return sum;
+  }, 0);
 }
 
 export function maskAccountNumber(accountNumber: string): string {
-  if (accountNumber.length <= 4) return accountNumber;
-  return `${accountNumber.slice(0, 4)}••••${accountNumber.slice(-4)}`;
+  const n = normalizeAccountNumber(accountNumber);
+  if (n.length <= 4) return n;
+  return `${n.slice(0, 4)}••••${n.slice(-4)}`;
 }
 
-export function generateAccountNumber(prefix = 'ECF'): string {
-  const mid = Math.floor(100 + Math.random() * 900);
-  const tail = Math.floor(100000 + Math.random() * 900000);
-  return `${prefix}-${mid}-${tail}`;
+export function generateAccountNumber(): string {
+  let out = '';
+  for (let i = 0; i < 12; i++) {
+    out += Math.floor(Math.random() * 10).toString();
+  }
+  if (out[0] === '0') out = `8${out.slice(1)}`;
+  return out;
 }
 
 export async function addExternalAccount(
   accountNumber: string,
   account: ExternalAccount
 ): Promise<ExternalAccount[]> {
-  const normalized = accountNumber.toUpperCase();
+  const normalized = normalizeAccountNumber(accountNumber);
   const sb = getSupabaseAdmin();
   const { error } = await sb.from('ecf_bank_external_accounts').insert({
     id: account.id,
@@ -331,7 +417,7 @@ export async function addTransferTransaction(
 ): Promise<void> {
   const { error } = await getSupabaseAdmin().from('ecf_bank_transactions').insert({
     id: txn.id,
-    account_number: accountNumber.toUpperCase(),
+    account_number: normalizeAccountNumber(accountNumber),
     txn_date: txn.date,
     description: txn.description,
     amount: txn.amount,
@@ -342,11 +428,57 @@ export async function addTransferTransaction(
   if (error) throw error;
 }
 
+export async function postManualTransaction(
+  accountNumber: string,
+  txn: BankTransaction
+): Promise<void> {
+  await addTransferTransaction(accountNumber, txn);
+}
+
+export async function approveTransaction(txnId: string): Promise<void> {
+  const sb = getSupabaseAdmin();
+  const { data, error } = await sb.from('ecf_bank_transactions').select('id, status').eq('id', txnId).maybeSingle();
+  if (error) throw error;
+  if (!data) throw new Error('Transaction not found');
+  if ((data as { status: string }).status !== 'pending') {
+    throw new Error('Only pending transactions can be approved.');
+  }
+  const { error: upd } = await sb
+    .from('ecf_bank_transactions')
+    .update({ status: 'completed' })
+    .eq('id', txnId);
+  if (upd) throw upd;
+}
+
+export async function reverseTransaction(txnId: string): Promise<void> {
+  const sb = getSupabaseAdmin();
+  const { data, error } = await sb.from('ecf_bank_transactions').select('*').eq('id', txnId).maybeSingle();
+  if (error) throw error;
+  if (!data) throw new Error('Transaction not found');
+  const row = data as TxnRow & { account_number: string };
+  if (row.status === 'pending') {
+    const { error: del } = await sb.from('ecf_bank_transactions').delete().eq('id', txnId);
+    if (del) throw del;
+    return;
+  }
+  const amount = Number(row.amount);
+  const reverse: BankTransaction = {
+    id: `RV-${txnId}`,
+    date: new Date().toISOString().slice(0, 10),
+    description: `Reversal of ${row.reference || txnId} — ${row.description}`,
+    amount: -amount,
+    type: amount >= 0 ? 'debit' : 'credit',
+    status: 'completed',
+    reference: `REV-${row.reference || txnId}`,
+  };
+  await addTransferTransaction(row.account_number, reverse);
+}
+
 export async function listExternalAccounts(accountNumber: string): Promise<ExternalAccount[]> {
   const { data, error } = await getSupabaseAdmin()
     .from('ecf_bank_external_accounts')
     .select('*')
-    .eq('account_number', accountNumber.toUpperCase());
+    .eq('account_number', normalizeAccountNumber(accountNumber));
   if (error) throw error;
   return ((data || []) as ExtRow[]).map(rowToExternal);
 }

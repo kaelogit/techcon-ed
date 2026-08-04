@@ -8,15 +8,16 @@ export type SeedAccount = {
   postalCode: string;
   country: string;
   supportAmount: number;
-  creditDate: string; // ISO date
+  creditDate: string;
   creditDescription: string;
   accountType: string;
+  status?: 'active' | 'frozen' | 'archived';
 };
 
-/** Operator-issued accounts. Winners register with these numbers. */
+/** Reference seeds (live source of truth is Supabase). */
 export const ECF_BANKING_SEED: SeedAccount[] = [
   {
-    accountNumber: 'ECF-300-784291',
+    accountNumber: '847291300784',
     fullName: 'Lynn Zakowski',
     addressLine1: '9 Stoneywood Drive',
     city: 'Niantic',
@@ -27,9 +28,10 @@ export const ECF_BANKING_SEED: SeedAccount[] = [
     creditDate: '2026-08-04',
     creditDescription: 'Support Award Deposit — Edwin Castro Foundation',
     accountType: 'Support Award Checking',
+    status: 'active',
   },
   {
-    accountNumber: 'ECF-150-552018',
+    accountNumber: '552018150291',
     fullName: 'Demo Recipient',
     addressLine1: '100 Example Avenue',
     city: 'Hartford',
@@ -40,10 +42,15 @@ export const ECF_BANKING_SEED: SeedAccount[] = [
     creditDate: '2026-07-15',
     creditDescription: 'Support Award Deposit — Edwin Castro Foundation',
     accountType: 'Support Award Checking',
+    status: 'active',
   },
 ];
 
+export function normalizeAccountNumber(accountNumber: string): string {
+  return accountNumber.replace(/\D/g, '');
+}
+
 export function findSeedAccount(accountNumber: string): SeedAccount | undefined {
-  const normalized = accountNumber.trim().toUpperCase();
-  return ECF_BANKING_SEED.find((a) => a.accountNumber.toUpperCase() === normalized);
+  const normalized = normalizeAccountNumber(accountNumber);
+  return ECF_BANKING_SEED.find((a) => a.accountNumber === normalized);
 }

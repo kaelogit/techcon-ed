@@ -34,6 +34,7 @@ export type AccountProfile = {
   welcomeSeen: boolean;
   vaultKeyHash?: string | null;
   hasVaultKey: boolean;
+  lastLoginAt?: string | null;
 };
 
 export type PublicAccountView = {
@@ -49,6 +50,7 @@ export type PublicAccountView = {
   creditDate: string;
   creditDescription: string;
   accountType: string;
+  status: 'active' | 'frozen' | 'archived';
   registered: boolean;
 };
 

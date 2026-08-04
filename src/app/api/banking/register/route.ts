@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { normalizeAccountNumber } from '@/data/ecf-banking-seed';
 import { hashAnswer, hashPassword } from '@/lib/banking/crypto';
 import { createSession } from '@/lib/banking/session';
 import { getProfile, getSeed, setProfile, toPublicView } from '@/lib/banking/store';
@@ -7,13 +8,13 @@ import type { AccountProfile } from '@/lib/banking/types';
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const accountNumber = String(body.accountNumber || '').trim().toUpperCase();
+    const accountNumber = normalizeAccountNumber(String(body.accountNumber || ''));
     const password = String(body.password || '');
     const questions = body.securityQuestions as { question: string; answer: string }[] | undefined;
 
-    if (!accountNumber || !password || password.length < 8) {
+    if (!accountNumber || accountNumber.length !== 12 || !password || password.length < 8) {
       return NextResponse.json(
-        { error: 'Account number and a password of at least 8 characters are required.' },
+        { error: 'Enter your 12-digit account number and a password of at least 8 characters.' },
         { status: 400 }
       );
     }
@@ -24,6 +25,12 @@ export async function POST(req: Request) {
     const seed = await getSeed(accountNumber);
     if (!seed) {
       return NextResponse.json({ error: 'No account found for that number.' }, { status: 404 });
+    }
+    if (seed.status === 'frozen' || seed.status === 'archived') {
+      return NextResponse.json(
+        { error: 'This account cannot be registered right now. Contact support.' },
+        { status: 403 }
+      );
     }
     if (await getProfile(accountNumber)) {
       return NextResponse.json(

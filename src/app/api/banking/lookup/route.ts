@@ -12,6 +12,9 @@ export async function POST(req: Request) {
     if (!seed) {
       return NextResponse.json({ error: 'No account found for that number.' }, { status: 404 });
     }
+    if (seed.status === 'archived') {
+      return NextResponse.json({ error: 'This account is no longer available.' }, { status: 404 });
+    }
     return NextResponse.json({ account: await toPublicView(seed) });
   } catch (err) {
     console.error('[banking/lookup]', err);

@@ -121,7 +121,10 @@ export default function BankingRegisterPage() {
                 className="mt-1.5 w-full rounded-xl border border-[#cbd5e1] px-3 py-2.5 outline-none focus:border-[#2f8f84]"
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
-                placeholder="ECF-300-784291"
+                placeholder="847291300784"
+                inputMode="numeric"
+                maxLength={12}
+                pattern="[0-9]{12}"
                 required
               />
             </label>

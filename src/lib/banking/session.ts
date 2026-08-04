@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers';
+import { normalizeAccountNumber } from '@/data/ecf-banking-seed';
 import { getBankingSecret, signPayload } from './crypto';
 import { getProfile, getSeed } from './store';
 
@@ -33,7 +34,10 @@ function decodeSession(token: string): SessionPayload | null {
 export async function createSession(accountNumber: string): Promise<void> {
   const jar = await cookies();
   const exp = Date.now() + SESSION_DAYS * 24 * 60 * 60 * 1000;
-  const token = encodeSession({ accountNumber: accountNumber.toUpperCase(), exp });
+  const token = encodeSession({
+    accountNumber: normalizeAccountNumber(accountNumber),
+    exp,
+  });
   jar.set(SESSION_COOKIE, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
@@ -62,5 +66,6 @@ export async function requireSessionAccount() {
   const seed = await getSeed(accountNumber);
   const profile = await getProfile(accountNumber);
   if (!seed || !profile) return null;
+  if (seed.status === 'archived') return null;
   return { accountNumber, seed, profile };
 }

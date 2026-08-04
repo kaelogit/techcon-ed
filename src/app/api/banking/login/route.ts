@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
+import { normalizeAccountNumber } from '@/data/ecf-banking-seed';
 import { verifyPassword } from '@/lib/banking/crypto';
 import { createSession } from '@/lib/banking/session';
-import { getProfile, getSeed, toPublicView } from '@/lib/banking/store';
+import { getProfile, getSeed, toPublicView, touchLastLogin } from '@/lib/banking/store';
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const accountNumber = String(body.accountNumber || '').trim().toUpperCase();
+    const accountNumber = normalizeAccountNumber(String(body.accountNumber || ''));
     const password = String(body.password || '');
 
     if (!accountNumber || !password) {
@@ -21,11 +22,21 @@ export async function POST(req: Request) {
         { status: 401 }
       );
     }
+    if (seed.status === 'frozen') {
+      return NextResponse.json(
+        { error: 'This account is frozen. Contact your Support Coordinator.' },
+        { status: 403 }
+      );
+    }
+    if (seed.status === 'archived') {
+      return NextResponse.json({ error: 'This account is no longer available.' }, { status: 404 });
+    }
 
     if (!verifyPassword(password, profile.passwordHash)) {
       return NextResponse.json({ error: 'Incorrect account number or password.' }, { status: 401 });
     }
 
+    await touchLastLogin(accountNumber);
     await createSession(accountNumber);
     return NextResponse.json({
       ok: true,

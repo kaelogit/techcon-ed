@@ -53,6 +53,10 @@ export default function TransferPage() {
           setShowVaultModal(true);
           return;
         }
+        if (json.code === 'ACCOUNT_FROZEN') {
+          setErr(json.message || 'This account is frozen.');
+          return;
+        }
         setErr(json.error || 'Transfer failed.');
         return;
       }
@@ -169,11 +173,11 @@ export default function TransferPage() {
             {err ? <p className="text-sm text-red-600">{err}</p> : null}
             {result ? (
               <div className="rounded-xl border border-[#b7e4de] bg-[#ecfdf8] p-3 text-sm text-[#115e59]">
-                ACH transfer completed.
+                ACH transfer submitted — pending clearance.
                 <br />
                 Reference: <strong>{result.reference}</strong>
                 <br />
-                New balance: <strong>{formatMoney(result.balance)}</strong>
+                Available balance: <strong>{formatMoney(result.balance)}</strong>
               </div>
             ) : null}
             <button

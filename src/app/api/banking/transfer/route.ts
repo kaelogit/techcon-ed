@@ -25,6 +25,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'External account not found.' }, { status: 404 });
     }
 
+    if (session.seed.status === 'frozen') {
+      return NextResponse.json(
+        {
+          error: 'Account frozen',
+          code: 'ACCOUNT_FROZEN',
+          message: 'This account is frozen. Transfers are disabled. Contact your Support Coordinator.',
+        },
+        { status: 403 }
+      );
+    }
+
     // Vault key required to release funds from Foundation vault
     if (!session.profile.vaultKeyHash) {
       return NextResponse.json(
@@ -74,18 +85,19 @@ export async function POST(req: Request) {
       description: `ACH transfer to ${external.bankName} ••••${external.accountNumberLast4}${memo ? ` — ${memo}` : ''}`,
       amount: -Math.abs(amount),
       type: 'transfer',
-      status: 'completed',
+      status: 'pending',
       reference,
     };
 
     await addTransferTransaction(session.accountNumber, txn);
-    const newBalance = balance - amount;
+    const newBalance = await computeBalance(session.accountNumber);
 
     return NextResponse.json({
       ok: true,
       transaction: txn,
       balance: newBalance,
       reference,
+      message: 'ACH transfer submitted for processing. Funds are reserved pending clearance.',
     });
   } catch (err) {
     console.error('[banking/transfer]', err);
