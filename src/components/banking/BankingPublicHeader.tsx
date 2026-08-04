@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -30,10 +31,19 @@ export function BankingPublicHeader() {
 
       <header className="relative z-50 border-b border-[var(--ecf-line)] bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
-          <Link href="/banking" className="flex items-center gap-2.5 no-underline" onClick={() => setOpen(false)}>
-            <span className="flex h-9 w-9 items-center justify-center rounded bg-[var(--ecf-navy)] text-xs font-bold tracking-wide text-white sm:h-10 sm:w-10 sm:text-sm">
-              ECF
-            </span>
+          <Link
+            href="/banking"
+            className="banking-nav-item flex items-center gap-2.5 no-underline"
+            onClick={() => setOpen(false)}
+          >
+            <Image
+              src="/banking/ecf-bank-logo.png"
+              alt="ECF Bank"
+              width={80}
+              height={80}
+              className="h-9 w-9 rounded object-cover object-[center_18%] sm:h-10 sm:w-10"
+              priority
+            />
             <span>
               <span className="block font-[family-name:var(--font-banking-display)] text-lg font-semibold text-[var(--ecf-navy)] sm:text-xl">
                 ECF Bank
@@ -54,13 +64,13 @@ export function BankingPublicHeader() {
           <div className="flex items-center gap-1.5 sm:gap-2">
             <Link
               href="/banking/login"
-              className="rounded px-2.5 py-1.5 text-xs font-semibold text-[var(--ecf-navy)] no-underline hover:bg-[var(--ecf-sky)] sm:px-3 sm:py-2 sm:text-sm"
+              className="banking-nav-item rounded px-2.5 py-1.5 text-xs font-semibold text-[var(--ecf-navy)] no-underline hover:bg-[var(--ecf-sky)] sm:px-3 sm:py-2 sm:text-sm"
             >
               Sign in
             </Link>
             <Link
               href="/banking/register"
-              className="rounded bg-[var(--ecf-navy)] px-2.5 py-1.5 text-xs font-semibold text-white no-underline hover:bg-[var(--ecf-blue)] sm:px-3.5 sm:py-2 sm:text-sm"
+              className="banking-nav-active rounded bg-[var(--ecf-navy)] px-2.5 py-1.5 text-xs font-semibold text-white no-underline hover:bg-[var(--ecf-blue)] sm:px-3.5 sm:py-2 sm:text-sm"
             >
               Enroll
             </Link>
@@ -109,14 +119,14 @@ export function BankingPublicHeader() {
                 <div className="my-1 border-t border-[var(--ecf-line)]" />
                 <Link
                   href="/banking/login"
-                  className="rounded px-3 py-2.5 font-semibold text-[var(--ecf-navy)] no-underline"
+                  className="banking-nav-item rounded px-3 py-2.5 font-semibold text-[var(--ecf-navy)] no-underline"
                   onClick={() => setOpen(false)}
                 >
                   Sign in
                 </Link>
                 <Link
                   href="/banking/register"
-                  className="rounded px-3 py-2.5 font-semibold text-[var(--ecf-navy)] no-underline"
+                  className="banking-nav-item rounded px-3 py-2.5 font-semibold text-[var(--ecf-navy)] no-underline"
                   onClick={() => setOpen(false)}
                 >
                   Enroll in Online Banking
