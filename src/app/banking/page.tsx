@@ -93,7 +93,7 @@ export default function BankingHomePage() {
             </ul>
             <Link
               href="/banking/login"
-              className="mt-6 inline-flex rounded bg-[var(--ecf-navy)] px-4 py-2.5 text-xs font-semibold text-white no-underline hover:bg-[var(--ecf-blue)] sm:mt-8 sm:px-5 sm:py-2.5 sm:text-sm"
+              className="banking-nav-active mt-6 inline-flex rounded bg-[var(--ecf-navy)] px-4 py-2.5 text-xs font-semibold text-white no-underline hover:bg-[var(--ecf-blue)] sm:mt-8 sm:px-5 sm:py-2.5 sm:text-sm"
             >
               Go to sign in
             </Link>
