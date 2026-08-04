@@ -33,25 +33,17 @@ export function BankingPublicHeader() {
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
           <Link
             href="/banking"
-            className="banking-nav-item flex items-center gap-2.5 no-underline"
+            className="banking-nav-item flex items-center no-underline"
             onClick={() => setOpen(false)}
           >
             <Image
               src="/banking/ecf-bank-logo.png"
               alt="ECF Bank"
-              width={80}
-              height={80}
-              className="h-9 w-9 rounded object-cover object-[center_18%] sm:h-10 sm:w-10"
+              width={160}
+              height={160}
+              className="h-11 w-auto object-contain object-left sm:h-12"
               priority
             />
-            <span>
-              <span className="block font-[family-name:var(--font-banking-display)] text-lg font-semibold text-[var(--ecf-navy)] sm:text-xl">
-                ECF Bank
-              </span>
-              <span className="hidden text-[10px] font-medium uppercase tracking-[0.12em] text-[var(--ecf-muted)] sm:block">
-                Personal Banking
-              </span>
-            </span>
           </Link>
 
           <nav className="hidden items-center gap-6 text-sm font-medium text-[var(--ecf-ink)] md:flex">

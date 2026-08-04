@@ -61,6 +61,20 @@ export default function BankingRootLayout({ children }: { children: ReactNode })
         .banking-root a.banking-nav-muted:active {
           color: #5c6578;
         }
+        .banking-root a.banking-btn-light,
+        .banking-root a.banking-btn-light:link,
+        .banking-root a.banking-btn-light:visited,
+        .banking-root a.banking-btn-light:hover,
+        .banking-root a.banking-btn-light:active {
+          color: #003087 !important;
+        }
+        .banking-root a.banking-btn-ghost,
+        .banking-root a.banking-btn-ghost:link,
+        .banking-root a.banking-btn-ghost:visited,
+        .banking-root a.banking-btn-ghost:hover,
+        .banking-root a.banking-btn-ghost:active {
+          color: #ffffff !important;
+        }
       `}</style>
       <div className="banking-isolate">{children}</div>
     </>

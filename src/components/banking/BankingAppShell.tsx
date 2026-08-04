@@ -21,14 +21,14 @@ const MORE_NAV = [
 
 const ALL_NAV = [...PRIMARY_NAV, ...MORE_NAV];
 
-function LogoMark({ className = 'h-8 w-8' }: { className?: string }) {
+function LogoMark({ className = 'h-11 w-auto sm:h-12' }: { className?: string }) {
   return (
     <Image
       src="/banking/ecf-bank-logo.png"
       alt="ECF Bank"
-      width={80}
-      height={80}
-      className={`${className} shrink-0 rounded object-cover object-[center_18%]`}
+      width={160}
+      height={160}
+      className={`${className} shrink-0 object-contain object-left`}
       priority
     />
   );
@@ -110,20 +110,15 @@ export function BankingAppShell({
 
           <Link
             href="/banking/dashboard"
-            className="banking-nav-item flex min-w-0 flex-1 items-center gap-2 no-underline"
+            className="banking-nav-item flex min-w-0 flex-1 items-center gap-2.5 no-underline"
             onClick={() => setMenuOpen(false)}
           >
             <LogoMark />
-            <span className="min-w-0">
-              <span className="block truncate font-[family-name:var(--font-banking-display)] text-sm font-semibold text-[var(--ecf-navy)] sm:text-base">
-                ECF Bank
+            {accountName ? (
+              <span className="min-w-0 truncate text-[11px] text-[var(--ecf-muted)] sm:hidden">
+                {accountName}
               </span>
-              {accountName ? (
-                <span className="block truncate text-[10px] text-[var(--ecf-muted)] sm:hidden">
-                  {accountName}
-                </span>
-              ) : null}
-            </span>
+            ) : null}
           </Link>
 
           <div className="hidden shrink-0 items-center gap-2 md:flex">

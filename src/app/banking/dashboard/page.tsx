@@ -114,19 +114,19 @@ export default function BankingDashboardPage() {
             <div className="mt-4 grid grid-cols-3 gap-1.5 sm:mt-5 sm:flex sm:flex-wrap sm:gap-2">
               <Link
                 href="/banking/transfer"
-                className="bg-white px-2.5 py-2 text-center text-[11px] font-semibold text-[var(--ecf-navy)] no-underline sm:px-4 sm:py-2.5 sm:text-sm"
+                className="banking-btn-light rounded bg-white px-2.5 py-2 text-center text-[11px] font-semibold no-underline sm:px-4 sm:py-2.5 sm:text-sm"
               >
                 Transfer
               </Link>
               <Link
                 href="/banking/external-accounts"
-                className="border border-white/30 bg-white/5 px-2.5 py-2 text-center text-[11px] font-semibold text-white no-underline sm:px-4 sm:py-2.5 sm:text-sm"
+                className="banking-btn-ghost rounded border border-white/40 bg-white/10 px-2.5 py-2 text-center text-[11px] font-semibold no-underline sm:px-4 sm:py-2.5 sm:text-sm"
               >
                 Link
               </Link>
               <Link
                 href="/banking/transactions"
-                className="border border-white/30 bg-white/5 px-2.5 py-2 text-center text-[11px] font-semibold text-white no-underline sm:px-4 sm:py-2.5 sm:text-sm"
+                className="banking-btn-ghost rounded border border-white/40 bg-white/10 px-2.5 py-2 text-center text-[11px] font-semibold no-underline sm:px-4 sm:py-2.5 sm:text-sm"
               >
                 Activity
               </Link>
