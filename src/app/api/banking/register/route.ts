@@ -49,6 +49,8 @@ export async function POST(req: Request) {
       extraTransactions: [],
       registeredAt: new Date().toISOString(),
       welcomeSeen: false,
+      hasVaultKey: false,
+      vaultKeyHash: null,
     };
 
     await setProfile(profile);

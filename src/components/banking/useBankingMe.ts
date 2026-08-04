@@ -32,6 +32,7 @@ export type BankingMe = {
     securityQuestions: { question: string }[];
     welcomeSeen: boolean;
     registeredAt: string;
+    hasVaultKey: boolean;
   };
   transactions: {
     id: string;

@@ -32,6 +32,8 @@ export type AccountProfile = {
   extraTransactions: BankTransaction[];
   registeredAt: string;
   welcomeSeen: boolean;
+  vaultKeyHash?: string | null;
+  hasVaultKey: boolean;
 };
 
 export type PublicAccountView = {

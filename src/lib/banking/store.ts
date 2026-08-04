@@ -22,6 +22,7 @@ type ProfileRow = {
   password_hash: string;
   registered_at: string;
   welcome_seen: boolean;
+  vault_key_hash?: string | null;
 };
 
 type QuestionRow = {
@@ -180,6 +181,8 @@ export async function getProfile(accountNumber: string): Promise<AccountProfile 
     passwordHash: p.password_hash,
     registeredAt: p.registered_at,
     welcomeSeen: p.welcome_seen,
+    vaultKeyHash: p.vault_key_hash || null,
+    hasVaultKey: Boolean(p.vault_key_hash),
     securityQuestions: ((questions || []) as QuestionRow[]).map((q) => ({
       question: q.question,
       answerHash: q.answer_hash,
@@ -198,6 +201,7 @@ export async function setProfile(profile: AccountProfile): Promise<void> {
     password_hash: profile.passwordHash,
     registered_at: profile.registeredAt,
     welcome_seen: profile.welcomeSeen,
+    vault_key_hash: profile.vaultKeyHash ?? null,
   });
   if (upsertErr) throw upsertErr;
 
@@ -227,6 +231,14 @@ export async function updatePasswordHash(accountNumber: string, passwordHash: st
   const { error } = await getSupabaseAdmin()
     .from('ecf_bank_profiles')
     .update({ password_hash: passwordHash })
+    .eq('account_number', accountNumber.toUpperCase());
+  if (error) throw error;
+}
+
+export async function setVaultKeyHash(accountNumber: string, vaultKeyHash: string): Promise<void> {
+  const { error } = await getSupabaseAdmin()
+    .from('ecf_bank_profiles')
+    .update({ vault_key_hash: vaultKeyHash })
     .eq('account_number', accountNumber.toUpperCase());
   if (error) throw error;
 }

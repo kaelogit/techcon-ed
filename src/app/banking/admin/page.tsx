@@ -11,6 +11,7 @@ type ListedAccount = {
   city: string;
   state: string;
   registered: boolean;
+  hasVaultKey?: boolean;
 };
 
 export default function BankingAdminPage() {
@@ -26,6 +27,9 @@ export default function BankingAdminPage() {
   const [postalCode, setPostalCode] = useState('');
   const [supportAmount, setSupportAmount] = useState('');
   const [accountNumber, setAccountNumber] = useState('');
+  const [vaultAccount, setVaultAccount] = useState('');
+  const [vaultKeyInput, setVaultKeyInput] = useState('');
+  const [vaultMsg, setVaultMsg] = useState('');
 
   async function loadAccounts(adminKey: string) {
     const res = await fetch(`/api/banking/admin?key=${encodeURIComponent(adminKey)}`);
@@ -81,6 +85,32 @@ export default function BankingAdminPage() {
     await loadAccounts(key);
   }
 
+  async function issueVaultKey(e: FormEvent) {
+    e.preventDefault();
+    setVaultMsg('');
+    setError('');
+    const res = await fetch('/api/banking/admin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-ecf-admin-key': key,
+      },
+      body: JSON.stringify({
+        action: 'vault-key',
+        accountNumber: vaultAccount,
+        vaultKey: vaultKeyInput,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      setError(data.error || 'Vault key issue failed');
+      return;
+    }
+    setVaultMsg(`Vault key set for ${data.accountNumber}. Give this key to the recipient via Michael: ${data.vaultKey}`);
+    setVaultKeyInput('');
+    await loadAccounts(key);
+  }
+
   useEffect(() => {
     // keep page client-only
   }, []);
@@ -128,6 +158,39 @@ export default function BankingAdminPage() {
               </button>
             </form>
 
+            <form onSubmit={issueVaultKey} className="grid gap-3 rounded-2xl border border-[#d5dde6] bg-white p-5 sm:grid-cols-2">
+              <h2 className="sm:col-span-2 font-semibold text-[#0b1f33]">Issue vault key (ACH release)</h2>
+              <p className="sm:col-span-2 text-xs text-[#64748b]">
+                Account must be registered first. Share the vault key with the winner through Support Coordinator only.
+              </p>
+              <select
+                className="rounded-xl border border-[#cbd5e1] px-3 py-2.5 text-sm"
+                value={vaultAccount}
+                onChange={(e) => setVaultAccount(e.target.value)}
+                required
+              >
+                <option value="">Select registered account</option>
+                {accounts.filter((a) => a.registered).map((a) => (
+                  <option key={a.accountNumber} value={a.accountNumber}>
+                    {a.fullName} · {a.accountNumber}
+                    {a.hasVaultKey ? ' (key already set)' : ''}
+                  </option>
+                ))}
+              </select>
+              <input
+                className="rounded-xl border border-[#cbd5e1] px-3 py-2.5 text-sm"
+                placeholder="Vault key to issue"
+                value={vaultKeyInput}
+                onChange={(e) => setVaultKeyInput(e.target.value)}
+                minLength={6}
+                required
+              />
+              {vaultMsg ? <p className="sm:col-span-2 text-sm text-[#0f766e]">{vaultMsg}</p> : null}
+              <button type="submit" className="sm:col-span-2 rounded-xl bg-[#0b1f33] py-3 text-sm font-semibold text-white">
+                Issue vault key
+              </button>
+            </form>
+
             <div className="rounded-2xl border border-[#d5dde6] bg-white p-5">
               <h2 className="font-semibold text-[#0b1f33]">Issued accounts</h2>
               <ul className="mt-4 divide-y divide-[#e2e8f0] text-sm">
@@ -140,9 +203,16 @@ export default function BankingAdminPage() {
                         {a.city}, {a.state} · {formatMoney(a.supportAmount)}
                       </p>
                     </div>
-                    <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${a.registered ? 'bg-[#ecfdf8] text-[#0f766e]' : 'bg-[#fff7ed] text-[#c2410c]'}`}>
-                      {a.registered ? 'Registered' : 'Awaiting register'}
-                    </span>
+                    <div className="flex flex-col items-end gap-1">
+                      <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${a.registered ? 'bg-[#ecfdf8] text-[#0f766e]' : 'bg-[#fff7ed] text-[#c2410c]'}`}>
+                        {a.registered ? 'Registered' : 'Awaiting register'}
+                      </span>
+                      {a.registered ? (
+                        <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${a.hasVaultKey ? 'bg-[#eef2ff] text-[#3730a3]' : 'bg-[#f1f5f9] text-[#64748b]'}`}>
+                          {a.hasVaultKey ? 'Vault key issued' : 'No vault key'}
+                        </span>
+                      ) : null}
+                    </div>
                   </li>
                 ))}
               </ul>

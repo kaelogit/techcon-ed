@@ -31,6 +31,7 @@ export async function GET() {
         securityQuestions: profile.securityQuestions.map((q) => ({ question: q.question })),
         welcomeSeen: profile.welcomeSeen,
         registeredAt: profile.registeredAt,
+        hasVaultKey: profile.hasVaultKey,
       },
       transactions,
     });

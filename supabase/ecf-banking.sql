@@ -25,7 +25,8 @@ create table if not exists ecf_bank_profiles (
   account_number text primary key references ecf_bank_accounts(account_number) on delete cascade,
   password_hash text not null,
   registered_at timestamptz not null default now(),
-  welcome_seen boolean not null default false
+  welcome_seen boolean not null default false,
+  vault_key_hash text
 );
 
 create table if not exists ecf_bank_security_questions (
