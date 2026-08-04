@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { BankingAppShell } from '@/components/banking/BankingAppShell';
+import { DebitCard } from '@/components/banking/DebitCard';
 import { useBankingMe } from '@/components/banking/useBankingMe';
 import { formatDate, formatMoney } from '@/lib/banking/format';
 
@@ -10,6 +11,7 @@ export default function BankingDashboardPage() {
   const { data, loading, error } = useBankingMe();
   const [showWelcome, setShowWelcome] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [openTxn, setOpenTxn] = useState<string | null>(null);
 
   useEffect(() => {
     if (data && !data.account.welcomeSeen) {
@@ -37,9 +39,9 @@ export default function BankingDashboardPage() {
     return (
       <BankingAppShell>
         <div className="animate-pulse space-y-4">
-          <div className="h-48 rounded-3xl bg-[#d5dde6]/70" />
-          <div className="h-36 rounded-3xl bg-[#d5dde6]/50" />
-          <div className="h-40 rounded-3xl bg-[#d5dde6]/40" />
+          <div className="h-40 bg-[#d5dde6]/70" />
+          <div className="aspect-[1.586/1] bg-[#d5dde6]/50" />
+          <div className="h-40 bg-[#d5dde6]/40" />
         </div>
       </BankingAppShell>
     );
@@ -83,7 +85,7 @@ export default function BankingDashboardPage() {
         </h1>
       </div>
 
-      <div className="mt-4 grid gap-4 lg:grid-cols-[1.35fr_0.9fr] lg:gap-6">
+      <div className="mt-4 grid gap-4 lg:grid-cols-[1.35fr_0.9fr] lg:items-start lg:gap-6">
         <section className="relative overflow-hidden bg-[var(--ecf-navy)] p-5 text-white shadow-md sm:p-7">
           <div className="relative">
             <p className="text-[11px] uppercase tracking-[0.16em] text-white/65">Available balance</p>
@@ -132,73 +134,78 @@ export default function BankingDashboardPage() {
           </div>
         </section>
 
-        <section className="relative flex min-h-[200px] flex-col justify-between overflow-hidden bg-[#0a1628] p-5 text-white shadow-md sm:min-h-[240px] sm:p-6">
-          <div className="relative flex items-start justify-between">
-            <div>
-              <p className="text-[10px] uppercase tracking-[0.2em] text-white/45">Debit card</p>
-              <p className="mt-1 text-xs font-medium text-white/70">ECF Bank</p>
-            </div>
-            <div className="h-8 w-11 rounded-sm bg-gradient-to-br from-amber-300/90 to-amber-700/70" />
-          </div>
-          <p className="relative mt-8 font-mono text-lg tracking-[0.22em] sm:text-xl">
-            •••• •••• •••• {account.accountNumber.slice(-4)}
-          </p>
-          <div className="relative mt-6 flex items-end justify-between gap-3">
-            <div className="min-w-0">
-              <p className="text-[10px] uppercase text-white/40">Cardholder</p>
-              <p className="truncate text-sm font-medium">{account.fullName}</p>
-            </div>
-            <button
-              type="button"
-              onClick={copyAccount}
-              className="shrink-0 border border-white/20 px-3 py-1.5 text-xs font-semibold text-white/85"
-            >
-              {copied ? 'Copied' : 'Copy #'}
-            </button>
-          </div>
-        </section>
+        <DebitCard
+          accountNumber={account.accountNumber}
+          cardholderName={account.fullName}
+          onCopyAccount={copyAccount}
+          copied={copied}
+        />
       </div>
 
-      <section className="mt-5 border border-[var(--ecf-line)] bg-white p-4 shadow-sm sm:mt-6 sm:p-6">
-        <div className="flex items-center justify-between gap-3">
+      <section className="mt-5 border border-[var(--ecf-line)] bg-white shadow-sm sm:mt-6">
+        <div className="flex items-center justify-between gap-3 px-4 pt-4 sm:px-6 sm:pt-5">
           <h2 className="text-base font-semibold text-[var(--ecf-navy)] sm:text-lg">Recent activity</h2>
           <Link href="/banking/transactions" className="text-sm font-semibold text-[var(--ecf-blue)]">
             See all
           </Link>
         </div>
-        <ul className="mt-3 divide-y divide-[var(--ecf-line)]">
-          {recent.map((txn) => (
-            <li key={txn.id} className="flex items-start justify-between gap-3 py-3.5">
-              <div className="flex min-w-0 items-start gap-3">
-                <span
-                  className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
-                    txn.amount >= 0
-                      ? 'bg-[var(--ecf-sky)] text-[var(--ecf-navy)]'
-                      : 'bg-[var(--ecf-paper)] text-[var(--ecf-ink)]'
-                  }`}
+        <ul className="mt-1 divide-y divide-[var(--ecf-line)]">
+          {recent.map((txn) => {
+            const open = openTxn === txn.id;
+            const credit = txn.amount >= 0;
+            return (
+              <li key={txn.id}>
+                <button
+                  type="button"
+                  onClick={() => setOpenTxn(open ? null : txn.id)}
+                  className="flex w-full items-start gap-3 px-4 py-3.5 text-left sm:px-6"
+                  aria-expanded={open}
                 >
-                  {txn.amount >= 0 ? '+' : '−'}
-                </span>
-                <div className="min-w-0">
-                  <p className="truncate font-medium text-[var(--ecf-ink)]">{txn.description}</p>
-                  <p className="mt-0.5 text-xs text-[var(--ecf-muted)]">
-                    {formatDate(txn.date)}
-                    <span className="capitalize"> · {txn.status}</span>
-                  </p>
-                </div>
-              </div>
-              <p
-                className={`shrink-0 text-sm font-semibold tabular-nums ${
-                  txn.amount >= 0 ? 'text-[var(--ecf-navy)]' : 'text-[var(--ecf-ink)]'
-                }`}
-              >
-                {txn.amount >= 0 ? '+' : ''}
-                {formatMoney(txn.amount)}
-              </p>
-            </li>
-          ))}
+                  <span
+                    className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+                      credit
+                        ? 'bg-[var(--ecf-sky)] text-[var(--ecf-navy)]'
+                        : 'bg-[var(--ecf-paper)] text-[var(--ecf-ink)]'
+                    }`}
+                  >
+                    {credit ? '+' : '−'}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-sm font-medium text-[var(--ecf-ink)]">
+                      {txn.description}
+                    </span>
+                    <span className="mt-0.5 block text-xs text-[var(--ecf-muted)]">
+                      {formatDate(txn.date)}
+                      <span className="capitalize"> · {txn.status}</span>
+                    </span>
+                  </span>
+                  <span className="flex shrink-0 flex-col items-end gap-1">
+                    <span
+                      className={`text-sm font-semibold tabular-nums ${
+                        credit ? 'text-[var(--ecf-navy)]' : 'text-[var(--ecf-ink)]'
+                      }`}
+                    >
+                      {credit ? '+' : ''}
+                      {formatMoney(txn.amount)}
+                    </span>
+                    <span className="text-[10px] font-medium text-[var(--ecf-blue)]">
+                      {open ? 'Hide' : 'Details'}
+                    </span>
+                  </span>
+                </button>
+                {open ? (
+                  <div className="border-t border-[var(--ecf-line)] bg-[var(--ecf-paper)] px-4 py-3 text-xs text-[var(--ecf-muted)] sm:px-6">
+                    <p className="break-words">{txn.description}</p>
+                    <p className="mt-2 font-mono">
+                      Ref: {txn.reference || '—'} · ID: {txn.id}
+                    </p>
+                  </div>
+                ) : null}
+              </li>
+            );
+          })}
           {recent.length === 0 ? (
-            <li className="py-8 text-center text-sm text-[var(--ecf-muted)]">No activity yet.</li>
+            <li className="px-4 py-8 text-center text-sm text-[var(--ecf-muted)]">No activity yet.</li>
           ) : null}
         </ul>
       </section>
