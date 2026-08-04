@@ -382,22 +382,21 @@ export function buildSnapshot(d: DeliveryRecord, now = Date.now()): TrackingSnap
   const hoursRemaining = delivered ? 0 : Math.max(0, total - hoursElapsed);
   const pos = positionAlongRoute(Math.min(hoursElapsed, total));
 
-  let status: TrackingSnapshot['status'] = d.paused ? 'paused' : d.status;
+  let status: TrackingSnapshot['status'] = d.status;
   if (delivered) status = 'delivered';
-  else if (!d.paused && hoursElapsed >= 42.5) status = 'out_for_delivery';
-  else if (!d.paused && d.status === 'scheduled' && hoursElapsed > 0) status = 'in_transit';
-  else if (!d.paused) status = 'in_transit';
+  else if (hoursElapsed >= 42.5) status = 'out_for_delivery';
+  else if (d.status === 'scheduled' && hoursElapsed <= 0) status = 'scheduled';
+  else status = 'in_transit';
 
+  // Public tracking never reveals an admin pause — clock just freezes in place.
   const statusLabel =
     status === 'delivered'
       ? 'Delivered'
-      : status === 'paused'
-        ? 'Delivery paused'
-        : status === 'out_for_delivery'
-          ? 'Out for delivery'
-          : status === 'scheduled'
-            ? 'Label created'
-            : 'In transit';
+      : status === 'out_for_delivery'
+        ? 'Out for delivery'
+        : status === 'scheduled'
+          ? 'Label created'
+          : 'In transit';
 
   const eta = new Date(now + hoursRemaining * 3_600_000).toISOString();
 
