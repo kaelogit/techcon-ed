@@ -5,10 +5,10 @@ import { addTransferTransaction, computeBalance } from '@/lib/banking/store';
 import type { BankTransaction } from '@/lib/banking/types';
 
 export async function POST(req: Request) {
-  const session = await requireSessionAccount();
-  if (!session) return NextResponse.json({ error: 'Not signed in.' }, { status: 401 });
-
   try {
+    const session = await requireSessionAccount();
+    if (!session) return NextResponse.json({ error: 'Not signed in.' }, { status: 401 });
+
     const body = await req.json();
     const externalId = String(body.externalAccountId || '');
     const amount = Number(body.amount);
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'External account not found.' }, { status: 404 });
     }
 
-    const balance = computeBalance(session.seed, session.profile);
+    const balance = await computeBalance(session.accountNumber);
     if (amount > balance) {
       return NextResponse.json({ error: 'Insufficient available balance.' }, { status: 400 });
     }
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
       reference,
     };
 
-    addTransferTransaction(session.accountNumber, txn);
+    await addTransferTransaction(session.accountNumber, txn);
     const newBalance = balance - amount;
 
     return NextResponse.json({
@@ -48,7 +48,8 @@ export async function POST(req: Request) {
       balance: newBalance,
       reference,
     });
-  } catch {
+  } catch (err) {
+    console.error('[banking/transfer]', err);
     return NextResponse.json({ error: 'Transfer failed.' }, { status: 500 });
   }
 }

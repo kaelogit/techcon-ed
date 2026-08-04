@@ -21,11 +21,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Please answer 3 security questions.' }, { status: 400 });
     }
 
-    const seed = getSeed(accountNumber);
+    const seed = await getSeed(accountNumber);
     if (!seed) {
       return NextResponse.json({ error: 'No account found for that number.' }, { status: 404 });
     }
-    if (getProfile(accountNumber)) {
+    if (await getProfile(accountNumber)) {
       return NextResponse.json(
         { error: 'This account is already registered. Please sign in.' },
         { status: 409 }
@@ -51,15 +51,16 @@ export async function POST(req: Request) {
       welcomeSeen: false,
     };
 
-    setProfile(profile);
+    await setProfile(profile);
     await createSession(accountNumber);
 
     return NextResponse.json({
       ok: true,
-      account: toPublicView(seed),
+      account: await toPublicView(seed),
       firstLogin: true,
     });
-  } catch {
+  } catch (err) {
+    console.error('[banking/register]', err);
     return NextResponse.json({ error: 'Registration failed.' }, { status: 500 });
   }
 }

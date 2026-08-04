@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 import { hashAnswer, hashPassword, verifyPassword } from '@/lib/banking/crypto';
 import { requireSessionAccount } from '@/lib/banking/session';
-import { setProfile } from '@/lib/banking/store';
+import { setProfile, updatePasswordHash } from '@/lib/banking/store';
 
 export async function POST(req: Request) {
-  const session = await requireSessionAccount();
-  if (!session) return NextResponse.json({ error: 'Not signed in.' }, { status: 401 });
-
   try {
+    const session = await requireSessionAccount();
+    if (!session) return NextResponse.json({ error: 'Not signed in.' }, { status: 401 });
+
     const body = await req.json();
     const action = String(body.action || 'password');
 
@@ -20,10 +20,7 @@ export async function POST(req: Request) {
       if (!verifyPassword(currentPassword, session.profile.passwordHash)) {
         return NextResponse.json({ error: 'Current password is incorrect.' }, { status: 401 });
       }
-      setProfile({
-        ...session.profile,
-        passwordHash: hashPassword(newPassword),
-      });
+      await updatePasswordHash(session.accountNumber, hashPassword(newPassword));
       return NextResponse.json({ ok: true });
     }
 
@@ -32,7 +29,7 @@ export async function POST(req: Request) {
       if (!Array.isArray(questions) || questions.length < 3) {
         return NextResponse.json({ error: 'Provide 3 security questions.' }, { status: 400 });
       }
-      setProfile({
+      await setProfile({
         ...session.profile,
         securityQuestions: questions.slice(0, 3).map((q) => ({
           question: q.question.trim(),
@@ -43,7 +40,8 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ error: 'Unknown action.' }, { status: 400 });
-  } catch {
+  } catch (err) {
+    console.error('[banking/security]', err);
     return NextResponse.json({ error: 'Update failed.' }, { status: 400 });
   }
 }

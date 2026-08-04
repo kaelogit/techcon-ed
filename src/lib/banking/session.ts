@@ -59,8 +59,8 @@ export async function getSessionAccountNumber(): Promise<string | null> {
 export async function requireSessionAccount() {
   const accountNumber = await getSessionAccountNumber();
   if (!accountNumber) return null;
-  const seed = getSeed(accountNumber);
-  const profile = getProfile(accountNumber);
+  const seed = await getSeed(accountNumber);
+  const profile = await getProfile(accountNumber);
   if (!seed || !profile) return null;
   return { accountNumber, seed, profile };
 }

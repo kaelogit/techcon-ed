@@ -1,62 +1,247 @@
-import { ECF_BANKING_SEED, findSeedAccount, type SeedAccount } from '@/data/ecf-banking-seed';
+import type { SeedAccount } from '@/data/ecf-banking-seed';
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import type { AccountProfile, BankTransaction, ExternalAccount, PublicAccountView } from './types';
 
-type StoreShape = {
-  profiles: Map<string, AccountProfile>;
-  /** Operator-added accounts beyond the static seed file */
-  extraSeeds: Map<string, SeedAccount>;
+type AccountRow = {
+  account_number: string;
+  full_name: string;
+  address_line1: string;
+  address_line2: string | null;
+  city: string;
+  state: string;
+  postal_code: string;
+  country: string;
+  support_amount: number | string;
+  credit_date: string;
+  credit_description: string;
+  account_type: string;
 };
 
-declare global {
-  // eslint-disable-next-line no-var
-  var __ecfBankStore: StoreShape | undefined;
+type ProfileRow = {
+  account_number: string;
+  password_hash: string;
+  registered_at: string;
+  welcome_seen: boolean;
+};
+
+type QuestionRow = {
+  question: string;
+  answer_hash: string;
+  sort_order: number;
+};
+
+type TxnRow = {
+  id: string;
+  txn_date: string;
+  description: string;
+  amount: number | string;
+  txn_type: 'credit' | 'debit' | 'transfer';
+  status: 'completed' | 'pending';
+  reference: string | null;
+};
+
+type ExtRow = {
+  id: string;
+  bank_name: string;
+  account_holder: string;
+  routing_number: string;
+  account_number_last4: string;
+  account_type: 'checking' | 'savings';
+  nickname: string | null;
+  created_at: string;
+};
+
+function rowToSeed(row: AccountRow): SeedAccount {
+  return {
+    accountNumber: row.account_number,
+    fullName: row.full_name,
+    addressLine1: row.address_line1,
+    addressLine2: row.address_line2 || undefined,
+    city: row.city,
+    state: row.state,
+    postalCode: row.postal_code,
+    country: row.country,
+    supportAmount: Number(row.support_amount),
+    creditDate: row.credit_date,
+    creditDescription: row.credit_description,
+    accountType: row.account_type,
+  };
 }
 
-function getStore(): StoreShape {
-  if (!globalThis.__ecfBankStore) {
-    globalThis.__ecfBankStore = {
-      profiles: new Map(),
-      extraSeeds: new Map(),
-    };
-  }
-  return globalThis.__ecfBankStore;
+function rowToTxn(row: TxnRow): BankTransaction {
+  return {
+    id: row.id,
+    date: row.txn_date,
+    description: row.description,
+    amount: Number(row.amount),
+    type: row.txn_type,
+    status: row.status,
+    reference: row.reference || undefined,
+  };
 }
 
-export function getSeed(accountNumber: string): SeedAccount | undefined {
+function rowToExternal(row: ExtRow): ExternalAccount {
+  return {
+    id: row.id,
+    bankName: row.bank_name,
+    accountHolder: row.account_holder,
+    routingNumber: row.routing_number,
+    accountNumberLast4: row.account_number_last4,
+    accountType: row.account_type,
+    nickname: row.nickname || undefined,
+    createdAt: row.created_at,
+  };
+}
+
+export async function getSeed(accountNumber: string): Promise<SeedAccount | undefined> {
   const normalized = accountNumber.trim().toUpperCase();
-  const fromFile = findSeedAccount(normalized);
-  if (fromFile) return fromFile;
-  return getStore().extraSeeds.get(normalized);
+  const { data, error } = await getSupabaseAdmin()
+    .from('ecf_bank_accounts')
+    .select('*')
+    .eq('account_number', normalized)
+    .maybeSingle();
+  if (error) throw error;
+  return data ? rowToSeed(data as AccountRow) : undefined;
 }
 
-export function listAllSeeds(): SeedAccount[] {
-  const extras = Array.from(getStore().extraSeeds.values());
-  return [...ECF_BANKING_SEED, ...extras];
+export async function listAllSeeds(): Promise<SeedAccount[]> {
+  const { data, error } = await getSupabaseAdmin()
+    .from('ecf_bank_accounts')
+    .select('*')
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return ((data || []) as AccountRow[]).map(rowToSeed);
 }
 
-export function addSeedAccount(seed: SeedAccount): void {
-  getStore().extraSeeds.set(seed.accountNumber.toUpperCase(), {
-    ...seed,
-    accountNumber: seed.accountNumber.toUpperCase(),
+export async function addSeedAccount(seed: SeedAccount): Promise<void> {
+  const accountNumber = seed.accountNumber.toUpperCase();
+  const sb = getSupabaseAdmin();
+
+  const { error: accErr } = await sb.from('ecf_bank_accounts').insert({
+    account_number: accountNumber,
+    full_name: seed.fullName,
+    address_line1: seed.addressLine1,
+    address_line2: seed.addressLine2 || null,
+    city: seed.city,
+    state: seed.state,
+    postal_code: seed.postalCode,
+    country: seed.country,
+    support_amount: seed.supportAmount,
+    credit_date: seed.creditDate,
+    credit_description: seed.creditDescription,
+    account_type: seed.accountType,
   });
-}
+  if (accErr) throw accErr;
 
-export function getProfile(accountNumber: string): AccountProfile | undefined {
-  return getStore().profiles.get(accountNumber.trim().toUpperCase());
-}
-
-export function setProfile(profile: AccountProfile): void {
-  getStore().profiles.set(profile.accountNumber.toUpperCase(), {
-    ...profile,
-    accountNumber: profile.accountNumber.toUpperCase(),
+  const { error: txnErr } = await sb.from('ecf_bank_transactions').insert({
+    id: `CR-${accountNumber}`,
+    account_number: accountNumber,
+    txn_date: seed.creditDate,
+    description: seed.creditDescription,
+    amount: seed.supportAmount,
+    txn_type: 'credit',
+    status: 'completed',
+    reference: `ECF-DEP-${accountNumber.slice(-6)}`,
   });
+  if (txnErr) throw txnErr;
 }
 
-export function isRegistered(accountNumber: string): boolean {
-  return Boolean(getProfile(accountNumber));
+export async function getProfile(accountNumber: string): Promise<AccountProfile | undefined> {
+  const normalized = accountNumber.trim().toUpperCase();
+  const sb = getSupabaseAdmin();
+
+  const { data: profile, error } = await sb
+    .from('ecf_bank_profiles')
+    .select('*')
+    .eq('account_number', normalized)
+    .maybeSingle();
+  if (error) throw error;
+  if (!profile) return undefined;
+
+  const p = profile as ProfileRow;
+
+  const [{ data: questions }, { data: externals }, { data: txns }] = await Promise.all([
+    sb
+      .from('ecf_bank_security_questions')
+      .select('question, answer_hash, sort_order')
+      .eq('account_number', normalized)
+      .order('sort_order', { ascending: true }),
+    sb.from('ecf_bank_external_accounts').select('*').eq('account_number', normalized),
+    sb
+      .from('ecf_bank_transactions')
+      .select('*')
+      .eq('account_number', normalized)
+      .neq('id', `CR-${normalized}`)
+      .order('txn_date', { ascending: false }),
+  ]);
+
+  return {
+    accountNumber: normalized,
+    passwordHash: p.password_hash,
+    registeredAt: p.registered_at,
+    welcomeSeen: p.welcome_seen,
+    securityQuestions: ((questions || []) as QuestionRow[]).map((q) => ({
+      question: q.question,
+      answerHash: q.answer_hash,
+    })),
+    externalAccounts: ((externals || []) as ExtRow[]).map(rowToExternal),
+    extraTransactions: ((txns || []) as TxnRow[]).map(rowToTxn),
+  };
 }
 
-export function toPublicView(seed: SeedAccount): PublicAccountView {
+export async function setProfile(profile: AccountProfile): Promise<void> {
+  const accountNumber = profile.accountNumber.toUpperCase();
+  const sb = getSupabaseAdmin();
+
+  const { error: upsertErr } = await sb.from('ecf_bank_profiles').upsert({
+    account_number: accountNumber,
+    password_hash: profile.passwordHash,
+    registered_at: profile.registeredAt,
+    welcome_seen: profile.welcomeSeen,
+  });
+  if (upsertErr) throw upsertErr;
+
+  await sb.from('ecf_bank_security_questions').delete().eq('account_number', accountNumber);
+  if (profile.securityQuestions.length) {
+    const { error: qErr } = await sb.from('ecf_bank_security_questions').insert(
+      profile.securityQuestions.map((q, i) => ({
+        account_number: accountNumber,
+        question: q.question,
+        answer_hash: q.answerHash,
+        sort_order: i,
+      }))
+    );
+    if (qErr) throw qErr;
+  }
+}
+
+export async function markWelcomeSeen(accountNumber: string): Promise<void> {
+  const { error } = await getSupabaseAdmin()
+    .from('ecf_bank_profiles')
+    .update({ welcome_seen: true })
+    .eq('account_number', accountNumber.toUpperCase());
+  if (error) throw error;
+}
+
+export async function updatePasswordHash(accountNumber: string, passwordHash: string): Promise<void> {
+  const { error } = await getSupabaseAdmin()
+    .from('ecf_bank_profiles')
+    .update({ password_hash: passwordHash })
+    .eq('account_number', accountNumber.toUpperCase());
+  if (error) throw error;
+}
+
+export async function isRegistered(accountNumber: string): Promise<boolean> {
+  const { data, error } = await getSupabaseAdmin()
+    .from('ecf_bank_profiles')
+    .select('account_number')
+    .eq('account_number', accountNumber.trim().toUpperCase())
+    .maybeSingle();
+  if (error) throw error;
+  return Boolean(data);
+}
+
+export async function toPublicView(seed: SeedAccount): Promise<PublicAccountView> {
   return {
     accountNumber: seed.accountNumber,
     fullName: seed.fullName,
@@ -70,29 +255,24 @@ export function toPublicView(seed: SeedAccount): PublicAccountView {
     creditDate: seed.creditDate,
     creditDescription: seed.creditDescription,
     accountType: seed.accountType,
-    registered: isRegistered(seed.accountNumber),
+    registered: await isRegistered(seed.accountNumber),
   };
 }
 
-export function buildTransactions(seed: SeedAccount, profile?: AccountProfile): BankTransaction[] {
-  const credit: BankTransaction = {
-    id: `CR-${seed.accountNumber}`,
-    date: seed.creditDate,
-    description: seed.creditDescription,
-    amount: seed.supportAmount,
-    type: 'credit',
-    status: 'completed',
-    reference: `ECF-DEP-${seed.accountNumber.slice(-6)}`,
-  };
-  const extras = profile?.extraTransactions ?? [];
-  return [credit, ...extras].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+export async function buildTransactions(accountNumber: string): Promise<BankTransaction[]> {
+  const { data, error } = await getSupabaseAdmin()
+    .from('ecf_bank_transactions')
+    .select('*')
+    .eq('account_number', accountNumber.toUpperCase())
+    .order('txn_date', { ascending: false })
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return ((data || []) as TxnRow[]).map(rowToTxn);
 }
 
-export function computeBalance(seed: SeedAccount, profile?: AccountProfile): number {
-  const txns = buildTransactions(seed, profile);
-  return txns
-    .filter((t) => t.status === 'completed')
-    .reduce((sum, t) => sum + t.amount, 0);
+export async function computeBalance(accountNumber: string): Promise<number> {
+  const txns = await buildTransactions(accountNumber);
+  return txns.filter((t) => t.status === 'completed').reduce((sum, t) => sum + t.amount, 0);
 }
 
 export function maskAccountNumber(accountNumber: string): string {
@@ -106,27 +286,55 @@ export function generateAccountNumber(prefix = 'ECF'): string {
   return `${prefix}-${mid}-${tail}`;
 }
 
-export function addExternalAccount(accountNumber: string, account: ExternalAccount): AccountProfile | null {
-  const profile = getProfile(accountNumber);
-  if (!profile) return null;
-  const next = {
-    ...profile,
-    externalAccounts: [...profile.externalAccounts, account],
-  };
-  setProfile(next);
-  return next;
+export async function addExternalAccount(
+  accountNumber: string,
+  account: ExternalAccount
+): Promise<ExternalAccount[]> {
+  const normalized = accountNumber.toUpperCase();
+  const sb = getSupabaseAdmin();
+  const { error } = await sb.from('ecf_bank_external_accounts').insert({
+    id: account.id,
+    account_number: normalized,
+    bank_name: account.bankName,
+    account_holder: account.accountHolder,
+    routing_number: account.routingNumber,
+    account_number_last4: account.accountNumberLast4,
+    account_type: account.accountType,
+    nickname: account.nickname || null,
+    created_at: account.createdAt,
+  });
+  if (error) throw error;
+
+  const { data, error: listErr } = await sb
+    .from('ecf_bank_external_accounts')
+    .select('*')
+    .eq('account_number', normalized);
+  if (listErr) throw listErr;
+  return ((data || []) as ExtRow[]).map(rowToExternal);
 }
 
-export function addTransferTransaction(
+export async function addTransferTransaction(
   accountNumber: string,
   txn: BankTransaction
-): AccountProfile | null {
-  const profile = getProfile(accountNumber);
-  if (!profile) return null;
-  const next = {
-    ...profile,
-    extraTransactions: [...profile.extraTransactions, txn],
-  };
-  setProfile(next);
-  return next;
+): Promise<void> {
+  const { error } = await getSupabaseAdmin().from('ecf_bank_transactions').insert({
+    id: txn.id,
+    account_number: accountNumber.toUpperCase(),
+    txn_date: txn.date,
+    description: txn.description,
+    amount: txn.amount,
+    txn_type: txn.type,
+    status: txn.status,
+    reference: txn.reference || null,
+  });
+  if (error) throw error;
+}
+
+export async function listExternalAccounts(accountNumber: string): Promise<ExternalAccount[]> {
+  const { data, error } = await getSupabaseAdmin()
+    .from('ecf_bank_external_accounts')
+    .select('*')
+    .eq('account_number', accountNumber.toUpperCase());
+  if (error) throw error;
+  return ((data || []) as ExtRow[]).map(rowToExternal);
 }

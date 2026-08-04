@@ -1,20 +1,25 @@
 import { NextResponse } from 'next/server';
+import { randomBytes } from 'crypto';
 import { requireSessionAccount } from '@/lib/banking/session';
 import { addExternalAccount } from '@/lib/banking/store';
 import type { ExternalAccount } from '@/lib/banking/types';
-import { randomBytes } from 'crypto';
 
 export async function GET() {
-  const session = await requireSessionAccount();
-  if (!session) return NextResponse.json({ error: 'Not signed in.' }, { status: 401 });
-  return NextResponse.json({ accounts: session.profile.externalAccounts });
+  try {
+    const session = await requireSessionAccount();
+    if (!session) return NextResponse.json({ error: 'Not signed in.' }, { status: 401 });
+    return NextResponse.json({ accounts: session.profile.externalAccounts });
+  } catch (err) {
+    console.error('[banking/external GET]', err);
+    return NextResponse.json({ error: 'Could not load accounts.' }, { status: 500 });
+  }
 }
 
 export async function POST(req: Request) {
-  const session = await requireSessionAccount();
-  if (!session) return NextResponse.json({ error: 'Not signed in.' }, { status: 401 });
-
   try {
+    const session = await requireSessionAccount();
+    if (!session) return NextResponse.json({ error: 'Not signed in.' }, { status: 401 });
+
     const body = await req.json();
     const bankName = String(body.bankName || '').trim();
     const accountHolder = String(body.accountHolder || '').trim();
@@ -41,9 +46,10 @@ export async function POST(req: Request) {
       createdAt: new Date().toISOString(),
     };
 
-    const updated = addExternalAccount(session.accountNumber, account);
-    return NextResponse.json({ ok: true, accounts: updated?.externalAccounts ?? [] });
-  } catch {
+    const accounts = await addExternalAccount(session.accountNumber, account);
+    return NextResponse.json({ ok: true, accounts });
+  } catch (err) {
+    console.error('[banking/external POST]', err);
     return NextResponse.json({ error: 'Could not add account.' }, { status: 400 });
   }
 }

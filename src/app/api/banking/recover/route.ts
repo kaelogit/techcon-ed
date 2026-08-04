@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
 import { hashPassword, verifyAnswer } from '@/lib/banking/crypto';
-import { getProfile, getSeed, setProfile } from '@/lib/banking/store';
+import { getProfile, getSeed, updatePasswordHash } from '@/lib/banking/store';
 
-/** Step 1: get security questions for an account */
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -13,8 +12,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Account number is required.' }, { status: 400 });
     }
 
-    const seed = getSeed(accountNumber);
-    const profile = getProfile(accountNumber);
+    const seed = await getSeed(accountNumber);
+    const profile = await getProfile(accountNumber);
     if (!seed || !profile) {
       return NextResponse.json({ error: 'Account not found or not registered.' }, { status: 404 });
     }
@@ -40,15 +39,13 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: 'One or more security answers are incorrect.' }, { status: 401 });
       }
 
-      setProfile({
-        ...profile,
-        passwordHash: hashPassword(newPassword),
-      });
+      await updatePasswordHash(accountNumber, hashPassword(newPassword));
       return NextResponse.json({ ok: true });
     }
 
     return NextResponse.json({ error: 'Unknown action.' }, { status: 400 });
-  } catch {
+  } catch (err) {
+    console.error('[banking/recover]', err);
     return NextResponse.json({ error: 'Request failed.' }, { status: 400 });
   }
 }

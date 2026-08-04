@@ -13,8 +13,8 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Account number and password are required.' }, { status: 400 });
     }
 
-    const seed = getSeed(accountNumber);
-    const profile = getProfile(accountNumber);
+    const seed = await getSeed(accountNumber);
+    const profile = await getProfile(accountNumber);
     if (!seed || !profile) {
       return NextResponse.json(
         { error: 'Account not found or not registered yet. Please register first.' },
@@ -29,10 +29,11 @@ export async function POST(req: Request) {
     await createSession(accountNumber);
     return NextResponse.json({
       ok: true,
-      account: toPublicView(seed),
+      account: await toPublicView(seed),
       firstLogin: !profile.welcomeSeen,
     });
-  } catch {
+  } catch (err) {
+    console.error('[banking/login]', err);
     return NextResponse.json({ error: 'Login failed.' }, { status: 500 });
   }
 }

@@ -13,8 +13,14 @@ export async function GET(req: Request) {
   if (!authorize(req)) {
     return NextResponse.json({ error: 'Unauthorized.' }, { status: 401 });
   }
-  const seeds = listAllSeeds().map((s) => toPublicView(s));
-  return NextResponse.json({ accounts: seeds });
+  try {
+    const seeds = await listAllSeeds();
+    const accounts = await Promise.all(seeds.map((s) => toPublicView(s)));
+    return NextResponse.json({ accounts });
+  } catch (err) {
+    console.error('[banking/admin GET]', err);
+    return NextResponse.json({ error: 'Could not list accounts.' }, { status: 500 });
+  }
 }
 
 export async function POST(req: Request) {
@@ -41,7 +47,7 @@ export async function POST(req: Request) {
       accountNumber = generateAccountNumber();
     }
 
-    addSeedAccount({
+    await addSeedAccount({
       accountNumber,
       fullName,
       addressLine1,
@@ -61,7 +67,8 @@ export async function POST(req: Request) {
       accountNumber,
       message: 'Account issued. Share the account number with the winner to register.',
     });
-  } catch {
+  } catch (err) {
+    console.error('[banking/admin POST]', err);
     return NextResponse.json({ error: 'Could not create account.' }, { status: 400 });
   }
 }

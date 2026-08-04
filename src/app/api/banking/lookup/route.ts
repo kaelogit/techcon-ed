@@ -8,12 +8,13 @@ export async function POST(req: Request) {
     if (!accountNumber) {
       return NextResponse.json({ error: 'Account number is required.' }, { status: 400 });
     }
-    const seed = getSeed(accountNumber);
+    const seed = await getSeed(accountNumber);
     if (!seed) {
       return NextResponse.json({ error: 'No account found for that number.' }, { status: 404 });
     }
-    return NextResponse.json({ account: toPublicView(seed) });
-  } catch {
-    return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
+    return NextResponse.json({ account: await toPublicView(seed) });
+  } catch (err) {
+    console.error('[banking/lookup]', err);
+    return NextResponse.json({ error: 'Lookup failed. Check database connection.' }, { status: 500 });
   }
 }
