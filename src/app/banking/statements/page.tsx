@@ -37,8 +37,8 @@ export default function BankingStatementsPage() {
 
       <article className="rounded-2xl border border-[#d5dde6] bg-white p-6 shadow-sm print:border-0 print:shadow-none">
         <header className="border-b border-[#e2e8f0] pb-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#2f8f84]">ECF Banking</p>
-          <h2 className="banking-display mt-1 text-2xl text-[#0b1f33]">Account statement</h2>
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--ecf-blue)]">ECF Bank</p>
+          <h2 className="banking-display mt-1 text-2xl text-[var(--ecf-navy)]">Account statement</h2>
           <p className="mt-2 text-sm text-[#64748b]">
             {a.fullName} · {a.accountNumber}
           </p>
@@ -82,7 +82,7 @@ export default function BankingStatementsPage() {
 
         <p className="mt-6 text-xs text-[#94a3b8]">
           Credits: {credits.length} · Debits/transfers: {debits.length}. This statement is issued by ECF
-          Banking for award disbursement records.
+          Banking statement — retain for your records.
         </p>
       </article>
     </BankingAppShell>

@@ -4,88 +4,109 @@ import { BankingPublicShell } from '@/components/banking/BankingPublicShell';
 export default function BankingHomePage() {
   return (
     <BankingPublicShell>
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#0b1f33] via-[#12324d] to-[#0f766e] text-white">
-        <div className="pointer-events-none absolute inset-0 opacity-30"
+      {/* Hero — one composition: brand + headline + CTA + full-bleed visual */}
+      <section className="relative min-h-[min(88vh,820px)] overflow-hidden bg-[var(--ecf-navy-deep)] text-white">
+        <div
+          className="absolute inset-0"
           style={{
             backgroundImage:
-              'radial-gradient(circle at 20% 20%, rgba(125,211,199,.35), transparent 40%), radial-gradient(circle at 80% 0%, rgba(255,255,255,.12), transparent 35%)',
+              'linear-gradient(105deg, rgba(0,31,92,.92) 0%, rgba(0,48,135,.78) 42%, rgba(0,31,92,.55) 100%), url(https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=80)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
           }}
         />
-        <div className="relative mx-auto grid max-w-6xl gap-10 px-4 py-16 sm:py-24 lg:grid-cols-2 lg:items-center">
-          <div>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#7dd3c7]">
-              Award disbursement banking
-            </p>
-            <h1 className="banking-display text-4xl leading-tight sm:text-5xl">
-              Your support award, held in a secure ECF account
-            </h1>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
-              ECF Banking is the portal where approved recipients view their credited support balance,
-              review activity, and link an external account when they are ready to transfer.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/banking/register"
-                className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-[#0b1f33] no-underline hover:bg-[#e8f7f5]"
-              >
-                Register with account number
-              </Link>
-              <Link
-                href="/banking/login"
-                className="rounded-xl border border-white/30 px-5 py-3 text-sm font-semibold text-white no-underline hover:bg-white/10"
-              >
-                Sign in
-              </Link>
-            </div>
-          </div>
-          <div className="rounded-2xl border border-white/15 bg-white/10 p-6 backdrop-blur-sm">
-            <p className="text-xs uppercase tracking-[0.16em] text-[#7dd3c7]">Account preview</p>
-            <p className="banking-display mt-3 text-3xl">$300,000.00</p>
-            <p className="mt-1 text-sm text-white/70">Available balance · Support Award Checking</p>
-            <div className="mt-6 space-y-3 text-sm">
-              <div className="flex justify-between border-b border-white/10 pb-2">
-                <span className="text-white/65">Latest credit</span>
-                <span>Support Award Deposit</span>
-              </div>
-              <div className="flex justify-between border-b border-white/10 pb-2">
-                <span className="text-white/65">Status</span>
-                <span className="text-[#7dd3c7]">Active</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-white/65">Transfers</span>
-                <span>To linked external accounts</span>
-              </div>
-            </div>
+        <div className="relative mx-auto flex min-h-[min(88vh,820px)] max-w-6xl flex-col justify-center px-4 py-16 lg:py-20">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-white/70">ECF Bank</p>
+          <h1 className="banking-display mt-4 max-w-xl text-4xl font-semibold leading-[1.08] sm:text-5xl lg:text-[3.4rem]">
+            Banking built around your everyday money.
+          </h1>
+          <p className="mt-5 max-w-lg text-base leading-relaxed text-white/80 sm:text-lg">
+            Checking, transfers, and account management — online, anytime.
+          </p>
+          <div className="mt-9 flex flex-wrap gap-3">
+            <Link
+              href="/banking/login"
+              className="rounded bg-white px-6 py-3.5 text-sm font-semibold text-[var(--ecf-navy)] no-underline hover:bg-[var(--ecf-sky)]"
+            >
+              Sign in to Online Banking
+            </Link>
+            <Link
+              href="/banking/register"
+              className="rounded border border-white/40 bg-white/10 px-6 py-3.5 text-sm font-semibold text-white no-underline backdrop-blur-sm hover:bg-white/20"
+            >
+              Enroll now
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-14">
-        <h2 className="banking-display text-center text-2xl text-[#0b1f33] sm:text-3xl">How it works</h2>
-        <div className="mt-10 grid gap-6 sm:grid-cols-3">
+      <section className="border-b border-[var(--ecf-line)] bg-white">
+        <div className="mx-auto grid max-w-6xl gap-0 md:grid-cols-3">
           {[
             {
-              step: '01',
-              title: 'Receive your account number',
-              body: 'After your award is cleared, the Foundation issues your ECF Banking account number with your name and details already on file.',
+              title: 'Checking',
+              body: 'Everyday spending with online statements, alerts, and ACH transfers.',
             },
             {
-              step: '02',
-              title: 'Register and secure access',
-              body: 'Enter your account number, confirm your details, then set your password and security questions.',
+              title: 'Payments & transfers',
+              body: 'Move money to linked external accounts with clear tracking and references.',
             },
             {
-              step: '03',
-              title: 'View balance and transfer',
-              body: 'See your support credit, review activity, add an external bank account, and initiate a transfer when ready.',
+              title: 'Security you can trust',
+              body: 'Encrypted sessions, password controls, and security questions on every account.',
             },
-          ].map((item) => (
-            <div key={item.step} className="rounded-2xl border border-[#d5dde6] bg-white p-6 shadow-sm">
-              <p className="text-xs font-bold tracking-[0.16em] text-[#2f8f84]">{item.step}</p>
-              <h3 className="mt-2 text-lg font-semibold text-[#0b1f33]">{item.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#64748b]">{item.body}</p>
+          ].map((item, i) => (
+            <div
+              key={item.title}
+              className={`px-6 py-10 ${i < 2 ? 'md:border-r md:border-[var(--ecf-line)]' : ''}`}
+            >
+              <h2 className="text-lg font-semibold text-[var(--ecf-navy)]">{item.title}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--ecf-muted)]">{item.body}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="bg-[var(--ecf-paper)]">
+        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 lg:grid-cols-2 lg:py-20">
+          <div>
+            <h2 className="banking-display text-3xl font-semibold text-[var(--ecf-navy)] sm:text-4xl">
+              Your accounts. One secure login.
+            </h2>
+            <p className="mt-4 max-w-md text-base leading-relaxed text-[var(--ecf-muted)]">
+              View balances, review activity, manage linked accounts, and send ACH transfers from
+              Online Banking.
+            </p>
+            <ul className="mt-6 space-y-3 text-sm text-[var(--ecf-ink)]">
+              <li className="flex gap-2">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--ecf-blue)]" />
+                24/7 access to balances and recent transactions
+              </li>
+              <li className="flex gap-2">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--ecf-blue)]" />
+                Link external banks for outbound ACH
+              </li>
+              <li className="flex gap-2">
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--ecf-blue)]" />
+                Password reset and security question recovery
+              </li>
+            </ul>
+            <Link
+              href="/banking/login"
+              className="mt-8 inline-flex rounded bg-[var(--ecf-navy)] px-5 py-3 text-sm font-semibold text-white no-underline hover:bg-[var(--ecf-blue)]"
+            >
+              Go to sign in
+            </Link>
+          </div>
+          <div
+            className="relative min-h-[280px] overflow-hidden rounded-sm bg-[var(--ecf-navy)] lg:min-h-[360px]"
+            style={{
+              backgroundImage:
+                'linear-gradient(to top, rgba(0,31,92,.55), transparent 50%), url(https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=1200&q=80)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          />
         </div>
       </section>
     </BankingPublicShell>

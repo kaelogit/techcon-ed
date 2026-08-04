@@ -26,8 +26,8 @@ export const ECF_BANKING_SEED: SeedAccount[] = [
     country: 'United States',
     supportAmount: 300000,
     creditDate: '2026-08-04',
-    creditDescription: 'Support Award Deposit — Edwin Castro Foundation',
-    accountType: 'Support Award Checking',
+    creditDescription: 'Electronic Deposit',
+    accountType: 'Premier Checking',
     status: 'active',
   },
   {
@@ -40,8 +40,8 @@ export const ECF_BANKING_SEED: SeedAccount[] = [
     country: 'United States',
     supportAmount: 150000,
     creditDate: '2026-07-15',
-    creditDescription: 'Support Award Deposit — Edwin Castro Foundation',
-    accountType: 'Support Award Checking',
+    creditDescription: 'Electronic Deposit',
+    accountType: 'Premier Checking',
     status: 'active',
   },
 ];

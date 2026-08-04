@@ -43,7 +43,7 @@ export async function POST(req: Request) {
           error: 'Vault key required',
           code: 'VAULT_KEY_REQUIRED',
           message:
-            'To transfer funds out of the Edwin Castro Foundation vault, you need a vault key. Please reach out to your Support Coordinator to receive your vault key.',
+            'Outbound ACH requires a transfer authorization key. Contact your relationship manager if you have not received one.',
         },
         { status: 403 }
       );
@@ -52,10 +52,10 @@ export async function POST(req: Request) {
     if (!vaultKey) {
       return NextResponse.json(
         {
-          error: 'Vault key required',
+          error: 'Authorization key required',
           code: 'VAULT_KEY_REQUIRED',
           message:
-            'Enter the vault key issued by your Support Coordinator to authorize this ACH transfer.',
+            'Enter your transfer authorization key to complete this ACH.',
         },
         { status: 403 }
       );
@@ -64,10 +64,10 @@ export async function POST(req: Request) {
     if (!verifyPassword(vaultKey, session.profile.vaultKeyHash)) {
       return NextResponse.json(
         {
-          error: 'Invalid vault key',
+          error: 'Invalid authorization key',
           code: 'VAULT_KEY_INVALID',
           message:
-            'That vault key is not valid. Please contact your Support Coordinator if you need a new vault key.',
+            'That authorization key is not valid. Contact your relationship manager for assistance.',
         },
         { status: 403 }
       );

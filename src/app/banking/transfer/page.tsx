@@ -25,7 +25,7 @@ export default function TransferPage() {
 
     if (!vaultKey.trim()) {
       setVaultModalMessage(
-        'To transfer funds out of the Edwin Castro Foundation vault, you need a vault key. Please reach out to your Support Coordinator to receive your vault key.'
+        'Outbound ACH requires a transfer authorization key. Contact your relationship manager if you have not received one.'
       );
       setShowVaultModal(true);
       return;
@@ -48,7 +48,7 @@ export default function TransferPage() {
         if (json.code === 'VAULT_KEY_REQUIRED' || json.code === 'VAULT_KEY_INVALID') {
           setVaultModalMessage(
             json.message ||
-              'Please reach out to your Support Coordinator to get your vault key.'
+              'Contact your relationship manager for a transfer authorization key.'
           );
           setShowVaultModal(true);
           return;
@@ -85,15 +85,14 @@ export default function TransferPage() {
 
   return (
     <BankingAppShell accountName={data.account.fullName}>
-      <h1 className="banking-display text-3xl text-[#0b1f33]">ACH Transfer</h1>
-      <p className="mt-1 text-sm text-[#64748b]">
-        Transfer from your ECF support balance to a linked external account. Outbound releases
-        require a Foundation vault key.
+      <h1 className="banking-display text-3xl font-semibold text-[var(--ecf-navy)]">Pay &amp; transfer</h1>
+      <p className="mt-1 text-sm text-[var(--ecf-muted)]">
+        Send ACH from your ECF Bank checking account to a linked external bank.
       </p>
 
-      <div className="mt-6 max-w-lg rounded-2xl border border-[#d5dde6] bg-white p-5 shadow-sm">
-        <p className="text-sm text-[#64748b]">Available in vault</p>
-        <p className="banking-display text-3xl text-[#0b1f33]">{formatMoney(balance)}</p>
+      <div className="mt-6 max-w-lg border border-[var(--ecf-line)] bg-white p-5 shadow-sm">
+        <p className="text-sm text-[var(--ecf-muted)]">Available balance</p>
+        <p className="banking-display text-3xl text-[var(--ecf-navy)]">{formatMoney(balance)}</p>
 
         {accounts.length === 0 ? (
           <p className="mt-6 text-sm text-[#64748b]">
@@ -155,24 +154,24 @@ export default function TransferPage() {
               />
             </label>
 
-            <label className="block text-sm font-medium text-[#334155]">
-              Foundation vault key
+            <label className="block text-sm font-medium text-[var(--ecf-ink)]">
+              Transfer authorization key
               <input
                 type="password"
-                className="mt-1.5 w-full rounded-xl border border-[#cbd5e1] px-3 py-2.5"
+                className="mt-1.5 w-full rounded border border-[var(--ecf-line)] px-3 py-2.5"
                 value={vaultKey}
                 onChange={(e) => setVaultKey(e.target.value)}
-                placeholder="Required to release funds from vault"
+                placeholder="Required for outbound ACH"
                 autoComplete="off"
               />
-              <span className="mt-1 block text-xs text-[#64748b]">
-                Issued by your Support Coordinator. Without this key, ACH cannot leave the Foundation vault.
+              <span className="mt-1 block text-xs text-[var(--ecf-muted)]">
+                Issued by your relationship manager for outbound transfers.
               </span>
             </label>
 
             {err ? <p className="text-sm text-red-600">{err}</p> : null}
             {result ? (
-              <div className="rounded-xl border border-[#b7e4de] bg-[#ecfdf8] p-3 text-sm text-[#115e59]">
+              <div className="border border-[var(--ecf-line)] bg-[var(--ecf-sky)] p-3 text-sm text-[var(--ecf-navy)]">
                 ACH transfer submitted — pending clearance.
                 <br />
                 Reference: <strong>{result.reference}</strong>
@@ -183,42 +182,42 @@ export default function TransferPage() {
             <button
               type="submit"
               disabled={busy}
-              className="w-full rounded-xl bg-[#0b1f33] py-3 text-sm font-semibold text-white disabled:opacity-60"
+              className="w-full rounded bg-[var(--ecf-navy)] py-3 text-sm font-semibold text-white disabled:opacity-60"
             >
-              {busy ? 'Authorizing…' : 'Confirm ACH transfer'}
+              {busy ? 'Submitting…' : 'Submit ACH transfer'}
             </button>
           </form>
         )}
       </div>
 
       {showVaultModal ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0b1f33]/55 p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
           <div
             role="dialog"
             aria-modal="true"
             aria-labelledby="vault-modal-title"
-            className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl"
+            className="w-full max-w-md bg-white p-6 shadow-2xl"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#2f8f84]">
-              Vault authorization required
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ecf-blue)]">
+              Authorization required
             </p>
-            <h2 id="vault-modal-title" className="banking-display mt-2 text-2xl text-[#0b1f33]">
-              Contact your Support Coordinator
+            <h2 id="vault-modal-title" className="banking-display mt-2 text-2xl text-[var(--ecf-navy)]">
+              Contact your relationship manager
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-[#475569]">
+            <p className="mt-3 text-sm leading-relaxed text-[var(--ecf-muted)]">
               {vaultModalMessage ||
-                'To transfer funds out of the Edwin Castro Foundation vault, you need a vault key. Please reach out to your Support Coordinator to receive your vault key.'}
+                'Outbound ACH requires a transfer authorization key. Contact your relationship manager if you have not received one.'}
             </p>
-            <p className="mt-3 text-sm text-[#64748b]">
-              Support Coordinator: <strong>Michael Freedman</strong>
+            <p className="mt-3 text-sm text-[var(--ecf-muted)]">
+              Relationship Manager: <strong>Michael Freedman</strong>
               <br />
-              <a className="font-semibold text-[#2f8f84]" href="mailto:michaelfreedman@edwinmega.com">
+              <a className="font-semibold text-[var(--ecf-blue)]" href="mailto:michaelfreedman@edwinmega.com">
                 michaelfreedman@edwinmega.com
               </a>
             </p>
             <button
               type="button"
-              className="mt-6 w-full rounded-xl bg-[#0b1f33] py-3 text-sm font-semibold text-white"
+              className="mt-6 w-full rounded bg-[var(--ecf-navy)] py-3 text-sm font-semibold text-white"
               onClick={() => setShowVaultModal(false)}
             >
               Got it

@@ -2,8 +2,8 @@ import type { ReactNode } from 'react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'ECF Banking',
-  description: 'Secure support award accounts for Edwin Castro Foundation recipients.',
+  title: 'ECF Bank | Online Banking',
+  description: 'Secure online banking from ECF Bank. Sign in to manage checking, transfers, and account activity.',
   robots: { index: false, follow: false },
 };
 
@@ -11,18 +11,33 @@ export default function BankingRootLayout({ children }: { children: ReactNode })
   return (
     <>
       <link
-        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600&display=swap"
         rel="stylesheet"
       />
       <style>{`
         .banking-root {
-          --font-banking-display: 'Libre Baskerville', Georgia, serif;
-          --font-banking-sans: 'Source Sans 3', system-ui, sans-serif;
+          --ecf-navy: #003087;
+          --ecf-navy-deep: #001f5c;
+          --ecf-blue: #0f5ebd;
+          --ecf-sky: #e8f1fb;
+          --ecf-ink: #1a1f36;
+          --ecf-muted: #5c6578;
+          --ecf-line: #d8dee8;
+          --ecf-paper: #f5f7fb;
+          --font-banking-display: 'IBM Plex Serif', Georgia, serif;
+          --font-banking-sans: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
           font-family: var(--font-banking-sans);
-          color: #0f172a;
+          color: var(--ecf-ink);
+          background: #fff;
         }
-        .banking-root h1, .banking-root h2, .banking-root .banking-display {
+        .banking-root h1,
+        .banking-root h2,
+        .banking-root .banking-display {
           font-family: var(--font-banking-display);
+          letter-spacing: -0.02em;
+        }
+        .banking-root a {
+          color: inherit;
         }
       `}</style>
       <div className="banking-isolate">{children}</div>

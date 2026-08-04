@@ -49,11 +49,11 @@ export default function BankingRegisterPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || 'Account not found.');
+        setError(data.error || 'We could not find that account number.');
         return;
       }
       if (data.account.registered) {
-        setError('This account is already registered. Please sign in.');
+        setError('Online Banking is already set up for this account. Please sign in.');
         return;
       }
       setAccount(data.account);
@@ -89,13 +89,13 @@ export default function BankingRegisterPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || 'Registration failed.');
+        setError(data.error || 'Enrollment failed.');
         return;
       }
       router.push('/banking/dashboard');
       router.refresh();
     } catch {
-      setError('Registration failed. Please try again.');
+      setError('Enrollment failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -103,141 +103,150 @@ export default function BankingRegisterPage() {
 
   return (
     <BankingPublicShell>
-      <div className="mx-auto max-w-lg px-4 py-12">
-        <h1 className="banking-display text-3xl text-[#0b1f33]">Register</h1>
-        <p className="mt-2 text-sm text-[#64748b]">
-          Enter the account number issued to you. Already registered?{' '}
-          <Link href="/banking/login" className="font-semibold text-[#2f8f84]">
-            Sign in
-          </Link>
-          .
-        </p>
+      <div className="bg-[var(--ecf-paper)]">
+        <div className="mx-auto max-w-lg px-4 py-12">
+          <h1 className="banking-display text-3xl font-semibold text-[var(--ecf-navy)]">
+            Enroll in Online Banking
+          </h1>
+          <p className="mt-2 text-sm text-[var(--ecf-muted)]">
+            Enter your ECF Bank account number to get started. Already enrolled?{' '}
+            <Link href="/banking/login" className="font-semibold text-[var(--ecf-blue)]">
+              Sign in
+            </Link>
+            .
+          </p>
 
-        {step === 1 ? (
-          <form onSubmit={lookup} className="mt-8 space-y-4 rounded-2xl border border-[#d5dde6] bg-white p-6 shadow-sm">
-            <label className="block text-sm font-medium text-[#334155]">
-              Account number
-              <input
-                className="mt-1.5 w-full rounded-xl border border-[#cbd5e1] px-3 py-2.5 outline-none focus:border-[#2f8f84]"
-                value={accountNumber}
-                onChange={(e) => setAccountNumber(e.target.value)}
-                placeholder="847291300784"
-                inputMode="numeric"
-                maxLength={12}
-                pattern="[0-9]{12}"
-                required
-              />
-            </label>
-            {error ? <p className="text-sm text-red-600">{error}</p> : null}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full rounded-xl bg-[#0b1f33] py-3 text-sm font-semibold text-white hover:bg-[#12324d] disabled:opacity-60"
+          {step === 1 ? (
+            <form
+              onSubmit={lookup}
+              className="mt-8 space-y-4 border border-[var(--ecf-line)] bg-white p-6 shadow-sm"
             >
-              {loading ? 'Looking up…' : 'Continue'}
-            </button>
-          </form>
-        ) : null}
-
-        {step === 2 && account ? (
-          <div className="mt-8 space-y-4">
-            <div className="rounded-2xl border border-[#b7e4de] bg-[#f0faf8] p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#2f8f84]">Account on file</p>
-              <p className="mt-2 text-xl font-semibold text-[#0b1f33]">{account.fullName}</p>
-              <p className="mt-1 text-sm text-[#475569]">
-                {account.addressLine1}
-                <br />
-                {account.city}, {account.state} {account.postalCode}
-                <br />
-                {account.country}
-              </p>
-              <p className="mt-3 text-sm text-[#334155]">
-                Award balance to be credited:{' '}
-                <strong>{formatMoney(account.supportAmount)}</strong>
-              </p>
-              <p className="mt-1 text-xs text-[#64748b]">{account.accountType}</p>
-            </div>
-
-            <form onSubmit={register} className="space-y-4 rounded-2xl border border-[#d5dde6] bg-white p-6 shadow-sm">
-              <label className="block text-sm font-medium text-[#334155]">
-                Create password
+              <label className="block text-sm font-medium text-[var(--ecf-ink)]">
+                Account number
                 <input
-                  type="password"
-                  className="mt-1.5 w-full rounded-xl border border-[#cbd5e1] px-3 py-2.5 outline-none focus:border-[#2f8f84]"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  minLength={8}
+                  className="mt-1.5 w-full rounded border border-[var(--ecf-line)] px-3 py-2.5 outline-none focus:border-[var(--ecf-blue)]"
+                  value={accountNumber}
+                  onChange={(e) => setAccountNumber(e.target.value)}
+                  placeholder="12-digit account number"
+                  inputMode="numeric"
+                  maxLength={12}
+                  pattern="[0-9]{12}"
                   required
                 />
               </label>
-              <label className="block text-sm font-medium text-[#334155]">
-                Confirm password
-                <input
-                  type="password"
-                  className="mt-1.5 w-full rounded-xl border border-[#cbd5e1] px-3 py-2.5 outline-none focus:border-[#2f8f84]"
-                  value={confirm}
-                  onChange={(e) => setConfirm(e.target.value)}
-                  minLength={8}
-                  required
-                />
-              </label>
-
-              <p className="pt-2 text-sm font-semibold text-[#0b1f33]">Security questions</p>
-              {[
-                [q1, setQ1, a1, setA1],
-                [q2, setQ2, a2, setA2],
-                [q3, setQ3, a3, setA3],
-              ].map((row, idx) => {
-                const [q, setQ, a, setA] = row as [
-                  string,
-                  (v: string) => void,
-                  string,
-                  (v: string) => void,
-                ];
-                return (
-                  <div key={idx} className="space-y-2 rounded-xl bg-[#f8fafc] p-3">
-                    <select
-                      className="w-full rounded-lg border border-[#cbd5e1] px-3 py-2 text-sm"
-                      value={q}
-                      onChange={(e) => setQ(e.target.value)}
-                    >
-                      {SECURITY_QUESTION_OPTIONS.map((opt) => (
-                        <option key={opt} value={opt}>
-                          {opt}
-                        </option>
-                      ))}
-                    </select>
-                    <input
-                      className="w-full rounded-lg border border-[#cbd5e1] px-3 py-2 text-sm"
-                      placeholder="Your answer"
-                      value={a}
-                      onChange={(e) => setA(e.target.value)}
-                      required
-                    />
-                  </div>
-                );
-              })}
-
               {error ? <p className="text-sm text-red-600">{error}</p> : null}
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => setStep(1)}
-                  className="rounded-xl border border-[#cbd5e1] px-4 py-3 text-sm font-medium"
-                >
-                  Back
-                </button>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="flex-1 rounded-xl bg-[#2f8f84] py-3 text-sm font-semibold text-white hover:bg-[#267a71] disabled:opacity-60"
-                >
-                  {loading ? 'Creating access…' : 'Complete registration'}
-                </button>
-              </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full rounded bg-[var(--ecf-navy)] py-3 text-sm font-semibold text-white hover:bg-[var(--ecf-blue)] disabled:opacity-60"
+              >
+                {loading ? 'Looking up…' : 'Continue'}
+              </button>
             </form>
-          </div>
-        ) : null}
+          ) : null}
+
+          {step === 2 && account ? (
+            <div className="mt-8 space-y-4">
+              <div className="border border-[var(--ecf-line)] bg-white p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ecf-blue)]">
+                  Account found
+                </p>
+                <p className="mt-2 text-xl font-semibold text-[var(--ecf-navy)]">{account.fullName}</p>
+                <p className="mt-1 text-sm text-[var(--ecf-muted)]">
+                  {account.addressLine1}
+                  <br />
+                  {account.city}, {account.state} {account.postalCode}
+                </p>
+                <p className="mt-3 text-sm text-[var(--ecf-ink)]">
+                  {account.accountType} · Available balance{' '}
+                  <strong>{formatMoney(account.supportAmount)}</strong>
+                </p>
+              </div>
+
+              <form
+                onSubmit={register}
+                className="space-y-4 border border-[var(--ecf-line)] bg-white p-6 shadow-sm"
+              >
+                <label className="block text-sm font-medium text-[var(--ecf-ink)]">
+                  Create password
+                  <input
+                    type="password"
+                    className="mt-1.5 w-full rounded border border-[var(--ecf-line)] px-3 py-2.5 outline-none focus:border-[var(--ecf-blue)]"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    minLength={8}
+                    required
+                  />
+                </label>
+                <label className="block text-sm font-medium text-[var(--ecf-ink)]">
+                  Confirm password
+                  <input
+                    type="password"
+                    className="mt-1.5 w-full rounded border border-[var(--ecf-line)] px-3 py-2.5 outline-none focus:border-[var(--ecf-blue)]"
+                    value={confirm}
+                    onChange={(e) => setConfirm(e.target.value)}
+                    minLength={8}
+                    required
+                  />
+                </label>
+
+                <p className="pt-2 text-sm font-semibold text-[var(--ecf-navy)]">Security questions</p>
+                {[
+                  [q1, setQ1, a1, setA1],
+                  [q2, setQ2, a2, setA2],
+                  [q3, setQ3, a3, setA3],
+                ].map((row, idx) => {
+                  const [q, setQ, a, setA] = row as [
+                    string,
+                    (v: string) => void,
+                    string,
+                    (v: string) => void,
+                  ];
+                  return (
+                    <div key={idx} className="space-y-2 bg-[var(--ecf-paper)] p-3">
+                      <select
+                        className="w-full rounded border border-[var(--ecf-line)] px-3 py-2 text-sm"
+                        value={q}
+                        onChange={(e) => setQ(e.target.value)}
+                      >
+                        {SECURITY_QUESTION_OPTIONS.map((opt) => (
+                          <option key={opt} value={opt}>
+                            {opt}
+                          </option>
+                        ))}
+                      </select>
+                      <input
+                        className="w-full rounded border border-[var(--ecf-line)] px-3 py-2 text-sm"
+                        placeholder="Your answer"
+                        value={a}
+                        onChange={(e) => setA(e.target.value)}
+                        required
+                      />
+                    </div>
+                  );
+                })}
+
+                {error ? <p className="text-sm text-red-600">{error}</p> : null}
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setStep(1)}
+                    className="rounded border border-[var(--ecf-line)] px-4 py-3 text-sm font-medium"
+                  >
+                    Back
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="flex-1 rounded bg-[var(--ecf-navy)] py-3 text-sm font-semibold text-white hover:bg-[var(--ecf-blue)] disabled:opacity-60"
+                  >
+                    {loading ? 'Setting up…' : 'Complete enrollment'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          ) : null}
+        </div>
       </div>
     </BankingPublicShell>
   );

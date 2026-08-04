@@ -18,7 +18,7 @@ export default function BankingTransactionsPage() {
   return (
     <BankingAppShell accountName={data.account.fullName}>
       <h1 className="banking-display text-3xl text-[#0b1f33]">Account activity</h1>
-      <p className="mt-1 text-sm text-[#64748b]">Full transaction history for your support award account.</p>
+      <p className="mt-1 text-sm text-[var(--ecf-muted)]">Full transaction history for this account.</p>
 
       <div className="mt-6 overflow-hidden rounded-2xl border border-[#d5dde6] bg-white shadow-sm">
         <table className="w-full text-left text-sm">

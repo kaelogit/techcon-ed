@@ -15,8 +15,8 @@ create table if not exists ecf_bank_accounts (
   country text not null default 'United States',
   support_amount numeric(14,2) not null check (support_amount > 0),
   credit_date date not null,
-  credit_description text not null default 'Support Award Deposit — Edwin Castro Foundation',
-  account_type text not null default 'Support Award Checking',
+  credit_description text not null default 'Electronic Deposit',
+  account_type text not null default 'Premier Checking',
   status text not null default 'active' check (status in ('active', 'frozen', 'archived')),
   created_at timestamptz not null default now()
 );
@@ -89,8 +89,8 @@ insert into ecf_bank_accounts (
   'United States',
   300000.00,
   '2026-08-04',
-  'Support Award Deposit — Edwin Castro Foundation',
-  'Support Award Checking',
+  'Electronic Deposit',
+  'Premier Checking',
   'active'
 ),
 (
@@ -103,8 +103,8 @@ insert into ecf_bank_accounts (
   'United States',
   150000.00,
   '2026-07-15',
-  'Support Award Deposit — Edwin Castro Foundation',
-  'Support Award Checking',
+  'Electronic Deposit',
+  'Premier Checking',
   'active'
 )
 on conflict (account_number) do nothing;
@@ -117,7 +117,7 @@ insert into ecf_bank_transactions (
   'CR-847291300784',
   '847291300784',
   '2026-08-04',
-  'Support Award Deposit — Edwin Castro Foundation',
+  'Electronic Deposit',
   300000.00,
   'credit',
   'completed',
@@ -127,7 +127,7 @@ insert into ecf_bank_transactions (
   'CR-552018150291',
   '552018150291',
   '2026-07-15',
-  'Support Award Deposit — Edwin Castro Foundation',
+  'Electronic Deposit',
   150000.00,
   'credit',
   'completed',

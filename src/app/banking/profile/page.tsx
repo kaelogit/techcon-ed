@@ -19,8 +19,8 @@ export default function BankingProfilePage() {
 
   return (
     <BankingAppShell accountName={a.fullName}>
-      <h1 className="banking-display text-3xl text-[#0b1f33]">Profile</h1>
-      <p className="mt-1 text-sm text-[#64748b]">Details on file with ECF Banking for this award account.</p>
+      <h1 className="banking-display text-3xl font-semibold text-[var(--ecf-navy)]">Profile</h1>
+      <p className="mt-1 text-sm text-[var(--ecf-muted)]">Account holder information on file with ECF Bank.</p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <div className="rounded-2xl border border-[#d5dde6] bg-white p-5 shadow-sm">
@@ -52,7 +52,7 @@ export default function BankingProfilePage() {
               <dd className="font-medium">{a.accountType}</dd>
             </div>
             <div className="flex justify-between gap-4">
-              <dt className="text-[#64748b]">Support award</dt>
+              <dt className="text-[#64748b]">Opening deposit</dt>
               <dd className="font-medium">{formatMoney(a.supportAmount)}</dd>
             </div>
             <div className="flex justify-between gap-4">

@@ -121,8 +121,8 @@ export async function POST(req: Request) {
         country,
         supportAmount,
         creditDate,
-        creditDescription: 'Support Award Deposit — Edwin Castro Foundation',
-        accountType: 'Support Award Checking',
+        creditDescription: 'Electronic Deposit',
+        accountType: 'Premier Checking',
         status: 'active',
       });
 

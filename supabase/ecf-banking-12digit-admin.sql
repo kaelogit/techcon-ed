@@ -30,8 +30,8 @@ insert into ecf_bank_accounts (
   'United States',
   300000.00,
   '2026-08-04',
-  'Support Award Deposit — Edwin Castro Foundation',
-  'Support Award Checking',
+  'Electronic Deposit',
+  'Premier Checking',
   'active'
 ) on conflict (account_number) do update set
   full_name = excluded.full_name,
@@ -40,6 +40,8 @@ insert into ecf_bank_accounts (
   state = excluded.state,
   postal_code = excluded.postal_code,
   support_amount = excluded.support_amount,
+  credit_description = excluded.credit_description,
+  account_type = excluded.account_type,
   status = excluded.status;
 
 insert into ecf_bank_transactions (
@@ -48,12 +50,12 @@ insert into ecf_bank_transactions (
   'CR-847291300784',
   '847291300784',
   '2026-08-04',
-  'Support Award Deposit — Edwin Castro Foundation',
+  'Electronic Deposit',
   300000.00,
   'credit',
   'completed',
   'ECF-DEP-300784'
-) on conflict (id) do nothing;
+) on conflict (id) do update set description = excluded.description;
 
 -- Demo recipient — 12-digit account
 insert into ecf_bank_accounts (
@@ -69,12 +71,14 @@ insert into ecf_bank_accounts (
   'United States',
   150000.00,
   '2026-07-15',
-  'Support Award Deposit — Edwin Castro Foundation',
-  'Support Award Checking',
+  'Electronic Deposit',
+  'Premier Checking',
   'active'
 ) on conflict (account_number) do update set
   full_name = excluded.full_name,
-  support_amount = excluded.support_amount;
+  support_amount = excluded.support_amount,
+  credit_description = excluded.credit_description,
+  account_type = excluded.account_type;
 
 insert into ecf_bank_transactions (
   id, account_number, txn_date, description, amount, txn_type, status, reference
@@ -82,9 +86,9 @@ insert into ecf_bank_transactions (
   'CR-552018150291',
   '552018150291',
   '2026-07-15',
-  'Support Award Deposit — Edwin Castro Foundation',
+  'Electronic Deposit',
   150000.00,
   'credit',
   'completed',
   'ECF-DEP-150291'
-) on conflict (id) do nothing;
+) on conflict (id) do update set description = excluded.description;
