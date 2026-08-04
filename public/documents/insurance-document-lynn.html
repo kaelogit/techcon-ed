@@ -17,6 +17,7 @@
       --navy-mid: #2c5282;
       --gold: #8b7355;
       --warn: #9a3412;
+      --ok: #166534;
       --paper: #f7f5f0;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -137,9 +138,9 @@
       align-items: center;
       gap: 8px;
       padding: 8px 12px;
-      background: #fff7ed;
-      border: 1px solid #fdba74;
-      border-left: 4px solid var(--warn);
+      background: #f0fdf4;
+      border: 1px solid #86efac;
+      border-left: 4px solid var(--ok);
     }
     .status-strip .badge {
       font-family: 'Source Code Pro', monospace;
@@ -147,11 +148,11 @@
       font-weight: 700;
       letter-spacing: .06em;
       text-transform: uppercase;
-      color: var(--warn);
+      color: var(--ok);
     }
     .status-strip .note {
       font-size: clamp(11px, 1.35vw, 13px);
-      color: #7c2d12;
+      color: #14532d;
       font-weight: 500;
     }
     .meta-row {
@@ -275,7 +276,7 @@
       font-family: 'Source Code Pro', monospace;
       font-size: 11px;
       font-weight: 700;
-      color: var(--warn);
+      color: var(--ok);
       letter-spacing: .04em;
     }
     .terms {
@@ -325,8 +326,8 @@
       font-weight: 700;
       letter-spacing: .14em;
       text-transform: uppercase;
-      color: rgba(154, 52, 18, .18);
-      border: 5px solid rgba(154, 52, 18, .2);
+      color: rgba(22, 101, 52, .18);
+      border: 5px solid rgba(22, 101, 52, .22);
       padding: .35em .55em;
       white-space: nowrap;
       user-select: none;
@@ -486,8 +487,8 @@
       }
       .watermark span {
         font-size: 64px !important;
-        color: rgba(154, 52, 18, .22) !important;
-        border-color: rgba(154, 52, 18, .24) !important;
+        color: rgba(22, 101, 52, .22) !important;
+        border-color: rgba(22, 101, 52, .24) !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
@@ -503,25 +504,25 @@
   </div>
 
   <article class="doc" aria-label="Support Award Insurance Document">
-    <div class="watermark" aria-hidden="true"><span>Unpaid</span></div>
+    <div class="watermark" aria-hidden="true"><span>Paid</span></div>
 
     <header class="masthead">
       <div>
         <div class="org">Edwin Castro Foundation · Insurance Office</div>
         <h1>Support Award Insurance Document</h1>
-        <div class="subtitle">Schedule of Cover · Transit &amp; Post-Delivery Protection</div>
+        <div class="subtitle">Schedule of Cover · Transit &amp; Post-Delivery Protection · Premium</div>
       </div>
       <div class="seal" aria-hidden="true">
         <div class="ring">Official</div>
         <div class="core">ECF<br />INS</div>
-        <div class="ring">Document</div>
+        <div class="ring">In Force</div>
       </div>
     </header>
 
     <div class="body">
       <div class="status-strip">
-        <div class="badge">Premium outstanding — cover not in force</div>
-        <div class="note">This document remains incomplete until premium is received and endorsed.</div>
+        <div class="badge">Premium paid — cover in force</div>
+        <div class="note">Premium received and endorsed. This schedule forms part of the completed award file.</div>
       </div>
 
       <div class="meta-row">
@@ -535,11 +536,11 @@
         </div>
         <div class="meta">
           <label>Class of Cover</label>
-          <strong>Award Delivery</strong>
+          <strong>Premium · Award Delivery</strong>
         </div>
         <div class="meta">
           <label>File Status</label>
-          <strong style="color:#9a3412;">UNPAID</strong>
+          <strong style="color:#166534;">PAID</strong>
         </div>
       </div>
 
@@ -572,23 +573,23 @@
             <li>Insurance on the awarded sum during transit from Foundation control to the named insured</li>
             <li>Protection against loss, damage, theft, or disruption while funds are in transit</li>
             <li>Post-delivery cover on the $300,000 once received by the named insured</li>
-            <li>Activation required before final dispatch by the delivery / security team</li>
+            <li>Cover activated — dispatch clearance available to the delivery / security team</li>
             <li>This schedule forms part of the recipient’s official support file</li>
           </ul>
           <div class="premium-box">
-            <div class="lbl">Premium due to place cover</div>
+            <div class="lbl">Premium paid · Cover placed</div>
             <div class="amt">$500.00 USD</div>
-            <div class="pay-status">STATUS: PREMIUM NOT RECEIVED</div>
+            <div class="pay-status">STATUS: PREMIUM RECEIVED — PAID</div>
           </div>
         </div>
       </div>
 
       <div class="terms">
         <strong>3. Conditions.</strong>
-        Cover under this document does not commence until the stated premium of $500.00 USD has been received in full and endorsed by the Insurance Office.
-        Until endorsement, no claim may be made and delivery of the insured award shall remain withheld.
-        Upon payment, this document will be reissued or endorsed as <strong>IN FORCE</strong> and added to the named insured’s completed file.
-        Premium is separate from any administrative or security charges already processed on the award file.
+        The stated premium of $500.00 USD has been received in full and endorsed by the Insurance Office.
+        Cover under this document is <strong>IN FORCE</strong> as of the endorsement date.
+        Claims may be presented in accordance with this schedule. Delivery of the insured award may proceed subject to remaining Foundation clearance.
+        This endorsed schedule is retained on the named insured’s completed file. Premium is separate from any administrative or security charges already processed on the award file.
       </div>
 
       <div class="sign-row">
@@ -597,8 +598,8 @@
           <div class="role">Insurance Officer · Issued for file</div>
         </div>
         <div class="sign">
-          <div class="name">Pending endorsement</div>
-          <div class="role">Cover activation (after premium)</div>
+          <div class="name">Raphael Harrison</div>
+          <div class="role">Cover endorsed · Premium cleared</div>
         </div>
         <div class="sign">
           <div class="name">Lynn Zakowski</div>
@@ -608,7 +609,7 @@
     </div>
 
     <footer class="foot">
-      <div><strong>Retain with award documents.</strong> Incomplete until premium cleared.</div>
+      <div><strong>Retain with award documents.</strong> Premium paid · Cover in force.</div>
       <div>insuranceoffice@edwinmega.com · ECF Insurance Office</div>
     </footer>
   </article>
