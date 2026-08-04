@@ -41,7 +41,7 @@ export function BankingPublicHeader() {
               alt="ECF Bank"
               width={160}
               height={160}
-              className="h-11 w-auto object-contain object-left sm:h-12"
+              className="h-14 w-auto object-contain object-left sm:h-16"
               priority
             />
           </Link>

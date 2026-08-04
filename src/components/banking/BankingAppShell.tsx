@@ -21,7 +21,7 @@ const MORE_NAV = [
 
 const ALL_NAV = [...PRIMARY_NAV, ...MORE_NAV];
 
-function LogoMark({ className = 'h-11 w-auto sm:h-12' }: { className?: string }) {
+function LogoMark({ className = 'h-14 w-auto sm:h-16' }: { className?: string }) {
   return (
     <Image
       src="/banking/ecf-bank-logo.png"
