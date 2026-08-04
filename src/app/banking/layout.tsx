@@ -36,8 +36,30 @@ export default function BankingRootLayout({ children }: { children: ReactNode })
           font-family: var(--font-banking-display);
           letter-spacing: -0.02em;
         }
-        .banking-root a {
+        .banking-root a,
+        .banking-root a:link,
+        .banking-root a:visited,
+        .banking-root a:hover,
+        .banking-root a:active,
+        .banking-root a:focus {
           color: inherit;
+          -webkit-tap-highlight-color: transparent;
+          text-decoration: none;
+        }
+        .banking-root a.banking-nav-active,
+        .banking-root a.banking-nav-active:visited,
+        .banking-root a.banking-nav-active:active {
+          color: #ffffff !important;
+        }
+        .banking-root a.banking-nav-item,
+        .banking-root a.banking-nav-item:visited,
+        .banking-root a.banking-nav-item:active {
+          color: #003087;
+        }
+        .banking-root a.banking-nav-muted,
+        .banking-root a.banking-nav-muted:visited,
+        .banking-root a.banking-nav-muted:active {
+          color: #5c6578;
         }
       `}</style>
       <div className="banking-isolate">{children}</div>
