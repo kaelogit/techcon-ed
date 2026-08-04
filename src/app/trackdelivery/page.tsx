@@ -111,7 +111,7 @@ function RouteMap({ progress, lat, lng }: { progress: number; lat: number; lng: 
 }
 
 export default function TrackDeliveryPage() {
-  const [trackingInput, setTrackingInput] = useState('ECF784291304847');
+  const [trackingInput, setTrackingInput] = useState('');
   const [shipment, setShipment] = useState<Shipment | null>(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -135,10 +135,6 @@ export default function TrackDeliveryPage() {
       setLoading(false);
     }
   }, []);
-
-  useEffect(() => {
-    load('ECF784291304847');
-  }, [load]);
 
   useEffect(() => {
     if (!shipment || shipment.delivered || shipment.paused) return;
