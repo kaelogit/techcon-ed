@@ -182,7 +182,7 @@ export default function TransferPage() {
             <button
               type="submit"
               disabled={busy}
-              className="w-full rounded bg-[var(--ecf-navy)] py-3 text-sm font-semibold text-white disabled:opacity-60"
+              className="w-full rounded bg-[var(--ecf-navy)] py-2.5 text-sm font-semibold text-white disabled:opacity-60"
             >
               {busy ? 'Submitting…' : 'Submit ACH transfer'}
             </button>

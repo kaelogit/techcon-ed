@@ -71,10 +71,10 @@ export default function BankingLoginPage() {
               <label className="block text-sm font-medium text-[var(--ecf-ink)]">
                 Account number
                 <input
-                  className="mt-1.5 w-full rounded border border-[var(--ecf-line)] px-3 py-2.5 outline-none focus:border-[var(--ecf-blue)]"
+                  className="mt-1.5 w-full rounded border border-[var(--ecf-line)] px-3 py-2 outline-none focus:border-[var(--ecf-blue)] sm:py-2.5"
                   value={accountNumber}
                   onChange={(e) => setAccountNumber(e.target.value)}
-                  placeholder="12-digit account number"
+                  placeholder="Enter account number"
                   inputMode="numeric"
                   maxLength={12}
                   pattern="[0-9]{12}"
@@ -86,7 +86,7 @@ export default function BankingLoginPage() {
                 Password
                 <input
                   type="password"
-                  className="mt-1.5 w-full rounded border border-[var(--ecf-line)] px-3 py-2.5 outline-none focus:border-[var(--ecf-blue)]"
+                  className="mt-1.5 w-full rounded border border-[var(--ecf-line)] px-3 py-2 outline-none focus:border-[var(--ecf-blue)] sm:py-2.5"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete="current-password"
@@ -97,7 +97,7 @@ export default function BankingLoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded bg-[var(--ecf-navy)] py-3 text-sm font-semibold text-white hover:bg-[var(--ecf-blue)] disabled:opacity-60"
+                className="w-full rounded bg-[var(--ecf-navy)] py-2.5 text-sm font-semibold text-white hover:bg-[var(--ecf-blue)] disabled:opacity-60"
               >
                 {loading ? 'Signing in…' : 'Sign in'}
               </button>

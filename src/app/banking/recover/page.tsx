@@ -79,7 +79,7 @@ export default function RecoverPage() {
           <form onSubmit={loadQuestions} className="mt-8 space-y-4 rounded-2xl border border-[#d5dde6] bg-white p-6 shadow-sm">
             <input
               className="w-full rounded-xl border border-[#cbd5e1] px-3 py-2.5"
-              placeholder="12-digit account number"
+              placeholder="Enter account number"
               inputMode="numeric"
               maxLength={12}
               value={accountNumber}
@@ -90,7 +90,7 @@ export default function RecoverPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-xl bg-[#0b1f33] py-3 text-sm font-semibold text-white disabled:opacity-60"
+              className="w-full rounded bg-[var(--ecf-navy)] py-2.5 text-sm font-semibold text-white disabled:opacity-60"
             >
               {loading ? 'Loading…' : 'Continue'}
             </button>

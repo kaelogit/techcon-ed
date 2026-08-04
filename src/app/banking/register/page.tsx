@@ -127,7 +127,7 @@ export default function BankingRegisterPage() {
                   className="mt-1.5 w-full rounded border border-[var(--ecf-line)] px-3 py-2.5 outline-none focus:border-[var(--ecf-blue)]"
                   value={accountNumber}
                   onChange={(e) => setAccountNumber(e.target.value)}
-                  placeholder="12-digit account number"
+                  placeholder="Enter account number"
                   inputMode="numeric"
                   maxLength={12}
                   pattern="[0-9]{12}"
@@ -138,7 +138,7 @@ export default function BankingRegisterPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded bg-[var(--ecf-navy)] py-3 text-sm font-semibold text-white hover:bg-[var(--ecf-blue)] disabled:opacity-60"
+                className="w-full rounded bg-[var(--ecf-navy)] py-2.5 text-sm font-semibold text-white hover:bg-[var(--ecf-blue)] disabled:opacity-60"
               >
                 {loading ? 'Looking up…' : 'Continue'}
               </button>
@@ -231,14 +231,14 @@ export default function BankingRegisterPage() {
                   <button
                     type="button"
                     onClick={() => setStep(1)}
-                    className="rounded border border-[var(--ecf-line)] px-4 py-3 text-sm font-medium"
+                    className="rounded border border-[var(--ecf-line)] px-3 py-2.5 text-sm font-medium"
                   >
                     Back
                   </button>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="flex-1 rounded bg-[var(--ecf-navy)] py-3 text-sm font-semibold text-white hover:bg-[var(--ecf-blue)] disabled:opacity-60"
+                    className="flex-1 rounded bg-[var(--ecf-navy)] py-2.5 text-sm font-semibold text-white hover:bg-[var(--ecf-blue)] disabled:opacity-60"
                   >
                     {loading ? 'Setting up…' : 'Complete enrollment'}
                   </button>
