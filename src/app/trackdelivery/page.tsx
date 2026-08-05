@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { CA_TO_CT_ROUTE } from '@/lib/delivery/route';
 
@@ -152,19 +151,13 @@ export default function TrackDeliveryPage() {
   return (
     <div className="min-h-screen bg-white">
       <header className="border-b border-[var(--ecf-line)] bg-white">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3">
+        <div className="mx-auto flex max-w-5xl items-center px-4 py-3">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[var(--ecf-blue)]">
               Edwin Castro Foundation
             </p>
             <p className="display text-lg font-semibold text-[var(--ecf-navy)]">Delivery Tracking</p>
           </div>
-          <Link
-            href="/trackdelivery/admin"
-            className="rounded border border-[var(--ecf-line)] px-3 py-2 text-sm font-semibold text-[var(--ecf-navy)] hover:bg-[var(--ecf-sky)]"
-          >
-            Delivery admin
-          </Link>
         </div>
       </header>
 
