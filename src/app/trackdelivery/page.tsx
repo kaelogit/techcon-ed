@@ -43,14 +43,19 @@ function formatHours(h: number) {
   return `${hours}h ${mins}m`;
 }
 
+/** Display times in US Eastern (Lynn / Niantic, CT). */
 function formatWhen(iso: string) {
   try {
-    return new Date(iso).toLocaleString(undefined, {
-      month: 'short',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-    });
+    return (
+      new Date(iso).toLocaleString('en-US', {
+        timeZone: 'America/New_York',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        timeZoneName: 'short',
+      })
+    );
   } catch {
     return iso;
   }
