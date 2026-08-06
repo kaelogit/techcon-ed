@@ -444,16 +444,36 @@ export function buildSnapshot(d: DeliveryRecord, now = Date.now()): TrackingSnap
 }
 
 /** Default Lynn shipment seed (used when DB row missing / for SQL seed). */
-const LYNN_INCIDENT_NOTICE = {
+export const LYNN_TRACKING_NUMBER = 'ECF784291304847';
+
+/** Keep true until you clear the Batch E notice from tracking. */
+export const LYNN_INCIDENT_ACTIVE = true;
+
+export const LYNN_INCIDENT_NOTICE = {
   title: 'Incident involving delivery team Batch E',
-  body: 'An unfortunate incident occurred last night involving delivery team Batch E. Your shipment is currently not moving. Please contact your coordinator for more information.',
+  body: 'An unfortunate incident occurred last night involving delivery team Batch E. Your shipment is currently not moving. I am monitoring this closely and will keep you updated.',
   imageUrl: '/delivery/ecf-batch-e-incident.png',
 } as const;
 
+/** Force pause + accident notice onto Lynn's record (works even if DB columns were never added). */
+export function withLynnIncidentOverlay(d: DeliveryRecord): DeliveryRecord {
+  if (!LYNN_INCIDENT_ACTIVE || d.trackingNumber !== LYNN_TRACKING_NUMBER) return d;
+  return {
+    ...d,
+    paused: true,
+    pausedAt: d.pausedAt || new Date().toISOString(),
+    status: 'paused',
+    noticeTitle: LYNN_INCIDENT_NOTICE.title,
+    noticeBody: LYNN_INCIDENT_NOTICE.body,
+    noticeImageUrl: LYNN_INCIDENT_NOTICE.imageUrl,
+    noticeActive: true,
+  };
+}
+
 export function lynnSeedDelivery(startedAt = new Date().toISOString()): DeliveryRecord {
   const pausedAt = new Date().toISOString();
-  return {
-    trackingNumber: 'ECF784291304847',
+  return withLynnIncidentOverlay({
+    trackingNumber: LYNN_TRACKING_NUMBER,
     recipientName: 'Lynn Zakowski',
     addressLine1: '9 Stoneywood Drive',
     city: 'Niantic',
@@ -472,5 +492,5 @@ export function lynnSeedDelivery(startedAt = new Date().toISOString()): Delivery
     noticeBody: LYNN_INCIDENT_NOTICE.body,
     noticeImageUrl: LYNN_INCIDENT_NOTICE.imageUrl,
     noticeActive: true,
-  };
+  });
 }

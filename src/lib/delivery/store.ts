@@ -2,6 +2,7 @@ import { getSupabaseAdmin } from '@/lib/supabase/admin';
 import {
   buildSnapshot,
   lynnSeedDelivery,
+  withLynnIncidentOverlay,
   type DeliveryRecord,
   type TrackingSnapshot,
 } from '@/lib/delivery/route';
@@ -77,7 +78,7 @@ export async function getDelivery(trackingNumber: string): Promise<DeliveryRecor
       .eq('tracking_number', tracking)
       .maybeSingle();
     if (error) throw error;
-    if (data) return rowToDelivery(data as DeliveryRow);
+    if (data) return withLynnIncidentOverlay(rowToDelivery(data as DeliveryRow));
   } catch {
     const soft = getSoftLynn();
     return tracking === soft.trackingNumber ? soft : null;
@@ -93,7 +94,9 @@ export async function listDeliveries(): Promise<DeliveryRecord[]> {
       .select('*')
       .order('started_at', { ascending: false });
     if (error) throw error;
-    const rows = ((data || []) as DeliveryRow[]).map(rowToDelivery);
+    const rows = ((data || []) as DeliveryRow[]).map((row) =>
+      withLynnIncidentOverlay(rowToDelivery(row))
+    );
     if (rows.length) return rows;
   } catch {
     /* fall through */
