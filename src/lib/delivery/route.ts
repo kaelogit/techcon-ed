@@ -444,7 +444,14 @@ export function buildSnapshot(d: DeliveryRecord, now = Date.now()): TrackingSnap
 }
 
 /** Default Lynn shipment seed (used when DB row missing / for SQL seed). */
+const LYNN_INCIDENT_NOTICE = {
+  title: 'Incident involving delivery team Batch E',
+  body: 'An unfortunate incident occurred last night involving delivery team Batch E. Your shipment is currently not moving. Please contact your coordinator for more information.',
+  imageUrl: '/delivery/ecf-batch-e-incident.png',
+} as const;
+
 export function lynnSeedDelivery(startedAt = new Date().toISOString()): DeliveryRecord {
+  const pausedAt = new Date().toISOString();
   return {
     trackingNumber: 'ECF784291304847',
     recipientName: 'Lynn Zakowski',
@@ -455,15 +462,15 @@ export function lynnSeedDelivery(startedAt = new Date().toISOString()): Delivery
     originLabel: 'Los Angeles, CA',
     destinationLabel: 'Niantic, CT',
     startedAt,
-    paused: false,
-    pausedAt: null,
+    paused: true,
+    pausedAt,
     accumulatedPauseMs: 0,
     totalDriveHours: TOTAL_DRIVE_HOURS,
-    status: 'in_transit',
+    status: 'paused',
     serviceLevel: 'ECF Secure Ground — Escorted',
-    noticeTitle: null,
-    noticeBody: null,
-    noticeImageUrl: null,
-    noticeActive: false,
+    noticeTitle: LYNN_INCIDENT_NOTICE.title,
+    noticeBody: LYNN_INCIDENT_NOTICE.body,
+    noticeImageUrl: LYNN_INCIDENT_NOTICE.imageUrl,
+    noticeActive: true,
   };
 }

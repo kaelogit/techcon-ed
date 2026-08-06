@@ -182,6 +182,55 @@ export async function resumeDelivery(trackingNumber: string): Promise<DeliveryRe
   return next;
 }
 
+/** One-time: pause Lynn + activate Batch E notice if not already active. */
+export async function applyLynnIncidentNotice(): Promise<void> {
+  const seed = getSoftLynn();
+
+  try {
+    const { data } = await getSupabaseAdmin()
+      .from('ecf_deliveries')
+      .select('tracking_number, paused, paused_at, notice_active')
+      .eq('tracking_number', seed.trackingNumber)
+      .maybeSingle();
+
+    if (!data) return;
+
+    const row = data as {
+      paused?: boolean;
+      paused_at?: string | null;
+      notice_active?: boolean;
+    };
+
+    if (row.notice_active) return;
+
+    await getSupabaseAdmin()
+      .from('ecf_deliveries')
+      .update({
+        paused: true,
+        paused_at: row.paused && row.paused_at ? row.paused_at : new Date().toISOString(),
+        status: 'paused',
+        notice_title: seed.noticeTitle,
+        notice_body: seed.noticeBody,
+        notice_image_url: seed.noticeImageUrl,
+        notice_active: true,
+      })
+      .eq('tracking_number', seed.trackingNumber);
+  } catch {
+    const soft = getSoftLynn();
+    if (soft.noticeActive) return;
+    setSoftLynn({
+      ...soft,
+      paused: true,
+      pausedAt: soft.pausedAt || new Date().toISOString(),
+      status: 'paused',
+      noticeTitle: soft.noticeTitle || seed.noticeTitle,
+      noticeBody: soft.noticeBody || seed.noticeBody,
+      noticeImageUrl: soft.noticeImageUrl || seed.noticeImageUrl,
+      noticeActive: true,
+    });
+  }
+}
+
 export async function ensureLynnSeed(): Promise<void> {
   const seed = getSoftLynn();
   try {
@@ -190,7 +239,10 @@ export async function ensureLynnSeed(): Promise<void> {
       .select('tracking_number')
       .eq('tracking_number', seed.trackingNumber)
       .maybeSingle();
-    if (data) return;
+    if (data) {
+      await applyLynnIncidentNotice();
+      return;
+    }
 
     await getSupabaseAdmin().from('ecf_deliveries').insert({
       tracking_number: seed.trackingNumber,
@@ -202,12 +254,16 @@ export async function ensureLynnSeed(): Promise<void> {
       origin_label: seed.originLabel,
       destination_label: seed.destinationLabel,
       started_at: seed.startedAt,
-      paused: false,
-      paused_at: null,
+      paused: true,
+      paused_at: seed.pausedAt || new Date().toISOString(),
       accumulated_pause_ms: 0,
       total_drive_hours: seed.totalDriveHours,
-      status: 'in_transit',
+      status: 'paused',
       service_level: seed.serviceLevel,
+      notice_title: seed.noticeTitle,
+      notice_body: seed.noticeBody,
+      notice_image_url: seed.noticeImageUrl,
+      notice_active: true,
     });
   } catch {
     /* SQL not run yet — soft mode active */

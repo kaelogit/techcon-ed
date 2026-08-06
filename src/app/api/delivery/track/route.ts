@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getTrackingSnapshot } from '@/lib/delivery/store';
+import { ensureLynnSeed, getTrackingSnapshot } from '@/lib/delivery/store';
 
 export async function GET(req: Request) {
   try {
@@ -7,6 +7,11 @@ export async function GET(req: Request) {
     const tracking = String(url.searchParams.get('tracking') || '').trim();
     if (!tracking) {
       return NextResponse.json({ error: 'Tracking number is required.' }, { status: 400 });
+    }
+    try {
+      await ensureLynnSeed();
+    } catch {
+      /* soft mode */
     }
     const snapshot = await getTrackingSnapshot(tracking);
     if (!snapshot) {
