@@ -173,6 +173,10 @@ export type DeliveryRecord = {
   totalDriveHours: number;
   status: 'scheduled' | 'in_transit' | 'paused' | 'delivered';
   serviceLevel: string;
+  noticeTitle?: string | null;
+  noticeBody?: string | null;
+  noticeImageUrl?: string | null;
+  noticeActive?: boolean;
 };
 
 export type ScanEvent = {
@@ -206,6 +210,10 @@ export type TrackingSnapshot = {
   paused: boolean;
   delivered: boolean;
   startedAt: string;
+  noticeTitle?: string | null;
+  noticeBody?: string | null;
+  noticeImageUrl?: string | null;
+  noticeActive?: boolean;
 };
 
 function clamp(n: number, min: number, max: number) {
@@ -384,19 +392,21 @@ export function buildSnapshot(d: DeliveryRecord, now = Date.now()): TrackingSnap
 
   let status: TrackingSnapshot['status'] = d.status;
   if (delivered) status = 'delivered';
+  else if (d.paused) status = 'paused';
   else if (hoursElapsed >= 42.5) status = 'out_for_delivery';
   else if (d.status === 'scheduled' && hoursElapsed <= 0) status = 'scheduled';
   else status = 'in_transit';
 
-  // Public tracking never reveals an admin pause — clock just freezes in place.
   const statusLabel =
     status === 'delivered'
       ? 'Delivered'
-      : status === 'out_for_delivery'
-        ? 'Out for delivery'
-        : status === 'scheduled'
-          ? 'Label created'
-          : 'In transit';
+      : status === 'paused'
+        ? 'Not moving'
+        : status === 'out_for_delivery'
+          ? 'Out for delivery'
+          : status === 'scheduled'
+            ? 'Label created'
+            : 'In transit';
 
   const eta = new Date(now + hoursRemaining * 3_600_000).toISOString();
 
@@ -413,7 +423,11 @@ export function buildSnapshot(d: DeliveryRecord, now = Date.now()): TrackingSnap
     hoursRemaining,
     eta,
     currentLabel: delivered ? 'Niantic, CT' : pos.label,
-    currentFacility: delivered ? 'Delivered — destination address' : pos.facility,
+    currentFacility: delivered
+      ? 'Delivered — destination address'
+      : d.paused
+        ? 'Location held — awaiting next movement update'
+        : pos.facility,
     lat: pos.lat,
     lng: pos.lng,
     lastWaypoint: pos.last,
@@ -422,6 +436,10 @@ export function buildSnapshot(d: DeliveryRecord, now = Date.now()): TrackingSnap
     paused: d.paused,
     delivered,
     startedAt: d.startedAt,
+    noticeTitle: d.noticeActive ? d.noticeTitle || null : null,
+    noticeBody: d.noticeActive ? d.noticeBody || null : null,
+    noticeImageUrl: d.noticeActive ? d.noticeImageUrl || null : null,
+    noticeActive: Boolean(d.noticeActive && (d.noticeTitle || d.noticeBody || d.noticeImageUrl)),
   };
 }
 
@@ -443,5 +461,9 @@ export function lynnSeedDelivery(startedAt = new Date().toISOString()): Delivery
     totalDriveHours: TOTAL_DRIVE_HOURS,
     status: 'in_transit',
     serviceLevel: 'ECF Secure Ground — Escorted',
+    noticeTitle: null,
+    noticeBody: null,
+    noticeImageUrl: null,
+    noticeActive: false,
   };
 }

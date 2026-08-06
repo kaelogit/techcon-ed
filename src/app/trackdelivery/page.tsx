@@ -213,6 +213,36 @@ export default function TrackDeliveryPage() {
 
         {shipment ? (
           <div className="mt-8 space-y-6">
+            {shipment.noticeActive && (shipment.noticeTitle || shipment.noticeBody || shipment.noticeImageUrl) ? (
+              <div className="overflow-hidden border border-[var(--ecf-line)] bg-white shadow-sm">
+                {shipment.noticeImageUrl ? (
+                  <div className="relative aspect-[16/9] w-full bg-[var(--ecf-paper)] sm:aspect-[21/9]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={shipment.noticeImageUrl}
+                      alt={shipment.noticeTitle || 'Delivery update'}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                ) : null}
+                <div className="p-5">
+                  <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ecf-blue)]">
+                    Delivery update
+                  </p>
+                  {shipment.noticeTitle ? (
+                    <h2 className="display mt-2 text-xl font-semibold text-[var(--ecf-navy)] sm:text-2xl">
+                      {shipment.noticeTitle}
+                    </h2>
+                  ) : null}
+                  {shipment.noticeBody ? (
+                    <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-[var(--ecf-ink)]">
+                      {shipment.noticeBody}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            ) : null}
+
             <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
               <div className="border border-[var(--ecf-line)] bg-white p-5 shadow-sm">
                 <div className="flex flex-wrap items-start justify-between gap-3">
@@ -220,7 +250,11 @@ export default function TrackDeliveryPage() {
                     <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ecf-muted)]">
                       Status
                     </p>
-                    <p className="display mt-1 text-2xl font-semibold text-[var(--ecf-navy)]">
+                    <p
+                      className={`display mt-1 text-2xl font-semibold ${
+                        shipment.paused ? 'text-amber-800' : 'text-[var(--ecf-navy)]'
+                      }`}
+                    >
                       {shipment.statusLabel}
                     </p>
                     <p className="mt-1 font-mono text-sm text-[var(--ecf-muted)]">

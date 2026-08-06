@@ -22,6 +22,10 @@ type DeliveryRow = {
   total_drive_hours: number | string;
   status: DeliveryRecord['status'];
   service_level: string;
+  notice_title?: string | null;
+  notice_body?: string | null;
+  notice_image_url?: string | null;
+  notice_active?: boolean | null;
 };
 
 /** In-memory fallback when Supabase table is not ready yet */
@@ -53,6 +57,10 @@ function rowToDelivery(row: DeliveryRow): DeliveryRecord {
     totalDriveHours: Number(row.total_drive_hours) || 44,
     status: row.status,
     serviceLevel: row.service_level,
+    noticeTitle: row.notice_title || null,
+    noticeBody: row.notice_body || null,
+    noticeImageUrl: row.notice_image_url || null,
+    noticeActive: Boolean(row.notice_active),
   };
 }
 
