@@ -451,7 +451,7 @@ export const LYNN_INCIDENT_ACTIVE = true;
 
 export const LYNN_INCIDENT_NOTICE = {
   title: 'Incident involving delivery team Batch E',
-  body: 'An unfortunate incident occurred last night involving delivery team Batch E. Your shipment is currently not moving. I am monitoring this closely and will keep you updated.',
+  body: 'An unfortunate incident occurred last night involving delivery team Batch E. Your shipment is currently not moving. Please reach out to your Coordinator for more information.',
   imageUrl: '/delivery/ecf-batch-e-incident.png',
 } as const;
 
