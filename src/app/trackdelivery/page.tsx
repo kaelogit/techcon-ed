@@ -22,6 +22,10 @@ type Shipment = {
   lng: number;
   paused: boolean;
   delivered: boolean;
+  noticeActive?: boolean;
+  noticeTitle?: string | null;
+  noticeBody?: string | null;
+  noticeImageUrl?: string | null;
   scans: {
     id: string;
     at: string;
