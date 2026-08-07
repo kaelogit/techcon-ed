@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { normalizeAccountNumber } from '@/data/ecf-banking-seed';
 import { hashAnswer, hashPassword } from '@/lib/banking/crypto';
 import { createSession } from '@/lib/banking/session';
-import { getProfile, getSeed, setProfile, toPublicView } from '@/lib/banking/store';
+import { getProfile, getSeed, setProfile, toPublicView, touchLastLogin } from '@/lib/banking/store';
 import type { AccountProfile } from '@/lib/banking/types';
 
 export async function POST(req: Request) {
@@ -61,6 +61,7 @@ export async function POST(req: Request) {
     };
 
     await setProfile(profile);
+    await touchLastLogin(accountNumber);
     await createSession(accountNumber);
 
     return NextResponse.json({

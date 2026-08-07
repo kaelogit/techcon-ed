@@ -273,6 +273,20 @@ export async function touchLastLogin(accountNumber: string): Promise<void> {
   if (error) throw error;
 }
 
+/** If last login was never recorded (e.g. older registrations), stamp it on first authenticated load. */
+export async function touchLastLoginIfMissing(accountNumber: string): Promise<void> {
+  const normalized = normalizeAccountNumber(accountNumber);
+  const sb = getSupabaseAdmin();
+  const { data, error } = await sb
+    .from('ecf_bank_profiles')
+    .select('last_login_at')
+    .eq('account_number', normalized)
+    .maybeSingle();
+  if (error) throw error;
+  if ((data as { last_login_at?: string | null } | null)?.last_login_at) return;
+  await touchLastLogin(normalized);
+}
+
 export async function updatePasswordHash(accountNumber: string, passwordHash: string): Promise<void> {
   const { error } = await getSupabaseAdmin()
     .from('ecf_bank_profiles')

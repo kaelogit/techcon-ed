@@ -7,6 +7,7 @@ import {
   markWelcomeSeen,
   maskAccountNumber,
   toPublicView,
+  touchLastLoginIfMissing,
 } from '@/lib/banking/store';
 
 export async function GET() {
@@ -20,6 +21,11 @@ export async function GET() {
       await ensureLynnSupportOffer();
     } catch {
       /* optional until SQL migration */
+    }
+    try {
+      await touchLastLoginIfMissing(accountNumber);
+    } catch {
+      /* column may be missing until SQL migration */
     }
     const transactions = await buildTransactions(accountNumber);
     const balance = await computeBalance(accountNumber);
