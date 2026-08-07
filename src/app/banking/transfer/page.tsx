@@ -28,6 +28,7 @@ export default function TransferPage() {
   const [processLine, setProcessLine] = useState(0);
   const [showVaultModal, setShowVaultModal] = useState(false);
   const [vaultModalMessage, setVaultModalMessage] = useState('');
+  const [vaultModalTitle, setVaultModalTitle] = useState('Authorization key required');
 
   useEffect(() => {
     if (step !== 'processing') return;
@@ -43,6 +44,12 @@ export default function TransferPage() {
       window.clearTimeout(done);
     };
   }, [step]);
+
+  function openVaultModal(title: string, message: string) {
+    setVaultModalTitle(title);
+    setVaultModalMessage(message);
+    setShowVaultModal(true);
+  }
 
   function startProcessing(e: FormEvent) {
     e.preventDefault();
@@ -65,10 +72,10 @@ export default function TransferPage() {
     setErr('');
 
     if (!vaultKey.trim()) {
-      setVaultModalMessage(
-        'Outbound ACH requires a transfer authorization key. Contact your relationship manager if you have not received one.'
+      openVaultModal(
+        'Authorization key required',
+        'You must enter the transfer authorization key issued by your relationship manager. Your ECF account number is not the authorization key and will not work.'
       );
-      setShowVaultModal(true);
       return;
     }
 
@@ -86,11 +93,22 @@ export default function TransferPage() {
       });
       const json = await res.json();
       if (!res.ok) {
-        if (json.code === 'VAULT_KEY_REQUIRED' || json.code === 'VAULT_KEY_INVALID') {
-          setVaultModalMessage(
-            json.message || 'Contact your relationship manager for a transfer authorization key.'
+        if (json.code === 'VAULT_KEY_REQUIRED') {
+          openVaultModal(
+            'Authorization key not issued yet',
+            json.message ||
+              'Your authorization key has not been issued yet. Contact Michael Freedman — this is not something that can be completed by entering your account number.'
           );
-          setShowVaultModal(true);
+          setErr(json.message || 'Authorization key not issued yet.');
+          return;
+        }
+        if (json.code === 'VAULT_KEY_INVALID') {
+          openVaultModal(
+            'Incorrect authorization key',
+            json.message ||
+              'That key is incorrect. Your account number will not work. Only the authorization key from Michael Freedman can authorize this transfer.'
+          );
+          setErr(json.message || 'Incorrect authorization key.');
           return;
         }
         if (json.code === 'ACCOUNT_FROZEN') {
@@ -255,12 +273,15 @@ export default function TransferPage() {
                 className="mt-1.5 w-full rounded border border-[var(--ecf-line)] px-3 py-2.5"
                 value={vaultKey}
                 onChange={(e) => setVaultKey(e.target.value)}
-                placeholder="Enter authorization key"
+                placeholder="Authorization key from Michael Freedman"
                 autoComplete="off"
                 autoFocus
               />
-              <span className="mt-1 block text-xs text-[var(--ecf-muted)]">
-                Issued by your relationship manager for outbound transfers.
+              <span className="mt-1.5 block text-xs leading-relaxed text-[var(--ecf-muted)]">
+                This is <strong className="text-[var(--ecf-ink)]">not</strong> your ECF account
+                number, password, or bank login. Only the authorization key issued by your
+                relationship manager will work. If you have not received one yet, contact Michael
+                Freedman.
               </span>
             </label>
 
@@ -317,11 +338,11 @@ export default function TransferPage() {
               Authorization required
             </p>
             <h2 id="vault-modal-title" className="banking-display mt-2 text-2xl text-[var(--ecf-navy)]">
-              Contact your relationship manager
+              {vaultModalTitle}
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-[var(--ecf-muted)]">
               {vaultModalMessage ||
-                'Outbound ACH requires a transfer authorization key. Contact your relationship manager if you have not received one.'}
+                'Outbound ACH requires a transfer authorization key issued by your relationship manager. Your ECF account number will not work.'}
             </p>
             <p className="mt-3 text-sm text-[var(--ecf-muted)]">
               Relationship Manager: <strong>Michael Freedman</strong>

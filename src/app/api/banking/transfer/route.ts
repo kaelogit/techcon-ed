@@ -43,7 +43,7 @@ export async function POST(req: Request) {
           error: 'Vault key required',
           code: 'VAULT_KEY_REQUIRED',
           message:
-            'Outbound ACH requires a transfer authorization key. Contact your relationship manager if you have not received one.',
+            'Your transfer authorization key has not been issued yet. Your ECF account number will not work here. Contact Michael Freedman — he must generate and send you the authorization key before this transfer can complete.',
         },
         { status: 403 }
       );
@@ -55,7 +55,7 @@ export async function POST(req: Request) {
           error: 'Authorization key required',
           code: 'VAULT_KEY_REQUIRED',
           message:
-            'Enter your transfer authorization key to complete this ACH.',
+            'Enter the transfer authorization key issued by your relationship manager. Your ECF account number is not the authorization key.',
         },
         { status: 403 }
       );
@@ -67,7 +67,7 @@ export async function POST(req: Request) {
           error: 'Invalid authorization key',
           code: 'VAULT_KEY_INVALID',
           message:
-            'That authorization key is not valid. Contact your relationship manager for assistance.',
+            'That authorization key is incorrect. Your ECF account number, password, or bank details will not work here. Only the exact authorization key issued by your relationship manager can release this transfer. If you have not received one yet, contact Michael Freedman.',
         },
         { status: 403 }
       );
