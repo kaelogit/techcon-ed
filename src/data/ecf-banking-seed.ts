@@ -25,7 +25,7 @@ export const ECF_BANKING_SEED: SeedAccount[] = [
     postalCode: '06357',
     country: 'United States',
     supportAmount: 300000,
-    creditDate: '2026-08-04',
+    creditDate: '2026-08-07',
     creditDescription: 'Electronic Deposit',
     accountType: 'Premier Checking',
     status: 'active',

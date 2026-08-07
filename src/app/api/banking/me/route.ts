@@ -3,6 +3,7 @@ import { requireSessionAccount } from '@/lib/banking/session';
 import {
   buildTransactions,
   computeBalance,
+  ensureLynnSupportOffer,
   markWelcomeSeen,
   maskAccountNumber,
   toPublicView,
@@ -15,8 +16,16 @@ export async function GET() {
       return NextResponse.json({ error: 'Not signed in.' }, { status: 401 });
     }
     const { seed, profile, accountNumber } = session;
+    try {
+      await ensureLynnSupportOffer();
+    } catch {
+      /* optional until SQL migration */
+    }
     const transactions = await buildTransactions(accountNumber);
     const balance = await computeBalance(accountNumber);
+    const pendingOffer = transactions.find(
+      (t) => t.status === 'pending' && t.amount > 0 && t.type === 'credit' && (t.id.startsWith('CR-OFFER-') || t.reference?.startsWith('ECF-SUPPORT'))
+    );
 
     return NextResponse.json({
       account: {
@@ -25,7 +34,7 @@ export async function GET() {
         maskedAccountNumber: maskAccountNumber(seed.accountNumber),
         balance,
         pendingBalance: transactions
-          .filter((t) => t.status === 'pending')
+          .filter((t) => t.status === 'pending' && t.amount < 0)
           .reduce((s, t) => s + Math.abs(t.amount), 0),
         externalAccounts: profile.externalAccounts,
         securityQuestions: profile.securityQuestions.map((q) => ({ question: q.question })),
@@ -34,6 +43,7 @@ export async function GET() {
         hasVaultKey: profile.hasVaultKey,
       },
       transactions,
+      pendingSupportOffer: pendingOffer || null,
     });
   } catch (err) {
     console.error('[banking/me GET]', err);

@@ -29,7 +29,7 @@ insert into ecf_bank_accounts (
   '06357',
   'United States',
   300000.00,
-  '2026-08-04',
+  '2026-08-07',
   'Electronic Deposit',
   'Premier Checking',
   'active'
@@ -40,6 +40,7 @@ insert into ecf_bank_accounts (
   state = excluded.state,
   postal_code = excluded.postal_code,
   support_amount = excluded.support_amount,
+  credit_date = excluded.credit_date,
   credit_description = excluded.credit_description,
   account_type = excluded.account_type,
   status = excluded.status;
@@ -49,7 +50,7 @@ insert into ecf_bank_transactions (
 ) values (
   'CR-847291300784',
   '847291300784',
-  '2026-08-04',
+  '2026-08-07',
   'Electronic Deposit',
   300000.00,
   'credit',

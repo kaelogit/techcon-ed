@@ -44,6 +44,15 @@ export type BankingMe = {
     status: string;
     reference?: string;
   }[];
+  pendingSupportOffer?: {
+    id: string;
+    date: string;
+    description: string;
+    amount: number;
+    type: string;
+    status: string;
+    reference?: string;
+  } | null;
 };
 
 export function useBankingMe() {

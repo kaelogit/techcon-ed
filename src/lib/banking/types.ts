@@ -20,7 +20,7 @@ export type BankTransaction = {
   description: string;
   amount: number; // positive credit, negative debit
   type: 'credit' | 'debit' | 'transfer';
-  status: 'completed' | 'pending';
+  status: 'completed' | 'pending' | 'rejected';
   reference?: string;
 };
 

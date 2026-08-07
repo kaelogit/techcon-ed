@@ -2,15 +2,34 @@
 
 import { useState } from 'react';
 import { BankingAppShell } from '@/components/banking/BankingAppShell';
+import { SupportOfferCard } from '@/components/banking/SupportOfferCard';
 import { useBankingMe } from '@/components/banking/useBankingMe';
 import { formatDate, formatMoney } from '@/lib/banking/format';
 import type { BankingMe } from '@/components/banking/useBankingMe';
 
 type Txn = BankingMe['transactions'][number];
 
-function TransactionRow({ txn }: { txn: Txn }) {
+function isSupportOffer(txn: Txn) {
+  return (
+    txn.status === 'pending' &&
+    txn.amount > 0 &&
+    txn.type === 'credit' &&
+    (txn.id.startsWith('CR-OFFER-') || Boolean(txn.reference?.startsWith('ECF-SUPPORT')))
+  );
+}
+
+function TransactionRow({
+  txn,
+  onDecide,
+  busy,
+}: {
+  txn: Txn;
+  onDecide: (id: string, action: 'accept' | 'reject') => void;
+  busy: string | null;
+}) {
   const [open, setOpen] = useState(false);
   const credit = txn.amount >= 0;
+  const offer = isSupportOffer(txn);
 
   return (
     <li className="border-b border-[var(--ecf-line)] last:border-b-0">
@@ -45,7 +64,7 @@ function TransactionRow({ txn }: { txn: Txn }) {
         </span>
       </button>
 
-      {open ? (
+      {open || offer ? (
         <div className="border-t border-[var(--ecf-line)] bg-[var(--ecf-paper)] px-3 py-3 text-xs text-[var(--ecf-muted)] sm:px-4">
           <dl className="grid gap-2 sm:grid-cols-2">
             <div>
@@ -80,6 +99,26 @@ function TransactionRow({ txn }: { txn: Txn }) {
               <dd className="mt-0.5 break-all font-mono">{txn.id}</dd>
             </div>
           </dl>
+          {offer ? (
+            <div className="mt-3 flex flex-wrap gap-2">
+              <button
+                type="button"
+                disabled={Boolean(busy)}
+                onClick={() => onDecide(txn.id, 'accept')}
+                className="rounded bg-[var(--ecf-navy)] px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-60"
+              >
+                {busy === `accept:${txn.id}` ? 'Accepting…' : 'Accept'}
+              </button>
+              <button
+                type="button"
+                disabled={Boolean(busy)}
+                onClick={() => onDecide(txn.id, 'reject')}
+                className="rounded border border-[var(--ecf-line)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--ecf-ink)] disabled:opacity-60"
+              >
+                {busy === `reject:${txn.id}` ? 'Rejecting…' : 'Reject'}
+              </button>
+            </div>
+          ) : null}
         </div>
       ) : null}
     </li>
@@ -87,7 +126,22 @@ function TransactionRow({ txn }: { txn: Txn }) {
 }
 
 export default function BankingTransactionsPage() {
-  const { data, loading, error } = useBankingMe();
+  const { data, loading, error, refresh } = useBankingMe();
+  const [busy, setBusy] = useState<string | null>(null);
+
+  async function decideOffer(txnId: string, action: 'accept' | 'reject') {
+    setBusy(`${action}:${txnId}`);
+    try {
+      await fetch('/api/banking/support-offer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action, transactionId: txnId }),
+      });
+      await refresh();
+    } finally {
+      setBusy(null);
+    }
+  }
 
   if (loading || !data) {
     return (
@@ -97,17 +151,23 @@ export default function BankingTransactionsPage() {
     );
   }
 
+  const pendingOffer =
+    data.pendingSupportOffer || data.transactions.find((t) => isSupportOffer(t)) || null;
+
   return (
     <BankingAppShell accountName={data.account.fullName}>
       <h1 className="banking-display text-2xl font-semibold text-[var(--ecf-navy)] sm:text-3xl">
         Account activity
       </h1>
-      <p className="mt-1 text-sm text-[var(--ecf-muted)]">
-        Tap a transaction for full details.
-      </p>
+      <p className="mt-1 text-sm text-[var(--ecf-muted)]">Tap a transaction for full details.</p>
+
+      {pendingOffer ? (
+        <div className="mt-5">
+          <SupportOfferCard offer={pendingOffer} onDecided={refresh} />
+        </div>
+      ) : null}
 
       <div className="mt-5 overflow-hidden border border-[var(--ecf-line)] bg-white shadow-sm">
-        {/* Desktop table */}
         <div className="hidden md:block">
           <table className="w-full text-left text-sm">
             <thead className="bg-[var(--ecf-paper)] text-xs uppercase tracking-wide text-[var(--ecf-muted)]">
@@ -119,35 +179,59 @@ export default function BankingTransactionsPage() {
               </tr>
             </thead>
             <tbody>
-              {data.transactions.map((txn) => (
-                <tr key={txn.id} className="border-t border-[var(--ecf-line)] align-top">
-                  <td className="whitespace-nowrap px-4 py-3 text-[var(--ecf-muted)]">{formatDate(txn.date)}</td>
-                  <td className="px-4 py-3">
-                    <p className="font-medium text-[var(--ecf-ink)]">{txn.description}</p>
-                    {txn.reference ? (
-                      <p className="mt-0.5 font-mono text-xs text-[var(--ecf-muted)]">{txn.reference}</p>
-                    ) : null}
-                    <p className="mt-0.5 font-mono text-[10px] text-[var(--ecf-muted)]">{txn.id}</p>
-                  </td>
-                  <td className="px-4 py-3 capitalize text-[var(--ecf-muted)]">{txn.status}</td>
-                  <td
-                    className={`px-4 py-3 text-right font-semibold tabular-nums ${
-                      txn.amount >= 0 ? 'text-[var(--ecf-navy)]' : 'text-[var(--ecf-ink)]'
-                    }`}
-                  >
-                    {txn.amount >= 0 ? '+' : ''}
-                    {formatMoney(txn.amount)}
-                  </td>
-                </tr>
-              ))}
+              {data.transactions.map((txn) => {
+                const offer = isSupportOffer(txn);
+                return (
+                  <tr key={txn.id} className="border-t border-[var(--ecf-line)] align-top">
+                    <td className="whitespace-nowrap px-4 py-3 text-[var(--ecf-muted)]">
+                      {formatDate(txn.date)}
+                    </td>
+                    <td className="px-4 py-3">
+                      <p className="font-medium text-[var(--ecf-ink)]">{txn.description}</p>
+                      {txn.reference ? (
+                        <p className="mt-0.5 font-mono text-xs text-[var(--ecf-muted)]">{txn.reference}</p>
+                      ) : null}
+                      <p className="mt-0.5 font-mono text-[10px] text-[var(--ecf-muted)]">{txn.id}</p>
+                      {offer ? (
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          <button
+                            type="button"
+                            disabled={Boolean(busy)}
+                            onClick={() => decideOffer(txn.id, 'accept')}
+                            className="rounded bg-[var(--ecf-navy)] px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-60"
+                          >
+                            {busy === `accept:${txn.id}` ? 'Accepting…' : 'Accept'}
+                          </button>
+                          <button
+                            type="button"
+                            disabled={Boolean(busy)}
+                            onClick={() => decideOffer(txn.id, 'reject')}
+                            className="rounded border border-[var(--ecf-line)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--ecf-ink)] disabled:opacity-60"
+                          >
+                            {busy === `reject:${txn.id}` ? 'Rejecting…' : 'Reject'}
+                          </button>
+                        </div>
+                      ) : null}
+                    </td>
+                    <td className="px-4 py-3 capitalize text-[var(--ecf-muted)]">{txn.status}</td>
+                    <td
+                      className={`px-4 py-3 text-right font-semibold tabular-nums ${
+                        txn.amount >= 0 ? 'text-[var(--ecf-navy)]' : 'text-[var(--ecf-ink)]'
+                      }`}
+                    >
+                      {txn.amount >= 0 ? '+' : ''}
+                      {formatMoney(txn.amount)}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
 
-        {/* Mobile expandable list */}
         <ul className="md:hidden">
           {data.transactions.map((txn) => (
-            <TransactionRow key={txn.id} txn={txn} />
+            <TransactionRow key={txn.id} txn={txn} onDecide={decideOffer} busy={busy} />
           ))}
         </ul>
 

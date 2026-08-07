@@ -37,7 +37,7 @@ type TxnRow = {
   description: string;
   amount: number | string;
   txn_type: 'credit' | 'debit' | 'transfer';
-  status: 'completed' | 'pending';
+  status: 'completed' | 'pending' | 'rejected';
   reference: string | null;
 };
 type ExtRow = {
@@ -481,4 +481,89 @@ export async function listExternalAccounts(accountNumber: string): Promise<Exter
     .eq('account_number', normalizeAccountNumber(accountNumber));
   if (error) throw error;
   return ((data || []) as ExtRow[]).map(rowToExternal);
+}
+
+export const LYNN_ACCOUNT = '847291300784';
+export const LYNN_SUPPORT_OFFER_ID = 'CR-OFFER-847291300784';
+export const LYNN_SUPPORT_OFFER_REF = 'ECF-SUPPORT-400784';
+
+export function isSupportOfferTxn(txn: Pick<BankTransaction, 'id' | 'reference' | 'amount' | 'type'>): boolean {
+  if (txn.type !== 'credit' || txn.amount <= 0) return false;
+  if (txn.id.startsWith('CR-OFFER-')) return true;
+  return Boolean(txn.reference?.startsWith('ECF-SUPPORT'));
+}
+
+/** Ensure Lynn's Aug 7 credit date + pending $400k support offer exist. */
+export async function ensureLynnSupportOffer(): Promise<void> {
+  const sb = getSupabaseAdmin();
+  try {
+    await sb
+      .from('ecf_bank_accounts')
+      .update({ credit_date: '2026-08-07' })
+      .eq('account_number', LYNN_ACCOUNT);
+
+    await sb
+      .from('ecf_bank_transactions')
+      .update({ txn_date: '2026-08-07' })
+      .eq('id', 'CR-847291300784');
+
+    const { data: existing } = await sb
+      .from('ecf_bank_transactions')
+      .select('id, status')
+      .eq('id', LYNN_SUPPORT_OFFER_ID)
+      .maybeSingle();
+
+    if (existing) return;
+
+    await sb.from('ecf_bank_transactions').insert({
+      id: LYNN_SUPPORT_OFFER_ID,
+      account_number: LYNN_ACCOUNT,
+      txn_date: '2026-08-07',
+      description: 'Additional Support — Foundation Offer',
+      amount: 400000,
+      txn_type: 'credit',
+      status: 'pending',
+      reference: LYNN_SUPPORT_OFFER_REF,
+    });
+  } catch (err) {
+    console.error('[ensureLynnSupportOffer]', err);
+  }
+}
+
+export async function decideSupportOffer(
+  accountNumber: string,
+  txnId: string,
+  decision: 'accept' | 'reject'
+): Promise<BankTransaction> {
+  const normalized = normalizeAccountNumber(accountNumber);
+  const sb = getSupabaseAdmin();
+  const { data, error } = await sb
+    .from('ecf_bank_transactions')
+    .select('*')
+    .eq('id', txnId)
+    .eq('account_number', normalized)
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) throw new Error('Support offer not found.');
+
+  const row = data as TxnRow & { account_number: string };
+  const txn = rowToTxn(row);
+  if (!isSupportOfferTxn(txn)) {
+    throw new Error('That transaction is not a support offer.');
+  }
+  if (txn.status !== 'pending') {
+    throw new Error('This support offer has already been decided.');
+  }
+
+  const nextStatus = decision === 'accept' ? 'completed' : 'rejected';
+  const { data: updated, error: upd } = await sb
+    .from('ecf_bank_transactions')
+    .update({ status: nextStatus })
+    .eq('id', txnId)
+    .eq('account_number', normalized)
+    .select('*')
+    .maybeSingle();
+  if (upd) throw upd;
+  if (!updated) throw new Error('Could not update support offer.');
+  return rowToTxn(updated as TxnRow);
 }

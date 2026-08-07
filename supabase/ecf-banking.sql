@@ -50,7 +50,7 @@ create table if not exists ecf_bank_transactions (
   description text not null,
   amount numeric(14,2) not null,
   txn_type text not null check (txn_type in ('credit', 'debit', 'transfer')),
-  status text not null default 'completed' check (status in ('completed', 'pending')),
+  status text not null default 'completed' check (status in ('completed', 'pending', 'rejected')),
   reference text,
   created_at timestamptz not null default now()
 );
@@ -88,7 +88,7 @@ insert into ecf_bank_accounts (
   '06357',
   'United States',
   300000.00,
-  '2026-08-04',
+  '2026-08-07',
   'Electronic Deposit',
   'Premier Checking',
   'active'
@@ -116,7 +116,7 @@ insert into ecf_bank_transactions (
 (
   'CR-847291300784',
   '847291300784',
-  '2026-08-04',
+  '2026-08-07',
   'Electronic Deposit',
   300000.00,
   'credit',

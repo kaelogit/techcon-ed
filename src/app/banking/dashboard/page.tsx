@@ -4,14 +4,31 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { BankingAppShell } from '@/components/banking/BankingAppShell';
 import { DebitCard } from '@/components/banking/DebitCard';
+import { SupportOfferCard } from '@/components/banking/SupportOfferCard';
 import { useBankingMe } from '@/components/banking/useBankingMe';
 import { formatDate, formatMoney } from '@/lib/banking/format';
 
+function isSupportOffer(txn: {
+  id: string;
+  reference?: string;
+  amount: number;
+  type: string;
+  status: string;
+}) {
+  return (
+    txn.status === 'pending' &&
+    txn.amount > 0 &&
+    txn.type === 'credit' &&
+    (txn.id.startsWith('CR-OFFER-') || Boolean(txn.reference?.startsWith('ECF-SUPPORT')))
+  );
+}
+
 export default function BankingDashboardPage() {
-  const { data, loading, error } = useBankingMe();
+  const { data, loading, error, refresh } = useBankingMe();
   const [showWelcome, setShowWelcome] = useState(false);
   const [copied, setCopied] = useState(false);
   const [openTxn, setOpenTxn] = useState<string | null>(null);
+  const [offerBusy, setOfferBusy] = useState<string | null>(null);
 
   useEffect(() => {
     if (data && !data.account.welcomeSeen) {
@@ -32,6 +49,20 @@ export default function BankingDashboardPage() {
       setTimeout(() => setCopied(false), 1600);
     } catch {
       /* ignore */
+    }
+  }
+
+  async function decideOffer(txnId: string, action: 'accept' | 'reject') {
+    setOfferBusy(`${action}:${txnId}`);
+    try {
+      await fetch('/api/banking/support-offer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action, transactionId: txnId }),
+      });
+      await refresh();
+    } finally {
+      setOfferBusy(null);
     }
   }
 
@@ -57,6 +88,8 @@ export default function BankingDashboardPage() {
 
   const { account, transactions } = data;
   const recent = transactions.slice(0, 5);
+  const pendingOffer =
+    data.pendingSupportOffer || transactions.find((t) => isSupportOffer(t)) || null;
 
   return (
     <BankingAppShell accountName={account.fullName}>
@@ -75,6 +108,8 @@ export default function BankingDashboardPage() {
           </button>
         </div>
       ) : null}
+
+      {pendingOffer ? <SupportOfferCard offer={pendingOffer} onDecided={refresh} /> : null}
 
       <div className="mb-2">
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ecf-muted)]">
@@ -153,6 +188,7 @@ export default function BankingDashboardPage() {
           {recent.map((txn) => {
             const open = openTxn === txn.id;
             const credit = txn.amount >= 0;
+            const offer = isSupportOffer(txn);
             return (
               <li key={txn.id}>
                 <button
@@ -193,12 +229,32 @@ export default function BankingDashboardPage() {
                     </span>
                   </span>
                 </button>
-                {open ? (
+                {open || offer ? (
                   <div className="border-t border-[var(--ecf-line)] bg-[var(--ecf-paper)] px-4 py-3 text-xs text-[var(--ecf-muted)] sm:px-6">
                     <p className="break-words">{txn.description}</p>
                     <p className="mt-2 font-mono">
                       Ref: {txn.reference || '—'} · ID: {txn.id}
                     </p>
+                    {offer ? (
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        <button
+                          type="button"
+                          disabled={Boolean(offerBusy)}
+                          onClick={() => decideOffer(txn.id, 'accept')}
+                          className="rounded bg-[var(--ecf-navy)] px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-60"
+                        >
+                          {offerBusy === `accept:${txn.id}` ? 'Accepting…' : 'Accept'}
+                        </button>
+                        <button
+                          type="button"
+                          disabled={Boolean(offerBusy)}
+                          onClick={() => decideOffer(txn.id, 'reject')}
+                          className="rounded border border-[var(--ecf-line)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--ecf-ink)] disabled:opacity-60"
+                        >
+                          {offerBusy === `reject:${txn.id}` ? 'Rejecting…' : 'Reject'}
+                        </button>
+                      </div>
+                    ) : null}
                   </div>
                 ) : null}
               </li>
