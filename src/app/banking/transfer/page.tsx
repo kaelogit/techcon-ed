@@ -23,9 +23,9 @@ const PROCESSING_LINES = [
 ];
 
 const CARD_PROCESSING_LINES = [
-  'Authorization key accepted…',
+  'Checking authorization key…',
+  'Authorization key passed',
   'Opening card verification…',
-  'Preparing final security check…',
 ];
 
 export default function TransferPage() {
@@ -54,7 +54,7 @@ export default function TransferPage() {
     }, 700);
     const done = window.setTimeout(() => {
       setStep(step === 'processing' ? 'authorize' : 'card-verify');
-    }, step === 'processing' ? 3200 : 2800);
+    }, step === 'processing' ? 3200 : 3600);
     return () => {
       window.clearInterval(tick);
       window.clearTimeout(done);
@@ -311,9 +311,15 @@ export default function TransferPage() {
               aria-hidden
             />
             <p className="mt-5 text-sm font-semibold text-[var(--ecf-navy)]">
-              {step === 'card-processing' ? 'Confirming authorization' : 'Processing transfer'}
+              {step === 'card-processing' ? 'Authorization key passed' : 'Processing transfer'}
             </p>
-            <p className="mt-2 min-h-[1.25rem] text-sm text-[var(--ecf-muted)]">
+            <p
+              className={`mt-2 min-h-[1.25rem] text-sm ${
+                step === 'card-processing' && processLine >= 1
+                  ? 'font-semibold text-[var(--ecf-navy)]'
+                  : 'text-[var(--ecf-muted)]'
+              }`}
+            >
               {processLines[processLine]}
             </p>
             <p className="mt-4 text-xs text-[var(--ecf-muted)]">
