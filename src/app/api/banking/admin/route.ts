@@ -21,6 +21,7 @@ import {
   toPublicView,
   updateAccountDetails,
   updatePasswordHash,
+  setDebitCardIssued,
 } from '@/lib/banking/store';
 import type { BankTransaction } from '@/lib/banking/types';
 
@@ -51,6 +52,7 @@ export async function GET(req: Request) {
         account: {
           ...(await toPublicView(seed)),
           hasVaultKey: profile?.hasVaultKey ?? false,
+          debitCardIssued: profile?.debitCardIssued ?? false,
           registeredAt: profile?.registeredAt ?? null,
           lastLoginAt: profile?.lastLoginAt ?? null,
           securityQuestionCount: profile?.securityQuestions.length ?? 0,
@@ -71,6 +73,7 @@ export async function GET(req: Request) {
           ...view,
           balance,
           hasVaultKey: profile?.hasVaultKey ?? false,
+          debitCardIssued: profile?.debitCardIssued ?? false,
           registeredAt: profile?.registeredAt ?? null,
           lastLoginAt: profile?.lastLoginAt ?? null,
         };
@@ -209,6 +212,20 @@ export async function POST(req: Request) {
 
     if (action === 'revoke-vault-key') {
       await setVaultKeyHash(accountNumber, null);
+      return NextResponse.json({ ok: true });
+    }
+
+    if (action === 'issue-debit-card') {
+      const profile = await getProfile(accountNumber);
+      if (!profile) {
+        return NextResponse.json({ error: 'Account must be registered first.' }, { status: 400 });
+      }
+      await setDebitCardIssued(accountNumber, true);
+      return NextResponse.json({ ok: true });
+    }
+
+    if (action === 'revoke-debit-card') {
+      await setDebitCardIssued(accountNumber, false);
       return NextResponse.json({ ok: true });
     }
 

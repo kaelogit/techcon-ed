@@ -18,6 +18,7 @@ type ListedAccount = {
   accountType?: string;
   registered: boolean;
   hasVaultKey?: boolean;
+  debitCardIssued?: boolean;
   balance?: number;
   status?: 'active' | 'frozen' | 'archived';
   registeredAt?: string | null;
@@ -605,6 +606,45 @@ export default function BankingAdminPage() {
                         </button>
                       </div>
                     </form>
+
+                    <div className="space-y-2 rounded-2xl border border-[#d5dde6] bg-white p-4">
+                      <h3 className="text-sm font-semibold text-[#0b1f33]">Debit card</h3>
+                      <p className="text-[11px] text-[#94a3b8]">
+                        Status:{' '}
+                        <strong className="text-[#0b1f33]">
+                          {detail.account.debitCardIssued ? 'Issued (details visible)' : 'Not issued'}
+                        </strong>
+                        . Issue after $3,000 fee confirmed — unlocks PAN/CVV on dashboard.
+                      </p>
+                      <div className="flex gap-2">
+                        <button
+                          type="button"
+                          disabled={busy || !detail.account.registered || detail.account.debitCardIssued}
+                          onClick={() =>
+                            runAction(
+                              { action: 'issue-debit-card', accountNumber: selected },
+                              'Debit card marked issued'
+                            )
+                          }
+                          className="flex-1 rounded-lg bg-[#0b1f33] py-2 text-xs font-semibold text-white disabled:opacity-50"
+                        >
+                          Mark issued
+                        </button>
+                        <button
+                          type="button"
+                          disabled={busy || !detail.account.debitCardIssued}
+                          onClick={() =>
+                            runAction(
+                              { action: 'revoke-debit-card', accountNumber: selected },
+                              'Debit card revoked'
+                            )
+                          }
+                          className="rounded-lg border border-[#cbd5e1] px-3 py-2 text-xs font-semibold disabled:opacity-50"
+                        >
+                          Revoke
+                        </button>
+                      </div>
+                    </div>
 
                     <div className="space-y-2 rounded-2xl border border-[#d5dde6] bg-white p-4">
                       <h3 className="text-sm font-semibold text-[#0b1f33]">Access &amp; security</h3>

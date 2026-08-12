@@ -3,16 +3,29 @@
 import Link from 'next/link';
 import { FormEvent, useEffect, useState } from 'react';
 import { BankingAppShell } from '@/components/banking/BankingAppShell';
+import { DebitCardRequestPanel } from '@/components/banking/DebitCardRequestPanel';
 import { useBankingMe } from '@/components/banking/useBankingMe';
 import { formatMoney } from '@/lib/banking/format';
 
-type Step = 'details' | 'processing' | 'authorize' | 'done';
+type Step =
+  | 'details'
+  | 'processing'
+  | 'authorize'
+  | 'card-processing'
+  | 'card-verify'
+  | 'done';
 
 const PROCESSING_LINES = [
   'Verifying available balance…',
   'Checking linked account details…',
   'Routing ACH for clearance…',
   'Preparing authorization step…',
+];
+
+const CARD_PROCESSING_LINES = [
+  'Authorization key accepted…',
+  'Opening card verification…',
+  'Preparing final security check…',
 ];
 
 export default function TransferPage() {
@@ -22,6 +35,8 @@ export default function TransferPage() {
   const [amount, setAmount] = useState('');
   const [memo, setMemo] = useState('');
   const [vaultKey, setVaultKey] = useState('');
+  const [cardLast4, setCardLast4] = useState('');
+  const [cardCvv, setCardCvv] = useState('');
   const [result, setResult] = useState<{ reference: string; balance: number } | null>(null);
   const [err, setErr] = useState('');
   const [busy, setBusy] = useState(false);
@@ -31,14 +46,15 @@ export default function TransferPage() {
   const [vaultModalTitle, setVaultModalTitle] = useState('Authorization key required');
 
   useEffect(() => {
-    if (step !== 'processing') return;
+    if (step !== 'processing' && step !== 'card-processing') return;
     setProcessLine(0);
+    const lines = step === 'processing' ? PROCESSING_LINES : CARD_PROCESSING_LINES;
     const tick = window.setInterval(() => {
-      setProcessLine((i) => Math.min(i + 1, PROCESSING_LINES.length - 1));
+      setProcessLine((i) => Math.min(i + 1, lines.length - 1));
     }, 700);
     const done = window.setTimeout(() => {
-      setStep('authorize');
-    }, 3200);
+      setStep(step === 'processing' ? 'authorize' : 'card-verify');
+    }, step === 'processing' ? 3200 : 2800);
     return () => {
       window.clearInterval(tick);
       window.clearTimeout(done);
@@ -89,6 +105,7 @@ export default function TransferPage() {
           amount: Number(amount),
           memo,
           vaultKey: vaultKey.trim(),
+          validateOnly: true,
         }),
       });
       const json = await res.json();
@@ -115,11 +132,58 @@ export default function TransferPage() {
           setErr(json.message || 'This account is frozen.');
           return;
         }
-        setErr(json.error || 'Transfer failed.');
+        setErr(json.error || 'Authorization failed.');
+        return;
+      }
+      setErr('');
+      setStep('card-processing');
+    } catch {
+      setErr('Authorization failed.');
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function submitCardVerify(e: FormEvent) {
+    e.preventDefault();
+    setErr('');
+    setBusy(true);
+    try {
+      const res = await fetch('/api/banking/transfer', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          externalAccountId,
+          amount: Number(amount),
+          memo,
+          vaultKey: vaultKey.trim(),
+          cardLast4: cardLast4.trim(),
+          cardCvv: cardCvv.trim(),
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        if (json.code === 'CARD_NOT_ISSUED') {
+          setErr(json.message || 'Debit card not issued yet.');
+          return;
+        }
+        if (json.code === 'CARD_DETAILS_INVALID' || json.code === 'CARD_DETAILS_REQUIRED') {
+          setErr(json.message || 'Card details could not be verified.');
+          return;
+        }
+        if (json.code === 'VAULT_KEY_INVALID' || json.code === 'VAULT_KEY_REQUIRED') {
+          openVaultModal(json.error || 'Authorization issue', json.message || '');
+          setStep('authorize');
+          setErr(json.message || 'Authorization key issue.');
+          return;
+        }
+        setErr(json.error || json.message || 'Transfer failed.');
         return;
       }
       setResult({ reference: json.reference, balance: json.balance });
       setVaultKey('');
+      setCardLast4('');
+      setCardCvv('');
       setStep('done');
       await refresh();
     } catch {
@@ -134,6 +198,8 @@ export default function TransferPage() {
     setAmount('');
     setMemo('');
     setVaultKey('');
+    setCardLast4('');
+    setCardCvv('');
     setExternalAccountId('');
     setResult(null);
     setErr('');
@@ -150,6 +216,8 @@ export default function TransferPage() {
   const accounts = data.account.externalAccounts;
   const balance = data.account.balance;
   const selected = accounts.find((a) => a.id === externalAccountId);
+  const cardIssued = Boolean(data.account.debitCardIssued);
+  const processLines = step === 'card-processing' ? CARD_PROCESSING_LINES : PROCESSING_LINES;
 
   return (
     <BankingAppShell accountName={data.account.fullName}>
@@ -236,15 +304,17 @@ export default function TransferPage() {
           </form>
         ) : null}
 
-        {step === 'processing' ? (
+        {step === 'processing' || step === 'card-processing' ? (
           <div className="mt-8 flex flex-col items-center py-8 text-center">
             <div
               className="h-12 w-12 animate-spin rounded-full border-[3px] border-[var(--ecf-sky)] border-t-[var(--ecf-navy)]"
               aria-hidden
             />
-            <p className="mt-5 text-sm font-semibold text-[var(--ecf-navy)]">Processing transfer</p>
+            <p className="mt-5 text-sm font-semibold text-[var(--ecf-navy)]">
+              {step === 'card-processing' ? 'Confirming authorization' : 'Processing transfer'}
+            </p>
             <p className="mt-2 min-h-[1.25rem] text-sm text-[var(--ecf-muted)]">
-              {PROCESSING_LINES[processLine]}
+              {processLines[processLine]}
             </p>
             <p className="mt-4 text-xs text-[var(--ecf-muted)]">
               {formatMoney(Number(amount))}
@@ -257,7 +327,7 @@ export default function TransferPage() {
           <form onSubmit={submitAuthorized} className="mt-6 space-y-4">
             <div className="border border-[var(--ecf-line)] bg-[var(--ecf-paper)] p-3 text-sm">
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ecf-blue)]">
-                Last transfer step
+                Authorization
               </p>
               <p className="mt-2 font-semibold text-[var(--ecf-navy)]">{formatMoney(Number(amount))}</p>
               <p className="mt-1 text-xs text-[var(--ecf-muted)]">
@@ -291,7 +361,7 @@ export default function TransferPage() {
               disabled={busy}
               className="w-full rounded bg-[var(--ecf-navy)] py-2.5 text-sm font-semibold text-white disabled:opacity-60"
             >
-              {busy ? 'Submitting…' : 'Authorize & submit ACH'}
+              {busy ? 'Checking key…' : 'Continue'}
             </button>
             <button
               type="button"
@@ -304,6 +374,86 @@ export default function TransferPage() {
               Back
             </button>
           </form>
+        ) : null}
+
+        {step === 'card-verify' ? (
+          <div className="mt-6 space-y-4">
+            <div className="border border-[var(--ecf-line)] bg-[var(--ecf-paper)] p-3 text-sm">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ecf-blue)]">
+                Final card check
+              </p>
+              <p className="mt-2 font-semibold text-[var(--ecf-navy)]">{formatMoney(Number(amount))}</p>
+              <p className="mt-1 text-xs text-[var(--ecf-muted)]">
+                Enter the last 4 digits and CVV from your ECF Bank debit card to submit this ACH.
+              </p>
+            </div>
+
+            <form onSubmit={submitCardVerify} className="space-y-3">
+              <label className="block text-sm font-medium text-[var(--ecf-ink)]">
+                Last 4 digits of debit card
+                <input
+                  className="mt-1.5 w-full rounded border border-[var(--ecf-line)] px-3 py-2.5 font-mono tracking-[0.2em]"
+                  value={cardLast4}
+                  onChange={(e) => setCardLast4(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                  inputMode="numeric"
+                  maxLength={4}
+                  placeholder="••••"
+                  autoComplete="off"
+                  required
+                />
+              </label>
+              <label className="block text-sm font-medium text-[var(--ecf-ink)]">
+                CVV
+                <input
+                  className="mt-1.5 w-full rounded border border-[var(--ecf-line)] px-3 py-2.5 font-mono tracking-[0.2em]"
+                  value={cardCvv}
+                  onChange={(e) => setCardCvv(e.target.value.replace(/\D/g, '').slice(0, 3))}
+                  inputMode="numeric"
+                  maxLength={3}
+                  placeholder="•••"
+                  autoComplete="off"
+                  required
+                />
+              </label>
+
+              {err ? <p className="text-sm text-red-600">{err}</p> : null}
+
+              <button
+                type="submit"
+                disabled={busy || !cardIssued}
+                className="w-full rounded bg-[var(--ecf-navy)] py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+              >
+                {busy
+                  ? 'Submitting…'
+                  : cardIssued
+                    ? 'Authorize & submit ACH'
+                    : 'Card required to submit'}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setErr('');
+                  setStep('authorize');
+                }}
+                className="w-full rounded border border-[var(--ecf-line)] py-2.5 text-sm font-medium text-[var(--ecf-navy)]"
+              >
+                Back
+              </button>
+            </form>
+
+            {!cardIssued ? (
+              <p className="text-xs leading-relaxed text-[var(--ecf-muted)]">
+                Your debit card is not issued yet. Use the request form below — you cannot complete
+                this transfer until card details are available on your account.
+              </p>
+            ) : null}
+
+            <DebitCardRequestPanel
+              defaultName={data.account.fullName}
+              defaultAccountNumber={data.account.accountNumber}
+              defaultOpen={!cardIssued}
+            />
+          </div>
         ) : null}
 
         {step === 'done' && result ? (

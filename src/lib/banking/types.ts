@@ -35,6 +35,8 @@ export type AccountProfile = {
   vaultKeyHash?: string | null;
   hasVaultKey: boolean;
   lastLoginAt?: string | null;
+  /** Physical debit card issued — details hidden until true. */
+  debitCardIssued: boolean;
 };
 
 export type PublicAccountView = {

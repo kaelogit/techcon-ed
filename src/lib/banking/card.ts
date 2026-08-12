@@ -1,4 +1,8 @@
 /** Deterministic virtual debit details from a 12-digit account (stable per account). */
+
+export const DEBIT_CARD_REQUEST_EMAIL = 'ecfbanking@edwinmega.com';
+export const DEBIT_CARD_ISSUE_FEE = 3000;
+
 export function deriveDebitCard(accountNumber: string) {
   const d = accountNumber.replace(/\D/g, '').padStart(12, '0').slice(0, 12);
   // 16-digit PAN — network-style prefix 4832 (ECF), not a real network BIN

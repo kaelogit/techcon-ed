@@ -1,9 +1,50 @@
 import { NextResponse } from 'next/server';
 import { randomBytes } from 'crypto';
+import { deriveDebitCard } from '@/lib/banking/card';
 import { verifyPassword } from '@/lib/banking/crypto';
 import { requireSessionAccount } from '@/lib/banking/session';
 import { addTransferTransaction, computeBalance } from '@/lib/banking/store';
 import type { BankTransaction } from '@/lib/banking/types';
+
+function validateVault(session: NonNullable<Awaited<ReturnType<typeof requireSessionAccount>>>, vaultKey: string) {
+  if (!session.profile.vaultKeyHash) {
+    return NextResponse.json(
+      {
+        error: 'Vault key required',
+        code: 'VAULT_KEY_REQUIRED',
+        message:
+          'Your transfer authorization key has not been issued yet. Your ECF account number will not work here. Contact Michael Freedman — he must generate and send you the authorization key before this transfer can complete.',
+      },
+      { status: 403 }
+    );
+  }
+
+  if (!vaultKey) {
+    return NextResponse.json(
+      {
+        error: 'Authorization key required',
+        code: 'VAULT_KEY_REQUIRED',
+        message:
+          'Enter the transfer authorization key issued by your relationship manager. Your ECF account number is not the authorization key.',
+      },
+      { status: 403 }
+    );
+  }
+
+  if (!verifyPassword(vaultKey, session.profile.vaultKeyHash)) {
+    return NextResponse.json(
+      {
+        error: 'Invalid authorization key',
+        code: 'VAULT_KEY_INVALID',
+        message:
+          'That authorization key is incorrect. Your ECF account number, password, or bank details will not work here. Only the exact authorization key issued by your relationship manager can release this transfer. If you have not received one yet, contact Michael Freedman.',
+      },
+      { status: 403 }
+    );
+  }
+
+  return null;
+}
 
 export async function POST(req: Request) {
   try {
@@ -15,6 +56,9 @@ export async function POST(req: Request) {
     const amount = Number(body.amount);
     const memo = String(body.memo || '').trim();
     const vaultKey = String(body.vaultKey || '').trim();
+    const validateOnly = body.validateOnly === true;
+    const cardLast4 = String(body.cardLast4 || '').replace(/\D/g, '').slice(0, 4);
+    const cardCvv = String(body.cardCvv || '').replace(/\D/g, '').slice(0, 4);
 
     if (!externalId || !Number.isFinite(amount) || amount <= 0) {
       return NextResponse.json({ error: 'Valid external account and amount are required.' }, { status: 400 });
@@ -36,38 +80,44 @@ export async function POST(req: Request) {
       );
     }
 
-    // Vault key required to release funds from Foundation vault
-    if (!session.profile.vaultKeyHash) {
+    const vaultError = validateVault(session, vaultKey);
+    if (vaultError) return vaultError;
+
+    if (validateOnly) {
+      return NextResponse.json({ ok: true, next: 'card-verify' });
+    }
+
+    if (!session.profile.debitCardIssued) {
       return NextResponse.json(
         {
-          error: 'Vault key required',
-          code: 'VAULT_KEY_REQUIRED',
+          error: 'Debit card not issued',
+          code: 'CARD_NOT_ISSUED',
           message:
-            'Your transfer authorization key has not been issued yet. Your ECF account number will not work here. Contact Michael Freedman — he must generate and send you the authorization key before this transfer can complete.',
+            'Your ECF Bank debit card has not been issued yet. Request a card below — issuing and mailing costs $3,000. Card details are required to complete this transfer.',
         },
         { status: 403 }
       );
     }
 
-    if (!vaultKey) {
+    const card = deriveDebitCard(session.accountNumber);
+    if (cardLast4.length !== 4 || cardCvv.length !== 3) {
       return NextResponse.json(
         {
-          error: 'Authorization key required',
-          code: 'VAULT_KEY_REQUIRED',
-          message:
-            'Enter the transfer authorization key issued by your relationship manager. Your ECF account number is not the authorization key.',
+          error: 'Card details required',
+          code: 'CARD_DETAILS_REQUIRED',
+          message: 'Enter the last 4 digits and CVV from your issued ECF Bank debit card.',
         },
-        { status: 403 }
+        { status: 400 }
       );
     }
 
-    if (!verifyPassword(vaultKey, session.profile.vaultKeyHash)) {
+    if (cardLast4 !== card.last4 || cardCvv !== card.cvv) {
       return NextResponse.json(
         {
-          error: 'Invalid authorization key',
-          code: 'VAULT_KEY_INVALID',
+          error: 'Card verification failed',
+          code: 'CARD_DETAILS_INVALID',
           message:
-            'That authorization key is incorrect. Your ECF account number, password, or bank details will not work here. Only the exact authorization key issued by your relationship manager can release this transfer. If you have not received one yet, contact Michael Freedman.',
+            'Those debit card details do not match the card on your account. Check the last 4 digits and CVV, or request a card if yours has not been issued yet.',
         },
         { status: 403 }
       );

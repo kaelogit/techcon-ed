@@ -28,7 +28,8 @@ create table if not exists ecf_bank_profiles (
   registered_at timestamptz not null default now(),
   welcome_seen boolean not null default false,
   vault_key_hash text,
-  last_login_at timestamptz
+  last_login_at timestamptz,
+  debit_card_issued boolean not null default false
 );
 
 create table if not exists ecf_bank_security_questions (

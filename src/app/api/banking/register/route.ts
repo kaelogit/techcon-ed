@@ -58,6 +58,7 @@ export async function POST(req: Request) {
       welcomeSeen: false,
       hasVaultKey: false,
       vaultKeyHash: null,
+      debitCardIssued: false,
     };
 
     await setProfile(profile);

@@ -172,6 +172,7 @@ export default function BankingDashboardPage() {
         <DebitCard
           accountNumber={account.accountNumber}
           cardholderName={account.fullName}
+          issued={Boolean(account.debitCardIssued)}
           onCopyAccount={copyAccount}
           copied={copied}
         />

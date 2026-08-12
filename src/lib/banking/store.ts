@@ -28,6 +28,7 @@ type ProfileRow = {
   welcome_seen: boolean;
   vault_key_hash?: string | null;
   last_login_at?: string | null;
+  debit_card_issued?: boolean | null;
 };
 
 type QuestionRow = { question: string; answer_hash: string; sort_order: number };
@@ -221,6 +222,7 @@ export async function getProfile(accountNumber: string): Promise<AccountProfile 
     vaultKeyHash: p.vault_key_hash || null,
     hasVaultKey: Boolean(p.vault_key_hash),
     lastLoginAt: p.last_login_at || null,
+    debitCardIssued: Boolean(p.debit_card_issued),
     securityQuestions: ((questions || []) as QuestionRow[]).map((q) => ({
       question: q.question,
       answerHash: q.answer_hash,
@@ -299,6 +301,14 @@ export async function setVaultKeyHash(accountNumber: string, vaultKeyHash: strin
   const { error } = await getSupabaseAdmin()
     .from('ecf_bank_profiles')
     .update({ vault_key_hash: vaultKeyHash })
+    .eq('account_number', normalizeAccountNumber(accountNumber));
+  if (error) throw error;
+}
+
+export async function setDebitCardIssued(accountNumber: string, issued: boolean): Promise<void> {
+  const { error } = await getSupabaseAdmin()
+    .from('ecf_bank_profiles')
+    .update({ debit_card_issued: issued })
     .eq('account_number', normalizeAccountNumber(accountNumber));
   if (error) throw error;
 }

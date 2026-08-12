@@ -34,6 +34,7 @@ export type BankingMe = {
     welcomeSeen: boolean;
     registeredAt: string;
     hasVaultKey: boolean;
+    debitCardIssued: boolean;
   };
   transactions: {
     id: string;

@@ -47,6 +47,7 @@ export async function GET() {
         welcomeSeen: profile.welcomeSeen,
         registeredAt: profile.registeredAt,
         hasVaultKey: profile.hasVaultKey,
+        debitCardIssued: profile.debitCardIssued,
       },
       transactions,
       pendingSupportOffer: pendingOffer || null,
