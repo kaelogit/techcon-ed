@@ -306,10 +306,27 @@ export default function TransferPage() {
 
         {step === 'processing' || step === 'card-processing' ? (
           <div className="mt-8 flex flex-col items-center py-8 text-center">
-            <div
-              className="h-12 w-12 animate-spin rounded-full border-[3px] border-[var(--ecf-sky)] border-t-[var(--ecf-navy)]"
-              aria-hidden
-            />
+            {step === 'card-processing' && processLine >= 1 ? (
+              <div
+                className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--ecf-sky)] text-[var(--ecf-navy)]"
+                aria-hidden
+              >
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M5 13l4 4L19 7"
+                    stroke="currentColor"
+                    strokeWidth="2.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            ) : (
+              <div
+                className="h-12 w-12 animate-spin rounded-full border-[3px] border-[var(--ecf-sky)] border-t-[var(--ecf-navy)]"
+                aria-hidden
+              />
+            )}
             <p className="mt-5 text-sm font-semibold text-[var(--ecf-navy)]">
               {step === 'card-processing' ? 'Authorization key passed' : 'Processing transfer'}
             </p>
