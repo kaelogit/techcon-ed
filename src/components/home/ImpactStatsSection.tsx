@@ -118,16 +118,16 @@ export function ImpactStatsSection() {
       value: 20,
       suffix: "+ Countries",
       label: "Global Reach",
-      desc: "Accepting and reviewing personal stories from families across the USA, Canada, UK, Germany, Australia, and beyond.",
+      desc: "Reviewing goals from people across the USA, Canada, UK, Germany, Australia, and beyond — at every income stage.",
       delay: 0,
     },
     {
       icon: <Zap className="w-6 h-6" />,
-      value: 7,
+      value: 3,
       prefix: "",
-      suffix: "Focus Areas",
-      label: "Holistic Help",
-      desc: "Targeted funding for education, housing, health, and local infrastructure — wherever you are.",
+      suffix: "Funding Lanes",
+      label: "Crisis · Growth · Ambition",
+      desc: "Capital for urgent recovery, steady next steps, and larger builds — not one narrow profile of need.",
       delay: 150,
     },
     {
@@ -135,7 +135,7 @@ export function ImpactStatsSection() {
       value: 100,
       suffix: "%",
       label: "Direct Impact",
-      desc: "Funding moves straight to the families, bypassing traditional agency delays worldwide.",
+      desc: "Funding moves straight to you, bypassing traditional agency delays worldwide.",
       delay: 300,
     },
   ];
@@ -165,7 +165,7 @@ export function ImpactStatsSection() {
               </p>
             </div>
             <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-(--trust) leading-tight">
-              A commitment to rebuilding,{" "}
+              Capital with purpose,{" "}
               <span className="italic text-(--accent-gold)">without</span> the bureaucracy.
             </h2>
           </div>

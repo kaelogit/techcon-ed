@@ -6,8 +6,8 @@ import { SiteChrome } from '@/components/layout/SiteChrome';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-ZR6ZXRW988';
 
-const siteTitle = 'Edwin Castro — The Uplift Program';
-const siteDescription = 'A personal commitment to rebuilding lives worldwide. Edwin Castro provides direct, debt-free funding for education, housing, disaster recovery, medical needs, and community projects — with support reaching families across the USA, Canada, United Kingdom, Germany, Australia, and beyond. No middlemen. No complicated paperwork. Just real help for real people.';
+const siteTitle = 'Edwin Castro — Private Funding for Every Stage';
+const siteDescription = 'Direct, debt-free funding from Edwin Castro for recovery, growth, and ambition. Capital for education, housing, health, business, and community goals — open to people rebuilding after a setback and people ready to scale. USA, Canada, UK, Germany, Australia, and beyond.';
 
 const siteUrl = 'https://edwinmega.com';
 const ogImageUrl = `${siteUrl}/hero-image.jpg`;
@@ -15,31 +15,30 @@ const ogImageUrl = `${siteUrl}/hero-image.jpg`;
 export const metadata: Metadata = {
   title: {
     default: siteTitle,
-    template: '%s | Edwin Castro Community Support',
+    template: '%s | Edwin Castro',
   },
   description: siteDescription,
   keywords: [
     'Edwin Castro',
-    'community support',
-    'funding',
-    'education',
+    'direct funding',
+    'private funding',
+    'debt-free capital',
+    'education funding',
     'housing',
+    'business expansion',
+    'medical funding',
+    'community projects',
     'disaster recovery',
-    'direct support',
-    'debt-free funding',
-    'family support',
-    'international support',
+    'growth capital',
+    'USA',
     'Canada',
     'United Kingdom',
     'Germany',
     'Australia',
-    'USA',
-    'global funding',
-    'worldwide help'
   ],
   authors: [{ name: 'Edwin Castro' }],
   creator: 'Edwin Castro',
-  publisher: 'Edwin Castro Community Support',
+  publisher: 'Edwin Castro',
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: '/',
@@ -48,7 +47,7 @@ export const metadata: Metadata = {
     title: siteTitle,
     description: siteDescription,
     url: siteUrl,
-    siteName: 'Edwin Castro Community Support',
+    siteName: 'Edwin Castro',
     locale: 'en_US',
     type: 'website',
     images: [
@@ -57,7 +56,7 @@ export const metadata: Metadata = {
         secureUrl: ogImageUrl,
         width: 1200,
         height: 630,
-        alt: 'Edwin Castro Community Support — Direct Funding for Families Worldwide',
+        alt: 'Edwin Castro — Private Funding for Recovery, Growth, and Ambition',
         type: 'image/jpeg',
       },
     ],
@@ -95,7 +94,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'Edwin Castro Community Support',
+    name: 'Edwin Castro',
     description: siteDescription,
     url: siteUrl,
     logo: `${siteUrl}/ecf-foundation-logo.png`,

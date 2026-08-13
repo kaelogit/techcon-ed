@@ -6,13 +6,13 @@ const ogImageUrl = `${siteUrl}/hero-image.jpg`;
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
-  description: 'Terms of Service for Edwin Castro Community Support.',
+  description: 'Terms of Service for Edwin Castro direct funding.',
   robots: {
     index: false,
   },
   openGraph: {
-    title: 'Terms of Service | Edwin Castro Community Support',
-    description: 'Terms of Service for Edwin Castro Community Support.',
+    title: 'Terms of Service | Edwin Castro',
+    description: 'Terms of Service for Edwin Castro direct funding.',
     url: `${siteUrl}/terms`,
     images: [
       {

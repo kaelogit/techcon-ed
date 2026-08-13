@@ -6,13 +6,13 @@ const ogImageUrl = `${siteUrl}/hero-image.jpg`;
 
 export const metadata: Metadata = {
   title: 'Security',
-  description: 'Security information for Edwin Castro Community Support. We are committed to protecting your data.',
+  description: 'Security information for Edwin Castro. We are committed to protecting your data.',
   robots: {
     index: false,
   },
   openGraph: {
-    title: 'Security | Edwin Castro Community Support',
-    description: 'Security information for Edwin Castro Community Support.',
+    title: 'Security | Edwin Castro',
+    description: 'Security information for Edwin Castro direct funding.',
     url: `${siteUrl}/security`,
     images: [
       {

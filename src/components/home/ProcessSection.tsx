@@ -63,22 +63,22 @@ export function ProcessSection() {
   const steps = [
     {
       number: "1",
-      title: "Share Your Story",
-      description: "Fill out the secure form on our website. Tell us exactly what kind of help you are looking for and how it will change your life.",
+      title: "Share Your Goal",
+      description: "Tell us what you are working toward — recovery, growth, or a larger ambition — and the funding amount that makes it real.",
       icon: <Mail className="w-5 h-5 text-white" />,
       delay: 0,
     },
     {
       number: "2",
       title: "Personal Review",
-      description: "Our small, dedicated team reads every single message personally. We look for people who are ready to take the next step.",
+      description: "Our team reads every request personally. We look for clarity of purpose and readiness to move — at any income stage.",
       icon: <Users className="w-5 h-5 text-white" />,
       delay: 150,
     },
     {
       number: "3",
       title: "Direct Contact",
-      description: "If your request aligns with our current funding, we will email you directly from our secure address to arrange the support.",
+      description: "If your request aligns with current funding, we email you from our secure address to arrange next steps and delivery.",
       icon: <Send className="w-5 h-5 text-white" />,
       delay: 300,
     },
@@ -105,7 +105,7 @@ export function ProcessSection() {
             <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
           </div>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight">
-            Three simple steps to request support.
+            Three simple steps to request funding.
           </h2>
         </div>
 
@@ -143,7 +143,7 @@ export function ProcessSection() {
             href="/apply"
             className="inline-flex items-center gap-3 px-8 py-4 bg-[var(--accent-gold)] text-white rounded-full font-semibold hover:bg-[var(--accent-hover)] hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-xl"
           >
-            Start Your Application
+            Share Your Goal
             <ArrowRight className="w-5 h-5" />
           </Link>
         </div>

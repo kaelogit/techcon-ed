@@ -46,7 +46,7 @@ export function TrustBanner() {
           <div className="flex items-center justify-center gap-3 mb-6">
             <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
             <p className="text-[var(--accent-gold)] text-sm font-bold tracking-[0.3em] uppercase">
-              Your New Chapter
+              Your Next Chapter
             </p>
             <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
           </div>
@@ -58,8 +58,8 @@ export function TrustBanner() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          The chance to finally <br className="hidden sm:block" />
-          <span className="text-[var(--accent-gold)]">move forward.</span>
+          Ready for what comes <br className="hidden sm:block" />
+          <span className="text-[var(--accent-gold)]">after the plan.</span>
         </h2>
 
         {/* Description */}
@@ -68,10 +68,9 @@ export function TrustBanner() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          Imagine waking up tomorrow without the weight of your biggest obstacle. 
-          Whether it is a dream for your family, a degree you have always wanted, 
-          or a home that needs healing—we are here to help you turn that "what if" 
-          into your new reality.
+          Whether you are recovering from a real crisis, strengthening a steady life, 
+          or funding a bold next move — share the goal. If the purpose is clear, 
+          we are ready to consider direct capital behind it.
         </p>
 
         {/* CTA */}
@@ -84,7 +83,7 @@ export function TrustBanner() {
             href="/apply" 
             className="group inline-flex items-center gap-3 px-10 py-5 bg-white text-[var(--trust)] text-lg font-semibold rounded-full hover:bg-[var(--accent-gold)] hover:text-white transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98]"
           >
-            Start Your Request Now
+            Share Your Goal
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
           

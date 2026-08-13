@@ -6,13 +6,13 @@ const ogImageUrl = `${siteUrl}/hero-image.jpg`;
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Privacy Policy for Edwin Castro Community Support. We are committed to protecting your personal information.',
+  description: 'Privacy Policy for Edwin Castro. We are committed to protecting your personal information.',
   robots: {
     index: false,
   },
   openGraph: {
-    title: 'Privacy Policy | Edwin Castro Community Support',
-    description: 'Privacy Policy for Edwin Castro Community Support.',
+    title: 'Privacy Policy | Edwin Castro',
+    description: 'Privacy Policy for Edwin Castro direct funding.',
     url: `${siteUrl}/privacy`,
     images: [
       {

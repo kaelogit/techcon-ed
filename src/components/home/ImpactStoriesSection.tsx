@@ -253,7 +253,7 @@ const stories = [
       "\"This support turned an idea into impact,\" Malik says. \"We're not just building software. We're strengthening small businesses worldwide.\""
     ]
   },
-  {
+    {
     name: "The Westbrook Scholarship Fund",
     location: "Baden-Württemberg, Germany",
     category: "Educational Endowment Support",
@@ -264,6 +264,45 @@ const stories = [
       "The endowment now supports full tuition packages, housing assistance, and mentorship programs for dozens of students annually.",
       "\"This support created generational opportunity,\" the program director shares. \"We can now promise stability to students who have already overcome so much.\"",
       "One scholarship recipient summarized it simply: \"Someone believed in our potential enough to invest in our future permanently.\""
+    ]
+  },
+  {
+    name: "Victoria Lang",
+    location: "Connecticut, USA",
+    category: "Business Expansion Support",
+    amount: "$520,000",
+    paragraphs: [
+      "Victoria already ran a profitable boutique hospitality group with two properties and a loyal client base. Growth was not about survival — it was about timing. A third location became available in a premium corridor, and traditional lenders moved too slowly for the closing window.",
+      "She needed expansion capital for acquisition costs, redesign, and a six-month operating runway without diluting ownership or pausing her existing properties.",
+      "The Edwin Castro Foundation provided $520,000 in expansion funding. That capital closed the acquisition, funded the renovation, and staffed the new property through launch.",
+      "Within a year, the third location reached profitability and the group added 28 full-time roles. Victoria retained full ownership and began planning a fourth site.",
+      "\"I was not looking for charity,\" Victoria says. \"I needed decisive capital behind a clear plan. That is exactly what arrived.\""
+    ]
+  },
+  {
+    name: "Daniel & Claire Okonkwo",
+    location: "Toronto, Canada",
+    category: "Property & Lifestyle Upgrade Support",
+    amount: "C$385,000",
+    paragraphs: [
+      "Daniel and Claire were dual-income professionals with a solid home and savings — but their aging property no longer matched the life they wanted: space for aging parents, a dedicated work wing, and accessibility upgrades for the next decade.",
+      "They could finance pieces of the project, but stretching across renovations, temporary housing, and specialist contractors would have stalled the plan for years.",
+      "Direct funding of C$385,000 covered the full remodel, temporary lodging, and accessibility systems. The couple completed the project in one continuous phase instead of a multi-year patchwork.",
+      "Their parents now live comfortably on the lower level. Claire runs her consulting practice from the new wing. The home finally matches the chapter they are in.",
+      "\"We were not in crisis,\" Claire shares. \"We had a clear next chapter and needed capital that moved at the same speed we do.\""
+    ]
+  },
+  {
+    name: "Dr. Priya Mehta",
+    location: "New York, USA",
+    category: "Professional Advancement Support",
+    amount: "$210,000",
+    paragraphs: [
+      "Dr. Mehta owned a successful private practice and wanted a fellowship in a specialized surgical technique that would let her offer a higher level of care — and attract patients who currently traveled out of state.",
+      "The fellowship, clinic upgrades, and coverage for temporary associate staffing sat outside what insurance reimbursements and practice cash flow could absorb in one year.",
+      "Funding of $210,000 covered the fellowship, equipment upgrades, and associate coverage so patients stayed supported while she trained.",
+      "She now performs the specialized procedures locally. Wait times for referred patients dropped, and the practice added two clinical roles.",
+      "\"This was ambition with a plan,\" Dr. Mehta says. \"Funding let me raise the standard of care without putting the practice at risk.\""
     ]
   }
 ];
@@ -330,7 +369,7 @@ export function ImpactStoriesSection() {
             <span className="w-10 h-[2px] bg-[var(--accent-gold)]" />
           </div>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-white leading-tight">
-            Rebuilding futures, one family at a time.
+            From recovery to ambition — funded with purpose.
           </h2>
         </div>
 

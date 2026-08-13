@@ -6,10 +6,10 @@ const ogImageUrl = `${siteUrl}/hero-image.jpg`;
 
 export const metadata: Metadata = {
   title: 'Impact & Results',
-  description: 'Discover the real impact of Edwin Castro\'s direct community support across America. See the stories of families and lives transformed through debt-free funding.',
+  description: 'See real outcomes from Edwin Castro direct funding — recovery, growth, and ambition across housing, education, health, business, and community.',
   openGraph: {
-    title: 'Impact & Results | Edwin Castro Community Support',
-    description: 'Discover the real impact of Edwin Castro\'s direct community support across America. See the stories of families and lives transformed through debt-free funding.',
+    title: 'Impact & Results | Edwin Castro',
+    description: 'Real outcomes from direct funding across recovery, growth, and ambition.',
     url: `${siteUrl}/impact`,
     images: [
       {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
         secureUrl: ogImageUrl,
         width: 1200,
         height: 630,
-        alt: 'Edwin Castro Community Impact',
+        alt: 'Edwin Castro Impact',
         type: 'image/jpeg',
       },
     ],
@@ -25,8 +25,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Impact & Results | Edwin Castro Community Support',
-    description: 'See the real impact and stories of transformed lives across America.',
+    title: 'Impact & Results | Edwin Castro',
+    description: 'Real outcomes from direct funding across recovery, growth, and ambition.',
     images: [ogImageUrl],
   },
 };

@@ -51,9 +51,9 @@ export function HeroSection() {
                   isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
                 }`}
               >
-                Rebuilding lives.
+                Private funding for
                 <br />
-                <span className="text-(--accent-gold) italic">Empowering</span> your <br className="hidden sm:block" /> next chapter.
+                <span className="text-(--accent-gold) italic">every stage</span> of <br className="hidden sm:block" /> your next chapter.
               </h1>
               
               {/* Description */}
@@ -62,8 +62,8 @@ export function HeroSection() {
                   isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
                 }`}
               >
-                A personal initiative providing direct funding, stability, and growth 
-                for families, students, and neighborhoods worldwide.
+                Direct, debt-free capital for recovery, growth, and ambition — 
+                whether you are rebuilding after a setback or accelerating a clear goal.
               </p>
               
               {/* CTA Buttons */}
@@ -76,7 +76,7 @@ export function HeroSection() {
                   href="/apply"
                   className="group inline-flex items-center justify-center gap-3 rounded-full bg-(--accent-gold) px-8 py-4 text-sm font-bold text-white transition-all hover:bg-(--accent-hover) hover:scale-[1.02] hover:shadow-xl hover:shadow-(--accent-gold)/20"
                 >
-                  Request Funding Now
+                  Share Your Goal
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
@@ -96,11 +96,11 @@ export function HeroSection() {
               >
                 <div className="flex items-center gap-2 text-xs font-medium text-white/50 uppercase tracking-widest">
                   <ShieldCheck className="w-4 h-4 text-(--accent-gold)" />
-                  Verified Personal Funding
+                  Crisis · Growth · Ambition
                 </div>
                 <div className="flex items-center gap-2 text-xs font-medium text-white/50 uppercase tracking-widest">
                   <Heart className="w-4 h-4 text-(--accent-gold) fill-(--accent-gold)" />
-                  Global Reach
+                  Open Worldwide
                 </div>
               </div>
             </div>
@@ -114,7 +114,7 @@ export function HeroSection() {
               <div className="relative rounded-3xl overflow-hidden aspect-4/5 shadow-2xl shadow-black/30 border border-white/10 group">
                 <img 
                   src="/hero-image.jpg" 
-                  alt="Community members working together to rebuild" 
+                  alt="People building the next chapter of their lives" 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-(--trust)/60 via-transparent to-transparent" />
@@ -129,7 +129,7 @@ export function HeroSection() {
                   <p className="text-(--trust) font-serif font-bold text-3xl">$50M+</p>
                 </div>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  Committed to community & family stability worldwide
+                  Committed to people building their next chapter worldwide
                 </p>
               </div>
 

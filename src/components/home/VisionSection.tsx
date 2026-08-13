@@ -93,24 +93,25 @@ export default function VisionSection() {
             
             {/* Headline */}
             <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight">
-              A Foundation Built on <span className="text-(--trust)">Values</span>
+              Built to invest in <span className="text-(--trust)">people</span> — not one profile
             </h2>
 
             {/* Body Text */}
             <div className="space-y-5 text-gray-600 leading-relaxed text-lg">
               <p>
                 Edwin Castro grew up with the values of an <strong className="text-gray-900">Eagle Scout</strong> and the 
-                disciplined vision of an <strong className="text-gray-900">architect</strong>. When his life changed after 
-                winning the $2.04 billion Powerball jackpot, his focus remained on the community that shaped him.
+                disciplined vision of an <strong className="text-gray-900">architect</strong>. After winning the $2.04 billion 
+                Powerball jackpot, he chose to put capital behind clear human goals — recovery, growth, and ambition alike.
               </p>
               <p>
-                Starting with the rebuilding of residential properties in Altadena after the severe wildfires, 
-                this platform was created to expand that same hands-on support to the rest of the country. 
-                We don't just offer help; we <strong className="text-(--accent-gold)">invest in people</strong> who want to build a better future.
+                The work began with rebuilding homes in Altadena after the wildfires. It continues as direct funding for 
+                people at every stage: those stabilizing after a crisis, professionals and families advancing a plan, 
+                and builders ready to scale something bigger. We do not only respond to hardship — we 
+                <strong className="text-(--accent-gold)"> invest in purpose</strong>.
               </p>
               <p className="text-base">
-                Every dollar goes directly to those in need. <span className="font-semibold text-gray-900">No complicated applications. </span> 
-                Just real support for real people.
+                Funding moves straight to you. <span className="font-semibold text-gray-900">No middlemen. No endless paperwork. </span>
+                Just a clear goal, a personal review, and capital when the fit is right.
               </p>
             </div>
             

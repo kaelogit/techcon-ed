@@ -5,11 +5,11 @@ const siteUrl = 'https://edwinmega.com';
 const ogImageUrl = `${siteUrl}/hero-image.jpg`;
 
 export const metadata: Metadata = {
-  title: 'Support Areas',
-  description: 'Explore the areas where Edwin Castro provides direct community support: education funding, housing assistance, disaster recovery, medical support, and more.',
+  title: 'Funding Areas',
+  description: 'Explore Edwin Castro funding for crisis recovery, growth, and ambition — housing, education, health, business expansion, and community legacy projects.',
   openGraph: {
-    title: 'Support Areas | Edwin Castro Community Support',
-    description: 'Explore the areas where Edwin Castro provides direct community support: education funding, housing assistance, disaster recovery, medical support, and more.',
+    title: 'Funding Areas | Edwin Castro',
+    description: 'Capital for recovery, growth, and ambition across housing, education, health, business, and community.',
     url: `${siteUrl}/areas`,
     images: [
       {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
         secureUrl: ogImageUrl,
         width: 1200,
         height: 630,
-        alt: 'Edwin Castro Community Support Areas',
+        alt: 'Edwin Castro Funding Areas',
         type: 'image/jpeg',
       },
     ],
@@ -25,8 +25,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Support Areas | Edwin Castro Community Support',
-    description: 'Explore education, housing, disaster recovery, and other support areas.',
+    title: 'Funding Areas | Edwin Castro',
+    description: 'Capital for recovery, growth, and ambition across key life and business goals.',
     images: [ogImageUrl],
   },
 };

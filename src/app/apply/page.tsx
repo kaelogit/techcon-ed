@@ -30,56 +30,56 @@ const TESTIMONIALS = [
     name: "James",
     location: "Texas, USA",
     amount: "$65,000",
-    story: "After losing my job, I needed to retrain for a new career in tech. This support covered my coding bootcamp and living expenses while I studied.",
+    story: "I left a stable role to retrain in tech. Funding covered my bootcamp and living runway so I could finish without taking on debt.",
     timeAgo: "2 hours ago"
   },
   {
     name: "Maria",
     location: "Florida, USA",
     amount: "$125,000",
-    story: "My daughter needed a life-saving surgery not covered by insurance. This support paid for the procedure and recovery care.",
+    story: "My daughter needed specialized surgery outside our insurance network. This funding covered the procedure and recovery care.",
     timeAgo: "5 hours ago"
   },
   {
-    name: "Robert",
-    location: "Ohio, USA",
-    amount: "$85,000",
-    story: "Single dad working two jobs while trying to finish my nursing degree. This support covered tuition and allowed me to focus on school.",
+    name: "Natalie",
+    location: "California, USA",
+    amount: "$480,000",
+    story: "We were ready to expand our design studio into a second market. Capital covered build-out, equipment, and six months of runway.",
     timeAgo: "1 day ago"
   },
   {
     name: "Sarah",
     location: "Ontario, Canada",
     amount: "C$250,000",
-    story: "Started a community kitchen to feed homeless families in my neighborhood. This support renovated the space and bought commercial equipment.",
+    story: "I launched a community kitchen and needed commercial equipment and a renovated space. Funding made the build possible.",
     timeAgo: "3 hours ago"
   },
   {
     name: "David",
     location: "Bavaria, Germany",
     amount: "€175,000",
-    story: "Veteran with PTSD trying to start a veteran support center. This funding made our dream of helping others a reality.",
+    story: "I opened a veteran support center after years of planning. Funding turned the facility and staffing plan into reality.",
     timeAgo: "6 hours ago"
   },
   {
     name: "Angela",
     location: "London, UK",
     amount: "£150,000",
-    story: "My small bakery was failing after equipment broke down. This support replaced everything and kept my 8 employees working.",
+    story: "My bakery hit a growth ceiling after equipment failed. Funding replaced the line and kept eight employees working while we scaled catering.",
     timeAgo: "4 hours ago"
   },
   {
     name: "Michael",
     location: "New South Wales, Australia",
     amount: "A$320,000",
-    story: "Built a youth STEM education center in an underserved community. This support funded computers, robotics kits, and teacher salaries.",
+    story: "We built a youth STEM center with computers, robotics kits, and teacher salaries — a legacy project for the next generation.",
     timeAgo: "8 hours ago"
   },
   {
-    name: "Lisa",
-    location: "Michigan, USA",
-    amount: "$95,000",
-    story: "Needed to relocate for my child's specialized medical treatment. This support covered moving costs and first year's rent.",
+    name: "Priya",
+    location: "New York, USA",
+    amount: "$210,000",
+    story: "I already owned my practice. Funding covered a specialist fellowship and clinic upgrades so I could offer a higher level of care.",
     timeAgo: "12 hours ago"
   }
 ];
@@ -87,40 +87,44 @@ const TESTIMONIALS = [
 // Recently helped ticker data - diverse amounts
 const RECENTLY_HELPED = [
   { name: "James", location: "Texas, USA", amount: "$65,000" },
-  { name: "Sarah", location: "Ontario, Canada", amount: "C$250,000" },
+  { name: "Natalie", location: "California, USA", amount: "$480,000" },
   { name: "Angela", location: "London, UK", amount: "£150,000" },
-  { name: "Robert", location: "Ohio, USA", amount: "$85,000" },
+  { name: "Priya", location: "New York, USA", amount: "$210,000" },
   { name: "David", location: "Bavaria, Germany", amount: "€175,000" },
   { name: "Michael", location: "NSW, Australia", amount: "A$320,000" },
   { name: "Maria", location: "Florida, USA", amount: "$125,000" },
-  { name: "Lisa", location: "Michigan, USA", amount: "$95,000" },
+  { name: "Sarah", location: "Ontario, Canada", amount: "C$250,000" },
 ];
 
 // FAQ data
 const FAQS = [
   { 
     q: "Is this real?", 
-        a: "Yes. We are a legitimate direct support organization. Every application is reviewed by our team personally. We've provided support to thousands of people across the USA, Canada, United Kingdom, Germany, Australia, and beyond." 
+        a: "Yes. This is a legitimate direct funding program. Every application is reviewed personally. We fund people across the USA, Canada, United Kingdom, Germany, Australia, and beyond — for recovery, growth, and ambition." 
+  },
+  { 
+    q: "Do I have to be in financial hardship?", 
+    a: "No. Crisis requests are welcome and prioritized when urgent — and so are clear goals from professionals, owners, and families who already have stability but need capital to move forward." 
   },
   { 
     q: "Will my info be private?", 
-    a: "Absolutely. Your story is 100% confidential and never shared without your explicit permission. We use bank-level encryption to protect your data." 
+    a: "Absolutely. Your request is confidential and never shared without your explicit permission. We use bank-level encryption to protect your data." 
   },
   { 
     q: "Do I have to pay back?", 
-    a: "No. This is direct support, not a loan. There is no repayment required, no interest, and no hidden fees. Ever." 
+    a: "No. This is direct funding, not a loan. There is no repayment, no interest, and no hidden fees." 
   },
   { 
     q: "How fast will I hear back?", 
-    a: "We typically respond within 24 hours, often much sooner. Keep your phone nearby and check your email (including spam folder)." 
+    a: "We typically respond within 24 hours, often sooner. Keep your phone nearby and check email, including spam." 
   },
   { 
-    q: "What can I use the support for?", 
-    a: "Housing, medical bills, education, starting or rebuilding a business, disaster recovery, emergency expenses — whatever you need to move forward. Just be specific in your application." 
+    q: "What can funding be used for?", 
+    a: "Housing and property, medical care, education, business launch or expansion, disaster recovery, career moves, community projects, and other clear goals. Be specific about the outcome." 
   },
   { 
-    q: "How much support can I request?", 
-    a: "We review every request individually. Support ranges from $50,000 and above depending on your specific situation and needs." 
+    q: "How much can I request?", 
+    a: "We review every request individually. Funding typically starts at $50,000 and can go much higher when the purpose and plan are clear." 
   }
 ];
 
@@ -128,20 +132,20 @@ const FAQS = [
 const GUIDED_QUESTIONS = [
   {
     id: "challenge",
-    question: "What challenge are you facing right now?",
-    placeholder: "Describe your situation...",
+    question: "What are you working toward right now?",
+    placeholder: "Describe your goal, project, or situation...",
     icon: <Heart className="w-5 h-5" />
   },
   {
     id: "amount",
-    question: "How much support do you need?",
+    question: "How much funding are you requesting?",
     placeholder: "Enter amount (e.g., $75,000)",
     icon: <DollarSign className="w-5 h-5" />
   },
   {
     id: "impact",
-    question: "How would this support change your life?",
-    placeholder: "Tell us what this support would mean for you and your family...",
+    question: "What becomes possible with this funding?",
+    placeholder: "Tell us the outcome for you, your family, business, or community...",
     icon: <CheckCircle className="w-5 h-5" />
   }
 ];
@@ -155,6 +159,7 @@ export default function ApplyPage() {
     country: '',
     state: '',
     category: '',
+    lane: '',
     story: '',
     amount: '',
   });
@@ -258,7 +263,7 @@ export default function ApplyPage() {
     if (currentQuestion < GUIDED_QUESTIONS.length - 1) {
       setCurrentQuestion(prev => prev + 1);
     } else {
-      const compiledStory = `Challenge: ${guidedAnswers.challenge}\n\nSupport needed: ${guidedAnswers.amount}\n\nHow this would help: ${guidedAnswers.impact}`;
+      const compiledStory = `Goal: ${guidedAnswers.challenge}\n\nFunding requested: ${guidedAnswers.amount}\n\nWhat becomes possible: ${guidedAnswers.impact}`;
       setFormData(prev => ({ ...prev, story: compiledStory }));
       setUseGuidedMode(false);
     }
@@ -287,7 +292,7 @@ export default function ApplyPage() {
 
       if (response.ok) {
         setStatus('success');
-        setFormData({ name: '', email: '', phone: '', country: '', state: '', category: '', story: '', amount: '' });
+        setFormData({ name: '', email: '', phone: '', country: '', state: '', category: '', lane: '', story: '', amount: '' });
         setGuidedAnswers({ challenge: '', amount: '', impact: '' });
         setCurrentQuestion(0);
       } else {
@@ -299,7 +304,7 @@ export default function ApplyPage() {
   };
 
   const compileGuidedStory = () => {
-    return `Challenge: ${guidedAnswers.challenge}\n\nSupport needed: ${guidedAnswers.amount}\n\nHow this would help: ${guidedAnswers.impact}`;
+    return `Goal: ${guidedAnswers.challenge}\n\nFunding requested: ${guidedAnswers.amount}\n\nWhat becomes possible: ${guidedAnswers.impact}`;
   };
 
   return (
@@ -309,7 +314,7 @@ export default function ApplyPage() {
       <div className="bg-[var(--trust)] text-white py-2 px-4 text-center text-sm">
         <div className="max-w-6xl mx-auto flex items-center justify-center gap-2 flex-wrap">
           <TrendingUp className="w-4 h-4" />
-          <span className="font-semibold">Just provided support to:</span>
+          <span className="font-semibold">Recently funded:</span>
           <span className="animate-pulse font-bold">
             {RECENTLY_HELPED[tickerIndex].name} in {RECENTLY_HELPED[tickerIndex].location} — {RECENTLY_HELPED[tickerIndex].amount}
           </span>
@@ -322,23 +327,23 @@ export default function ApplyPage() {
           <div className="flex items-center justify-center gap-3 mb-6">
             <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
             <p className="text-[var(--accent-gold)] text-xs font-bold tracking-[0.3em] uppercase">
-              Direct Support Program
+              Direct Funding Program
             </p>
             <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
           </div>
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6 leading-tight">
-            Get the support you need <br className="hidden sm:block" />
-            to <span className="text-[var(--accent-gold)]">rebuild your life</span>.
+            Share the goal. <br className="hidden sm:block" />
+            We fund <span className="text-[var(--accent-gold)]">what comes next</span>.
           </h1>
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed mb-8">
-            We provide direct financial support for housing, medical needs, education, disaster recovery, and community projects. No loans. No repayment. Just real support.
+            Direct, debt-free capital for crisis recovery, steady growth, and ambitious builds — housing, health, education, business, and community. No loans. No repayment.
           </p>
 
           {/* Quick Stats */}
           <div className="flex flex-wrap justify-center gap-6 text-sm">
             <div className="flex items-center gap-2 text-gray-600">
               <Award className="w-4 h-4 text-emerald-500" />
-              <span>Support available</span>
+              <span>Funding available</span>
             </div>
             <div className="flex items-center gap-2 text-gray-600">
               <Clock className="w-4 h-4 text-blue-500" />
@@ -363,7 +368,7 @@ export default function ApplyPage() {
               { step: "1", label: "Submit", desc: "Your application", icon: <Mail className="w-4 h-4" /> },
               { step: "2", label: "Review", desc: "Within 24hrs", icon: <Clock className="w-4 h-4" /> },
               { step: "3", label: "Verification", desc: "Quick ID check", icon: <Shield className="w-4 h-4" /> },
-              { step: "4", label: "Support Sent", desc: "Direct to you", icon: <DollarSign className="w-4 h-4" /> },
+              { step: "4", label: "Funding Sent", desc: "Direct to you", icon: <DollarSign className="w-4 h-4" /> },
             ].map((item, idx) => (
               <div key={idx} className="relative">
                 <div className="flex flex-col items-center text-center">
@@ -588,8 +593,26 @@ export default function ApplyPage() {
   </div>
 
                         <div className="flex flex-col gap-2">
+                          <label htmlFor="lane" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+                            Funding Lane *
+                          </label>
+                          <select
+                            required
+                            id="lane"
+                            className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[var(--accent-gold)] focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all appearance-none cursor-pointer"
+                            value={formData.lane}
+                            onChange={(e) => setFormData({ ...formData, lane: e.target.value })}
+                          >
+                            <option value="">Select a lane</option>
+                            <option value="Crisis & Recovery">Crisis & Recovery</option>
+                            <option value="Growth & Stability">Growth & Stability</option>
+                            <option value="Ambition & Scale">Ambition & Scale</option>
+                          </select>
+                        </div>
+
+                        <div className="flex flex-col gap-2">
                           <label htmlFor="category" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
-                            Support Type *
+                            Funding Focus *
                           </label>
                           <select
                             required
@@ -599,13 +622,13 @@ export default function ApplyPage() {
                             onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                           >
                             <option value="">Select a category</option>
-                            <option value="Housing">Housing & Rebuilding</option>
-                            <option value="Education">Education & Training</option>
+                            <option value="Housing">Housing & Property</option>
+                            <option value="Education">Education & Career</option>
                             <option value="Health">Medical & Health</option>
-                            <option value="Disaster">Disaster Recovery</option>
-                            <option value="Small Business">Business & Career</option>
-                            <option value="Community">Community Project</option>
-                            <option value="Other">Other Hardship</option>
+                            <option value="Disaster">Crisis & Disaster Recovery</option>
+                            <option value="Small Business">Business & Expansion</option>
+                            <option value="Community">Community & Legacy</option>
+                            <option value="Other">Other Goal or Priority</option>
                           </select>
                         </div>
                       </div>
@@ -613,7 +636,7 @@ export default function ApplyPage() {
                       {/* Amount Needed */}
                       <div className="flex flex-col gap-2">
                         <label htmlFor="amount" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
-                          Support Amount Needed *
+                          Funding Amount Requested *
                         </label>
                         <div className="relative">
                           <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -621,20 +644,20 @@ export default function ApplyPage() {
                             required
                             type="text"
                             id="amount"
-                            placeholder="e.g. 75,000"
+                            placeholder="e.g. 75,000 or 500,000"
                             className="w-full pl-12 pr-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[var(--accent-gold)] focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all"
                             value={formData.amount}
                             onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
                           />
                         </div>
-                        <p className="text-xs text-gray-400">Be specific about what you need.</p>
+                        <p className="text-xs text-gray-400">Be specific about the goal and amount.</p>
                       </div>
 
                       {/* Story Section - Either Guided or Free-form */}
                       <div className="flex flex-col gap-2">
                         <div className="flex items-center justify-between">
                           <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">
-                            {useGuidedMode ? "Your Story (Guided)" : "Share Your Story *"}
+                            {useGuidedMode ? "Your Goal (Guided)" : "Share Your Goal *"}
                           </label>
 
                           {/* Voice Input Button */}
@@ -716,7 +739,7 @@ export default function ApplyPage() {
                           <textarea
                             required
                             rows={6}
-                            placeholder="Tell us about your situation, exactly how much support you need, and how this will change your life..."
+                            placeholder="Tell us what you are working toward, the exact funding amount, and what becomes possible..."
                             className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[var(--accent-gold)] focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all resize-y"
                             value={formData.story}
                             onChange={(e) => setFormData({ ...formData, story: e.target.value })}
@@ -905,7 +928,7 @@ export default function ApplyPage() {
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <DollarSign className="w-5 h-5 text-blue-200" />
-                  <span className="text-sm">$50K and above support</span>
+                  <span className="text-sm">$50K+ funding range</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Clock className="w-5 h-5 text-blue-200" />
@@ -924,7 +947,7 @@ export default function ApplyPage() {
 
             {/* Support Range Card */}
             <div className="bg-[var(--warm-cream)] rounded-2xl border border-gray-100 p-6">
-              <h4 className="font-semibold text-gray-900 mb-2">Support Range</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">Funding Range</h4>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm text-gray-600">Minimum</span>
                 <span className="font-bold text-gray-900">$50,000</span>
@@ -937,13 +960,13 @@ export default function ApplyPage() {
                 <span className="font-bold text-gray-900">$5,000,000</span>
               </div>
               <p className="text-xs text-gray-500 mt-3">
-                Every request is reviewed individually based on your specific needs and situation.
+                Every request is reviewed individually based on purpose, clarity, and readiness — across crisis, growth, and ambition.
               </p>
             </div>
 
             {/* Help Card */}
             <div className="bg-[var(--warm-cream)] rounded-2xl border border-gray-100 p-6">
-              <h4 className="font-semibold text-gray-900 mb-2">Need help applying?</h4>
+              <h4 className="font-semibold text-gray-900 mb-2">Questions before you apply?</h4>
               <p className="text-sm text-gray-600 mb-4">
                 Our team can walk you through the process or answer any questions.
               </p>
@@ -966,7 +989,7 @@ export default function ApplyPage() {
             icon={<CheckCircle className="w-5 h-5" />}
             number="01" 
             title="Be Specific" 
-            desc="The more details you share about your situation and the exact amount you need, the faster we can help."
+            desc="Share a clear goal, the exact amount, and what becomes possible — whether you are recovering, growing, or scaling."
           />
           <PrepStep 
             icon={<Mail className="w-5 h-5" />}
@@ -978,7 +1001,7 @@ export default function ApplyPage() {
             icon={<Shield className="w-5 h-5" />}
             number="03" 
             title="Have Your ID Ready" 
-            desc="Once we connect, we will ask for a standard ID just to make sure we are sending support to the right person."
+            desc="Once we connect, we will ask for a standard ID so funding goes to the right person."
           />
         </div>
       </section>
@@ -1015,7 +1038,7 @@ function SuccessState() {
       </h2>
 
       <p className="text-lg text-gray-500 leading-relaxed mb-10 max-w-md mx-auto">
-        Thank you for your honesty. Our support team has received your application and is reviewing it personally right now.
+        Thank you for sharing your goal. Our team has received your application and is reviewing it personally right now.
       </p>
 
       {/* Next Steps */}
@@ -1087,7 +1110,7 @@ function WhatsAppOption({ setSubmissionMethod }: { setSubmissionMethod: (m: 'for
           Apply via WhatsApp
         </h3>
         <p className="text-gray-600 max-w-md mx-auto">
-          Send us a message with your name, country, and what you need support with. Our team will guide you through the application.
+          Send us a message with your name, country, and the goal you want funded. Our team will guide you through the application.
         </p>
       </div>
 
@@ -1118,7 +1141,7 @@ function WhatsAppOption({ setSubmissionMethod }: { setSubmissionMethod: (m: 'for
       <div className="space-y-2 text-sm text-gray-500">
         <p>💬 Typical response time: Under 1 hour</p>
         <p>🔒 Just as private as the online form</p>
-        <p>✅ Same $50K above support range</p>
+        <p>✅ Same $50K+ funding range</p>
       </div>
 
       <button

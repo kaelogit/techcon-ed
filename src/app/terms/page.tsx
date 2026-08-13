@@ -17,7 +17,7 @@ export default function TermsPage() {
             The way we work <br /> together.
           </Text>
           <Text className="block text-lg md:text-xl text-stone-600 leading-relaxed max-w-2xl mx-auto">
-            These guidelines ensure that our support goes to the right people as quickly and safely as possible.
+            These guidelines keep funding fast, fair, and safe — whether your goal is recovery, growth, or a larger build.
           </Text>
         </View>
       </View>
@@ -28,17 +28,17 @@ export default function TermsPage() {
           
           <TermsSection 
             title="A Personal Initiative"
-            desc="This platform is a private initiative by Edwin Castro to provide direct support to individuals and communities. By using this site, you understand that any support provided is a gift intended to help you move forward, not a loan, a debt, or a legal contract."
+            desc="This platform is a private initiative by Edwin Castro to provide direct, debt-free funding to individuals, families, owners, and organizations. By using this site, you understand that any funding provided is a gift intended to advance a clear goal — not a loan, a debt, or a legal contract."
           />
 
           <TermsSection 
             title="Who Can Reach Out"
-            desc="Our focus is on helping individuals, families, and community organizations currently living in the United States who are facing genuine hardship or seeking to create a positive impact in their neighborhoods."
+            desc="We welcome requests from people at every stage — crisis recovery, steady growth, and ambitious builds. Individuals, families, professionals, business owners, and community organizations with a clear purpose may apply. Income level is not the filter; clarity of goal is."
           />
 
           <TermsSection 
             title="The Review Process"
-            desc="We read every story personally. While we wish we could help everyone, submitting a request does not guarantee you will receive funding. We choose where to provide support based on the urgency of the need and our ability to make a meaningful difference at that moment."
+            desc="We read every request personally. Submitting does not guarantee funding. We decide based on purpose, readiness, fit with current funding capacity, and — when relevant — urgency. Crisis requests and growth or ambition requests are both considered."
           />
 
           <TermsSection 
@@ -59,13 +59,13 @@ export default function TermsPage() {
           {/* Closing Confirmation */}
           <View className="mt-20 p-12 bg-[#F9F8F6] rounded-[3rem] border border-stone-200">
             <Text className="block text-lg text-stone-600 mb-10 leading-relaxed">
-              By submitting your request on this platform, you agree to these simple guidelines. We look forward to reading your story and seeing how we can help.
+              By submitting your request on this platform, you agree to these guidelines. We look forward to reading your goal and seeing whether we can fund what comes next.
             </Text>
             <Link 
               href="/apply" 
               className="inline-block px-10 py-4 bg-edwin-black text-white text-sm font-bold rounded-full hover:bg-edwin-navy transition-all uppercase tracking-widest"
             >
-              Go to Application
+              Share Your Goal
             </Link>
           </View>
 

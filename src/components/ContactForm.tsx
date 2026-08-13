@@ -4,12 +4,13 @@ import { useState } from "react";
 import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 
 const CATEGORIES = [
-  "Education",
-  "Housing",
-  "Disaster / Fire Recovery",
-  "Medical or Family Need",
-  "Community or Nonprofit",
-  "Other",
+  "Housing & Property",
+  "Education & Career",
+  "Medical & Health",
+  "Crisis & Disaster Recovery",
+  "Business & Expansion",
+  "Community & Legacy",
+  "Other Goal or Priority",
 ] as const;
 
 // NEW: Country options for the contact form
@@ -210,7 +211,7 @@ export default function ContactForm() {
       {/* Category Field */}
       <div>
         <label htmlFor="category" className="mb-2 block text-sm font-semibold text-gray-700">
-          What kind of support are you seeking? <span className="text-red-500">*</span>
+          What are you seeking funding for? <span className="text-red-500">*</span>
         </label>
         <select
           id="category"
@@ -230,13 +231,13 @@ export default function ContactForm() {
       {/* Story Field */}
       <div>
         <label htmlFor="story" className="mb-2 block text-sm font-semibold text-gray-700">
-          Tell us about your situation
+          Tell us about your goal
         </label>
         <textarea
           id="story"
           name="story"
           rows={5}
-          placeholder="A brief description of how funding or support could help you or your community. Be honest and specific."
+          placeholder="Describe what you are working toward, the funding amount, and what becomes possible — whether recovery, growth, or a larger build."
           className="w-full resize-y rounded-xl border border-gray-200 bg-gray-50/50 px-5 py-4 text-gray-900 placeholder:text-gray-400 focus:border-[var(--accent-gold)] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all"
         />
       </div>
@@ -268,12 +269,12 @@ export default function ContactForm() {
         {status === "sending" ? (
           <>
             <Loader2 className="w-5 h-5 animate-spin" />
-            Sending your story...
+            Sending your goal...
           </>
         ) : (
           <>
             <Send className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
-            Submit — Reach out for support
+            Submit — Share Your Goal
           </>
         )}
       </button>

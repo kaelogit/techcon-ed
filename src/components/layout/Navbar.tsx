@@ -8,7 +8,7 @@ import { Menu, X, ArrowRight, Heart } from 'lucide-react';
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/story', label: 'The Vision' },
-  { href: '/areas', label: 'How We Help' },
+  { href: '/areas', label: 'Funding Areas' },
   { href: '/impact', label: 'Real Stories' },
 ];
 
@@ -87,7 +87,7 @@ export function Navbar() {
                   : 'bg-white text-[var(--trust)] hover:bg-[var(--warm-cream)]'
               }`}
             >
-              Request Support
+              Share Your Goal
             </Link>
           </nav>
 
@@ -136,7 +136,7 @@ export function Navbar() {
                 className="flex items-center justify-center gap-3 w-full py-4 bg-[var(--trust)] text-white text-sm font-semibold rounded-2xl hover:bg-[var(--trust-light)] transition-colors"
                 onClick={() => setIsOpen(false)}
               >
-                Start Your Request
+                Share Your Goal
                 <Heart className="w-4 h-4 text-[var(--accent-gold)] fill-[var(--accent-gold)]" />
               </Link>
 

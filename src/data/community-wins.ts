@@ -25,7 +25,7 @@ export const communityWins: CommunityWin[] = [
     date: 'Feb 22, 2026',
     caption: 'Our family is so grateful. Thank you for changing our lives! 🙏❤️',
     images: ['/beneficiaries/story-01-01.jpg', '/beneficiaries/story-01-02.jpg'],
-    category: 'Other Hardship',
+    category: 'Personal Goal',
   },
   {
     id: '02',
@@ -124,7 +124,7 @@ export const communityWins: CommunityWin[] = [
     date: 'Apr 7, 2026',
     caption: 'Blessed and highly favored. Thank you! 🙏❤️',
     images: ['/beneficiaries/story-12-01.jpg'],
-    category: 'Other Hardship',
+    category: 'Personal Goal',
   },
   {
     id: '13',
@@ -169,7 +169,7 @@ export const communityWins: CommunityWin[] = [
     date: 'Apr 21, 2026',
     caption: 'Thank you Edwin we are now debt free! God bless! 🙏❤️',
     images: ['/beneficiaries/story-17-01.jpg', '/beneficiaries/story-17-02.jpg'],
-    category: 'Other Hardship',
+    category: 'Personal Goal',
   },
   {
     id: '18',
@@ -187,7 +187,7 @@ export const communityWins: CommunityWin[] = [
     date: 'Apr 27, 2026',
     caption: 'This means the world to us. Thank you Edwin! ❤️🙏',
     images: ['/beneficiaries/story-19-01.jpg'],
-    category: 'Other Hardship',
+    category: 'Personal Goal',
   },
   {
     id: '20',
@@ -196,7 +196,7 @@ export const communityWins: CommunityWin[] = [
     date: 'Apr 29, 2026',
     caption: 'So much gratitude! Thank you Edwin! 🙌❤️',
     images: ['/beneficiaries/story-20-01.jpg'],
-    category: 'Other Harship',
+    category: 'Personal Goal',
   },
   {
     id: '21',

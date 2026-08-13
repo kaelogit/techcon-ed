@@ -228,6 +228,39 @@ const stories = [
       "The $750,000 endowment created a permanent reserve for our scholars. We can now promise them stability throughout their entire college career.",
       "“This created generational opportunity,” we share. “Someone believed in our students enough to invest in their future permanently.”"
     ]
+  },
+  {
+    name: "Victoria Lang",
+    location: "Connecticut",
+    category: "Business",
+    amount: "$520,000",
+    story: [
+      "I already ran two profitable hospitality properties. A third site opened in a premium corridor, and lenders were too slow for the closing window. I needed expansion capital — not a rescue.",
+      "The $520,000 closed the acquisition, funded the redesign, and covered launch runway. We hit profitability in year one and added 28 full-time roles without giving up ownership.",
+      "“I was not looking for charity,” I say. “I needed decisive capital behind a clear plan.”"
+    ]
+  },
+  {
+    name: "Daniel & Claire Okonkwo",
+    location: "Toronto",
+    category: "Housing",
+    amount: "C$385,000",
+    story: [
+      "We were dual-income professionals with a solid home — but it no longer fit the life we wanted: space for aging parents, a work wing, and long-term accessibility. We needed capital to finish the chapter in one phase.",
+      "C$385,000 funded the full remodel and temporary lodging. Our parents are settled downstairs, and Claire runs her practice from the new wing.",
+      "“We were not in crisis,” Claire says. “We had a clear next chapter and needed funding that moved at our speed.”"
+    ]
+  },
+  {
+    name: "Dr. Priya Mehta",
+    location: "New York",
+    category: "Health",
+    amount: "$210,000",
+    story: [
+      "I owned a successful practice and wanted a specialized fellowship plus clinic upgrades so patients would not have to travel out of state. Cash flow alone could not absorb the full year of training and coverage.",
+      "The $210,000 covered the fellowship, equipment, and associate staffing. We now offer the specialty locally and hired two clinical roles.",
+      "“This was ambition with a plan,” I say. “Funding raised our standard of care without putting the practice at risk.”"
+    ]
   }
 ];
 
@@ -245,14 +278,14 @@ export default function ImpactPage() {
       <View className="pt-32 pb-16 md:pt-48 md:pb-24 px-6 bg-white border-b border-stone-100">
         <View className="max-w-4xl mx-auto text-center animate-on-load">
           <Text className="block text-stone-500 text-sm font-bold tracking-[0.2em] uppercase mb-6">
-            Voices of Change
+            Funded Outcomes
           </Text>
           <Text className="block text-4xl md:text-7xl font-bold text-edwin-black mb-8 leading-tight">
             Real stories from <br className="hidden md:block" />
-            the people we serve.
+            people we fund.
           </Text>
           <Text className="block text-lg md:text-xl text-stone-600 leading-relaxed max-w-2xl mx-auto">
-            These are not just statistics. These are our neighbors, students, and families sharing their journey from hardship to hope in their own words.
+            Recovery, growth, and ambition — neighbors, professionals, owners, and builders sharing what direct capital made possible.
           </Text>
         </View>
       </View>
@@ -291,13 +324,13 @@ export default function ImpactPage() {
       <View className="py-24 bg-edwin-navy text-center px-6">
         <View className="max-w-3xl mx-auto">
           <Text className="block text-3xl md:text-5xl font-bold text-white mb-8">
-            Your story could be next.
+            Your goal could be next.
           </Text>
           <Link 
             href="/apply" 
             className="inline-block px-12 py-5 bg-white text-edwin-navy text-lg font-bold rounded-full hover:bg-amber-400 hover:text-edwin-black transition-all shadow-xl hover:scale-105 active:scale-95"
           >
-            Request Support
+            Share Your Goal
           </Link>
         </View>
       </View>

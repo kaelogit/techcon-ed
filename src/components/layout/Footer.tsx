@@ -19,8 +19,8 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-gray-400 leading-relaxed mb-6">
-              Providing direct, life-changing support to families and neighborhoods. 
-              A personal commitment to rebuilding communities.
+              Direct, debt-free funding for recovery, growth, and ambition — 
+              a personal commitment to people building their next chapter.
             </p>
             <div className="flex items-center gap-2 text-sm">
               <Heart className="w-4 h-4 text-(--accent-gold) fill-(--accent-gold)" />
@@ -37,9 +37,9 @@ export function Footer() {
               {[
                 { href: '/', label: 'Home' },
                 { href: '/story', label: 'The Vision' },
-                { href: '/areas', label: 'How We Help' },
+                { href: '/areas', label: 'Funding Areas' },
                 { href: '/impact', label: 'Real Stories' },
-                { href: '/apply', label: 'Request Support' },
+                { href: '/apply', label: 'Share Your Goal' },
                 { href: '/faq', label: 'Common Questions' },
               ].map((link) => (
                 <Link 

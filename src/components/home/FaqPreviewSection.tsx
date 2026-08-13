@@ -6,40 +6,40 @@ import Link from 'next/link';
 
 const faqs = [
   {
-    question: "How long does the review and funding take?",
-    answer: "Once you submit your story, our support team will get back to you within a few minutes. After a few simple verification steps are completed, you can expect the funds to be delivered to you within 24 hours. We move fast because we know you need it now."
+    question: "Who is this funding for?",
+    answer: "People with a clear purpose — at any stage. That includes urgent recovery after a crisis, steady growth for families and professionals, and ambitious builds for those ready to scale a business, property, education path, or community project. Income level is not the filter; clarity of goal is."
   },
   {
-    question: "What should I do immediately after submitting my request?",
-    answer: "Keep a close eye on your email inbox. Our team will email you directly from our secure support address. Because our address might be new to your email provider, please make sure to check your junk or spam folder just in case their security filters accidentally hide our response."
+    question: "How long does the review and funding take?",
+    answer: "Once you submit your goal, our team typically responds within hours. After a short verification, funding can often be arranged within 24 hours when the request is approved. We move quickly because momentum matters — in a crisis and in a growth plan."
+  },
+  {
+    question: "What should I do immediately after submitting?",
+    answer: "Watch your email closely. We write from our secure support address. If you do not see a reply, check junk or spam — new senders are sometimes filtered."
   },
   {
     question: "What kind of verification will you ask for?",
-    answer: "We only ask for simple, standard ID to make sure we are speaking to the real you and sending funds to the right place. Your security is just as important as your funding."
+    answer: "Standard identity confirmation so we know we are speaking with the right person and sending capital to the right place. Your security matters as much as the funding itself."
   },
   {
-    question: "How much support should I ask for?",
-    answer: "Ask for the exact amount you truly need to overcome your current obstacle. Whether it is a few thousand dollars to prevent an eviction, or a larger amount to rebuild a community program, honesty is the most important part of your story."
+    question: "How much funding should I request?",
+    answer: "Ask for the amount that actually completes the goal — whether that is stabilizing after a setback, finishing a degree, expanding a business, upgrading a home, funding specialized care, or launching a community project. Honesty and specificity matter more than a modest ask."
   },
   {
-    question: "Can I request support for someone else?",
-    answer: "Yes. If you know a family member, a neighbor, or a local organization facing a genuine hardship, you can submit a story on their behalf. Just be sure to provide accurate details so our team can reach out to them directly."
-  },
-  {
-    question: "Can I apply more than once if my situation changes?",
-    answer: "If your life circumstances change drastically, you are welcome to reach out again. However, we ask that you wait until you receive a response on your first request before sending another one, so our team can review everyone fairly and quickly."
+    question: "Can I request funding for someone else?",
+    answer: "Yes. You can submit on behalf of a family member, colleague, or organization when the goal is genuine and the details are accurate so we can reach them directly."
   },
   {
     question: "Do I need to provide a lot of paperwork?",
-    answer: "We keep the process as simple and human as possible. After you share your initial story, our team will let you know exactly what basic verification is needed. We do not want complicated rules or endless paperwork to stand in the way of your relief."
+    answer: "We keep the process human and light. After you share your goal, we tell you exactly what basic verification is needed. We do not use bureaucracy as a barrier."
   },
   {
-    question: "Will my personal story be shared publicly on this website?",
-    answer: "Never without your clear permission. Your privacy is our absolute priority. The stories shared on our platform are from individuals who happily agreed to inspire others. Your personal request remains strictly confidential between you and our team."
+    question: "Will my request be shared publicly?",
+    answer: "Never without your clear permission. Published stories are shared only by people who chose to inspire others. Your personal request stays confidential between you and our team."
   },
   {
     question: "Do I have to pay anything back?",
-    answer: "No. This is direct, debt-free support. We only ask that when you are in a better position in life, you find a way to help someone else in your community."
+    answer: "No. This is direct, debt-free funding. When you are in a position to do so, we simply ask that you find a way to lift someone else in your circle."
   }
 ];
 
@@ -95,7 +95,7 @@ export function FaqPreviewSection() {
             Straight Answers
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            We believe you deserve straight answers. Here is exactly how our platform works.
+            Funding for recovery, growth, and ambition — here is exactly how it works.
           </p>
         </div>
 
@@ -123,7 +123,6 @@ export function FaqPreviewSection() {
                     {faq.question}
                   </span>
                   
-                  {/* Animated Plus/Minus Icon */}
                   <span className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 shrink-0 ${
                     isOpen 
                       ? 'bg-[var(--trust)] border-[var(--trust)] text-white rotate-0' 
@@ -133,7 +132,6 @@ export function FaqPreviewSection() {
                   </span>
                 </button>
                 
-                {/* Answer */}
                 <div className={`grid transition-all duration-300 ease-in-out ${
                   isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
                 }`}>
@@ -159,7 +157,7 @@ export function FaqPreviewSection() {
             href="/apply"
             className="inline-flex items-center gap-3 px-10 py-5 bg-[var(--trust)] text-white text-base font-semibold rounded-full hover:bg-[var(--trust-light)] transition-all hover:scale-[1.02] shadow-lg"
           >
-            Ready to reach out? Start here.
+            Ready to share your goal? Start here.
             <ArrowRight className="w-5 h-5" />
           </Link>
         </div>

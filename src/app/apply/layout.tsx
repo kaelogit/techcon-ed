@@ -5,11 +5,11 @@ const siteUrl = 'https://edwinmega.com';
 const ogImageUrl = `${siteUrl}/hero-image.jpg`;
 
 export const metadata: Metadata = {
-  title: 'Apply for Support',
-  description: 'Apply for direct, debt-free funding from Edwin Castro Community Support. Tell your story and get the help you need for education, housing, disaster recovery, or medical needs.',
+  title: 'Share Your Goal',
+  description: 'Share a clear goal for direct, debt-free funding from Edwin Castro — crisis recovery, growth, or ambition across housing, education, health, business, and community.',
   openGraph: {
-    title: 'Apply for Support | Edwin Castro Community Support',
-    description: 'Apply for direct, debt-free funding from Edwin Castro Community Support. Tell your story and get the help you need for education, housing, disaster recovery, or medical needs.',
+    title: 'Share Your Goal | Edwin Castro',
+    description: 'Direct funding for recovery, growth, and ambition — open at every income stage.',
     url: `${siteUrl}/apply`,
     images: [
       {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
         secureUrl: ogImageUrl,
         width: 1200,
         height: 630,
-        alt: 'Apply for Edwin Castro Community Support',
+        alt: 'Share Your Goal — Edwin Castro Funding',
         type: 'image/jpeg',
       },
     ],
@@ -25,8 +25,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Apply for Support | Edwin Castro Community Support',
-    description: 'Apply for direct, debt-free funding. Tell your story and get the help you need.',
+    title: 'Share Your Goal | Edwin Castro',
+    description: 'Direct funding for recovery, growth, and ambition — open at every income stage.',
     images: [ogImageUrl],
   },
 };

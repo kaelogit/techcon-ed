@@ -6,10 +6,10 @@ const ogImageUrl = `${siteUrl}/hero-image.jpg`;
 
 export const metadata: Metadata = {
   title: 'Our Story',
-  description: 'Learn about Edwin Castro\'s personal journey and commitment to rebuilding lives across America. Discover the vision behind direct, debt-free community support.',
+  description: 'Learn about Edwin Castro\'s personal journey and commitment to funding recovery, growth, and ambition with direct, debt-free capital.',
   openGraph: {
-    title: 'Our Story | Edwin Castro Community Support',
-    description: 'Learn about Edwin Castro\'s personal journey and commitment to rebuilding lives across America. Discover the vision behind direct, debt-free community support.',
+    title: 'Our Story | Edwin Castro',
+    description: 'Learn about Edwin Castro\'s personal journey and commitment to funding people at every stage — crisis, growth, and ambition.',
     url: `${siteUrl}/story`,
     images: [
       {
@@ -25,8 +25,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Our Story | Edwin Castro Community Support',
-    description: 'Learn about Edwin Castro\'s journey and commitment to community support.',
+    title: 'Our Story | Edwin Castro',
+    description: 'Learn about Edwin Castro\'s journey and commitment to funding recovery, growth, and ambition.',
     images: [ogImageUrl],
   },
 };
