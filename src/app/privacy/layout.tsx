@@ -1,32 +1,12 @@
-import { Metadata } from 'next';
 import { ReactNode } from 'react';
+import { pageMetadata } from '@/lib/seo';
 
-const siteUrl = 'https://edwinmega.com';
-const ogImageUrl = `${siteUrl}/hero-image.jpg`;
-
-export const metadata: Metadata = {
-  title: 'Privacy Policy',
-  description: 'Privacy Policy for Edwin Castro. We are committed to protecting your personal information.',
-  robots: {
-    index: false,
-  },
-  openGraph: {
-    title: 'Privacy Policy | Edwin Castro',
-    description: 'Privacy Policy for Edwin Castro direct funding.',
-    url: `${siteUrl}/privacy`,
-    images: [
-      {
-        url: ogImageUrl,
-        secureUrl: ogImageUrl,
-        width: 1200,
-        height: 630,
-        alt: 'Edwin Castro Privacy Policy',
-        type: 'image/jpeg',
-      },
-    ],
-    type: 'website',
-  },
-};
+export const metadata = pageMetadata({
+  title: 'How We Handle Your Information',
+  description:
+    'How Edwin Castro uses the information you share on edwinmega.com. Your request stays private. Official email is support@edwinmega.com.',
+  path: '/privacy',
+});
 
 export default function PrivacyLayout({ children }: { children: ReactNode }) {
   return children;

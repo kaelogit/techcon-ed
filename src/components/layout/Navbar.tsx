@@ -6,11 +6,11 @@ import { usePathname } from 'next/navigation';
 import { Menu, X, ArrowRight } from 'lucide-react';
 
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/story', label: 'The Vision' },
-  { href: '/areas', label: 'Funding Areas' },
-  { href: '/impact', label: 'Real Stories' },
-  { href: '/faq', label: 'FAQ' },
+  { href: '/story', label: 'Vision' },
+  { href: '/areas', label: 'Areas' },
+  { href: '/impact', label: 'Stories' },
+  { href: '/#faq', label: 'FAQ' },
+  { href: '/verify', label: 'Is this real?' },
 ];
 
 export function Navbar() {
@@ -30,25 +30,28 @@ export function Navbar() {
     setIsOpen(false);
   }, [pathname]);
 
-  const isActive = (href: string) => pathname === href;
+  const isActive = (href: string) => {
+    if (href === '/#faq') return false;
+    return pathname === href;
+  };
 
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-gray-200 bg-white">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6">
           
-          <Link href="/" className="relative z-50 flex-shrink-0">
-            <span className="font-serif text-xl font-semibold tracking-tight text-[var(--trust)] md:text-2xl">
+          <Link href="/" className="relative z-50 shrink-0">
+            <span className="font-serif text-lg font-semibold tracking-tight text-[var(--trust)] sm:text-xl md:text-2xl">
               Edwin Castro
             </span>
           </Link>
 
-          <nav className="hidden items-center gap-6 lg:flex">
+          <nav className="hidden min-w-0 items-center gap-3 lg:flex xl:gap-5">
             {navLinks.map((link) => (
               <Link 
                 key={link.href} 
                 href={link.href}
-                className={`text-sm font-medium transition-colors ${
+                className={`shrink-0 text-[13px] font-medium whitespace-nowrap xl:text-sm transition-colors ${
                   isActive(link.href)
                     ? 'text-[var(--accent-gold)]'
                     : 'text-gray-600 hover:text-[var(--trust)]'
@@ -60,7 +63,7 @@ export function Navbar() {
             
             <Link
               href="/apply"
-              className="inline-flex items-center gap-2 bg-[var(--trust)] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--trust-light)]"
+              className="inline-flex shrink-0 items-center gap-2 bg-[var(--trust)] px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-[var(--trust-light)] xl:px-5 xl:py-2.5 xl:text-sm"
             >
               Share Your Goal
               <ArrowRight className="h-4 w-4" />

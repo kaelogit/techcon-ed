@@ -1,36 +1,24 @@
-import { Metadata } from 'next';
 import { ReactNode } from 'react';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { breadcrumbJsonLd, pageMetadata } from '@/lib/seo';
 
-const siteUrl = 'https://edwinmega.com';
-const ogImageUrl = `${siteUrl}/hero-image.jpg`;
-
-export const metadata: Metadata = {
-  title: 'Share Your Goal',
-  description: 'Share a clear goal for direct, debt-free funding from Edwin Castro — crisis recovery, growth, or ambition across housing, education, health, business, and community.',
-  openGraph: {
-    title: 'Share Your Goal | Edwin Castro',
-    description: 'Direct funding for recovery, growth, and ambition — open at every income stage.',
-    url: `${siteUrl}/apply`,
-    images: [
-      {
-        url: ogImageUrl,
-        secureUrl: ogImageUrl,
-        width: 1200,
-        height: 630,
-        alt: 'Share Your Goal — Edwin Castro Funding',
-        type: 'image/jpeg',
-      },
-    ],
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Share Your Goal | Edwin Castro',
-    description: 'Direct funding for recovery, growth, and ambition — open at every income stage.',
-    images: [ogImageUrl],
-  },
-};
+export const metadata = pageMetadata({
+  title: 'Share Your Goal — Direct Funding, No Debt',
+  description:
+    'Tell Edwin Castro what you need funded. Direct capital for housing, school, health, business, or recovery. No repayment. No fees. Official applications are only on edwinmega.com.',
+  path: '/apply',
+});
 
 export default function ApplyLayout({ children }: { children: ReactNode }) {
-  return children;
+  return (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Share Your Goal', path: '/apply' },
+        ])}
+      />
+      {children}
+    </>
+  );
 }

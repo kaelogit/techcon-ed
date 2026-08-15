@@ -1,7 +1,6 @@
 'use client';
 
 import { View, Text } from '@/components/Themed';
-import Link from 'next/link';
 
 export default function SecurityPage() {
   return (
@@ -45,6 +44,22 @@ export default function SecurityPage() {
             title="Total Data Control"
             desc="You have full control over your information. If at any time you wish for your story or details to be removed from our secure system, our support team will handle it immediately upon your request."
           />
+
+          <View className="mb-16 border border-stone-200 bg-stone-50 p-8">
+            <Text className="block text-2xl font-bold text-edwin-black">
+              Someone contacted you about funding?
+            </Text>
+            <Text className="mt-3 block text-base leading-relaxed text-stone-600">
+              Do not reply yet. Official messages come only from support@edwinmega.com. Check the
+              message on our contact page before you send documents or money.
+            </Text>
+            <a
+              href="/verify"
+              className="mt-6 inline-flex bg-[var(--trust)] px-6 py-3 text-sm font-semibold text-white"
+            >
+              Check if this message is real
+            </a>
+          </View>
 
           {/* Contact for Security Issues */}
           <View className="mt-16 p-10 bg-stone-50 rounded-[2rem] border border-stone-100 text-center">

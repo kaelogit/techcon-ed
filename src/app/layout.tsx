@@ -3,69 +3,66 @@ import { ReactNode } from 'react';
 import Script from 'next/script';
 import { Metadata, Viewport } from 'next';
 import { SiteChrome } from '@/components/layout/SiteChrome';
+import { JsonLd } from '@/components/seo/JsonLd';
+import {
+  HOME_DESCRIPTION,
+  HOME_TITLE,
+  OG_IMAGE,
+  organizationJsonLd,
+  SITE_NAME,
+  SITE_URL,
+  websiteJsonLd,
+} from '@/lib/seo';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID || 'G-ZR6ZXRW988';
 
-const siteTitle = 'Edwin Castro — Private Funding for Every Stage';
-const siteDescription = 'Direct, debt-free funding from Edwin Castro for recovery, growth, and ambition. Capital for education, housing, health, business, and community goals — open to people rebuilding after a setback and people ready to scale. USA, Canada, UK, Germany, Australia, and beyond.';
-
-const siteUrl = 'https://edwinmega.com';
-const ogImageUrl = `${siteUrl}/hero-image.jpg`;
-
 export const metadata: Metadata = {
   title: {
-    default: siteTitle,
+    default: HOME_TITLE,
     template: '%s | Edwin Castro',
   },
-  description: siteDescription,
+  description: HOME_DESCRIPTION,
   keywords: [
     'Edwin Castro',
+    'Edwin Castro funding',
     'direct funding',
-    'private funding',
-    'debt-free capital',
+    'debt-free funding',
+    'edwinmega.com',
+    'housing funding',
     'education funding',
-    'housing',
-    'business expansion',
     'medical funding',
-    'community projects',
-    'disaster recovery',
-    'growth capital',
-    'USA',
-    'Canada',
-    'United Kingdom',
-    'Germany',
-    'Australia',
+    'business funding',
   ],
-  authors: [{ name: 'Edwin Castro' }],
-  creator: 'Edwin Castro',
-  publisher: 'Edwin Castro',
-  metadataBase: new URL(siteUrl),
+  authors: [{ name: SITE_NAME }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  metadataBase: new URL(SITE_URL),
   alternates: {
-    canonical: '/',
+    canonical: SITE_URL,
   },
   openGraph: {
-    title: siteTitle,
-    description: siteDescription,
-    url: siteUrl,
-    siteName: 'Edwin Castro',
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
     locale: 'en_US',
     type: 'website',
     images: [
       {
-        url: ogImageUrl,
-        secureUrl: ogImageUrl,
+        url: OG_IMAGE,
+        secureUrl: OG_IMAGE,
         width: 1200,
         height: 630,
-        alt: 'Edwin Castro — Private Funding for Recovery, Growth, and Ambition',
+        alt: HOME_TITLE,
         type: 'image/jpeg',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: siteTitle,
-    description: siteDescription,
-    images: [ogImageUrl],
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    images: [OG_IMAGE],
     creator: '@edwinmega',
   },
   robots: {
@@ -79,9 +76,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-verification-code',
-  },
+  ...(process.env.GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
+    : {}),
 };
 
 export const viewport: Viewport = {
@@ -91,17 +88,6 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'Edwin Castro',
-    description: siteDescription,
-    url: siteUrl,
-    logo: `${siteUrl}/ecf-foundation-logo.png`,
-    sameAs: ['https://twitter.com/edwinmega'],
-    image: ogImageUrl,
-  };
-
   return (
     <html lang="en" className="scroll-smooth">
       <head>
@@ -113,10 +99,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={websiteJsonLd()} />
 
         {GA_ID && (
           <>

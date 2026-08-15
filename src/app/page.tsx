@@ -9,10 +9,15 @@ import { TrustBanner } from '@/components/home/TrustBanner';
 import { MediaMentions } from '@/components/home/MediaMentions';
 import VideoSection from '@/components/home/VideoSection';
 import { CommunityWinsSection } from '@/components/home/CommunityWinsSection';
+import { VerifySection } from '@/components/home/VerifySection';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { faqs } from '@/data/faqs';
+import { faqPageJsonLd } from '@/lib/seo';
 
 export default function HomePage() {
   return (
-    <div className='flex flex-col w-full'>
+    <div className="flex w-full flex-col">
+      <JsonLd data={faqPageJsonLd(faqs)} />
       <HeroSection />
       <CommunityWinsSection />
       <VisionSection />
@@ -23,6 +28,7 @@ export default function HomePage() {
       <MediaMentions />
       <ProcessSection />
       <FaqPreviewSection />
+      <VerifySection />
       <TrustBanner />
     </div>
   );

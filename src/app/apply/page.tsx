@@ -1035,6 +1035,11 @@ function SuccessState() {
             </div>
             <p className="text-sm text-gray-600">
               Add <strong className="text-gray-900">support@edwinmega.com</strong> to your contacts to ensure safe delivery.
+              Unsure if a message is real?{' '}
+              <Link href="/verify" className="font-semibold text-[var(--trust)] underline">
+                Check if this message is real
+              </Link>
+              .
             </p>
           </div>
         </div>

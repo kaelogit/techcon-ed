@@ -1,33 +1,24 @@
-import { Metadata } from 'next';
 import { ReactNode } from 'react';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { breadcrumbJsonLd, pageMetadata } from '@/lib/seo';
 
-const siteUrl = 'https://edwinmega.com';
-const ogImageUrl = `${siteUrl}/hero-image.jpg`;
-
-export const metadata: Metadata = {
-  title: 'Security',
-  description: 'Security information for Edwin Castro. We are committed to protecting your data.',
-  robots: {
-    index: false,
-  },
-  openGraph: {
-    title: 'Security | Edwin Castro',
-    description: 'Security information for Edwin Castro direct funding.',
-    url: `${siteUrl}/security`,
-    images: [
-      {
-        url: ogImageUrl,
-        secureUrl: ogImageUrl,
-        width: 1200,
-        height: 630,
-        alt: 'Edwin Castro Security',
-        type: 'image/jpeg',
-      },
-    ],
-    type: 'website',
-  },
-};
+export const metadata = pageMetadata({
+  title: 'How We Protect Your Information',
+  description:
+    'How Edwin Castro handles your story and documents on edwinmega.com. We never ask for fees or passwords. Official email is support@edwinmega.com.',
+  path: '/security',
+});
 
 export default function SecurityLayout({ children }: { children: ReactNode }) {
-  return children;
+  return (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'How we protect data', path: '/security' },
+        ])}
+      />
+      {children}
+    </>
+  );
 }

@@ -1,36 +1,24 @@
-import { Metadata } from 'next';
 import { ReactNode } from 'react';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { breadcrumbJsonLd, pageMetadata } from '@/lib/seo';
 
-const siteUrl = 'https://edwinmega.com';
-const ogImageUrl = `${siteUrl}/hero-image.jpg`;
-
-export const metadata: Metadata = {
-  title: 'Impact & Results',
-  description: 'See real outcomes from Edwin Castro direct funding — recovery, growth, and ambition across housing, education, health, business, and community.',
-  openGraph: {
-    title: 'Impact & Results | Edwin Castro',
-    description: 'Real outcomes from direct funding across recovery, growth, and ambition.',
-    url: `${siteUrl}/impact`,
-    images: [
-      {
-        url: ogImageUrl,
-        secureUrl: ogImageUrl,
-        width: 1200,
-        height: 630,
-        alt: 'Edwin Castro Impact',
-        type: 'image/jpeg',
-      },
-    ],
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Impact & Results | Edwin Castro',
-    description: 'Real outcomes from direct funding across recovery, growth, and ambition.',
-    images: [ogImageUrl],
-  },
-};
+export const metadata = pageMetadata({
+  title: 'People Already Funded',
+  description:
+    'See real outcomes from Edwin Castro’s direct funding — homes, school, health, and business. Debt-free. Stories are shared only with permission.',
+  path: '/impact',
+});
 
 export default function ImpactLayout({ children }: { children: ReactNode }) {
-  return children;
+  return (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Impact', path: '/impact' },
+        ])}
+      />
+      {children}
+    </>
+  );
 }

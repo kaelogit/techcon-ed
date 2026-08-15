@@ -40,7 +40,8 @@ export function Footer() {
                 { href: '/areas', label: 'Funding Areas' },
                 { href: '/impact', label: 'Real Stories' },
                 { href: '/apply', label: 'Share Your Goal' },
-                { href: '/faq', label: 'Common Questions' },
+                { href: '/#faq', label: 'Common Questions' },
+                { href: '/verify', label: 'Is this email real?' },
               ].map((link) => (
                 <Link 
                   key={link.href}
@@ -82,7 +83,7 @@ export function Footer() {
               {[
                 { href: '/privacy', label: 'Privacy Policy' },
                 { href: '/terms', label: 'Terms of Service' },
-                { href: '/security', label: 'Security' },
+                { href: '/security', label: 'How we protect data' },
               ].map((link) => (
                 <Link 
                   key={link.href}

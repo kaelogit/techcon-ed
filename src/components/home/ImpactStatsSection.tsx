@@ -60,7 +60,7 @@ function StatBlock({
       style={{ transitionDelay: `${delay}ms` }}
     >
       {/* Vertical Accent Line */}
-      <div className="absolute -left-6 top-0 bottom-0 w-0.5 bg-linear-to-b from-(--accent-gold) via-(--accent-gold)/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden md:block" />
+      <div className="absolute -left-0 top-0 bottom-0 hidden w-0.5 bg-linear-to-b from-(--accent-gold) via-(--accent-gold)/30 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:block" />
       
       {/* Icon */}
       <div className="mb-6 w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-(--accent-gold) shadow-lg shadow-gray-200/50 border border-gray-100 group-hover:scale-110 group-hover:bg-(--trust) group-hover:text-white group-hover:shadow-xl transition-all duration-500 ease-out">
@@ -146,8 +146,8 @@ export function ImpactStatsSection() {
       className="bg-(--warm-cream) py-24 md:py-32 px-6 relative overflow-hidden"
     >
       {/* Background Elements */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-225 h-225 bg-(--accent-gold) opacity-[0.03] rounded-full blur-[150px]" />
-      <div className="absolute top-0 right-0 w-100 h-100 bg-(--trust) opacity-[0.02] rounded-full blur-[100px]" />
+      <div className="pointer-events-none absolute top-1/2 left-1/2 h-[28rem] w-[28rem] max-w-[100vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-(--accent-gold) opacity-[0.03] blur-[150px]" />
+      <div className="pointer-events-none absolute top-0 right-0 h-64 w-64 max-w-[50vw] rounded-full bg-(--trust) opacity-[0.02] blur-[100px]" />
 
       <div className="max-w-7xl mx-auto relative z-10">
         

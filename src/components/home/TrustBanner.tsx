@@ -79,16 +79,16 @@ export function TrustBanner() {
             <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
           </Link>
           
-          <div className="mt-4 flex items-center gap-6">
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             <span className="flex items-center gap-2 text-sm text-white/50">
               <Clock className="w-4 h-4" />
               Takes less than 5 minutes
             </span>
-            <span className="text-white/30">|</span>
-            <span className="flex items-center gap-2 text-sm text-white/50">
+            <span className="hidden text-white/30 sm:inline">|</span>
+            <Link href="/verify" className="flex items-center gap-2 text-sm text-white/50 transition-colors hover:text-white">
               <Shield className="w-4 h-4" />
-              Secure & Confidential
-            </span>
+              Check if this message is real
+            </Link>
           </div>
         </div>
 

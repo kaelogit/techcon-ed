@@ -88,7 +88,7 @@ export function HeroSection() {
             </div>
 
             <div 
-              className={`relative hidden lg:col-span-5 lg:block transition-all duration-1000 delay-300 ${
+              className={`relative hidden min-w-0 lg:col-span-5 lg:block transition-all duration-1000 delay-300 ${
                 isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
               }`}
             >
@@ -101,7 +101,7 @@ export function HeroSection() {
                 <div className="absolute inset-0 bg-linear-to-t from-(--trust)/50 via-transparent to-transparent" />
               </div>
               
-              <div className="absolute -bottom-6 -left-6 max-w-65 border border-gray-200 bg-white p-6 shadow-md">
+              <div className="absolute bottom-4 left-4 max-w-[15rem] border border-gray-200 bg-white p-5 shadow-md">
                 <p className="font-serif text-3xl font-bold text-(--trust)">$50M+</p>
                 <p className="mt-2 text-sm leading-relaxed text-gray-600">
                   Committed to people building their next chapter worldwide

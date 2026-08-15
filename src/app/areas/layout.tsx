@@ -1,36 +1,24 @@
-import { Metadata } from 'next';
 import { ReactNode } from 'react';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { breadcrumbJsonLd, pageMetadata } from '@/lib/seo';
 
-const siteUrl = 'https://edwinmega.com';
-const ogImageUrl = `${siteUrl}/hero-image.jpg`;
-
-export const metadata: Metadata = {
-  title: 'Funding Areas',
-  description: 'Explore Edwin Castro funding for crisis recovery, growth, and ambition — housing, education, health, business expansion, and community legacy projects.',
-  openGraph: {
-    title: 'Funding Areas | Edwin Castro',
-    description: 'Capital for recovery, growth, and ambition across housing, education, health, business, and community.',
-    url: `${siteUrl}/areas`,
-    images: [
-      {
-        url: ogImageUrl,
-        secureUrl: ogImageUrl,
-        width: 1200,
-        height: 630,
-        alt: 'Edwin Castro Funding Areas',
-        type: 'image/jpeg',
-      },
-    ],
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Funding Areas | Edwin Castro',
-    description: 'Capital for recovery, growth, and ambition across key life and business goals.',
-    images: [ogImageUrl],
-  },
-};
+export const metadata = pageMetadata({
+  title: 'Housing, School, Health & Business Funding',
+  description:
+    'What Edwin Castro funds: a home, education, medical care, a business, disaster recovery, or a community project. Direct capital. You do not pay it back.',
+  path: '/areas',
+});
 
 export default function AreasLayout({ children }: { children: ReactNode }) {
-  return children;
+  return (
+    <>
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: 'Home', path: '/' },
+          { name: 'Funding Areas', path: '/areas' },
+        ])}
+      />
+      {children}
+    </>
+  );
 }
