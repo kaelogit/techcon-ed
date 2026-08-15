@@ -19,8 +19,7 @@ import {
   HelpCircle,
   Lock,
   TrendingUp,
-  Award,
-  MessageCircle
+  Award
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -187,9 +186,6 @@ export default function ApplyPage() {
   // FAQ accordion
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  // Submission method
-  const [submissionMethod, setSubmissionMethod] = useState<'form' | 'whatsapp'>('form');
-
   // Check for voice support
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -285,7 +281,6 @@ export default function ApplyPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
-          submissionMethod,
           source: 'apply_page_support'
         }),
       });
@@ -401,38 +396,7 @@ export default function ApplyPage() {
                 <SuccessState />
               ) : (
                 <>
-                  {/* Submission Method Toggle */}
-                  <div className="flex gap-4 mb-8 p-1 bg-gray-100 rounded-xl">
-                    <button
-                      type="button"
-                      onClick={() => setSubmissionMethod('form')}
-                      className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${
-                        submissionMethod === 'form' 
-                          ? 'bg-white text-gray-900 shadow-sm' 
-                          : 'text-gray-500 hover:text-gray-700'
-                      }`}
-                    >
-                      <Mail className="w-4 h-4" />
-                      Apply Online
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setSubmissionMethod('whatsapp')}
-                      className={`flex-1 py-3 px-4 rounded-lg text-sm font-medium transition-all flex items-center justify-center gap-2 ${
-                        submissionMethod === 'whatsapp' 
-                          ? 'bg-white text-gray-900 shadow-sm' 
-                          : 'text-gray-500 hover:text-gray-700'
-                      }`}
-                    >
-                      <MessageCircle className="w-4 h-4" />
-                      WhatsApp
-                    </button>
-                  </div>
-
-                  {submissionMethod === 'whatsapp' ? (
-                    <WhatsAppOption setSubmissionMethod={setSubmissionMethod} />
-                  ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-6">
 
                       {/* Mode Toggle */}
                       <div className="flex items-center justify-between mb-6">
@@ -823,7 +787,6 @@ export default function ApplyPage() {
                         </span>
                       </div>
                     </form>
-                  )}
                 </>
               )}
             </div>
@@ -1084,73 +1047,6 @@ function SuccessState() {
         Return to Home
         <ArrowRight className="w-4 h-4" />
       </Link>
-    </div>
-  );
-}
-
-function WhatsAppOption({ setSubmissionMethod }: { setSubmissionMethod: (m: 'form' | 'whatsapp') => void }) {
-  const [copied, setCopied] = useState(false);
-  const phoneNumber = "+1 (470) 360-8770";
-  const cleanNumber = "14703608770"; // For wa.me link
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(phoneNumber);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  return (
-    <div className="text-center py-8 space-y-6">
-      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-        <MessageCircle className="w-8 h-8 text-green-600" />
-      </div>
-
-      <div>
-        <h3 className="font-serif text-2xl font-semibold text-gray-900 mb-2">
-          Apply via WhatsApp
-        </h3>
-        <p className="text-gray-600 max-w-md mx-auto">
-          Send us a message with your name, country, and the goal you want funded. Our team will guide you through the application.
-        </p>
-      </div>
-
-      <div className="bg-gray-50 rounded-2xl p-6 max-w-sm mx-auto">
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
-          WhatsApp Number
-        </p>
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <span className="text-2xl font-bold text-gray-900">{phoneNumber}</span>
-          <button
-            type="button"
-            onClick={handleCopy}
-            className="p-2 hover:bg-gray-200 rounded-lg transition-colors"
-          >
-            {copied ? <CheckCircle className="w-5 h-5 text-emerald-500" /> : <span className="text-sm text-gray-500">Copy</span>}
-          </button>
-        </div>
-        <a 
-          href={`https://wa.me/${cleanNumber}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block w-full py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-semibold transition-colors"
-        >
-          Open WhatsApp
-        </a>
-      </div>
-
-      <div className="space-y-2 text-sm text-gray-500">
-        <p>💬 Typical response time: Under 1 hour</p>
-        <p>🔒 Just as private as the online form</p>
-        <p>✅ Same $50K+ funding range</p>
-      </div>
-
-      <button
-        type="button"
-        onClick={() => setSubmissionMethod('form')}
-        className="text-[var(--trust)] hover:underline text-sm font-medium"
-      >
-        ← Back to online form
-      </button>
     </div>
   );
 }

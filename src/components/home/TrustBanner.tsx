@@ -29,32 +29,26 @@ export function TrustBanner() {
   return (
     <section 
       ref={sectionRef}
-      className="relative bg-[var(--trust)] py-24 md:py-32 px-6 overflow-hidden"
+      className="relative overflow-hidden bg-[var(--trust)] px-6 py-24 md:py-32"
     >
-      {/* Background Elements */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-64 bg-[var(--accent-gold)]/15 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-
-      <div className="max-w-4xl mx-auto text-center relative z-10">
+      <div className="relative z-10 mx-auto max-w-4xl text-center">
         
-        {/* Label */}
         <div 
           className={`transition-all duration-700 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
-            <p className="text-[var(--accent-gold)] text-sm font-bold tracking-[0.3em] uppercase">
+          <div className="mb-6 flex items-center justify-center gap-3">
+            <span className="h-[2px] w-8 bg-[var(--accent-gold)]" />
+            <p className="text-sm font-bold uppercase tracking-[0.3em] text-[var(--accent-gold)]">
               Your Next Chapter
             </p>
-            <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
+            <span className="h-[2px] w-8 bg-[var(--accent-gold)]" />
           </div>
         </div>
         
-        {/* Headline */}
         <h2 
-          className={`font-serif text-4xl md:text-5xl lg:text-6xl font-semibold text-white mb-8 leading-tight transition-all duration-700 delay-150 ${
+          className={`mb-8 font-serif text-4xl font-semibold leading-tight text-white md:text-5xl lg:text-6xl transition-all duration-700 delay-150 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
@@ -62,9 +56,8 @@ export function TrustBanner() {
           <span className="text-[var(--accent-gold)]">after the plan.</span>
         </h2>
 
-        {/* Description */}
         <p 
-          className={`text-white/70 text-lg md:text-xl mb-12 leading-relaxed max-w-2xl mx-auto transition-all duration-700 delay-300 ${
+          className={`mx-auto mb-12 max-w-2xl text-lg leading-relaxed text-white/70 md:text-xl transition-all duration-700 delay-300 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
@@ -73,7 +66,6 @@ export function TrustBanner() {
           we are ready to consider direct capital behind it.
         </p>
 
-        {/* CTA */}
         <div 
           className={`flex flex-col items-center gap-6 transition-all duration-700 delay-450 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
@@ -81,14 +73,13 @@ export function TrustBanner() {
         >
           <Link 
             href="/apply" 
-            className="group inline-flex items-center gap-3 px-10 py-5 bg-white text-[var(--trust)] text-lg font-semibold rounded-full hover:bg-[var(--accent-gold)] hover:text-white transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98]"
+            className="group inline-flex items-center gap-3 bg-white px-10 py-4 text-lg font-semibold text-[var(--trust)] transition-colors hover:bg-[var(--accent-gold)] hover:text-white"
           >
             Share Your Goal
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
           </Link>
           
-          {/* Trust badges */}
-          <div className="flex items-center gap-6 mt-4">
+          <div className="mt-4 flex items-center gap-6">
             <span className="flex items-center gap-2 text-sm text-white/50">
               <Clock className="w-4 h-4" />
               Takes less than 5 minutes

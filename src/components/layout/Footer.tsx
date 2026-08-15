@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Heart, Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin, ShieldCheck } from 'lucide-react';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -23,7 +23,7 @@ export function Footer() {
               a personal commitment to people building their next chapter.
             </p>
             <div className="flex items-center gap-2 text-sm">
-              <Heart className="w-4 h-4 text-(--accent-gold) fill-(--accent-gold)" />
+              <ShieldCheck className="w-4 h-4 text-(--accent-gold)" />
               <span className="text-gray-500">100% Debt-Free Funding</span>
             </div>
           </div>

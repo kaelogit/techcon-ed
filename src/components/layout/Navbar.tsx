@@ -3,28 +3,19 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ArrowRight, Heart } from 'lucide-react';
+import { Menu, X, ArrowRight } from 'lucide-react';
 
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/story', label: 'The Vision' },
   { href: '/areas', label: 'Funding Areas' },
   { href: '/impact', label: 'Real Stories' },
+  { href: '/faq', label: 'FAQ' },
 ];
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
-  
-  /* KEY FIX: Only the homepage has a dark hero. All other pages are light. */
-  const isHomePage = pathname === '/';
-
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -43,36 +34,24 @@ export function Navbar() {
 
   return (
     <>
-      <header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled || !isHomePage
-            ? 'bg-white/95 backdrop-blur-lg shadow-sm py-3' 
-            : 'bg-transparent py-5'
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
+      <header className="sticky top-0 z-50 border-b border-gray-200 bg-white">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
           
-          {/* Logo */}
-          <Link href="/" className="relative z-50 group flex-shrink-0">
-            <span className={`font-serif text-xl md:text-2xl font-semibold tracking-tight transition-colors duration-300 ${
-              isScrolled || !isHomePage || isOpen ? 'text-[var(--trust)]' : 'text-white'
-            }`}>
+          <Link href="/" className="relative z-50 flex-shrink-0">
+            <span className="font-serif text-xl font-semibold tracking-tight text-[var(--trust)] md:text-2xl">
               Edwin Castro
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden items-center gap-6 lg:flex">
             {navLinks.map((link) => (
               <Link 
                 key={link.href} 
                 href={link.href}
-                className={`text-sm font-medium transition-colors link-underline ${
+                className={`text-sm font-medium transition-colors ${
                   isActive(link.href)
                     ? 'text-[var(--accent-gold)]'
-                    : isScrolled || !isHomePage
-                      ? 'text-gray-600 hover:text-[var(--trust)]' 
-                      : 'text-white/90 hover:text-white'
+                    : 'text-gray-600 hover:text-[var(--trust)]'
                 }`}
               >
                 {link.label}
@@ -81,24 +60,16 @@ export function Navbar() {
             
             <Link
               href="/apply"
-              className={`px-5 py-2.5 text-sm font-semibold rounded-full transition-all ${
-                isScrolled || !isHomePage
-                  ? 'bg-[var(--trust)] text-white hover:bg-[var(--trust-light)]' 
-                  : 'bg-white text-[var(--trust)] hover:bg-[var(--warm-cream)]'
-              }`}
+              className="inline-flex items-center gap-2 bg-[var(--trust)] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--trust-light)]"
             >
               Share Your Goal
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </nav>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className={`relative z-50 lg:hidden w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${
-              isScrolled || !isHomePage || isOpen 
-                ? 'bg-gray-100 text-[var(--trust)] hover:bg-gray-200' 
-                : 'bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm'
-            }`}
+            className="relative z-50 flex h-10 w-10 items-center justify-center rounded-md bg-gray-100 text-[var(--trust)] transition-colors hover:bg-gray-200 lg:hidden"
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
           >
             {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -107,10 +78,9 @@ export function Navbar() {
         </div>
       </header>
 
-      {/* Mobile Menu */}
       {isOpen && (
-        <div className="fixed inset-0 z-40 bg-[var(--warm-cream)] lg:hidden">
-          <div className="flex flex-col h-full px-6 pt-24 pb-8 overflow-y-auto">
+        <div className="fixed inset-0 z-40 bg-[var(--warm-cream)] pt-16 lg:hidden">
+          <div className="flex h-full flex-col overflow-y-auto px-6 pb-8">
             
             <nav className="flex flex-col">
               {navLinks.map((link) => (
@@ -125,7 +95,7 @@ export function Navbar() {
                   }`}>
                     {link.label}
                   </span>
-                  <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-[var(--accent-gold)] transition-colors" />
+                  <ArrowRight className="w-5 h-5 text-gray-300 transition-colors group-hover:text-[var(--accent-gold)]" />
                 </Link>
               ))}
             </nav>
@@ -133,20 +103,20 @@ export function Navbar() {
             <div className="mt-auto pt-8">
               <Link
                 href="/apply"
-                className="flex items-center justify-center gap-3 w-full py-4 bg-[var(--trust)] text-white text-sm font-semibold rounded-2xl hover:bg-[var(--trust-light)] transition-colors"
+                className="flex w-full items-center justify-center gap-2 bg-[var(--trust)] py-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--trust-light)]"
                 onClick={() => setIsOpen(false)}
               >
                 Share Your Goal
-                <Heart className="w-4 h-4 text-[var(--accent-gold)] fill-[var(--accent-gold)]" />
+                <ArrowRight className="h-4 w-4" />
               </Link>
 
-              <div className="pt-6 border-t border-gray-200 mt-6">
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wider mb-2">
+              <div className="mt-6 border-t border-gray-200 pt-6">
+                <p className="mb-2 text-xs font-medium uppercase tracking-wider text-gray-400">
                   Direct Channel
                 </p>
                 <a 
                   href="mailto:support@edwinmega.com" 
-                  className="text-lg font-serif font-medium text-[var(--trust)] hover:text-[var(--accent-gold)] transition-colors"
+                  className="text-lg font-serif font-medium text-[var(--trust)] transition-colors hover:text-[var(--accent-gold)]"
                 >
                   support@edwinmega.com
                 </a>

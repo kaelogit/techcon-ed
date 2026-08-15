@@ -352,56 +352,53 @@ export function ImpactStoriesSection() {
   const currentStory = stories[currentIndex];
 
   return (
-    <section className="py-24 md:py-32 px-6 bg-[var(--deep-charcoal)] relative overflow-hidden">
-      
-      {/* Background ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-full bg-[var(--trust)]/10 blur-[150px] rounded-full pointer-events-none" />
+    <section className="relative overflow-hidden bg-[var(--warm-cream)] px-6 py-24 md:py-32">
 
-      <div className="max-w-4xl mx-auto relative z-10">
+      <div className="relative z-10 mx-auto max-w-4xl">
         
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="w-10 h-[2px] bg-[var(--accent-gold)]" />
-            <p className="text-[var(--accent-gold)] text-xs font-bold tracking-[0.3em] uppercase">
+        <div className="mb-12 text-center">
+          <div className="mb-4 flex items-center justify-center gap-3">
+            <span className="h-[2px] w-10 bg-[var(--accent-gold)]" />
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-[var(--accent-gold)]">
               Real Stories
             </p>
-            <span className="w-10 h-[2px] bg-[var(--accent-gold)]" />
+            <span className="h-[2px] w-10 bg-[var(--accent-gold)]" />
           </div>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-white leading-tight">
+          <h2 className="font-serif text-3xl font-semibold leading-tight text-gray-900 md:text-4xl lg:text-5xl">
             From recovery to ambition — funded with purpose.
           </h2>
         </div>
 
         {/* Story Card */}
         <div
-          className="bg-white rounded-3xl p-8 md:p-12 shadow-2xl"
+          className="border border-gray-200 bg-white p-8 md:p-12 shadow-sm"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
           ref={containerRef}
         >
           {/* Top Info Bar */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between border-b border-gray-200 pb-6 mb-8 gap-4">
+          <div className="mb-8 flex flex-col justify-between gap-4 border-b border-gray-200 pb-6 md:flex-row md:items-center">
             <div>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="px-3 py-1 bg-[var(--trust)]/10 text-[var(--trust)] text-xs font-bold uppercase tracking-wider rounded-full">
+              <div className="mb-2 flex items-center gap-2">
+                <span className="bg-[var(--trust)]/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[var(--trust)]">
                   {currentStory.category}
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <h3 className="text-lg font-semibold text-gray-900">{currentStory.name}</h3>
                 <span className="text-gray-400">—</span>
-                <span className="text-sm text-gray-500 flex items-center gap-1">
+                <span className="flex items-center gap-1 text-sm text-gray-500">
                   <MapPin className="w-4 h-4" />
                   {currentStory.location}
                 </span>
               </div>
             </div>
-            <div className="bg-emerald-50 border border-emerald-100 px-5 py-3 rounded-xl self-start md:self-auto">
-              <p className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1">
+            <div className="self-start border border-gray-200 bg-[var(--warm-cream)] px-5 py-3 md:self-auto">
+              <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-gray-500">
                 Funding Provided
               </p>
-              <p className="text-2xl md:text-3xl font-serif font-bold text-emerald-700">
+              <p className="font-serif text-2xl font-bold text-[var(--trust)] md:text-3xl">
                 {currentStory.amount}
               </p>
             </div>
@@ -435,14 +432,14 @@ export function ImpactStoriesSection() {
           </div>
 
           {/* Controls & Counter */}
-          <div className="flex flex-col sm:flex-row items-center justify-between border-t border-gray-100 pt-6 gap-4">
+          <div className="flex flex-col items-center justify-between gap-4 border-t border-gray-100 pt-6 sm:flex-row">
             {/* Progress Dots */}
-            <div className="flex items-center gap-2 order-2 sm:order-1">
+            <div className="order-2 flex items-center gap-2 sm:order-1">
               {stories.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => goToStory(idx)}
-                  className={`h-2 rounded-full transition-all duration-300 ${
+                  className={`h-2 transition-all duration-300 ${
                     idx === currentIndex 
                       ? 'w-8 bg-[var(--accent-gold)]' 
                       : 'w-2 bg-gray-300 hover:bg-gray-400'
@@ -453,22 +450,22 @@ export function ImpactStoriesSection() {
             </div>
 
             {/* Counter */}
-            <p className="text-sm font-medium text-gray-400 order-1 sm:order-2">
-              Story <span className="text-gray-900 font-semibold">{currentIndex + 1}</span> of {stories.length}
+            <p className="order-1 text-sm font-medium text-gray-400 sm:order-2">
+              Story <span className="font-semibold text-gray-900">{currentIndex + 1}</span> of {stories.length}
             </p>
 
             {/* Navigation Buttons */}
-            <div className="flex gap-3 order-3">
+            <div className="order-3 flex gap-3">
               <button
                 onClick={handlePrev}
-                className="w-12 h-12 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:bg-gray-50 hover:border-gray-300 transition-all"
+                className="flex h-11 w-11 items-center justify-center border border-gray-200 text-gray-600 transition-colors hover:border-gray-300 hover:bg-gray-50"
                 aria-label="Previous Story"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 onClick={handleNext}
-                className="w-12 h-12 rounded-full bg-[var(--trust)] text-white flex items-center justify-center hover:bg-[var(--trust-light)] transition-all shadow-lg"
+                className="flex h-11 w-11 items-center justify-center bg-[var(--trust)] text-white transition-colors hover:bg-[var(--trust-light)]"
                 aria-label="Next Story"
               >
                 <ChevronRight className="w-5 h-5" />

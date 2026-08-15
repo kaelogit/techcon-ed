@@ -23,11 +23,10 @@ function ProcessStep({ number, title, description, icon, delay, isVisible }: Pro
     >
       {/* Number Badge */}
       <div className="relative mb-8">
-        <div className="w-20 h-20 rounded-full bg-[var(--trust)] text-white flex items-center justify-center text-3xl font-serif font-bold shadow-xl ring-8 ring-[var(--warm-cream)]">
+        <div className="flex h-16 w-16 items-center justify-center bg-[var(--trust)] text-2xl font-serif font-bold text-white shadow-md">
           {number}
         </div>
-        {/* Icon overlay */}
-        <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-[var(--accent-gold)] rounded-full flex items-center justify-center shadow-lg">
+        <div className="absolute -bottom-2 -right-2 flex h-9 w-9 items-center justify-center bg-[var(--accent-gold)] shadow-sm">
           {icon}
         </div>
       </div>
@@ -141,7 +140,7 @@ export function ProcessSection() {
         >
           <Link
             href="/apply"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-[var(--accent-gold)] text-white rounded-full font-semibold hover:bg-[var(--accent-hover)] hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-xl"
+            className="inline-flex items-center gap-3 bg-[var(--accent-gold)] px-8 py-4 font-semibold text-white transition-colors hover:bg-[var(--accent-hover)]"
           >
             Share Your Goal
             <ArrowRight className="w-5 h-5" />
