@@ -8,7 +8,6 @@ const PRIORITY: Record<string, number> = {
   '/areas': 0.85,
   '/impact': 0.85,
   '/verify': 0.9,
-  '/security': 0.7,
 };
 
 export default function sitemap(): MetadataRoute.Sitemap {

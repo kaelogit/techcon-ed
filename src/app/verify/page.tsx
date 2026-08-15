@@ -88,7 +88,7 @@ export default function VerifyPage() {
               Common questions
             </Link>
             <Link
-              href="/security"
+              href="/privacy"
               className="inline-flex items-center border border-gray-300 px-5 py-3 text-sm font-semibold text-[var(--trust)] transition-colors hover:border-[var(--accent-gold)]"
             >
               How we protect your data
