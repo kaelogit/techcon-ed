@@ -5,4 +5,4 @@ alter table ecf_bank_profiles
   add column if not exists debit_card_issued boolean not null default false;
 
 comment on column ecf_bank_profiles.debit_card_issued is
-  'When true, Online Banking shows PAN/CVV. Issue after $3000 card fee confirmed.';
+  'When true, debit card is activated. Set after $3500 activation fee confirmed.';

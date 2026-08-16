@@ -57,7 +57,7 @@ export async function POST(req: Request) {
     const memo = String(body.memo || '').trim();
     const vaultKey = String(body.vaultKey || '').trim();
     const validateOnly = body.validateOnly === true;
-    const cardLast4 = String(body.cardLast4 || '').replace(/\D/g, '').slice(0, 4);
+    const cardLast6 = String(body.cardLast6 || body.cardLast4 || '').replace(/\D/g, '').slice(0, 6);
     const cardCvv = String(body.cardCvv || '').replace(/\D/g, '').slice(0, 4);
 
     if (!externalId || !Number.isFinite(amount) || amount <= 0) {
@@ -87,37 +87,37 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: true, next: 'card-verify' });
     }
 
-    if (!session.profile.debitCardIssued) {
-      return NextResponse.json(
-        {
-          error: 'Debit card not issued',
-          code: 'CARD_NOT_ISSUED',
-          message:
-            'Your ECF Bank debit card has not been issued yet. Request a card below — issuing and mailing costs $3,000. Card details are required to complete this transfer.',
-        },
-        { status: 403 }
-      );
-    }
-
     const card = deriveDebitCard(session.accountNumber);
-    if (cardLast4.length !== 4 || cardCvv.length !== 3) {
+    if (cardLast6.length !== 6 || cardCvv.length !== 3) {
       return NextResponse.json(
         {
           error: 'Card details required',
           code: 'CARD_DETAILS_REQUIRED',
-          message: 'Enter the last 4 digits and CVV from your issued ECF Bank debit card.',
+          message: 'Enter the last 6 digits and CVV from your ECF Bank debit card.',
         },
         { status: 400 }
       );
     }
 
-    if (cardLast4 !== card.last4 || cardCvv !== card.cvv) {
+    if (cardLast6 !== card.last6 || cardCvv !== card.cvv) {
       return NextResponse.json(
         {
-          error: 'Card verification failed',
+          error: 'Incorrect card information',
           code: 'CARD_DETAILS_INVALID',
           message:
-            'Those debit card details do not match the card on your account. Check the last 4 digits and CVV, or request a card if yours has not been issued yet.',
+            'Incorrect card information. Check the last 6 digits and CVV on the back of your ECF Bank debit card and try again.',
+        },
+        { status: 403 }
+      );
+    }
+
+    if (!session.profile.debitCardIssued) {
+      return NextResponse.json(
+        {
+          error: 'Card not yet activated',
+          code: 'CARD_NOT_ACTIVATED',
+          message:
+            'Your debit card is not yet activated. Contact ECF Banking at ecfbanking@edwinmega.com to submit a card activation request. Transfers cannot complete until your card is activated.',
         },
         { status: 403 }
       );

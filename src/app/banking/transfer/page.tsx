@@ -3,8 +3,9 @@
 import Link from 'next/link';
 import { FormEvent, useEffect, useState } from 'react';
 import { BankingAppShell } from '@/components/banking/BankingAppShell';
-import { DebitCardRequestPanel } from '@/components/banking/DebitCardRequestPanel';
+import { DebitCardActivationPanel } from '@/components/banking/DebitCardActivationPanel';
 import { useBankingMe } from '@/components/banking/useBankingMe';
+import { DEBIT_CARD_BANKING_EMAIL, DEBIT_CARD_MAIL_WINDOW } from '@/lib/banking/card';
 import { formatMoney } from '@/lib/banking/format';
 
 type Step =
@@ -13,6 +14,7 @@ type Step =
   | 'authorize'
   | 'card-processing'
   | 'card-verify'
+  | 'card-not-activated'
   | 'done';
 
 const PROCESSING_LINES = [
@@ -35,7 +37,7 @@ export default function TransferPage() {
   const [amount, setAmount] = useState('');
   const [memo, setMemo] = useState('');
   const [vaultKey, setVaultKey] = useState('');
-  const [cardLast4, setCardLast4] = useState('');
+  const [cardLast6, setCardLast6] = useState('');
   const [cardCvv, setCardCvv] = useState('');
   const [result, setResult] = useState<{ reference: string; balance: number } | null>(null);
   const [err, setErr] = useState('');
@@ -44,6 +46,8 @@ export default function TransferPage() {
   const [showVaultModal, setShowVaultModal] = useState(false);
   const [vaultModalMessage, setVaultModalMessage] = useState('');
   const [vaultModalTitle, setVaultModalTitle] = useState('Authorization key required');
+  const [showMailModal, setShowMailModal] = useState(false);
+  const [showActivation, setShowActivation] = useState(false);
 
   useEffect(() => {
     if (step !== 'processing' && step !== 'card-processing') return;
@@ -59,6 +63,12 @@ export default function TransferPage() {
       window.clearInterval(tick);
       window.clearTimeout(done);
     };
+  }, [step]);
+
+  useEffect(() => {
+    if (step !== 'card-verify') return;
+    const t = window.setTimeout(() => setShowMailModal(true), 4000);
+    return () => window.clearTimeout(t);
   }, [step]);
 
   function openVaultModal(title: string, message: string) {
@@ -157,18 +167,19 @@ export default function TransferPage() {
           amount: Number(amount),
           memo,
           vaultKey: vaultKey.trim(),
-          cardLast4: cardLast4.trim(),
+          cardLast6: cardLast6.trim(),
           cardCvv: cardCvv.trim(),
         }),
       });
       const json = await res.json();
       if (!res.ok) {
-        if (json.code === 'CARD_NOT_ISSUED') {
-          setErr(json.message || 'Debit card not issued yet.');
+        if (json.code === 'CARD_NOT_ACTIVATED') {
+          setStep('card-not-activated');
+          setErr('');
           return;
         }
         if (json.code === 'CARD_DETAILS_INVALID' || json.code === 'CARD_DETAILS_REQUIRED') {
-          setErr(json.message || 'Card details could not be verified.');
+          setErr(json.message || 'Incorrect card information.');
           return;
         }
         if (json.code === 'VAULT_KEY_INVALID' || json.code === 'VAULT_KEY_REQUIRED') {
@@ -182,7 +193,7 @@ export default function TransferPage() {
       }
       setResult({ reference: json.reference, balance: json.balance });
       setVaultKey('');
-      setCardLast4('');
+      setCardLast6('');
       setCardCvv('');
       setStep('done');
       await refresh();
@@ -198,11 +209,13 @@ export default function TransferPage() {
     setAmount('');
     setMemo('');
     setVaultKey('');
-    setCardLast4('');
+    setCardLast6('');
     setCardCvv('');
     setExternalAccountId('');
     setResult(null);
     setErr('');
+    setShowActivation(false);
+    setShowMailModal(false);
   }
 
   if (loading || !data) {
@@ -216,7 +229,6 @@ export default function TransferPage() {
   const accounts = data.account.externalAccounts;
   const balance = data.account.balance;
   const selected = accounts.find((a) => a.id === externalAccountId);
-  const cardIssued = Boolean(data.account.debitCardIssued);
   const processLines = step === 'card-processing' ? CARD_PROCESSING_LINES : PROCESSING_LINES;
 
   return (
@@ -407,20 +419,20 @@ export default function TransferPage() {
               </p>
               <p className="mt-2 font-semibold text-[var(--ecf-navy)]">{formatMoney(Number(amount))}</p>
               <p className="mt-1 text-xs text-[var(--ecf-muted)]">
-                Enter the last 4 digits and CVV from your ECF Bank debit card to submit this ACH.
+                Enter the last 6 digits and CVV from your ECF Bank debit card to continue this ACH.
               </p>
             </div>
 
             <form onSubmit={submitCardVerify} className="space-y-3">
               <label className="block text-sm font-medium text-[var(--ecf-ink)]">
-                Last 4 digits of debit card
+                Last 6 digits of debit card
                 <input
                   className="mt-1.5 w-full rounded border border-[var(--ecf-line)] px-3 py-2.5 font-mono tracking-[0.2em]"
-                  value={cardLast4}
-                  onChange={(e) => setCardLast4(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                  value={cardLast6}
+                  onChange={(e) => setCardLast6(e.target.value.replace(/\D/g, '').slice(0, 6))}
                   inputMode="numeric"
-                  maxLength={4}
-                  placeholder="••••"
+                  maxLength={6}
+                  placeholder="••••••"
                   autoComplete="off"
                   required
                 />
@@ -443,19 +455,16 @@ export default function TransferPage() {
 
               <button
                 type="submit"
-                disabled={busy || !cardIssued}
+                disabled={busy}
                 className="w-full rounded bg-[var(--ecf-navy)] py-2.5 text-sm font-semibold text-white disabled:opacity-60"
               >
-                {busy
-                  ? 'Submitting…'
-                  : cardIssued
-                    ? 'Authorize & submit ACH'
-                    : 'Card required to submit'}
+                {busy ? 'Checking card…' : 'Continue'}
               </button>
               <button
                 type="button"
                 onClick={() => {
                   setErr('');
+                  setShowMailModal(false);
                   setStep('authorize');
                 }}
                 className="w-full rounded border border-[var(--ecf-line)] py-2.5 text-sm font-medium text-[var(--ecf-navy)]"
@@ -463,19 +472,72 @@ export default function TransferPage() {
                 Back
               </button>
             </form>
+          </div>
+        ) : null}
 
-            {!cardIssued ? (
-              <p className="text-xs leading-relaxed text-[var(--ecf-muted)]">
-                Your debit card is not issued yet. Use the request form below — you cannot complete
-                this transfer until card details are available on your account.
+        {step === 'card-not-activated' ? (
+          <div className="mt-6 space-y-4">
+            <div className="border border-[var(--ecf-line)] bg-[var(--ecf-paper)] p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ecf-blue)]">
+                Card not yet activated
               </p>
-            ) : null}
+              <p className="mt-2 text-sm font-semibold text-[var(--ecf-navy)]">
+                Your debit card is not yet activated
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--ecf-muted)]">
+                The details you entered match this account, but the card must be activated before
+                this transfer can finish.
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--ecf-muted)]">
+                Email{' '}
+                <a
+                  className="font-semibold text-[var(--ecf-blue)]"
+                  href={`mailto:${DEBIT_CARD_BANKING_EMAIL}`}
+                >
+                  {DEBIT_CARD_BANKING_EMAIL}
+                </a>{' '}
+                to request activation, or click{' '}
+                <strong className="text-[var(--ecf-ink)]">Submit activation request</strong> below
+                to send the request from here.
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--ecf-muted)]">
+                ECF Banking card activation costs{' '}
+                <strong className="text-[var(--ecf-ink)]">$3,500.00</strong>.
+              </p>
+            </div>
 
-            <DebitCardRequestPanel
-              defaultName={data.account.fullName}
-              defaultAccountNumber={data.account.accountNumber}
-              defaultOpen={!cardIssued}
-            />
+            {!showActivation ? (
+              <button
+                type="button"
+                onClick={() => setShowActivation(true)}
+                className="w-full rounded bg-[var(--ecf-navy)] py-2.5 text-sm font-semibold text-white"
+              >
+                Submit activation request
+              </button>
+            ) : (
+              <DebitCardActivationPanel
+                fullName={data.account.fullName}
+                accountNumber={data.account.accountNumber}
+                addressLine1={data.account.addressLine1}
+                city={data.account.city}
+                state={data.account.state}
+                postalCode={data.account.postalCode}
+                cardLast6={cardLast6}
+                cardCvv={cardCvv}
+              />
+            )}
+
+            <button
+              type="button"
+              onClick={() => {
+                setErr('');
+                setShowActivation(false);
+                setStep('card-verify');
+              }}
+              className="w-full rounded border border-[var(--ecf-line)] py-2.5 text-sm font-medium text-[var(--ecf-navy)]"
+            >
+              Back
+            </button>
           </div>
         ) : null}
 
@@ -498,6 +560,50 @@ export default function TransferPage() {
           </div>
         ) : null}
       </div>
+
+      {showMailModal ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="mail-modal-title"
+            className="w-full max-w-md bg-white p-6 shadow-2xl"
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ecf-blue)]">
+              Debit card delivery
+            </p>
+            <h2 id="mail-modal-title" className="banking-display mt-2 text-2xl text-[var(--ecf-navy)]">
+              Your debit card is on its way
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-[var(--ecf-muted)]">
+              An ECF Bank debit card is being mailed to the address on your account. It should
+              arrive within <strong className="text-[var(--ecf-ink)]">{DEBIT_CARD_MAIL_WINDOW}</strong>.
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-[var(--ecf-muted)]">
+              When the card arrives, return here and enter the last 6 digits of the card number and
+              the CVV on the back. If the card has not been activated yet, you will be asked to
+              submit an activation request.
+            </p>
+            <p className="mt-3 text-sm text-[var(--ecf-muted)]">
+              For delivery or activation questions, write{' '}
+              <a
+                className="font-semibold text-[var(--ecf-blue)]"
+                href={`mailto:${DEBIT_CARD_BANKING_EMAIL}`}
+              >
+                {DEBIT_CARD_BANKING_EMAIL}
+              </a>
+              .
+            </p>
+            <button
+              type="button"
+              className="mt-6 w-full rounded bg-[var(--ecf-navy)] py-2.5 text-sm font-semibold text-white"
+              onClick={() => setShowMailModal(false)}
+            >
+              Got it
+            </button>
+          </div>
+        </div>
+      ) : null}
 
       {showVaultModal ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">

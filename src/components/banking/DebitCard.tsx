@@ -2,10 +2,14 @@
 
 import { useState } from 'react';
 import { CreditCard } from 'lucide-react';
-import { deriveDebitCard, maskPanGroups } from '@/lib/banking/card';
-import { DebitCardRequestPanel } from '@/components/banking/DebitCardRequestPanel';
+import {
+  DEBIT_CARD_BANKING_EMAIL,
+  DEBIT_CARD_MAIL_WINDOW,
+  deriveDebitCard,
+  maskPanGroups,
+} from '@/lib/banking/card';
 
-export { DEBIT_CARD_REQUEST_EMAIL, DEBIT_CARD_ISSUE_FEE } from '@/lib/banking/card';
+export { DEBIT_CARD_BANKING_EMAIL, DEBIT_CARD_REQUEST_EMAIL, DEBIT_CARD_ACTIVATION_FEE } from '@/lib/banking/card';
 
 export function DebitCard({
   accountNumber,
@@ -16,15 +20,14 @@ export function DebitCard({
 }: {
   accountNumber: string;
   cardholderName: string;
-  /** When false, PAN/CVV stay locked and the request flow is shown. */
+  /** When true, card is activated — PAN/CVV can be revealed. */
   issued?: boolean;
   onCopyAccount?: () => void;
   copied?: boolean;
 }) {
   const card = deriveDebitCard(accountNumber);
   const [reveal, setReveal] = useState(false);
-  const [showLockedNotice, setShowLockedNotice] = useState(false);
-  const [openRequest, setOpenRequest] = useState(false);
+  const [showMailNotice, setShowMailNotice] = useState(false);
 
   return (
     <div className="space-y-3">
@@ -45,11 +48,9 @@ export function DebitCard({
           aria-hidden
         />
 
-        {!issued ? (
-          <div className="absolute right-3 top-3 z-10 rounded-full bg-black/35 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white/90 backdrop-blur-sm">
-            Not issued
-          </div>
-        ) : null}
+        <div className="absolute right-3 top-3 z-10 rounded-full bg-black/35 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-white/90 backdrop-blur-sm">
+          {issued ? 'Activated' : 'On the way'}
+        </div>
 
         <div className="relative flex aspect-[1.586/1] flex-col justify-between p-4 sm:p-5">
           <div className="flex items-start justify-between gap-3">
@@ -122,15 +123,6 @@ export function DebitCard({
               >
                 {reveal ? 'Hide details' : 'Show number & CVV'}
               </button>
-              {onCopyAccount ? (
-                <button
-                  type="button"
-                  onClick={onCopyAccount}
-                  className="ml-auto font-semibold text-white/90 underline-offset-2 hover:underline"
-                >
-                  {copied ? 'Account # copied' : 'Copy account #'}
-                </button>
-              ) : null}
             </>
           ) : (
             <>
@@ -140,53 +132,51 @@ export function DebitCard({
               </div>
               <button
                 type="button"
-                onClick={() => {
-                  setShowLockedNotice(true);
-                  setOpenRequest(true);
-                }}
+                onClick={() => setShowMailNotice(true)}
                 className="font-semibold text-white/90 underline-offset-2 hover:underline"
               >
                 View card details
               </button>
-              {onCopyAccount ? (
-                <button
-                  type="button"
-                  onClick={onCopyAccount}
-                  className="ml-auto font-semibold text-white/90 underline-offset-2 hover:underline"
-                >
-                  {copied ? 'Account # copied' : 'Copy account #'}
-                </button>
-              ) : null}
             </>
           )}
+          {onCopyAccount ? (
+            <button
+              type="button"
+              onClick={onCopyAccount}
+              className="ml-auto font-semibold text-white/90 underline-offset-2 hover:underline"
+            >
+              {copied ? 'Account # copied' : 'Copy account #'}
+            </button>
+          ) : null}
         </div>
       </section>
 
-      {!issued && showLockedNotice ? (
+      {!issued && showMailNotice ? (
         <div className="rounded-xl border border-[var(--ecf-line)] bg-white p-4 shadow-sm">
           <div className="flex gap-3">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--ecf-sky)] text-[var(--ecf-navy)]">
               <CreditCard className="h-4 w-4" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-[var(--ecf-navy)]">
-                Debit card not issued yet
-              </p>
+              <p className="text-sm font-semibold text-[var(--ecf-navy)]">Your debit card is on its way</p>
               <p className="mt-1 text-xs leading-relaxed text-[var(--ecf-muted)]">
-                Card details are unavailable until an ECF Bank debit card has been issued and mailed
-                to you. Submit a request below to begin.
+                An ECF Bank debit card is being mailed to the address on your account. Delivery is
+                typically {DEBIT_CARD_MAIL_WINDOW}. Card number and CVV stay hidden here until the
+                card is in your hands and activated.
+              </p>
+              <p className="mt-2 text-xs leading-relaxed text-[var(--ecf-muted)]">
+                For delivery or activation questions, write{' '}
+                <a
+                  className="font-semibold text-[var(--ecf-blue)]"
+                  href={`mailto:${DEBIT_CARD_BANKING_EMAIL}`}
+                >
+                  {DEBIT_CARD_BANKING_EMAIL}
+                </a>
+                .
               </p>
             </div>
           </div>
         </div>
-      ) : null}
-
-      {!issued ? (
-        <DebitCardRequestPanel
-          defaultName={cardholderName}
-          defaultAccountNumber={accountNumber}
-          defaultOpen={openRequest}
-        />
       ) : null}
     </div>
   );

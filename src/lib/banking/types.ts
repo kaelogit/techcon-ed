@@ -35,7 +35,7 @@ export type AccountProfile = {
   vaultKeyHash?: string | null;
   hasVaultKey: boolean;
   lastLoginAt?: string | null;
-  /** Physical debit card issued — details hidden until true. */
+  /** Debit card activated — last 6 + CVV can complete ACH. */
   debitCardIssued: boolean;
 };
 

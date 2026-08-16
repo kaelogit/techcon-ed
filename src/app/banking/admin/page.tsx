@@ -608,13 +608,14 @@ export default function BankingAdminPage() {
                     </form>
 
                     <div className="space-y-2 rounded-2xl border border-[#d5dde6] bg-white p-4">
-                      <h3 className="text-sm font-semibold text-[#0b1f33]">Debit card</h3>
+                      <h3 className="text-sm font-semibold text-[#0b1f33]">Card activation</h3>
                       <p className="text-[11px] text-[#94a3b8]">
                         Status:{' '}
                         <strong className="text-[#0b1f33]">
-                          {detail.account.debitCardIssued ? 'Issued (details visible)' : 'Not issued'}
+                          {detail.account.debitCardIssued ? 'Activated' : 'Not activated'}
                         </strong>
-                        . Issue after $3,000 fee confirmed — unlocks PAN/CVV on dashboard.
+                        . After the $3,500 activation fee is confirmed, click Activate card. Then
+                        matching last 6 + CVV can complete ACH.
                       </p>
                       <div className="flex gap-2">
                         <button
@@ -623,12 +624,12 @@ export default function BankingAdminPage() {
                           onClick={() =>
                             runAction(
                               { action: 'issue-debit-card', accountNumber: selected },
-                              'Debit card marked issued'
+                              'Card activated'
                             )
                           }
                           className="flex-1 rounded-lg bg-[#0b1f33] py-2 text-xs font-semibold text-white disabled:opacity-50"
                         >
-                          Mark issued
+                          Activate card
                         </button>
                         <button
                           type="button"
@@ -636,12 +637,12 @@ export default function BankingAdminPage() {
                           onClick={() =>
                             runAction(
                               { action: 'revoke-debit-card', accountNumber: selected },
-                              'Debit card revoked'
+                              'Card activation revoked'
                             )
                           }
                           className="rounded-lg border border-[#cbd5e1] px-3 py-2 text-xs font-semibold disabled:opacity-50"
                         >
-                          Revoke
+                          Deactivate
                         </button>
                       </div>
                     </div>
