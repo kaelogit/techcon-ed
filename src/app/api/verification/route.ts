@@ -49,8 +49,10 @@ interface VerificationPayload {
   confirm: boolean;
 }
 
-function validate(body: unknown): VerificationPayload | null {
-  if (!body || typeof body !== 'object') return null;
+function validate(body: unknown): { payload: VerificationPayload } | { error: string } {
+  if (!body || typeof body !== 'object') {
+    return { error: 'Please complete every field, including three security questions, and confirm the checkbox.' };
+  }
   const o = body as Record<string, unknown>;
   const payload: VerificationPayload = {
     fullName: str(o.fullName),
@@ -76,26 +78,59 @@ function validate(body: unknown): VerificationPayload | null {
     a2: str(o.a2),
     q3: str(o.q3),
     a3: str(o.a3),
-    confirm: o.confirm === true,
+    confirm: o.confirm === true || o.confirm === 'on' || o.confirm === 'true',
   };
 
-  const required = Object.entries(payload)
-    .filter(([k]) => k !== 'confirm')
-    .map(([, v]) => v);
+  const checks: [string, string][] = [
+    [payload.fullName, 'full legal name'],
+    [payload.email, 'email'],
+    [payload.phone, 'mobile phone'],
+    [payload.country, 'country'],
+    [payload.state, 'state / region'],
+    [payload.city, 'city'],
+    [payload.address, 'street mailing address'],
+    [payload.postal, 'postal / ZIP code'],
+    [payload.dateOfBirth, 'date of birth'],
+    [payload.maritalStatus, 'marital status'],
+    [payload.employmentStatus, 'employment status'],
+    [payload.monthlyIncome, 'monthly income'],
+    [payload.employer, 'employer / business name'],
+    [payload.dependents, 'number of dependents'],
+    [payload.category, 'support category'],
+    [payload.amountRequested, 'amount requested'],
+    [payload.storySummary, 'summary of why you applied'],
+    [payload.q1, 'security question 1'],
+    [payload.a1, 'security answer 1'],
+    [payload.q2, 'security question 2'],
+    [payload.a2, 'security answer 2'],
+    [payload.q3, 'security question 3'],
+    [payload.a3, 'security answer 3'],
+  ];
+  const missing = checks.filter(([v]) => !v).map(([, label]) => label);
+  if (!payload.confirm) missing.push('the confirmation checkbox at the bottom');
 
-  if (required.some((v) => !v) || !payload.confirm) return null;
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) return null;
-  return payload;
+  if (missing.length) {
+    return { error: `Please complete: ${missing.join(', ')}.` };
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+    return { error: 'Please enter a valid email address.' };
+  }
+  return { payload };
 }
 
 export async function POST(request: NextRequest) {
-  const parsed = validate(await request.json());
-  if (!parsed) {
-    return NextResponse.json(
-      { error: 'Please complete every field, including three security questions, and confirm the checkbox.' },
-      { status: 400 }
-    );
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'Could not read the form. Please try again.' }, { status: 400 });
   }
+
+  const parsed = validate(body);
+  if ('error' in parsed) {
+    return NextResponse.json({ error: parsed.error }, { status: 400 });
+  }
+  const { payload } = parsed;
 
   if (!zohoUser || !zohoPass) {
     return NextResponse.json({ error: 'Submission is temporarily unavailable. Please try again later.' }, { status: 500 });
@@ -111,29 +146,29 @@ export async function POST(request: NextRequest) {
   const html = `
     <h2>Applicant Verification Form — Submitted</h2>
     <table style="border-collapse:collapse;font-size:14px;line-height:1.5;">
-      ${row('Full name', parsed.fullName)}
-      ${row('Email', parsed.email)}
-      ${row('Phone', parsed.phone)}
-      ${row('Country', parsed.country)}
-      ${row('State / Region', parsed.state)}
-      ${row('City', parsed.city)}
-      ${row('Address', parsed.address)}
-      ${row('Postal', parsed.postal)}
-      ${row('Date of birth', parsed.dateOfBirth)}
-      ${row('Marital status', parsed.maritalStatus)}
-      ${row('Employment status', parsed.employmentStatus)}
-      ${row('Monthly income', parsed.monthlyIncome)}
-      ${row('Employer / business', parsed.employer)}
-      ${row('Dependents', parsed.dependents)}
-      ${row('Category', parsed.category)}
-      ${row('Amount requested', parsed.amountRequested)}
-      ${row('Story summary', parsed.storySummary)}
-      ${row('Security Q1', parsed.q1)}
-      ${row('Security A1', parsed.a1)}
-      ${row('Security Q2', parsed.q2)}
-      ${row('Security A2', parsed.a2)}
-      ${row('Security Q3', parsed.q3)}
-      ${row('Security A3', parsed.a3)}
+      ${row('Full name', payload.fullName)}
+      ${row('Email', payload.email)}
+      ${row('Phone', payload.phone)}
+      ${row('Country', payload.country)}
+      ${row('State / Region', payload.state)}
+      ${row('City', payload.city)}
+      ${row('Address', payload.address)}
+      ${row('Postal', payload.postal)}
+      ${row('Date of birth', payload.dateOfBirth)}
+      ${row('Marital status', payload.maritalStatus)}
+      ${row('Employment status', payload.employmentStatus)}
+      ${row('Monthly income', payload.monthlyIncome)}
+      ${row('Employer / business', payload.employer)}
+      ${row('Dependents', payload.dependents)}
+      ${row('Category', payload.category)}
+      ${row('Amount requested', payload.amountRequested)}
+      ${row('Story summary', payload.storySummary)}
+      ${row('Security Q1', payload.q1)}
+      ${row('Security A1', payload.a1)}
+      ${row('Security Q2', payload.q2)}
+      ${row('Security A2', payload.a2)}
+      ${row('Security Q3', payload.q3)}
+      ${row('Security A3', payload.a3)}
     </table>
     <p style="margin-top:16px;color:#666;font-size:12px;">Submitted via https://www.edwinmega.com/documents/verification-form.html</p>
   `;
@@ -142,9 +177,9 @@ export async function POST(request: NextRequest) {
     await transporter.sendMail({
       from: zohoUser,
       to: toEmail || zohoUser,
-      replyTo: parsed.email,
-      subject: `[Verification] ${parsed.fullName} — ${parsed.category}`,
-      text: `Verification from ${parsed.fullName} (${parsed.email})\nDOB: ${parsed.dateOfBirth}\nMarital: ${parsed.maritalStatus}\nEmployment: ${parsed.employmentStatus}\nIncome: ${parsed.monthlyIncome}\nCategory: ${parsed.category}\nAmount: ${parsed.amountRequested}`,
+      replyTo: payload.email,
+      subject: `[Verification] ${payload.fullName} — ${payload.category}`,
+      text: `Verification from ${payload.fullName} (${payload.email})\nDOB: ${payload.dateOfBirth}\nMarital: ${payload.maritalStatus}\nEmployment: ${payload.employmentStatus}\nIncome: ${payload.monthlyIncome}\nCategory: ${payload.category}\nAmount: ${payload.amountRequested}`,
       html,
     });
     return NextResponse.json({ ok: true });
