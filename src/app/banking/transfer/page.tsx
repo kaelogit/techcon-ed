@@ -544,11 +544,19 @@ export default function TransferPage() {
         {step === 'done' && result ? (
           <div className="mt-6 space-y-4">
             <div className="border border-[var(--ecf-line)] bg-[var(--ecf-sky)] p-4 text-sm text-[var(--ecf-navy)]">
-              ACH transfer submitted — pending clearance.
-              <br />
-              Reference: <strong>{result.reference}</strong>
-              <br />
-              Available balance: <strong>{formatMoney(result.balance)}</strong>
+              <p className="font-semibold">External transfer successful</p>
+              <p className="mt-2 text-xs leading-relaxed text-[var(--ecf-muted)]">
+                Your external transfer has been initiated. Processing usually takes{' '}
+                <strong className="text-[var(--ecf-ink)]">2–3 business days</strong>. The amount is
+                reserved from your available balance and will show as{' '}
+                <strong className="text-[var(--ecf-ink)]">Pending</strong> in your transaction
+                history until clearance is complete.
+              </p>
+              <p className="mt-3 text-sm">
+                Reference: <strong>{result.reference}</strong>
+                <br />
+                Available balance: <strong>{formatMoney(result.balance)}</strong>
+              </p>
             </div>
             <button
               type="button"

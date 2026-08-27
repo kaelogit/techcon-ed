@@ -15,6 +15,7 @@ import {
   getSeed,
   listAllSeeds,
   approveTransaction,
+  setTransactionStatus,
   postManualTransaction,
   reverseTransaction,
   setVaultKeyHash,
@@ -133,7 +134,12 @@ export async function POST(req: Request) {
     }
 
     const accountNumber = normalizeAccountNumber(String(body.accountNumber || ''));
-    if (!accountNumber && action !== 'reverse-txn' && action !== 'approve-txn') {
+    if (
+      !accountNumber &&
+      action !== 'reverse-txn' &&
+      action !== 'approve-txn' &&
+      action !== 'set-txn-status'
+    ) {
       return NextResponse.json({ error: 'Account number is required.' }, { status: 400 });
     }
 
@@ -253,6 +259,20 @@ export async function POST(req: Request) {
       if (!txnId) return NextResponse.json({ error: 'txnId required.' }, { status: 400 });
       await approveTransaction(txnId);
       return NextResponse.json({ ok: true });
+    }
+
+    if (action === 'set-txn-status') {
+      const txnId = String(body.txnId || '');
+      const status = String(body.status || '');
+      if (!txnId) return NextResponse.json({ error: 'txnId required.' }, { status: 400 });
+      if (status !== 'completed' && status !== 'pending' && status !== 'rejected') {
+        return NextResponse.json(
+          { error: 'status must be completed, pending, or rejected.' },
+          { status: 400 }
+        );
+      }
+      await setTransactionStatus(txnId, status);
+      return NextResponse.json({ ok: true, status });
     }
 
     if (action === 'reverse-txn') {

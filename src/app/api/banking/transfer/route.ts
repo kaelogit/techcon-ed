@@ -147,7 +147,8 @@ export async function POST(req: Request) {
       transaction: txn,
       balance: newBalance,
       reference,
-      message: 'ACH transfer submitted for processing. Funds are reserved pending clearance.',
+      message:
+        'External transfer successful. Your transfer has been initiated and usually takes 2–3 business days to process. Funds are reserved from your available balance and will show as Pending until clearance is complete.',
     });
   } catch (err) {
     console.error('[banking/transfer]', err);

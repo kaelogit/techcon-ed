@@ -31,7 +31,7 @@ type Txn = {
   description: string;
   amount: number;
   type: string;
-  status: 'completed' | 'pending';
+  status: 'completed' | 'pending' | 'rejected';
   reference?: string;
 };
 
@@ -713,10 +713,13 @@ export default function BankingAdminPage() {
                   <div className="rounded-2xl border border-[#d5dde6] bg-white p-5">
                     <h3 className="font-semibold text-[#0b1f33]">Transaction history</h3>
                     <p className="mt-1 text-xs text-[#94a3b8]">
-                      Pending ACH can be approved or cancelled. Completed transfers can be reversed.
+                      For each transfer: Complete (funds cleared), Reject (release hold / restore
+                      balance), or Set pending. Status changes update available balance immediately.
                     </p>
                     <ul className="mt-4 divide-y divide-[#e2e8f0] text-sm">
-                      {detail.transactions.map((t) => (
+                      {detail.transactions.map((t) => {
+                        const isTransfer = t.type === 'transfer' || (t.amount < 0 && t.type !== 'fee');
+                        return (
                         <li key={t.id} className="flex flex-wrap items-center justify-between gap-2 py-3">
                           <div className="min-w-0 flex-1">
                             <p className="font-medium text-[#0b1f33]">{t.description}</p>
@@ -725,52 +728,85 @@ export default function BankingAdminPage() {
                               {t.reference ? ` · ${t.reference}` : ''} · {t.status}
                             </p>
                           </div>
-                          <div className="flex items-center gap-2">
+                          <div className="flex flex-wrap items-center gap-2">
                             <span
                               className={`font-semibold tabular-nums ${t.amount >= 0 ? 'text-[#0f766e]' : 'text-[#0b1f33]'}`}
                             >
                               {formatMoney(t.amount)}
                             </span>
-                            {t.status === 'pending' ? (
+                            {isTransfer ? (
+                              <>
+                                <button
+                                  type="button"
+                                  disabled={busy || t.status === 'completed'}
+                                  onClick={() =>
+                                    runAction(
+                                      { action: 'set-txn-status', txnId: t.id, status: 'completed' },
+                                      'Transfer marked complete'
+                                    )
+                                  }
+                                  className="rounded-md bg-[#2f8f84] px-2 py-1 text-[10px] font-semibold text-white disabled:opacity-40"
+                                >
+                                  Complete
+                                </button>
+                                <button
+                                  type="button"
+                                  disabled={busy || t.status === 'pending'}
+                                  onClick={() =>
+                                    runAction(
+                                      { action: 'set-txn-status', txnId: t.id, status: 'pending' },
+                                      'Transfer set to pending'
+                                    )
+                                  }
+                                  className="rounded-md border border-amber-200 bg-amber-50 px-2 py-1 text-[10px] font-semibold text-amber-900 disabled:opacity-40"
+                                >
+                                  Pending
+                                </button>
+                                <button
+                                  type="button"
+                                  disabled={busy || t.status === 'rejected'}
+                                  onClick={() =>
+                                    runAction(
+                                      { action: 'set-txn-status', txnId: t.id, status: 'rejected' },
+                                      'Transfer rejected — balance restored'
+                                    )
+                                  }
+                                  className="rounded-md border border-red-200 px-2 py-1 text-[10px] font-semibold text-red-700 disabled:opacity-40"
+                                >
+                                  Reject
+                                </button>
+                              </>
+                            ) : t.status === 'pending' ? (
                               <>
                                 <button
                                   type="button"
                                   disabled={busy}
                                   onClick={() =>
-                                    runAction({ action: 'approve-txn', txnId: t.id }, 'ACH approved')
+                                    runAction({ action: 'approve-txn', txnId: t.id }, 'Approved')
                                   }
                                   className="rounded-md bg-[#2f8f84] px-2 py-1 text-[10px] font-semibold text-white"
                                 >
-                                  Approve
+                                  Complete
                                 </button>
                                 <button
                                   type="button"
                                   disabled={busy}
                                   onClick={() =>
-                                    runAction({ action: 'reverse-txn', txnId: t.id }, 'Pending ACH cancelled')
+                                    runAction(
+                                      { action: 'set-txn-status', txnId: t.id, status: 'rejected' },
+                                      'Rejected'
+                                    )
                                   }
                                   className="rounded-md border border-red-200 px-2 py-1 text-[10px] font-semibold text-red-700"
                                 >
-                                  Cancel
+                                  Reject
                                 </button>
                               </>
-                            ) : t.type === 'transfer' || t.amount < 0 ? (
-                              <button
-                                type="button"
-                                disabled={busy}
-                                onClick={() => {
-                                  if (confirm('Post a reversing entry for this transaction?')) {
-                                    runAction({ action: 'reverse-txn', txnId: t.id }, 'Reversal posted');
-                                  }
-                                }}
-                                className="rounded-md border border-[#cbd5e1] px-2 py-1 text-[10px] font-semibold"
-                              >
-                                Reverse
-                              </button>
                             ) : null}
                           </div>
                         </li>
-                      ))}
+                        );
+                      })}
                       {!detail.transactions.length ? (
                         <li className="py-6 text-center text-[#94a3b8]">No transactions</li>
                       ) : null}

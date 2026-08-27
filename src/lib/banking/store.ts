@@ -460,17 +460,18 @@ export async function postManualTransaction(
 }
 
 export async function approveTransaction(txnId: string): Promise<void> {
+  await setTransactionStatus(txnId, 'completed');
+}
+
+export async function setTransactionStatus(
+  txnId: string,
+  status: 'completed' | 'pending' | 'rejected'
+): Promise<void> {
   const sb = getSupabaseAdmin();
   const { data, error } = await sb.from('ecf_bank_transactions').select('id, status').eq('id', txnId).maybeSingle();
   if (error) throw error;
   if (!data) throw new Error('Transaction not found');
-  if ((data as { status: string }).status !== 'pending') {
-    throw new Error('Only pending transactions can be approved.');
-  }
-  const { error: upd } = await sb
-    .from('ecf_bank_transactions')
-    .update({ status: 'completed' })
-    .eq('id', txnId);
+  const { error: upd } = await sb.from('ecf_bank_transactions').update({ status }).eq('id', txnId);
   if (upd) throw upd;
 }
 

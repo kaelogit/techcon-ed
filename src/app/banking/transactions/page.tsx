@@ -78,6 +78,12 @@ function TransactionRow({
             <div>
               <dt className="font-semibold text-[var(--ecf-ink)]">Status</dt>
               <dd className="mt-0.5 capitalize">{txn.status}</dd>
+              {txn.status === 'pending' && txn.amount < 0 ? (
+                <dd className="mt-1 text-[var(--ecf-muted)]">
+                  External transfer initiated. Processing usually takes 2–3 business days. Funds are
+                  reserved from your available balance until clearance is complete.
+                </dd>
+              ) : null}
             </div>
             <div>
               <dt className="font-semibold text-[var(--ecf-ink)]">Type</dt>
