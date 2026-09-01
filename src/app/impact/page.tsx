@@ -330,7 +330,7 @@ export default function ImpactPage() {
             href="/apply" 
             className="inline-block px-12 py-5 bg-white text-edwin-navy text-lg font-bold rounded-full hover:bg-amber-400 hover:text-edwin-black transition-all shadow-xl hover:scale-105 active:scale-95"
           >
-            Share Your Goal
+            Apply now
           </Link>
         </View>
       </View>

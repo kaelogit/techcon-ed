@@ -32,7 +32,7 @@ export const faqs = [
   {
     question: 'Do I need to provide a lot of paperwork?',
     answer:
-      'We keep the process human and light. After you share your goal, we tell you exactly what basic verification is needed. We do not use bureaucracy as a barrier.',
+      'We keep the process human and light. After you apply, we tell you exactly what basic verification is needed. We do not use bureaucracy as a barrier.',
   },
   {
     question: 'Will my request be shared publicly?',

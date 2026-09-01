@@ -63,13 +63,13 @@ function StatBlock({
       <div className="absolute -left-0 top-0 bottom-0 hidden w-0.5 bg-linear-to-b from-(--accent-gold) via-(--accent-gold)/30 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:block" />
       
       {/* Icon */}
-      <div className="mb-6 w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-(--accent-gold) shadow-lg shadow-gray-200/50 border border-gray-100 group-hover:scale-110 group-hover:bg-(--trust) group-hover:text-white group-hover:shadow-xl transition-all duration-500 ease-out">
+        <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-lg bg-white text-[var(--accent-gold)] shadow-sm border border-gray-100 group-hover:bg-[var(--trust)] group-hover:text-white transition-colors">
         {icon}
       </div>
 
       {/* Number */}
       <div className="flex items-baseline gap-2 mb-4">
-        <span className="font-serif text-5xl lg:text-7xl font-semibold text-(--trust) tracking-tighter transition-colors group-hover:text-(--accent-gold)">
+        <span className="text-4xl font-bold tracking-tight text-[var(--trust)] transition-colors group-hover:text-[var(--accent-gold)] lg:text-5xl">
           {prefix}{count}
         </span>
         <span className="text-lg lg:text-xl text-(--accent-gold) font-bold tracking-tight uppercase">
@@ -141,15 +141,12 @@ export function ImpactStatsSection() {
   ];
 
   return (
-    <section 
-      ref={sectionRef}
-      className="bg-(--warm-cream) py-24 md:py-32 px-6 relative overflow-hidden"
-    >
+    <section ref={sectionRef} className="section-padding relative overflow-hidden bg-[var(--warm-cream)]">
       {/* Background Elements */}
       <div className="pointer-events-none absolute top-1/2 left-1/2 h-[28rem] w-[28rem] max-w-[100vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-(--accent-gold) opacity-[0.03] blur-[150px]" />
       <div className="pointer-events-none absolute top-0 right-0 h-64 w-64 max-w-[50vw] rounded-full bg-(--trust) opacity-[0.02] blur-[100px]" />
 
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="container-page relative z-10">
         
         {/* Header */}
         <div 
@@ -158,22 +155,17 @@ export function ImpactStatsSection() {
           }`}
         >
           <div className="max-w-2xl space-y-4">
-            <div className="flex items-center gap-3">
-              <span className="w-10 h-0.5 bg-(--accent-gold)" />
-              <p className="text-(--accent-gold) text-xs font-bold tracking-[0.3em] uppercase">
-                The Scale of Impact
-              </p>
-            </div>
-            <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-(--trust) leading-tight">
-              Capital with purpose,{" "}
-              <span className="italic text-(--accent-gold)">without</span> the bureaucracy.
+            <p className="section-label">The scale of impact</p>
+            <h2 className="mt-3 text-3xl font-bold leading-tight text-[var(--trust)] md:text-4xl">
+              Capital with purpose, <span className="text-[var(--accent-gold)] italic">without</span> the bureaucracy.
             </h2>
+            <div className="accent-bar mt-4" />
           </div>
           
           {/* Live Status Card */}
           <Link 
             href="/apply"
-            className="group flex items-center gap-4 bg-white px-6 py-4 rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl hover:border-(--accent-gold)/30 transition-all duration-500 self-start lg:self-auto"
+            className="group flex items-center gap-4 rounded-lg border border-gray-200 bg-white px-5 py-4 shadow-sm transition-all hover:border-[var(--accent-gold)]/40 hover:shadow-md self-start lg:self-auto"
           >
             <div className="relative flex h-3 w-3">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>

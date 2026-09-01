@@ -274,7 +274,7 @@ export default function ContactForm() {
         ) : (
           <>
             <Send className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
-            Submit — Share Your Goal
+            Submit application
           </>
         )}
       </button>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&display=swap');
 
 @import 'tailwindcss';
 
@@ -72,7 +72,8 @@
      TYPOGRAPHY
      ============================================ */
   --font-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Source Sans 3', 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 /* ============================================
@@ -134,9 +135,15 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-serif);
-    font-weight: 600;
+    font-family: var(--font-sans);
+    font-weight: 700;
     line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--trust);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
   }
 
   /* Premium Selection Highlight */
@@ -241,6 +248,112 @@
    UTILITY CLASSES
    ============================================ */
 @layer utilities {
+  .container-page {
+    @apply mx-auto max-w-6xl px-5 sm:px-8;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-20 lg:py-24;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+  }
+
+  .section-label-light {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .accent-bar {
+    height: 4px;
+    width: 3.5rem;
+    background: linear-gradient(90deg, var(--accent-gold) 0%, var(--trust-light) 100%);
+    border-radius: 2px;
+  }
+
+  .brand-topbar {
+    height: 4px;
+    background: linear-gradient(90deg, var(--trust-dark) 0%, var(--trust) 50%, var(--accent-gold) 100%);
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-semibold text-white transition-all duration-200;
+    background: var(--trust);
+    box-shadow: 0 2px 8px rgba(10, 37, 64, 0.2);
+  }
+  .btn-primary:hover {
+    background: var(--trust-light);
+    transform: translateY(-1px);
+  }
+
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-bold transition-all duration-200;
+    background: var(--accent-gold);
+    color: white;
+    box-shadow: 0 2px 8px rgba(197, 160, 89, 0.3);
+  }
+  .btn-accent:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border-2 px-6 py-3 text-sm font-semibold transition-all duration-200;
+    border-color: var(--trust);
+    color: var(--trust);
+  }
+  .btn-outline:hover {
+    background: var(--warm-cream);
+    border-color: var(--accent-gold);
+    color: var(--accent-hover);
+  }
+
+  .btn-outline-light {
+    @apply inline-flex items-center justify-center gap-2 rounded-md border-2 px-6 py-3 text-sm font-semibold text-white transition-all duration-200;
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+  .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.55);
+  }
+
+  .card-flat {
+    border: 1px solid hsl(var(--border));
+    background: white;
+    border-radius: 0.5rem;
+  }
+
+  .program-card {
+    @apply block rounded-lg border bg-white p-6 transition-all duration-200 md:p-7;
+    border-color: hsl(var(--border));
+    box-shadow: 0 4px 24px rgba(10, 37, 64, 0.06);
+  }
+  .program-card:hover {
+    border-color: rgba(197, 160, 89, 0.45);
+    box-shadow: 0 12px 40px rgba(10, 37, 64, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .page-hero {
+    @apply border-b pt-16 pb-12;
+    border-color: hsl(var(--border));
+    background: linear-gradient(180deg, var(--warm-cream) 0%, white 100%);
+  }
+
+  .stat-card {
+    @apply rounded-lg border bg-white p-6 text-center;
+    border-color: hsl(var(--border));
+    box-shadow: 0 4px 24px rgba(10, 37, 64, 0.06);
+  }
+
   /* Typography */
   .text-balance { 
     text-wrap: balance; 

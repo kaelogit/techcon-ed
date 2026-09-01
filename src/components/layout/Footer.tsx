@@ -5,118 +5,77 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-(--deep-charcoal) pt-20 pb-8 px-6">
-      <div className="max-w-7xl mx-auto">
-        
-        {/* TOP SECTION: Main Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
-          
-          {/* Brand Column */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="inline-block mb-6">
-              <span className="font-serif text-2xl font-semibold text-white">
-                Edwin Castro
-              </span>
-            </Link>
-            <p className="text-gray-400 leading-relaxed mb-6">
-              Direct, debt-free funding for recovery, growth, and ambition — 
-              a personal commitment to people building their next chapter.
-            </p>
-            <div className="flex items-center gap-2 text-sm">
-              <ShieldCheck className="w-4 h-4 text-(--accent-gold)" />
-              <span className="text-gray-500">100% Debt-Free Funding</span>
-            </div>
+    <footer className="bg-[var(--deep-charcoal)] text-white">
+      <div className="brand-topbar" />
+      <div className="container-page grid gap-10 pt-14 pb-8 md:grid-cols-4">
+        <div className="md:col-span-2">
+          <Link href="/" className="font-display inline-block text-2xl font-semibold text-white">
+            Edwin Castro
+          </Link>
+          <p className="mt-5 max-w-md text-sm leading-relaxed text-white/70">
+            Direct, debt-free funding for recovery, growth, and ambition — a personal commitment to
+            people building their next chapter.
+          </p>
+          <div className="mt-5 flex items-center gap-2 text-sm text-white/60">
+            <ShieldCheck className="h-4 w-4 text-[var(--accent-gold)]" />
+            100% debt-free funding
           </div>
-
-          {/* Platform Links */}
-          <div>
-            <h4 className="text-xs font-bold text-gray-300 uppercase tracking-[0.2em] mb-6">
-              Platform
-            </h4>
-            <nav className="flex flex-col gap-3">
-              {[
-                { href: '/', label: 'Home' },
-                { href: '/story', label: 'The Vision' },
-                { href: '/areas', label: 'Funding Areas' },
-                { href: '/impact', label: 'Real Stories' },
-                { href: '/apply', label: 'Share Your Goal' },
-                { href: '/#faq', label: 'Common Questions' },
-                { href: '/verify', label: 'Is this email real?' },
-              ].map((link) => (
-                <Link 
-                  key={link.href}
-                  href={link.href} 
-                  className="text-gray-400 hover:text-(--accent-gold) transition-colors duration-300"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h4 className="text-xs font-bold text-gray-300 uppercase tracking-[0.2em] mb-6">
-              Get In Touch
-            </h4>
-            <div className="flex flex-col gap-4">
-              <a 
-                href="mailto:support@edwinmega.com" 
-                className="flex items-center gap-3 text-gray-400 hover:text-(--accent-gold) transition-colors duration-300 group"
-              >
-                <Mail className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                <span>support@edwinmega.com</span>
-              </a>
-              <div className="flex items-start gap-3 text-gray-500 text-sm">
-                <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
-                <span>Responses typically sent within minutes during active review hours.</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Legal Links */}
-          <div>
-            <h4 className="text-xs font-bold text-gray-300 uppercase tracking-[0.2em] mb-6">
-              Legal
-            </h4>
-            <nav className="flex flex-col gap-3">
-              {[
-                { href: '/privacy', label: 'Privacy Policy' },
-                { href: '/terms', label: 'Terms of Service' },
-              ].map((link) => (
-                <Link 
-                  key={link.href}
-                  href={link.href} 
-                  className="text-gray-400 hover:text-(--accent-gold) transition-colors duration-300"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-
         </div>
 
-        {/* BOTTOM SECTION: Copyright & Tagline */}
-        <div className="pt-8 border-t border-gray-800">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            
-            <div className="text-center md:text-left">
-              <p className="text-sm font-medium text-gray-300">
-                © {currentYear} Edwin Castro
-              </p>
-              <p className="text-xs text-gray-500 mt-1">
-                The Uplift Program
-              </p>
-            </div>
+        <div>
+          <h4 className="mb-4 text-xs font-bold tracking-wider text-[var(--accent-gold)] uppercase">
+            Platform
+          </h4>
+          <nav className="flex flex-col gap-2.5">
+            {[
+              ['/', 'Home'],
+              ['/story', 'The Vision'],
+              ['/areas', 'Funding Areas'],
+              ['/impact', 'Real Stories'],
+              ['/apply', 'Apply now'],
+              ['/#faq', 'Common Questions'],
+              ['/verify', 'Is this email real?'],
+            ].map(([href, label]) => (
+              <Link
+                key={href}
+                href={href}
+                className="text-sm text-white/75 transition-colors hover:text-white"
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
+        </div>
 
-            <p className="text-[10px] font-bold text-gray-600 uppercase tracking-[0.3em]">
-              Empowering The Next Chapter
-            </p>
-
-          </div>
+        <div>
+          <h4 className="mb-4 text-xs font-bold tracking-wider text-[var(--accent-gold)] uppercase">
+            Contact
+          </h4>
+          <a
+            href="mailto:support@edwinmega.com"
+            className="flex items-center gap-2 text-sm text-white/85 hover:text-white"
+          >
+            <Mail className="h-4 w-4" />
+            support@edwinmega.com
+          </a>
+          <p className="mt-4 flex items-start gap-2 text-sm text-white/55">
+            <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
+            Responses typically sent within minutes during active review hours.
+          </p>
+          <nav className="mt-5 flex flex-col gap-2">
+            <Link href="/privacy" className="text-sm text-white/75 hover:text-white">
+              Privacy Policy
+            </Link>
+            <Link href="/terms" className="text-sm text-white/75 hover:text-white">
+              Terms of Service
+            </Link>
+          </nav>
         </div>
       </div>
+
+      <p className="container-page border-t border-white/10 py-6 text-sm text-white/50">
+        © {currentYear} Edwin Castro · The Uplift Program
+      </p>
     </footer>
   );
 }

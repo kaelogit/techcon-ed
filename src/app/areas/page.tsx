@@ -165,7 +165,7 @@ export default function AreasPage() {
             href="/apply" 
             className="group inline-flex items-center gap-3 px-10 py-5 bg-[var(--trust)] text-white text-lg font-semibold rounded-full hover:bg-[var(--trust-light)] transition-all shadow-xl hover:shadow-2xl hover:scale-[1.02]"
           >
-            Share Your Goal
+            Apply now
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>

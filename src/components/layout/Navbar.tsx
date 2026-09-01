@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { ArrowRight, Menu, X } from 'lucide-react';
 
 const navLinks = [
   { href: '/story', label: 'Vision' },
@@ -14,21 +14,35 @@ const navLinks = [
 ];
 
 export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const scrollLockY = useRef(0);
   const pathname = usePathname();
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => { document.body.style.overflow = ''; };
-  }, [isOpen]);
+    if (!open) return;
+    scrollLockY.current = window.scrollY;
+    const prevBody = document.body.style.overflow;
+    const prevHtml = document.documentElement.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prevBody;
+      document.documentElement.style.overflow = prevHtml;
+      window.scrollTo(0, scrollLockY.current);
+    };
+  }, [open]);
 
   useEffect(() => {
-    setIsOpen(false);
+    setOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const isActive = (href: string) => {
     if (href === '/#faq') return false;
@@ -37,98 +51,94 @@ export function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-gray-200 bg-white">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6">
-          
-          <Link href="/" className="relative z-50 shrink-0">
-            <span className="font-serif text-lg font-semibold tracking-tight text-[var(--trust)] sm:text-xl md:text-2xl">
+      <div
+        className={`top-0 z-50 transition-shadow max-lg:fixed max-lg:inset-x-0 lg:sticky ${
+          scrolled ? 'shadow-sm' : ''
+        }`}
+      >
+        <div className="brand-topbar" />
+        <header
+          className={`border-b bg-white/95 backdrop-blur-md ${
+            scrolled ? 'border-gray-200' : 'border-transparent'
+          }`}
+        >
+          <div className="container-page flex h-16 items-center justify-between gap-3">
+            <Link href="/" className="shrink-0 font-display text-lg font-semibold tracking-tight text-[var(--trust)] sm:text-xl">
               Edwin Castro
-            </span>
-          </Link>
-
-          <nav className="hidden min-w-0 items-center gap-3 lg:flex xl:gap-5">
-            {navLinks.map((link) => (
-              <Link 
-                key={link.href} 
-                href={link.href}
-                className={`shrink-0 text-[13px] font-medium whitespace-nowrap xl:text-sm transition-colors ${
-                  isActive(link.href)
-                    ? 'text-[var(--accent-gold)]'
-                    : 'text-gray-600 hover:text-[var(--trust)]'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-            
-            <Link
-              href="/apply"
-              className="inline-flex shrink-0 items-center gap-2 bg-[var(--trust)] px-4 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-[var(--trust-light)] xl:px-5 xl:py-2.5 xl:text-sm"
-            >
-              Share Your Goal
-              <ArrowRight className="h-4 w-4" />
             </Link>
-          </nav>
 
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="relative z-50 flex h-10 w-10 items-center justify-center rounded-md bg-gray-100 text-[var(--trust)] transition-colors hover:bg-gray-200 lg:hidden"
-            aria-label={isOpen ? 'Close menu' : 'Open menu'}
-          >
-            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-
-        </div>
-      </header>
-
-      {isOpen && (
-        <div className="fixed inset-0 z-40 bg-[var(--warm-cream)] pt-16 lg:hidden">
-          <div className="flex h-full flex-col overflow-y-auto px-6 pb-8">
-            
-            <nav className="flex flex-col">
+            <nav className="hidden min-w-0 items-center gap-1 lg:flex xl:gap-2">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="group flex items-center justify-between border-b border-gray-200 py-5"
-                  onClick={() => setIsOpen(false)}
+                  className={`shrink-0 rounded-md px-2.5 py-2 text-[13px] font-medium whitespace-nowrap transition-colors xl:px-3 xl:text-sm ${
+                    isActive(link.href)
+                      ? 'bg-[var(--warm-cream)] text-[var(--accent-gold)]'
+                      : 'text-gray-600 hover:bg-[var(--warm-cream)] hover:text-[var(--trust)]'
+                  }`}
                 >
-                  <span className={`text-2xl font-serif font-medium ${
-                    isActive(link.href) ? 'text-[var(--accent-gold)]' : 'text-[var(--trust)]'
-                  }`}>
-                    {link.label}
-                  </span>
-                  <ArrowRight className="w-5 h-5 text-gray-300 transition-colors group-hover:text-[var(--accent-gold)]" />
+                  {link.label}
                 </Link>
               ))}
-            </nav>
-
-            <div className="mt-auto pt-8">
-              <Link
-                href="/apply"
-                className="flex w-full items-center justify-center gap-2 bg-[var(--trust)] py-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--trust-light)]"
-                onClick={() => setIsOpen(false)}
-              >
-                Share Your Goal
+              <Link href="/apply" className="btn-accent ml-2 shrink-0 px-4 py-2.5 xl:px-5">
+                Apply now
                 <ArrowRight className="h-4 w-4" />
               </Link>
+            </nav>
 
-              <div className="mt-6 border-t border-gray-200 pt-6">
-                <p className="mb-2 text-xs font-medium uppercase tracking-wider text-gray-400">
-                  Direct Channel
-                </p>
-                <a 
-                  href="mailto:support@edwinmega.com" 
-                  className="text-lg font-serif font-medium text-[var(--trust)] transition-colors hover:text-[var(--accent-gold)]"
-                >
-                  support@edwinmega.com
-                </a>
-              </div>
-            </div>
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              className="rounded-md p-2 text-[var(--trust)] hover:bg-[var(--warm-cream)] lg:hidden"
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+            >
+              {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
+        </header>
+      </div>
 
+      <div className="h-[4.25rem] shrink-0 lg:hidden" aria-hidden />
+
+      {open ? (
+        <div
+          className="fixed inset-x-0 bottom-0 top-[4.25rem] z-40 overflow-y-auto overscroll-y-contain bg-white touch-pan-y lg:hidden"
+          style={{ WebkitOverflowScrolling: 'touch' }}
+        >
+          <nav className="px-5 py-2">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`block rounded-md px-3 py-4 text-base font-medium ${
+                  isActive(link.href)
+                    ? 'bg-[var(--warm-cream)] text-[var(--accent-gold)]'
+                    : 'text-[var(--trust)]'
+                }`}
+                onClick={() => setOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+          <div className="border-t border-gray-200 px-5 py-4 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+            <Link href="/apply" className="btn-accent w-full" onClick={() => setOpen(false)}>
+              Apply now
+            </Link>
+            <p className="mt-5 text-xs font-medium uppercase tracking-wider text-gray-400">
+              Direct channel
+            </p>
+            <a
+              href="mailto:support@edwinmega.com"
+              className="mt-1 block text-sm font-semibold text-[var(--trust)]"
+            >
+              support@edwinmega.com
+            </a>
           </div>
         </div>
-      )}
+      ) : null}
     </>
   );
 }

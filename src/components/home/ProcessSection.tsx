@@ -3,36 +3,40 @@
 import { useEffect, useRef, useState } from 'react';
 import { Mail, Users, Send, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { SectionHeader } from '@/components/layout/SectionHeader';
 
-interface ProcessStepProps {
+function ProcessStep({
+  number,
+  title,
+  description,
+  icon,
+  delay,
+  isVisible,
+}: {
   number: string;
   title: string;
   description: string;
   icon: React.ReactNode;
   delay: number;
   isVisible: boolean;
-}
-
-function ProcessStep({ number, title, description, icon, delay, isVisible }: ProcessStepProps) {
+}) {
   return (
-    <div 
-      className={`flex flex-col items-center text-center relative z-10 transition-all duration-700 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+    <div
+      className={`relative z-10 flex flex-col items-center text-center transition-all duration-700 ${
+        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
       }`}
       style={{ transitionDelay: `${delay}ms` }}
     >
-      {/* Number Badge */}
-      <div className="relative mb-8">
-        <div className="flex h-16 w-16 items-center justify-center bg-[var(--trust)] text-2xl font-serif font-bold text-white shadow-md">
+      <div className="relative mb-6">
+        <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-[var(--trust)] text-xl font-bold text-white shadow-sm">
           {number}
         </div>
-        <div className="absolute -bottom-2 -right-2 flex h-9 w-9 items-center justify-center bg-[var(--accent-gold)] shadow-sm">
+        <div className="absolute -right-2 -bottom-2 flex h-8 w-8 items-center justify-center rounded-md bg-[var(--accent-gold)] shadow-sm">
           {icon}
         </div>
       </div>
-      
-      <h3 className="text-xl font-serif font-semibold text-gray-900 mb-3">{title}</h3>
-      <p className="text-gray-600 leading-relaxed max-w-sm">{description}</p>
+      <h3 className="mb-3 text-lg font-bold text-[var(--trust)]">{title}</h3>
+      <p className="max-w-sm text-sm leading-relaxed text-gray-600">{description}</p>
     </div>
   );
 }
@@ -51,102 +55,78 @@ export function ProcessSection() {
       },
       { threshold: 0.2, rootMargin: '-50px' }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
   const steps = [
     {
-      number: "1",
-      title: "Share Your Goal",
-      description: "Tell us what you are working toward — recovery, growth, or a larger ambition — and the funding amount that makes it real.",
-      icon: <Mail className="w-5 h-5 text-white" />,
+      number: '1',
+      title: 'Apply online',
+      description:
+        'Tell us what you are working toward — recovery, growth, or a larger ambition — and the funding amount that makes it real.',
+      icon: <Mail className="h-4 w-4 text-white" />,
       delay: 0,
     },
     {
-      number: "2",
-      title: "Personal Review",
-      description: "Our team reads every request personally. We look for clarity of purpose and readiness to move — at any income stage.",
-      icon: <Users className="w-5 h-5 text-white" />,
+      number: '2',
+      title: 'Personal review',
+      description:
+        'Our team reads every request personally. We look for clarity of purpose and readiness to move — at any income stage.',
+      icon: <Users className="h-4 w-4 text-white" />,
       delay: 150,
     },
     {
-      number: "3",
-      title: "Direct Contact",
-      description: "If your request aligns with current funding, we email you from our secure address to arrange next steps and delivery.",
-      icon: <Send className="w-5 h-5 text-white" />,
+      number: '3',
+      title: 'Direct contact',
+      description:
+        'If your request aligns with current funding, we email you from our secure address to arrange next steps and delivery.',
+      icon: <Send className="h-4 w-4 text-white" />,
       delay: 300,
     },
   ];
 
   return (
-    <section 
-      ref={sectionRef}
-      className="bg-[var(--warm-cream)] py-24 md:py-32 px-6"
-    >
-      <div className="max-w-7xl mx-auto">
-        
-        {/* Section Header */}
-        <div 
-          className={`text-center max-w-2xl mx-auto mb-16 md:mb-20 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+    <section ref={sectionRef} className="section-padding bg-[var(--warm-cream)]">
+      <div className="container-page">
+        <div
+          className={`transition-all duration-1000 ${
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
           }`}
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
-            <p className="text-[var(--accent-gold)] text-xs font-bold tracking-[0.3em] uppercase">
-              The Process
-            </p>
-            <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
-          </div>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight">
-            Three simple steps to request funding.
-          </h2>
+          <SectionHeader
+            label="The process"
+            title="Three simple steps to request funding."
+          />
         </div>
 
-        {/* Steps Grid with Timeline */}
         <div className="relative">
-          
-          {/* Connecting Line - Desktop */}
-          <div className="hidden md:block absolute top-10 left-[20%] right-[20%] h-0.5 bg-gray-200">
-            <div 
+          <div className="absolute top-7 right-[20%] left-[20%] hidden h-0.5 bg-gray-200 md:block">
+            <div
               className={`h-full bg-[var(--accent-gold)] transition-all duration-1000 ease-out ${
                 isVisible ? 'w-full' : 'w-0'
               }`}
               style={{ transitionDelay: '500ms' }}
             />
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
             {steps.map((step) => (
-              <ProcessStep 
-                key={step.number}
-                {...step}
-                isVisible={isVisible}
-              />
+              <ProcessStep key={step.number} {...step} isVisible={isVisible} />
             ))}
           </div>
         </div>
 
-        {/* Bottom CTA */}
-        <div 
-          className={`mt-16 text-center transition-all duration-1000 delay-500 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        <div
+          className={`mt-12 text-center transition-all duration-1000 delay-500 ${
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
           }`}
         >
-          <Link
-            href="/apply"
-            className="inline-flex items-center gap-3 bg-[var(--accent-gold)] px-8 py-4 font-semibold text-white transition-colors hover:bg-[var(--accent-hover)]"
-          >
-            Share Your Goal
-            <ArrowRight className="w-5 h-5" />
+          <Link href="/apply" className="btn-accent">
+            Apply now
+            <ArrowRight className="h-5 w-5" />
           </Link>
         </div>
-
       </div>
     </section>
   );

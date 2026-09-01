@@ -621,7 +621,7 @@ export default function ApplyPage() {
                       <div className="flex flex-col gap-2">
                         <div className="flex items-center justify-between">
                           <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">
-                            {useGuidedMode ? "Your Goal (Guided)" : "Share Your Goal *"}
+                            {useGuidedMode ? 'Your goal (guided)' : 'Your application *'}
                           </label>
 
                           {/* Voice Input Button */}

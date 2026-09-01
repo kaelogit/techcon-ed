@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Plus, Minus, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { faqs } from '@/data/faqs';
+import { SectionHeader } from '@/components/layout/SectionHeader';
 
 export function FaqPreviewSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -33,32 +34,18 @@ export function FaqPreviewSection() {
   };
 
   return (
-    <section 
-      ref={sectionRef}
-      id="faq"
-      className="bg-white py-24 md:py-32 px-6"
-    >
-      <div className="max-w-4xl mx-auto">
-        
-        {/* Header */}
-        <div 
-          className={`text-center mb-16 md:mb-20 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+    <section ref={sectionRef} id="faq" className="section-padding bg-white">
+      <div className="container-page max-w-4xl">
+        <div
+          className={`transition-all duration-1000 ${
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
           }`}
         >
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
-            <p className="text-[var(--accent-gold)] text-xs font-bold tracking-[0.3em] uppercase">
-              Common Questions
-            </p>
-            <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
-          </div>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 mb-6">
-            Straight Answers
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Funding for recovery, growth, and ambition — here is exactly how it works.
-          </p>
+          <SectionHeader
+            label="Common questions"
+            title="Straight answers"
+            description="Funding for recovery, growth, and ambition — here is exactly how it works."
+          />
         </div>
 
         {/* FAQ Accordion List */}
@@ -69,11 +56,9 @@ export function FaqPreviewSection() {
             return (
               <div 
                 key={index} 
-                className={`border border-gray-200 rounded-2xl overflow-hidden transition-all duration-300 ${
-                  isOpen 
-                    ? 'bg-[var(--warm-cream)] shadow-lg' 
-                    : 'bg-white hover:border-gray-300 hover:shadow-sm'
-                } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+                className={`card-flat overflow-hidden transition-all duration-300 ${
+                  isOpen ? 'border-[var(--accent-gold)]/40 bg-[var(--warm-cream)]' : 'hover:border-gray-300'
+                } ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}
                 style={{ transitionDelay: `${200 + index * 50}ms` }}
               >
                 <button
@@ -115,12 +100,9 @@ export function FaqPreviewSection() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <Link
-            href="/apply"
-            className="inline-flex items-center gap-3 px-10 py-5 bg-[var(--trust)] text-white text-base font-semibold rounded-full hover:bg-[var(--trust-light)] transition-all hover:scale-[1.02] shadow-lg"
-          >
-            Ready to share your goal? Start here.
-            <ArrowRight className="w-5 h-5" />
+          <Link href="/apply" className="btn-accent">
+            Ready to apply? Start here.
+            <ArrowRight className="h-5 w-5" />
           </Link>
         </div>
 

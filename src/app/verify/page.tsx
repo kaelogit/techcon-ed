@@ -97,7 +97,7 @@ export default function VerifyPage() {
               href="/apply"
               className="inline-flex items-center bg-[var(--trust)] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--trust-light)]"
             >
-              Share your goal on this site
+              Apply on this site
             </Link>
           </div>
         </div>

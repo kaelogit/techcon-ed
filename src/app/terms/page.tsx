@@ -65,7 +65,7 @@ export default function TermsPage() {
               href="/apply" 
               className="inline-block px-10 py-4 bg-edwin-black text-white text-sm font-bold rounded-full hover:bg-edwin-navy transition-all uppercase tracking-widest"
             >
-              Share Your Goal
+              Apply now
             </Link>
           </View>
 

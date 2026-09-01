@@ -7,7 +7,7 @@ export const OG_IMAGE = `${SITE_URL}/hero-image.jpg`;
 
 export const HOME_TITLE = 'Edwin Castro — Official Funding. No Debt.';
 export const HOME_DESCRIPTION =
-  'Official site of Edwin Castro. Direct funding for housing, school, health, business, and recovery. No repayment. No fees. Share your goal at edwinmega.com.';
+  'Official site of Edwin Castro. Direct funding for housing, school, health, business, and recovery. No repayment. No fees. Apply at edwinmega.com.';
 
 export const PUBLIC_ROUTES = [
   '/',

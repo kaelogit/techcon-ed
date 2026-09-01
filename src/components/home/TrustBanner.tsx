@@ -27,29 +27,19 @@ export function TrustBanner() {
   }, []);
 
   return (
-    <section 
-      ref={sectionRef}
-      className="relative overflow-hidden bg-[var(--trust)] px-6 py-24 md:py-32"
-    >
-      <div className="relative z-10 mx-auto max-w-4xl text-center">
-        
-        <div 
+    <section ref={sectionRef} className="section-padding relative overflow-hidden bg-[var(--trust)]">
+      <div className="container-page relative z-10 max-w-4xl text-center">
+        <div
           className={`transition-all duration-700 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
           }`}
         >
-          <div className="mb-6 flex items-center justify-center gap-3">
-            <span className="h-[2px] w-8 bg-[var(--accent-gold)]" />
-            <p className="text-sm font-bold uppercase tracking-[0.3em] text-[var(--accent-gold)]">
-              Your Next Chapter
-            </p>
-            <span className="h-[2px] w-8 bg-[var(--accent-gold)]" />
-          </div>
+          <p className="section-label-light">Your next chapter</p>
         </div>
-        
-        <h2 
-          className={`mb-8 font-serif text-4xl font-semibold leading-tight text-white md:text-5xl lg:text-6xl transition-all duration-700 delay-150 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+
+        <h2
+          className={`font-display mt-3 text-4xl font-semibold leading-tight text-white md:text-5xl transition-all duration-700 delay-150 ${
+            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
           }`}
         >
           Ready for what comes <br className="hidden sm:block" />
@@ -71,12 +61,9 @@ export function TrustBanner() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <Link 
-            href="/apply" 
-            className="group inline-flex items-center gap-3 bg-white px-10 py-4 text-lg font-semibold text-[var(--trust)] transition-colors hover:bg-[var(--accent-gold)] hover:text-white"
-          >
-            Share Your Goal
-            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+          <Link href="/apply" className="btn-accent bg-white text-[var(--trust)] hover:bg-[var(--accent-gold)] hover:text-white">
+            Apply now
+            <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
           </Link>
           
           <div className="mt-4 flex flex-wrap items-center justify-center gap-4 sm:gap-6">
