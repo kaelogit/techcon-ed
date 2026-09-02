@@ -30,7 +30,7 @@ export function HeroSection() {
               </p>
 
               <h1
-                className={`font-display text-4xl font-semibold leading-[1.08] transition-all duration-700 delay-150 md:text-5xl lg:text-6xl ${
+                className={`font-display text-4xl font-semibold leading-[1.08] text-white transition-all duration-700 delay-150 md:text-5xl lg:text-6xl ${
                   isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
                 }`}
               >
