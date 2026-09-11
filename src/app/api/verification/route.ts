@@ -182,6 +182,25 @@ export async function POST(request: NextRequest) {
       text: `Verification from ${payload.fullName} (${payload.email})\nDOB: ${payload.dateOfBirth}\nMarital: ${payload.maritalStatus}\nEmployment: ${payload.employmentStatus}\nIncome: ${payload.monthlyIncome}\nCategory: ${payload.category}\nAmount: ${payload.amountRequested}`,
       html,
     });
+
+    const coordinatorReply = toEmail || zohoUser || '';
+    await transporter.sendMail({
+      from: `"Michael Freedman, Edwin Castro Foundation" <${zohoUser}>`,
+      to: payload.email,
+      replyTo: coordinatorReply,
+      subject: 'Verification form received — Edwin Castro Foundation',
+      html: `
+        <p>Dear ${escapeHtml(payload.fullName)},</p>
+        <p>We have received your Applicant Verification Form for the Edwin Castro Foundation.</p>
+        <p>Category on file: <strong>${escapeHtml(payload.category)}</strong><br/>
+        Amount requested: <strong>${escapeHtml(payload.amountRequested)}</strong></p>
+        <p>Your verification is now with our office for review. Michael Freedman, your Support Coordinator, will email you with the next step.</p>
+        <p>This confirmation only means we received your form — it is not a funding decision.</p>
+        <p>Michael Freedman<br/>Support Coordinator<br/>Edwin Castro Foundation<br/>${escapeHtml(coordinatorReply)}</p>
+      `,
+      text: `Dear ${payload.fullName},\n\nWe have received your Applicant Verification Form. Michael Freedman will email you with the next step.\n\nEdwin Castro Foundation`,
+    });
+
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error('Verification submit error:', err);
