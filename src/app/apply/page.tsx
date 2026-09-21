@@ -157,11 +157,17 @@ export default function ApplyPage() {
     phone: '',
     country: '',
     state: '',
+    city: '',
+    address: '',
+    postalCode: '',
     category: '',
     lane: '',
     story: '',
     amount: '',
+    ageConfirm: false,
+    grantConfirm: false,
   });
+  const [errorMsg, setErrorMsg] = useState('');
 
   // Voice input state
   const [isListening, setIsListening] = useState(false);
@@ -271,9 +277,37 @@ export default function ApplyPage() {
     }
   };
 
+  const emptyForm = {
+    name: '',
+    email: '',
+    phone: '',
+    country: '',
+    state: '',
+    city: '',
+    address: '',
+    postalCode: '',
+    category: '',
+    lane: '',
+    story: '',
+    amount: '',
+    ageConfirm: false,
+    grantConfirm: false,
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
+    setErrorMsg('');
+
+    const story = useGuidedMode
+      ? `Goal: ${guidedAnswers.challenge}\n\nFunding requested: ${guidedAnswers.amount}\n\nWhat becomes possible: ${guidedAnswers.impact}`
+      : formData.story;
+
+    if (!story.trim()) {
+      setErrorMsg('Please complete your application story before submitting.');
+      setStatus('error');
+      return;
+    }
 
     try {
       const response = await fetch('/api/contact', {
@@ -281,19 +315,23 @@ export default function ApplyPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
+          story,
           source: 'apply_page_support'
         }),
       });
 
       if (response.ok) {
         setStatus('success');
-        setFormData({ name: '', email: '', phone: '', country: '', state: '', category: '', lane: '', story: '', amount: '' });
+        setFormData(emptyForm);
         setGuidedAnswers({ challenge: '', amount: '', impact: '' });
         setCurrentQuestion(0);
       } else {
+        const data = await response.json().catch(() => ({}));
+        setErrorMsg(typeof data.error === 'string' ? data.error : 'Could not submit. Please try again.');
         setStatus('error');
       }
     } catch {
+      setErrorMsg('Could not connect. Check your internet and try again.');
       setStatus('error');
     }
   };
@@ -445,15 +483,16 @@ export default function ApplyPage() {
                         </div>
                       </div>
 
-                      {/* Phone (optional) */}
+                      {/* Phone */}
                       <div className="flex flex-col gap-2">
                         <label htmlFor="phone" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
-                          Phone Number <span className="text-gray-400 font-normal">(optional)</span>
+                          Phone Number *
                         </label>
                         <input
+                          required
                           type="tel"
                           id="phone"
-                          placeholder="For faster contact (optional)"
+                          placeholder="Best number to reach you"
                           className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[var(--accent-gold)] focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -555,7 +594,56 @@ export default function ApplyPage() {
       onChange={(e) => setFormData({ ...formData, state: e.target.value })}
     />
   </div>
+                      </div>
 
+                      {/* City, mailing address, postal */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="flex flex-col gap-2">
+                          <label htmlFor="city" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+                            City *
+                          </label>
+                          <input
+                            required
+                            type="text"
+                            id="city"
+                            placeholder="City"
+                            className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[var(--accent-gold)] focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all"
+                            value={formData.city}
+                            onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                          />
+                        </div>
+                        <div className="flex flex-col gap-2">
+                          <label htmlFor="postalCode" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+                            Postal / ZIP Code *
+                          </label>
+                          <input
+                            required
+                            type="text"
+                            id="postalCode"
+                            placeholder="Postal or ZIP code"
+                            className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[var(--accent-gold)] focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all"
+                            value={formData.postalCode}
+                            onChange={(e) => setFormData({ ...formData, postalCode: e.target.value })}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col gap-2">
+                        <label htmlFor="address" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+                          Mailing Address *
+                        </label>
+                        <input
+                          required
+                          type="text"
+                          id="address"
+                          placeholder="Street address"
+                          className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[var(--accent-gold)] focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all"
+                          value={formData.address}
+                          onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="flex flex-col gap-2">
                           <label htmlFor="lane" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
                             Funding Lane *
@@ -731,6 +819,34 @@ export default function ApplyPage() {
                           </p>
                         </div>
                       </div>
+
+                      {/* Confirmations */}
+                      <div className="space-y-3">
+                        <label className="flex items-start gap-3 text-sm text-gray-700">
+                          <input
+                            type="checkbox"
+                            required
+                            checked={formData.ageConfirm}
+                            onChange={(e) => setFormData({ ...formData, ageConfirm: e.target.checked })}
+                            className="mt-1"
+                          />
+                          <span>I am 18 or older.</span>
+                        </label>
+                        <label className="flex items-start gap-3 text-sm text-gray-700">
+                          <input
+                            type="checkbox"
+                            required
+                            checked={formData.grantConfirm}
+                            onChange={(e) => setFormData({ ...formData, grantConfirm: e.target.checked })}
+                            className="mt-1"
+                          />
+                          <span>I understand support from the Edwin Castro Foundation is debt-free and not a loan, and that applying does not guarantee an award.</span>
+                        </label>
+                      </div>
+
+                      {status === 'error' && errorMsg ? (
+                        <p className="text-sm text-red-600 text-center">{errorMsg}</p>
+                      ) : null}
 
                       {/* No-Obligation + Success Rate */}
                       <div className="text-center space-y-2 py-4 bg-gray-50 rounded-xl">
