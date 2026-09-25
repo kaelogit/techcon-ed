@@ -154,6 +154,7 @@ export default function ApplyPage() {
     const [formData, setFormData] = useState({
     name: '',
     email: '',
+    emailConfirm: '',
     phone: '',
     country: '',
     state: '',
@@ -280,6 +281,7 @@ export default function ApplyPage() {
   const emptyForm = {
     name: '',
     email: '',
+    emailConfirm: '',
     phone: '',
     country: '',
     state: '',
@@ -299,6 +301,14 @@ export default function ApplyPage() {
     setStatus('sending');
     setErrorMsg('');
 
+    const email = formData.email.trim().toLowerCase();
+    const emailConfirm = formData.emailConfirm.trim().toLowerCase();
+    if (!email || !emailConfirm || email !== emailConfirm) {
+      setErrorMsg('Email addresses do not match. Please check both fields carefully.');
+      setStatus('error');
+      return;
+    }
+
     const story = useGuidedMode
       ? `Goal: ${guidedAnswers.challenge}\n\nFunding requested: ${guidedAnswers.amount}\n\nWhat becomes possible: ${guidedAnswers.impact}`
       : formData.story;
@@ -315,6 +325,8 @@ export default function ApplyPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
+          email,
+          emailConfirm,
           story,
           source: 'apply_page_support'
         }),
@@ -450,37 +462,55 @@ export default function ApplyPage() {
                         </button>
                       </div>
 
-                      {/* Name & Email Row */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="flex flex-col gap-2">
-                          <label htmlFor="name" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
-                            Full Name *
-                          </label>
-                          <input
-                            required
-                            type="text"
-                            id="name"
-                            placeholder="Enter your name"
-                            className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[var(--accent-gold)] focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all"
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          />
-                        </div>
+                      {/* Name */}
+                      <div className="flex flex-col gap-2">
+                        <label htmlFor="name" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+                          Full Name *
+                        </label>
+                        <input
+                          required
+                          type="text"
+                          id="name"
+                          placeholder="Enter your name"
+                          className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[var(--accent-gold)] focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all"
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        />
+                      </div>
 
-                        <div className="flex flex-col gap-2">
-                          <label htmlFor="email" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
-                            Email Address *
-                          </label>
-                          <input
-                            required
-                            type="email"
-                            id="email"
-                            placeholder="Where should we reach you?"
-                            className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[var(--accent-gold)] focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all"
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          />
-                        </div>
+                      {/* Email */}
+                      <div className="flex flex-col gap-2">
+                        <label htmlFor="email" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+                          Email Address *
+                        </label>
+                        <input
+                          required
+                          type="email"
+                          id="email"
+                          autoComplete="email"
+                          placeholder="Where should we reach you?"
+                          className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[var(--accent-gold)] focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all"
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        />
+                      </div>
+
+                      {/* Confirm Email */}
+                      <div className="flex flex-col gap-2">
+                        <label htmlFor="emailConfirm" className="text-xs font-bold text-gray-500 uppercase tracking-widest">
+                          Confirm Email Address *
+                        </label>
+                        <input
+                          required
+                          type="email"
+                          id="emailConfirm"
+                          autoComplete="email"
+                          placeholder="Re-enter your email address"
+                          className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-[var(--accent-gold)] focus:ring-2 focus:ring-[var(--accent-gold)]/20 transition-all"
+                          value={formData.emailConfirm}
+                          onChange={(e) => setFormData({ ...formData, emailConfirm: e.target.value })}
+                        />
+                        <p className="text-xs text-gray-400">Must match the email above exactly. Double-check for typos.</p>
                       </div>
 
                       {/* Phone */}

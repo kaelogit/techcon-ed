@@ -65,6 +65,8 @@ function validate(body: unknown): Payload | null {
     return null;
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) return null;
+  const emailConfirm = str(o, "emailConfirm").toLowerCase();
+  if (!emailConfirm || emailConfirm !== payload.email.toLowerCase()) return null;
   return payload;
 }
 
