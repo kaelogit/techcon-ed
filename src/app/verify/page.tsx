@@ -37,7 +37,7 @@ export default function VerifyPage() {
             </a>
             <p className="mt-3 text-sm leading-relaxed text-gray-600">
               This is the only address Edwin Castro uses to follow up. Website:{' '}
-              <a href="https://edwinmega.com" className="font-medium text-[var(--trust)] underline">
+              <a href="https://www.edwinmega.com" className="font-medium text-[var(--trust)] underline">
                 {OFFICIAL_SITE}
               </a>
             </p>

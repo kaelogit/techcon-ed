@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-export const SITE_URL = 'https://edwinmega.com';
+export const SITE_URL = 'https://www.edwinmega.com';
 export const SITE_NAME = 'Edwin Castro';
 export const CONTACT_EMAIL = 'support@edwinmega.com';
 export const OG_IMAGE = `${SITE_URL}/hero-image.jpg`;
