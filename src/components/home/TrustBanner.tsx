@@ -74,7 +74,7 @@ export function TrustBanner() {
             <span className="hidden text-white/30 sm:inline">|</span>
             <Link href="/verify" className="flex items-center gap-2 text-sm text-white/50 transition-colors hover:text-white">
               <Shield className="w-4 h-4" />
-              Check if this message is real
+              Verify official contact
             </Link>
           </div>
         </div>
