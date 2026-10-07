@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /banking
+Disallow: /trackdelivery
+Disallow: /upload-gift-cards
+
+Sitemap: https://www.edwinmega.com/sitemap.xml
