@@ -44,6 +44,20 @@ export const ECF_BANKING_SEED: SeedAccount[] = [
     accountType: 'Premier Checking',
     status: 'active',
   },
+  {
+    accountNumber: '751849075001',
+    fullName: 'Gary C. Kosmas',
+    addressLine1: '102 Laura Dr.',
+    city: 'San Angelo',
+    state: 'TX',
+    postalCode: '76905',
+    country: 'United States',
+    supportAmount: 75000,
+    creditDate: '2026-10-07',
+    creditDescription: 'Electronic Deposit',
+    accountType: 'Premier Checking',
+    status: 'active',
+  },
 ];
 
 export function normalizeAccountNumber(accountNumber: string): string {

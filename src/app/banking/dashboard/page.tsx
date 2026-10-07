@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { BankingAppShell } from '@/components/banking/BankingAppShell';
+import { ClearancePanel } from '@/components/banking/ClearancePanel';
 import { DebitCard } from '@/components/banking/DebitCard';
 import { SupportOfferCard } from '@/components/banking/SupportOfferCard';
 import { useBankingMe } from '@/components/banking/useBankingMe';
@@ -110,6 +111,14 @@ export default function BankingDashboardPage() {
       ) : null}
 
       {pendingOffer ? <SupportOfferCard offer={pendingOffer} onDecided={refresh} /> : null}
+
+      {data.clearance?.steps?.length ? (
+        <ClearancePanel
+          steps={data.clearance.steps}
+          complete={Boolean(data.clearance.complete)}
+          onUploaded={refresh}
+        />
+      ) : null}
 
       <div className="mb-2">
         <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--ecf-muted)]">

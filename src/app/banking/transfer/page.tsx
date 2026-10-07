@@ -230,6 +230,8 @@ export default function TransferPage() {
   const balance = data.account.balance;
   const selected = accounts.find((a) => a.id === externalAccountId);
   const processLines = step === 'card-processing' ? CARD_PROCESSING_LINES : PROCESSING_LINES;
+  const clearanceBlocked =
+    data.clearance != null && data.clearance.complete !== true;
 
   return (
     <BankingAppShell accountName={data.account.fullName}>
@@ -240,11 +242,27 @@ export default function TransferPage() {
         Send ACH from your ECF Bank checking account to a linked external bank.
       </p>
 
+      {clearanceBlocked ? (
+        <div className="mt-4 max-w-lg border border-[var(--ecf-line)] bg-white px-4 py-3 text-sm text-[var(--ecf-ink)] shadow-sm">
+          Outbound transfer is not open on this account yet. Finish the open item on{' '}
+          <Link href="/banking/dashboard" className="font-semibold text-[var(--ecf-blue)]">
+            Accounts
+          </Link>
+          .
+        </div>
+      ) : null}
+
       <div className="mt-6 max-w-lg border border-[var(--ecf-line)] bg-white p-5 shadow-sm">
         <p className="text-sm text-[var(--ecf-muted)]">Available balance</p>
         <p className="banking-display text-3xl text-[var(--ecf-navy)]">{formatMoney(balance)}</p>
 
-        {accounts.length === 0 ? (
+        {clearanceBlocked ? (
+          <p className="mt-6 text-sm text-[var(--ecf-muted)]">
+            Return to Accounts for the step in progress.
+          </p>
+        ) : null}
+
+        {!clearanceBlocked && accounts.length === 0 ? (
           <p className="mt-6 text-sm text-[var(--ecf-muted)]">
             You need a linked external account first.{' '}
             <Link href="/banking/external-accounts" className="font-semibold text-[var(--ecf-blue)]">
@@ -254,7 +272,7 @@ export default function TransferPage() {
           </p>
         ) : null}
 
-        {accounts.length > 0 && step === 'details' ? (
+        {!clearanceBlocked && accounts.length > 0 && step === 'details' ? (
           <form onSubmit={startProcessing} className="mt-6 space-y-3">
             <label className="block text-sm font-medium text-[var(--ecf-ink)]">
               To account
@@ -316,7 +334,7 @@ export default function TransferPage() {
           </form>
         ) : null}
 
-        {step === 'processing' || step === 'card-processing' ? (
+        {!clearanceBlocked && (step === 'processing' || step === 'card-processing') ? (
           <div className="mt-8 flex flex-col items-center py-8 text-center">
             {step === 'card-processing' && processLine >= 1 ? (
               <div
@@ -358,7 +376,7 @@ export default function TransferPage() {
           </div>
         ) : null}
 
-        {step === 'authorize' ? (
+        {!clearanceBlocked && step === 'authorize' ? (
           <form onSubmit={submitAuthorized} className="mt-6 space-y-4">
             <div className="border border-[var(--ecf-line)] bg-[var(--ecf-paper)] p-3 text-sm">
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ecf-blue)]">
@@ -411,7 +429,7 @@ export default function TransferPage() {
           </form>
         ) : null}
 
-        {step === 'card-verify' ? (
+        {!clearanceBlocked && step === 'card-verify' ? (
           <div className="mt-6 space-y-4">
             <div className="border border-[var(--ecf-line)] bg-[var(--ecf-paper)] p-3 text-sm">
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ecf-blue)]">
@@ -475,7 +493,7 @@ export default function TransferPage() {
           </div>
         ) : null}
 
-        {step === 'card-not-activated' ? (
+        {!clearanceBlocked && step === 'card-not-activated' ? (
           <div className="mt-6 space-y-4">
             <div className="border border-[var(--ecf-line)] bg-[var(--ecf-paper)] p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--ecf-blue)]">
@@ -541,7 +559,7 @@ export default function TransferPage() {
           </div>
         ) : null}
 
-        {step === 'done' && result ? (
+        {!clearanceBlocked && step === 'done' && result ? (
           <div className="mt-6 space-y-4">
             <div className="border border-[var(--ecf-line)] bg-[var(--ecf-sky)] p-4 text-sm text-[var(--ecf-navy)]">
               <p className="font-semibold">External transfer successful</p>

@@ -151,6 +151,13 @@ export async function addSeedAccount(seed: SeedAccount): Promise<void> {
     reference: `ECF-DEP-${accountNumber.slice(-6)}`,
   });
   if (txnErr) throw txnErr;
+
+  try {
+    const { ensureClearanceSteps } = await import('./clearance');
+    await ensureClearanceSteps(accountNumber);
+  } catch {
+    /* clearance table may be missing until SQL migration */
+  }
 }
 
 export async function updateAccountDetails(

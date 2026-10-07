@@ -35,6 +35,7 @@ export type BankingMe = {
     registeredAt: string;
     hasVaultKey: boolean;
     debitCardIssued: boolean;
+    clearanceComplete?: boolean;
   };
   transactions: {
     id: string;
@@ -54,6 +55,16 @@ export type BankingMe = {
     status: string;
     reference?: string;
   } | null;
+  clearance?: {
+    steps: {
+      step: 'insurance' | 'tax' | 'completion';
+      label: string;
+      status: 'locked' | 'open' | 'pending' | 'verified' | 'rejected';
+      originalFilename?: string | null;
+      hasDocument: boolean;
+    }[];
+    complete: boolean;
+  };
 };
 
 export function useBankingMe() {

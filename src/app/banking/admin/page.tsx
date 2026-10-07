@@ -35,13 +35,23 @@ type Txn = {
   reference?: string;
 };
 
+type ClearanceStepAdmin = {
+  step: 'insurance' | 'tax' | 'completion';
+  label: string;
+  status: 'locked' | 'open' | 'pending' | 'verified' | 'rejected';
+  originalFilename?: string | null;
+  hasDocument: boolean;
+};
+
 type DetailPayload = {
   account: ListedAccount & {
     securityQuestionCount?: number;
     externalAccounts?: { bankName: string; accountNumberLast4: string; nickname?: string }[];
+    clearanceComplete?: boolean;
   };
   balance: number;
   transactions: Txn[];
+  clearance?: { steps: ClearanceStepAdmin[]; complete: boolean };
 };
 
 function fmtWhen(iso: string | null | undefined) {
@@ -708,6 +718,113 @@ export default function BankingAdminPage() {
                         Clear registration (force re-register)
                       </button>
                     </div>
+                  </div>
+
+                  <div className="rounded-2xl border border-[#d5dde6] bg-white p-5">
+                    <h3 className="font-semibold text-[#0b1f33]">Clearance</h3>
+                    <p className="mt-1 text-xs text-[#94a3b8]">
+                      {detail.clearance?.complete ? 'Complete' : 'Insurance → Tax → Completion'}
+                    </p>
+                    <ul className="mt-3 divide-y divide-[#e2e8f0] text-sm">
+                      {(detail.clearance?.steps || []).map((s) => (
+                        <li
+                          key={s.step}
+                          className="flex flex-wrap items-center gap-2 py-3 first:pt-0 last:pb-0"
+                        >
+                          <span className="min-w-[9rem] font-medium text-[#0b1f33]">{s.label}</span>
+                          <span className="text-xs font-semibold capitalize text-[#64748b]">
+                            {s.status}
+                          </span>
+                          {s.originalFilename ? (
+                            <span className="truncate text-xs text-[#94a3b8]">{s.originalFilename}</span>
+                          ) : null}
+                          <span className="ml-auto flex flex-wrap gap-1.5">
+                            {s.hasDocument ? (
+                              <button
+                                type="button"
+                                disabled={busy}
+                                className="rounded-lg border border-[#cbd5e1] px-2.5 py-1 text-xs font-semibold"
+                                onClick={async () => {
+                                  const res = await fetch(
+                                    `/api/banking/clearance/document?key=${encodeURIComponent(key)}&account=${encodeURIComponent(selected!)}&step=${s.step}`
+                                  );
+                                  const data = await res.json();
+                                  if (!res.ok || !data.url) {
+                                    setError(data.error || 'No document');
+                                    return;
+                                  }
+                                  window.open(data.url, '_blank', 'noopener,noreferrer');
+                                }}
+                              >
+                                View PDF
+                              </button>
+                            ) : null}
+                            {s.status === 'pending' ? (
+                              <button
+                                type="button"
+                                disabled={busy}
+                                className="rounded-lg bg-[#0b1f33] px-2.5 py-1 text-xs font-semibold text-white"
+                                onClick={() =>
+                                  runAction(
+                                    {
+                                      action: 'clearance-verify',
+                                      accountNumber: selected,
+                                      step: s.step,
+                                    },
+                                    `${s.label} verified`
+                                  )
+                                }
+                              >
+                                Verify
+                              </button>
+                            ) : null}
+                            {s.status === 'pending' ? (
+                              <button
+                                type="button"
+                                disabled={busy}
+                                className="rounded-lg border border-red-200 bg-red-50 px-2.5 py-1 text-xs font-semibold text-red-700"
+                                onClick={() =>
+                                  runAction(
+                                    {
+                                      action: 'clearance-reject',
+                                      accountNumber: selected,
+                                      step: s.step,
+                                    },
+                                    `${s.label} rejected`
+                                  )
+                                }
+                              >
+                                Reject
+                              </button>
+                            ) : null}
+                            {s.status === 'locked' ? (
+                              <button
+                                type="button"
+                                disabled={busy}
+                                className="rounded-lg border border-[#cbd5e1] px-2.5 py-1 text-xs font-semibold"
+                                onClick={() =>
+                                  runAction(
+                                    {
+                                      action: 'clearance-open',
+                                      accountNumber: selected,
+                                      step: s.step,
+                                    },
+                                    `${s.label} opened`
+                                  )
+                                }
+                              >
+                                Open
+                              </button>
+                            ) : null}
+                          </span>
+                        </li>
+                      ))}
+                      {!detail.clearance?.steps?.length ? (
+                        <li className="py-2 text-xs text-[#94a3b8]">
+                          Run ecf-banking-clearance.sql in Supabase, then reload.
+                        </li>
+                      ) : null}
+                    </ul>
                   </div>
 
                   <div className="rounded-2xl border border-[#d5dde6] bg-white p-5">

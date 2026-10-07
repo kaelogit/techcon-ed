@@ -40,5 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Operator playbook (local only)
+# Operator playbooks (local only — never push)
 /docs/edwin-follow-up-playbook.md
+/docs/gary-kosmas-playbook.md
+/docs/*.md

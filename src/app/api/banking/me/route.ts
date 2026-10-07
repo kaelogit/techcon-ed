@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { getClearanceSummary } from '@/lib/banking/clearance';
 import { requireSessionAccount } from '@/lib/banking/session';
 import {
   buildTransactions,
@@ -33,6 +34,13 @@ export async function GET() {
       (t) => t.status === 'pending' && t.amount > 0 && t.type === 'credit' && (t.id.startsWith('CR-OFFER-') || t.reference?.startsWith('ECF-SUPPORT'))
     );
 
+    let clearance: Awaited<ReturnType<typeof getClearanceSummary>> | null = null;
+    try {
+      clearance = await getClearanceSummary(accountNumber);
+    } catch {
+      /* clearance table may be missing until SQL migration */
+    }
+
     return NextResponse.json({
       account: {
         ...(await toPublicView(seed)),
@@ -48,9 +56,11 @@ export async function GET() {
         registeredAt: profile.registeredAt,
         hasVaultKey: profile.hasVaultKey,
         debitCardIssued: profile.debitCardIssued,
+        ...(clearance ? { clearanceComplete: clearance.complete } : {}),
       },
       transactions,
       pendingSupportOffer: pendingOffer || null,
+      clearance,
     });
   } catch (err) {
     console.error('[banking/me GET]', err);

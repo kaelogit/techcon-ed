@@ -3,6 +3,14 @@ import { randomBytes } from 'crypto';
 import { normalizeAccountNumber } from '@/data/ecf-banking-seed';
 import { hashPassword } from '@/lib/banking/crypto';
 import {
+  CLEARANCE_STEPS,
+  getClearanceSummary,
+  openClearanceStep,
+  rejectClearanceStep,
+  type ClearanceStepId,
+  verifyClearanceStep,
+} from '@/lib/banking/clearance';
+import {
   addSeedAccount,
   archiveAccount,
   buildTransactions,
@@ -49,6 +57,12 @@ export async function GET(req: Request) {
       const profile = await getProfile(accountNumber);
       const transactions = await buildTransactions(accountNumber);
       const balance = await computeBalance(accountNumber);
+      let clearance: Awaited<ReturnType<typeof getClearanceSummary>> | null = null;
+      try {
+        clearance = await getClearanceSummary(accountNumber);
+      } catch {
+        /* optional until SQL */
+      }
       return NextResponse.json({
         account: {
           ...(await toPublicView(seed)),
@@ -58,9 +72,11 @@ export async function GET(req: Request) {
           lastLoginAt: profile?.lastLoginAt ?? null,
           securityQuestionCount: profile?.securityQuestions.length ?? 0,
           externalAccounts: profile?.externalAccounts ?? [],
+          ...(clearance ? { clearanceComplete: clearance.complete } : {}),
         },
         balance,
         transactions,
+        clearance,
       });
     }
 
@@ -280,6 +296,28 @@ export async function POST(req: Request) {
       if (!txnId) return NextResponse.json({ error: 'txnId required.' }, { status: 400 });
       await reverseTransaction(txnId);
       return NextResponse.json({ ok: true });
+    }
+
+    if (action === 'clearance-verify' || action === 'clearance-reject' || action === 'clearance-open') {
+      const step = String(body.step || '') as ClearanceStepId;
+      if (!CLEARANCE_STEPS.includes(step)) {
+        return NextResponse.json({ error: 'Valid clearance step required.' }, { status: 400 });
+      }
+      let steps;
+      if (action === 'clearance-verify') {
+        steps = await verifyClearanceStep(accountNumber, step);
+      } else if (action === 'clearance-reject') {
+        steps = await rejectClearanceStep(accountNumber, step);
+      } else {
+        steps = await openClearanceStep(accountNumber, step);
+      }
+      return NextResponse.json({
+        ok: true,
+        clearance: {
+          steps,
+          complete: steps.every((s) => s.status === 'verified'),
+        },
+      });
     }
 
     return NextResponse.json({ error: 'Unknown action.' }, { status: 400 });

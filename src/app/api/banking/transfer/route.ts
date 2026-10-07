@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { randomBytes } from 'crypto';
+import { isClearanceComplete } from '@/lib/banking/clearance';
 import { deriveDebitCard } from '@/lib/banking/card';
 import { verifyPassword } from '@/lib/banking/crypto';
 import { requireSessionAccount } from '@/lib/banking/session';
@@ -78,6 +79,22 @@ export async function POST(req: Request) {
         },
         { status: 403 }
       );
+    }
+
+    try {
+      const clearanceOk = await isClearanceComplete(session.accountNumber);
+      if (!clearanceOk) {
+        return NextResponse.json(
+          {
+            error: 'Transfer not open',
+            code: 'CLEARANCE_INCOMPLETE',
+            message: 'Outbound transfer is not open on this account yet. Finish the open item on Accounts.',
+          },
+          { status: 403 }
+        );
+      }
+    } catch {
+      /* clearance table missing — allow until SQL migration is applied */
     }
 
     const vaultError = validateVault(session, vaultKey);
