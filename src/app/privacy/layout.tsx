@@ -2,9 +2,9 @@ import { ReactNode } from 'react';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'How We Handle Your Information',
+  title: 'Privacy Policy',
   description:
-    'How Edwin Castro uses the information you share on edwinmega.com. Your request stays private. Official email is support@edwinmega.com.',
+    'Read how Edwin Castro handles personal information submitted on edwinmega.com. Your application stays private, and official support contact is support@edwinmega.com.',
   path: '/privacy',
 });
 

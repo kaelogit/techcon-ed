@@ -3,9 +3,9 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { breadcrumbJsonLd, pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'Housing, School, Health & Business Funding',
+  title: 'What Edwin Castro Funding Covers',
   description:
-    'What Edwin Castro funds: a home, education, medical care, a business, disaster recovery, or a community project. Direct capital. You do not pay it back.',
+    'Explore Edwin Castro funding areas on the official site: housing, education, health, business, family support, and community projects. Apply for the goal that actually moves your next chapter.',
   path: '/areas',
 });
 

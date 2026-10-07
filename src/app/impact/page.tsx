@@ -278,14 +278,14 @@ export default function ImpactPage() {
       <View className="pt-32 pb-16 md:pt-48 md:pb-24 px-6 bg-white border-b border-stone-100">
         <View className="max-w-4xl mx-auto text-center animate-on-load">
           <Text className="block text-stone-500 text-sm font-bold tracking-[0.2em] uppercase mb-6">
-            Funded Outcomes
+            Real outcomes
           </Text>
           <Text className="block text-4xl md:text-7xl font-bold text-edwin-black mb-8 leading-tight">
-            Real stories from <br className="hidden md:block" />
-            people we fund.
+            Proof of what direct <br className="hidden md:block" />
+            funding can change.
           </Text>
           <Text className="block text-lg md:text-xl text-stone-600 leading-relaxed max-w-2xl mx-auto">
-            Recovery, growth, and ambition — neighbors, professionals, owners, and builders sharing what direct capital made possible.
+            These are permissioned outcomes from people funded through the official path — recovery, growth, and ambition made concrete.
           </Text>
         </View>
       </View>

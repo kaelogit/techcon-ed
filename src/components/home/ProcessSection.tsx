@@ -96,7 +96,8 @@ export function ProcessSection() {
         >
           <SectionHeader
             label="The process"
-            title="Three simple steps to request funding."
+            title="Three steps on the official site."
+            description="Apply here, get a personal review, then hear from the official support email if your request moves forward."
           />
         </div>
 

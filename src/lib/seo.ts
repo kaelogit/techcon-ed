@@ -5,9 +5,9 @@ export const SITE_NAME = 'Edwin Castro';
 export const CONTACT_EMAIL = 'support@edwinmega.com';
 export const OG_IMAGE = `${SITE_URL}/hero-image.jpg`;
 
-export const HOME_TITLE = 'Edwin Castro — Official Direct Funding';
+export const HOME_TITLE = 'Edwin Castro — Official Direct Funding Site';
 export const HOME_DESCRIPTION =
-  'The official Edwin Castro funding site. Direct, debt-free support for housing, education, health, business, and recovery. Apply at edwinmega.com and verify official contact before you reply.';
+  'This is the official Edwin Castro funding website. Apply for direct, debt-free support for housing, education, health, business, and recovery — then verify every contact on edwinmega.com before you reply.';
 
 export const PUBLIC_ROUTES = [
   '/',

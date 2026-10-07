@@ -98,8 +98,8 @@ const RECENTLY_HELPED = [
 // FAQ data
 const FAQS = [
   { 
-    q: "Is this real?", 
-        a: "Yes. This is a legitimate direct funding program. Every application is reviewed personally. We fund people across the USA, Canada, United Kingdom, Germany, Australia, and beyond — for recovery, growth, and ambition." 
+    q: "Is this the official Edwin Castro funding site?", 
+        a: "Yes. edwinmega.com is the official website for Edwin Castro direct funding. Apply here, then verify any follow-up email on the contact verification page before you reply or share documents." 
   },
   { 
     q: "Do I have to be in financial hardship?", 
@@ -372,16 +372,16 @@ export default function ApplyPage() {
           <div className="flex items-center justify-center gap-3 mb-6">
             <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
             <p className="text-[var(--accent-gold)] text-xs font-bold tracking-[0.3em] uppercase">
-              Direct Funding Program
+              Official application
             </p>
             <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
           </div>
           <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6 leading-tight">
-            Share the goal. <br className="hidden sm:block" />
-            We fund <span className="text-[var(--accent-gold)]">what comes next</span>.
+            Apply on the official site. <br className="hidden sm:block" />
+            Tell us <span className="text-[var(--accent-gold)]">what comes next</span>.
           </h1>
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed mb-8">
-            Direct, debt-free capital for crisis recovery, steady growth, and ambitious builds — housing, health, education, business, and community. No loans. No repayment.
+            This is the official Edwin Castro funding application. Share a clear goal for housing, education, health, business, recovery, or community. Direct funding. No repayment.
           </p>
 
           {/* Quick Stats */}

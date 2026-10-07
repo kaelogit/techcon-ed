@@ -43,8 +43,8 @@ export function FaqPreviewSection() {
         >
           <SectionHeader
             label="Common questions"
-            title="Straight answers"
-            description="Funding for recovery, growth, and ambition — here is exactly how it works."
+            title="Clear answers before you apply"
+            description="What this funding is, who it is for, where to apply, and how to confirm official contact on edwinmega.com."
           />
         </div>
 

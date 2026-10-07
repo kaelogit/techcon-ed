@@ -75,16 +75,16 @@ export default function AreasPage() {
           <div className="flex items-center justify-center gap-3 mb-6">
             <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
             <p className="text-[var(--accent-gold)] text-xs font-bold tracking-[0.3em] uppercase">
-              Funding Focus
+              Funding areas
             </p>
             <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
           </div>
           <h1 className="font-serif text-4xl md:text-5xl lg:text-7xl font-semibold text-gray-900 mb-8 leading-tight">
-            Capital for recovery, <br className="hidden md:block" />
-            growth, and <span className="text-[var(--accent-gold)]">ambition</span>.
+            What official Edwin Castro <br className="hidden md:block" />
+            funding can <span className="text-[var(--accent-gold)]">cover</span>.
           </h1>
           <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto">
-            We fund clear human goals across life stages. Crisis support stays open — and so do requests from people building, expanding, or investing in what comes next.
+            Choose the area that matches your real next step — housing, education, health, business, family, or community. Crisis recovery stays open, and so do growth and scale.
           </p>
         </div>
       </section>

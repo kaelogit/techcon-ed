@@ -13,8 +13,8 @@ export function Footer() {
             Edwin Castro
           </Link>
           <p className="mt-5 max-w-md text-sm leading-relaxed text-white/70">
-            Direct, debt-free funding for recovery, growth, and ambition — a personal commitment to
-            people building their next chapter.
+            The official Edwin Castro funding website. Direct, debt-free support for people building
+            their next chapter — and the place to verify every contact before you reply.
           </p>
           <div className="mt-5 flex items-center gap-2 text-sm text-white/60">
             <ShieldCheck className="h-4 w-4 text-[var(--accent-gold)]" />

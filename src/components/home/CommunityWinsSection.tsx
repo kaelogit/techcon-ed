@@ -56,10 +56,10 @@ export function CommunityWinsSection() {
             <span className="w-10 h-[2px] bg-[var(--accent-gold)]" />
           </div>
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-[var(--deep-charcoal)] leading-tight mb-4">
-            Real people. Real funding.
+            Real people funded through the official path
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            Families, professionals, and builders whose next chapter was funded — from recovery to growth to scale.
+            Families, professionals, and builders whose next chapter moved forward — from recovery to growth to scale.
           </p>
         </div>
 

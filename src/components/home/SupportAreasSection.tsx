@@ -132,10 +132,10 @@ export function SupportAreasSection() {
             label="Who we fund"
             title={
               <>
-                Direct capital for goals that <span className="text-[var(--accent-gold)]">matter now</span>.
+                Funding for the goals that <span className="text-[var(--accent-gold)]">define a next chapter</span>
               </>
             }
-            description="Open to people rebuilding, people growing, and people ready to scale — income is not the gate."
+            description="Crisis recovery stays open. So do growth plans and larger builds. Income is not the gate — a clear purpose is."
           />
         </div>
 

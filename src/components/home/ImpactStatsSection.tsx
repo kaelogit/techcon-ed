@@ -157,7 +157,7 @@ export function ImpactStatsSection() {
           <div className="max-w-2xl space-y-4">
             <p className="section-label">The scale of impact</p>
             <h2 className="mt-3 text-3xl font-bold leading-tight text-[var(--trust)] md:text-4xl">
-              Capital with purpose, <span className="text-[var(--accent-gold)] italic">without</span> the bureaucracy.
+              Official funding with purpose, <span className="text-[var(--accent-gold)] italic">without</span> the runaround.
             </h2>
             <div className="accent-bar mt-4" />
           </div>

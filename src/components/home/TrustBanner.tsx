@@ -34,7 +34,7 @@ export function TrustBanner() {
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
           }`}
         >
-          <p className="section-label-light">Your next chapter</p>
+          <p className="section-label-light">Start on the official site</p>
         </div>
 
         <h2
@@ -42,8 +42,8 @@ export function TrustBanner() {
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
           }`}
         >
-          Ready for what comes <br className="hidden sm:block" />
-          <span className="text-[var(--accent-gold)]">after the plan.</span>
+          Bring a clear goal. <br className="hidden sm:block" />
+          <span className="text-[var(--accent-gold)]">Apply where it is official.</span>
         </h2>
 
         <p 
@@ -51,9 +51,9 @@ export function TrustBanner() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          Whether you are recovering from a real crisis, strengthening a steady life, 
-          or funding a bold next move — share the goal. If the purpose is clear, 
-          we are ready to consider direct capital behind it.
+          Whether you are recovering, growing, or scaling something larger, submit the request on
+          this website. Clear purpose gets a personal review — and every message should still be
+          verified on this site before you act.
         </p>
 
         <div 

@@ -11,13 +11,13 @@ export default function TermsPage() {
       <View className="bg-white pt-32 pb-20 md:pt-48 md:pb-32 px-6 border-b border-stone-100">
         <View className="max-w-4xl mx-auto text-center animate-on-load">
           <Text className="block text-stone-500 text-sm font-bold tracking-[0.2em] uppercase mb-6">
-            Our Agreement
+            Terms of service
           </Text>
           <Text className="block text-4xl md:text-6xl font-bold text-edwin-black mb-8">
-            The way we work <br /> together.
+            Clear rules for the <br /> official funding site.
           </Text>
           <Text className="block text-lg md:text-xl text-stone-600 leading-relaxed max-w-2xl mx-auto">
-            These guidelines keep funding fast, fair, and safe — whether your goal is recovery, growth, or a larger build.
+            These terms explain how Edwin Castro funding works on edwinmega.com — who can apply, how review works, and how to stay safe.
           </Text>
         </View>
       </View>

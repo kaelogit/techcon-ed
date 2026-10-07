@@ -1,52 +1,52 @@
 export const faqs = [
   {
-    question: 'Who is this funding for?',
+    question: 'What is Edwin Castro funding?',
     answer:
-      'People with a clear purpose — at any stage. That includes urgent recovery after a crisis, steady growth for families and professionals, and ambitious builds for those ready to scale a business, property, education path, or community project. Income level is not the filter; clarity of goal is.',
+      'Edwin Castro funding is direct, debt-free support offered through the official website edwinmega.com. People apply with a clear goal — recovery, growth, or a larger build — and approved funding is reviewed personally rather than through a long agency queue.',
   },
   {
-    question: 'How long does the review and funding take?',
+    question: 'Who can apply?',
     answer:
-      'Once you submit your goal, our team typically responds within hours. After a short verification, funding can often be arranged within 24 hours when the request is approved. We move quickly because momentum matters — in a crisis and in a growth plan.',
+      'Anyone with a clear purpose may apply. That includes people in urgent recovery, families and professionals seeking a steady next step, and owners or builders ready to expand. Income level is not the filter. Clarity of goal is.',
   },
   {
-    question: 'What should I do immediately after submitting?',
+    question: 'How long does review usually take?',
     answer:
-      'Watch your email closely. We write from our secure support address. If you do not see a reply, check junk or spam — new senders are sometimes filtered.',
+      'After you submit on this site, the team typically responds within hours. When a request is approved and basic verification is complete, funding can often move within about 24 hours. Speed depends on how complete and clear the application is.',
   },
   {
-    question: 'What kind of verification will you ask for?',
+    question: 'Where should I apply?',
     answer:
-      'Standard identity confirmation so we know we are speaking with the right person and sending capital to the right place. Your security matters as much as the funding itself.',
+      'Apply only on the official site: edwinmega.com/apply. Do not submit personal details, payments, or documents through random links, texts, or lookalike websites. If someone sends you elsewhere, verify the contact first.',
+  },
+  {
+    question: 'What happens after I submit?',
+    answer:
+      'Watch your email closely, including spam or junk folders. Official follow-up comes from support@edwinmega.com. Keep that address bookmarked so you can recognize real messages from this office.',
   },
   {
     question: 'How much funding should I request?',
     answer:
-      'Ask for the amount that actually completes the goal — whether that is stabilizing after a setback, finishing a degree, expanding a business, upgrading a home, funding specialized care, or launching a community project. Honesty and specificity matter more than a modest ask.',
+      'Request the amount that actually completes the goal. Be specific about housing, education, health, business, recovery, or community work. Honesty and a clear plan matter more than making the ask sound small.',
   },
   {
-    question: 'Can I request funding for someone else?',
+    question: 'Do I have to pay the money back?',
     answer:
-      'Yes. You can submit on behalf of a family member, colleague, or organization when the goal is genuine and the details are accurate so we can reach them directly.',
+      'No. This is direct funding, not a loan. There is no repayment schedule and no interest attached to approved support through this site.',
   },
   {
-    question: 'Do I need to provide a lot of paperwork?',
+    question: 'Will my story be posted publicly?',
     answer:
-      'We keep the process human and light. After you apply, we tell you exactly what basic verification is needed. We do not use bureaucracy as a barrier.',
+      'Not without your clear permission. Your application stays between you and the review team. Published stories appear only when someone chooses to share an outcome publicly.',
   },
   {
-    question: 'Will my request be shared publicly?',
+    question: 'Can I apply for someone else?',
     answer:
-      'Never without your clear permission. Published stories are shared only by people who chose to inspire others. Your personal request stays confidential between you and our team.',
+      'Yes, when the goal is genuine and the details are accurate. Provide enough information for the team to reach the person or organization directly and confirm the request.',
   },
   {
-    question: 'Do I have to pay anything back?',
+    question: 'Someone contacted me about Edwin Castro funding. How do I confirm it is real?',
     answer:
-      'No. This is direct, debt-free funding. When you are in a position to do so, we simply ask that you find a way to lift someone else in your circle.',
-  },
-  {
-    question: 'Someone contacted me about Edwin Castro funding — how do I know it is real?',
-    answer:
-      'Confirm the contact on the official verification page at edwinmega.com/verify. Real follow-up comes only from support@edwinmega.com on edwinmega.com. Email support with who contacted you and what they asked before you reply, pay, or share documents.',
+      'Use the official verification page at edwinmega.com/verify. Real follow-up comes only from support@edwinmega.com on edwinmega.com. Email support with who contacted you and what they asked before you reply, pay, or share documents.',
   },
 ];

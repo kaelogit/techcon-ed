@@ -93,25 +93,26 @@ export default function VisionSection() {
             
             {/* Headline */}
             <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-900 leading-tight">
-              Built to invest in <span className="text-(--trust)">people</span> — not one profile
+              Built to fund <span className="text-(--trust)">real goals</span> — not one narrow profile
             </h2>
 
             {/* Body Text */}
             <div className="space-y-5 text-gray-600 leading-relaxed text-lg">
               <p>
-                Edwin Castro grew up with the values of an <strong className="text-gray-900">Eagle Scout</strong> and the 
-                disciplined vision of an <strong className="text-gray-900">architect</strong>. After winning the $2.04 billion 
-                Powerball jackpot, he chose to put capital behind clear human goals — recovery, growth, and ambition alike.
+                Edwin Castro grew up with the values of an <strong className="text-gray-900">Eagle Scout</strong> and the
+                disciplined vision of an <strong className="text-gray-900">architect</strong>. After winning the $2.04 billion
+                Powerball jackpot, he chose to put capital behind clear human goals on one official path — this website.
               </p>
               <p>
-                The work began with rebuilding homes in Altadena after the wildfires. It continues as direct funding for 
-                people at every stage: those stabilizing after a crisis, professionals and families advancing a plan, 
-                and builders ready to scale something bigger. We do not only respond to hardship — we 
-                <strong className="text-(--accent-gold)"> invest in purpose</strong>.
+                The work began with rebuilding homes in Altadena after the wildfires. It continues as direct funding for
+                people at every stage: those stabilizing after a crisis, professionals and families advancing a plan,
+                and builders ready to scale something bigger. The point is not charity theater. It is
+                <strong className="text-(--accent-gold)"> purposeful capital</strong>.
               </p>
               <p className="text-base">
-                Funding moves straight to you. <span className="font-semibold text-gray-900">No middlemen. No endless paperwork. </span>
-                Just a clear goal, a personal review, and capital when the fit is right.
+                Funding is reviewed personally and moves directly when the fit is right.
+                <span className="font-semibold text-gray-900"> Apply here. Verify contact here. </span>
+                That is how people keep the process clear.
               </p>
             </div>
             

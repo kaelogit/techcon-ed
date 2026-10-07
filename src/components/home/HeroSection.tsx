@@ -26,7 +26,7 @@ export function HeroSection() {
                   isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
                 }`}
               >
-                Direct Funding Program
+                Official Edwin Castro funding
               </p>
 
               <h1
@@ -34,10 +34,10 @@ export function HeroSection() {
                   isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
                 }`}
               >
-                Private funding for
+                The official place to
                 <br />
-                <span className="text-[var(--accent-gold)] italic">every stage</span> of your next
-                chapter.
+                request <span className="text-[var(--accent-gold)] italic">direct funding</span>
+                <br className="hidden sm:block" /> for your next chapter.
               </h1>
 
               <p
@@ -45,8 +45,8 @@ export function HeroSection() {
                   isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
                 }`}
               >
-                Direct, debt-free capital for recovery, growth, and ambition — whether you are
-                rebuilding after a setback or accelerating a clear goal.
+                Apply here for debt-free support across recovery, growth, and ambition. If someone
+                contacted you using this name, verify the channel on this site before you reply.
               </p>
 
               <div

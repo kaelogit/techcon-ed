@@ -12,16 +12,16 @@ export default function StoryPage() {
           <div className="flex items-center justify-center gap-3 mb-6">
             <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
             <p className="text-[var(--accent-gold)] text-xs font-bold tracking-[0.3em] uppercase">
-              Our Purpose
+              The vision
             </p>
             <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
           </div>
           <h1 className="font-serif text-4xl md:text-5xl lg:text-7xl font-semibold text-gray-900 mb-8 leading-tight">
-            Success is only meaningful <br className="hidden md:block" />
-            when it is <span className="text-[var(--accent-gold)]">shared</span>.
+            Why this funding exists — <br className="hidden md:block" />
+            and why it stays <span className="text-[var(--accent-gold)]">direct</span>.
           </h1>
           <p className="text-lg md:text-2xl text-gray-600 font-light leading-relaxed max-w-3xl mx-auto">
-            Edwin Castro believes great fortune carries a responsibility: put capital behind clear human goals — recovery, growth, and ambition — so more people can build what comes next.
+            Edwin Castro built this official path so capital can reach clear human goals — recovery, growth, and ambition — without forcing people through endless middlemen.
           </p>
         </div>
       </section>
