@@ -10,7 +10,7 @@ const navLinks = [
   { href: '/areas', label: 'Areas' },
   { href: '/impact', label: 'Stories' },
   { href: '/#faq', label: 'FAQ' },
-  { href: '/verify', label: 'Is this real?' },
+  { href: '/verify', label: 'Verify contact' },
 ];
 
 export function Navbar() {

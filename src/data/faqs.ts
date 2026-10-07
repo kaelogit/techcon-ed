@@ -45,8 +45,8 @@ export const faqs = [
       'No. This is direct, debt-free funding. When you are in a position to do so, we simply ask that you find a way to lift someone else in your circle.',
   },
   {
-    question: 'Someone contacted me about Edwin Castro funding — is it real?',
+    question: 'Someone contacted me about Edwin Castro funding — how do I know it is real?',
     answer:
-      'Pause and check first. Official email is support@edwinmega.com on edwinmega.com. We never ask for fees or passwords. Visit edwinmega.com/verify and tell support who contacted you.',
+      'Confirm the contact on the official verification page at edwinmega.com/verify. Real follow-up comes only from support@edwinmega.com on edwinmega.com. Email support with who contacted you and what they asked before you reply, pay, or share documents.',
   },
 ];

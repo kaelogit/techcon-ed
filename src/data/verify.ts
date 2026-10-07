@@ -5,39 +5,39 @@ export const OFFICIAL_SITE = 'edwinmega.com';
 
 export const verifyFaqs = [
   {
-    question: 'How do I know a message is really from Edwin Castro?',
-    answer: `Pause and use this page. Official email is ${OFFICIAL_EMAIL} on ${OFFICIAL_SITE}. If the address is different, it is not us. Write support with who contacted you and what they asked.`,
+    question: 'How do I confirm a message is really from Edwin Castro?',
+    answer: `Use this page as your checkpoint. The only official follow-up email is ${OFFICIAL_EMAIL}, and it must sit on ${OFFICIAL_SITE}. If the address, website, or sender name does not match, treat it as unofficial and email support before you reply.`,
   },
   {
-    question: 'What is the official Edwin Castro email?',
-    answer: `support@edwinmega.com. That is the only address we use to follow up on funding requests. Messages from Gmail, WhatsApp numbers, or lookalike domains are not official.`,
+    question: 'What is the official Edwin Castro email address?',
+    answer: `The official support address is ${OFFICIAL_EMAIL}. That is the address used for real funding follow-up. Messages from personal Gmail accounts, random WhatsApp numbers, or lookalike domains are not official Edwin Castro contact.`,
   },
   {
     question: 'Will Edwin Castro ask me to pay a fee to receive funding?',
     answer:
-      'No. Funding is free to request and free to receive. We never ask for money, taxes, or processing fees. If someone using Edwin Castro’s name asks you to pay, it is not us.',
+      'No. Applying and receiving funding through this site does not require an upfront fee, tax payment, or password share just to prove you were selected. If anyone using Edwin Castro’s name pressures you to pay first, stop and verify the contact here.',
   },
   {
-    question: 'Do you ever ask for passwords?',
-    answer: `Never. We never ask for email or banking passwords. If anyone demanding passwords uses this name, ignore them and write ${OFFICIAL_EMAIL}.`,
+    question: 'What should I do if I am unsure about a call, text, or email?',
+    answer: `Do not reply with money, codes, or documents yet. Open this page, compare the sender to ${OFFICIAL_EMAIL}, then email support with who contacted you and what they asked. We will tell you whether it matches an official file.`,
   },
 ];
 
 export const verifyChecks = [
   {
-    title: 'Official website only',
-    body: `The official site is ${OFFICIAL_SITE}. If a link goes somewhere else, stop and email us before you tap, sign in, or send documents.`,
+    title: 'Start on the official website',
+    body: `${OFFICIAL_SITE} is the home for Edwin Castro funding. If a link sends you somewhere else to sign in, pay, or upload documents, pause and confirm with support first.`,
   },
   {
-    title: 'Official email only',
-    body: `Real follow-up comes from ${OFFICIAL_EMAIL}. A similar name on a different address is not Edwin Castro.`,
+    title: 'Match the official email exactly',
+    body: `Real follow-up comes from ${OFFICIAL_EMAIL}. A similar display name on a different address is not enough. The full address has to match.`,
   },
   {
-    title: 'Ask us before you act',
-    body: 'Tell us who contacted you and what they asked. We will confirm whether it matches a real request on this site.',
+    title: 'Ask before you act',
+    body: 'Send support the name, number, or email that contacted you and a short note about what they requested. Confirmation before action protects your file and your money.',
   },
   {
-    title: 'Protect yourself',
-    body: 'We never ask for fees, taxes, or passwords. If anyone claiming to represent Edwin Castro does, ignore them and write support.',
+    title: 'Protect your accounts',
+    body: 'Never share email passwords, banking logins, or one-time codes with anyone claiming to represent Edwin Castro. Official support will never need that to continue a real review.',
   },
 ];

@@ -47,17 +47,18 @@ export default function SecurityPage() {
 
           <View className="mb-16 border border-stone-200 bg-stone-50 p-8">
             <Text className="block text-2xl font-bold text-edwin-black">
-              Someone contacted you about funding?
+              Confirm official Edwin Castro contact
             </Text>
             <Text className="mt-3 block text-base leading-relaxed text-stone-600">
-              Do not reply yet. Official messages come only from support@edwinmega.com. Check the
-              message on our contact page before you send documents or money.
+              If someone reached out about funding, verify the channel first. Real follow-up comes
+              only from support@edwinmega.com. Use the official verification page before you reply
+              or share documents.
             </Text>
             <a
               href="/verify"
               className="mt-6 inline-flex bg-[var(--trust)] px-6 py-3 text-sm font-semibold text-white"
             >
-              Check if this message is real
+              Open contact verification
             </a>
           </View>
 

@@ -4,9 +4,9 @@ import { verifyFaqs } from '@/data/verify';
 import { breadcrumbJsonLd, faqPageJsonLd, pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'Did someone contact you about funding?',
+  title: 'Official Contact Verification',
   description:
-    'Check if a message is really from Edwin Castro. Official email is support@edwinmega.com on edwinmega.com. We never ask for fees, taxes, or passwords.',
+    'Confirm official Edwin Castro funding contact on edwinmega.com. Real follow-up comes only from support@edwinmega.com. Check a message here before you reply or share documents.',
   path: '/verify',
 });
 
@@ -16,7 +16,7 @@ export default function VerifyLayout({ children }: { children: ReactNode }) {
       <JsonLd
         data={breadcrumbJsonLd([
           { name: 'Home', path: '/' },
-          { name: 'Check a message', path: '/verify' },
+          { name: 'Official Contact Verification', path: '/verify' },
         ])}
       />
       <JsonLd data={faqPageJsonLd(verifyFaqs)} />

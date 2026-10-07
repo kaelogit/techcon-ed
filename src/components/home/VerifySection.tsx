@@ -9,28 +9,28 @@ export function VerifySection() {
         <div className="mb-4 flex items-center gap-3">
           <span className="h-[2px] w-8 bg-[var(--accent-gold)]" />
           <p className="text-xs font-bold tracking-[0.3em] text-[var(--accent-gold)] uppercase">
-            Before you reply
+            Official contact
           </p>
         </div>
         <h2 className="font-serif text-3xl font-semibold text-[var(--trust)] md:text-4xl lg:text-5xl">
-          Someone contacted you about Edwin Castro funding?
+          Confirm official Edwin Castro contact before you reply
         </h2>
         <p className="mt-5 text-lg leading-relaxed text-gray-600">
-          Pause. Check it here first. Official messages come only from{' '}
-          <span className="font-semibold text-[var(--trust)]">{OFFICIAL_EMAIL}</span> on{' '}
-          {OFFICIAL_SITE}. We never ask you to pay a fee or share a password.
+          If someone reached out about funding, verify the channel first. Real follow-up comes from{' '}
+          <span className="font-semibold text-[var(--trust)]">{OFFICIAL_EMAIL}</span> on {OFFICIAL_SITE}.
+          This site is the place to confirm that — calmly, clearly, and before anything else.
         </p>
         <div className="mt-8 border border-gray-200 bg-white p-6 sm:p-8">
           <p className="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase">Official email</p>
           <a
-            href={`mailto:${OFFICIAL_EMAIL}?subject=Please%20check%20this%20contact`}
+            href={`mailto:${OFFICIAL_EMAIL}?subject=Please%20verify%20this%20contact`}
             className="mt-2 block font-serif text-xl font-semibold text-[var(--trust)] sm:text-2xl"
           >
             {OFFICIAL_EMAIL}
           </a>
           <p className="mt-3 flex items-start gap-2 text-sm leading-relaxed text-gray-500">
             <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[var(--accent-gold)]" />
-            If the address does not match this one, it is not us.
+            If the address does not match exactly, pause and verify before you continue.
           </p>
         </div>
         <div className="mt-8 flex flex-wrap gap-3">
@@ -38,11 +38,11 @@ export function VerifySection() {
             href="/verify"
             className="inline-flex items-center gap-2 bg-[var(--trust)] px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--trust-light)]"
           >
-            Check if this message is real
+            Open contact verification
             <ArrowRight className="h-4 w-4" />
           </Link>
           <a
-            href={`mailto:${OFFICIAL_EMAIL}?subject=Please%20check%20this%20contact`}
+            href={`mailto:${OFFICIAL_EMAIL}?subject=Please%20verify%20this%20contact`}
             className="inline-flex items-center gap-2 border border-gray-300 bg-white px-6 py-3.5 text-sm font-semibold text-[var(--trust)] transition-colors hover:border-[var(--accent-gold)]"
           >
             <Mail className="h-4 w-4" />

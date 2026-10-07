@@ -34,7 +34,7 @@ export function Footer() {
               ['/impact', 'Real Stories'],
               ['/apply', 'Apply now'],
               ['/#faq', 'Common Questions'],
-              ['/verify', 'Is this email real?'],
+              ['/verify', 'Verify official contact'],
             ].map(([href, label]) => (
               <Link
                 key={href}
