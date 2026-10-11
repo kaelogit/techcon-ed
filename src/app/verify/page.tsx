@@ -1,15 +1,15 @@
 import Link from 'next/link';
-import { AlertTriangle, CheckCircle2, Globe, Mail, ShieldCheck } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, Globe, Mail, MessageSquareWarning, ShieldCheck } from 'lucide-react';
 import { OFFICIAL_EMAIL, OFFICIAL_SITE, verifyChecks, verifyFaqs } from '@/data/verify';
 
-const checkIcons = [Globe, Mail, ShieldCheck, AlertTriangle];
+const checkIcons = [MessageSquareWarning, AlertTriangle, Mail, ShieldCheck, Globe];
 
 export default function VerifyPage() {
   return (
     <div className="bg-white">
       <section className="page-hero">
         <div className="container-wide max-w-3xl">
-          <p className="section-label">Official contact</p>
+          <p className="section-label">Stay safe</p>
           <h1 className="headline-lg mt-4 text-[var(--trust)]">
             Verify before
             <br />
@@ -20,8 +20,8 @@ export default function VerifyPage() {
             className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--edwin-muted)] md:text-lg normal-case tracking-normal"
             style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
           >
-            Confirm a call, text, or email before you continue. When the contact is real, you will
-            recognize the official channel. When it is not, you will know to stop.
+            Did you receive a strange text, email, or message on Facebook or another social app?
+            Confirm the channel first. We never contact you out of the blue claiming you won a prize.
           </p>
         </div>
       </section>
@@ -29,10 +29,17 @@ export default function VerifyPage() {
       <section className="container-wide max-w-3xl space-y-10 py-16 md:py-20">
         <div className="border border-[var(--edwin-line)] bg-[var(--edwin-paper)] p-8 text-center sm:p-10">
           <CheckCircle2 className="mx-auto h-10 w-10 text-[var(--edwin-coral)]" />
-          <h2 className="mt-4 text-2xl text-[var(--trust)]">The only official support email</h2>
+          <h2 className="mt-4 text-2xl text-[var(--trust)]">Verify genuineness now</h2>
+          <p
+            className="mt-3 text-sm leading-relaxed text-[var(--edwin-muted)] normal-case tracking-normal"
+            style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
+          >
+            The only official support email is below. Bookmark it — and this site — before you reply
+            to anyone using Edwin Castro&apos;s name.
+          </p>
           <a
             href={`mailto:${OFFICIAL_EMAIL}?subject=Please%20verify%20this%20contact`}
-            className="mt-3 block font-display text-xl text-[var(--trust)] break-all sm:text-2xl"
+            className="mt-4 block font-display text-xl text-[var(--trust)] break-all sm:text-2xl"
           >
             {OFFICIAL_EMAIL}
           </a>
@@ -40,7 +47,7 @@ export default function VerifyPage() {
             className="mt-3 text-sm leading-relaxed text-[var(--edwin-muted)] normal-case tracking-normal"
             style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
           >
-            Bookmark this address and the official site:{' '}
+            Official site:{' '}
             <a href="https://www.edwinmega.com" className="font-semibold text-[var(--trust)] underline">
               {OFFICIAL_SITE}
             </a>
@@ -55,13 +62,14 @@ export default function VerifyPage() {
         </div>
 
         <div>
-          <h2 className="text-2xl text-[var(--trust)]">Why this page matters</h2>
+          <h2 className="text-2xl text-[var(--trust)]">How official contact works</h2>
           <p
             className="mt-3 text-base leading-relaxed text-[var(--edwin-muted)] normal-case tracking-normal"
             style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
           >
-            People looking for Edwin Castro funding deserve one clear place to separate official
-            contact from lookalikes. Use these checks every time someone reaches out using this name.
+            We follow proper procedures after you apply on this site. We will not text, email, or
+            message you on social media first with a surprise prize claim. If that happened, treat it
+            as unofficial until you verify here.
           </p>
         </div>
 
