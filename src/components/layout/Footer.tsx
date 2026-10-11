@@ -5,36 +5,35 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[var(--deep-charcoal)] text-white">
-      <div className="brand-topbar" />
-      <div className="container-page grid gap-10 pt-14 pb-8 md:grid-cols-4">
+    <footer className="border-t border-[var(--edwin-line)] bg-[var(--trust)] text-white">
+      <div className="container-wide grid gap-10 pt-14 pb-8 md:grid-cols-4">
         <div className="md:col-span-2">
-          <Link href="/" className="font-display inline-block text-2xl font-semibold text-white">
+          <Link href="/" className="font-display inline-block text-3xl tracking-[0.04em] text-white">
             Edwin Castro
           </Link>
-          <p className="mt-5 max-w-md text-sm leading-relaxed text-white/70">
-            The official Edwin Castro funding website. Direct, debt-free support for people building
-            their next chapter — and the place to verify every contact before you reply.
+          <p className="mt-5 max-w-md text-sm leading-relaxed text-white/75">
+            Official site for Edwin Castro funding. Debt-free support for people building their next
+            chapter — and the place to verify every contact before you reply.
           </p>
-          <div className="mt-5 flex items-center gap-2 text-sm text-white/60">
+          <div className="mt-5 flex items-center gap-2 text-sm text-white/70">
             <ShieldCheck className="h-4 w-4 text-[var(--accent-gold)]" />
-            100% debt-free funding
+            Grants — not loans
           </div>
         </div>
 
         <div>
-          <h4 className="mb-4 text-xs font-bold tracking-wider text-[var(--accent-gold)] uppercase">
-            Platform
+          <h4 className="mb-4 text-xs font-bold tracking-[0.16em] text-[var(--edwin-coral)] uppercase">
+            Explore
           </h4>
           <nav className="flex flex-col gap-2.5">
             {[
               ['/', 'Home'],
-              ['/story', 'The Vision'],
-              ['/areas', 'Funding Areas'],
-              ['/impact', 'Real Stories'],
-              ['/apply', 'Apply now'],
-              ['/#faq', 'Common Questions'],
-              ['/verify', 'Verify official contact'],
+              ['/story', 'Vision'],
+              ['/areas', 'Funding areas'],
+              ['/impact', 'Stories'],
+              ['/apply', 'Apply'],
+              ['/#faq', 'FAQ'],
+              ['/verify', 'Verify contact'],
             ].map(([href, label]) => (
               <Link
                 key={href}
@@ -48,7 +47,7 @@ export function Footer() {
         </div>
 
         <div>
-          <h4 className="mb-4 text-xs font-bold tracking-wider text-[var(--accent-gold)] uppercase">
+          <h4 className="mb-4 text-xs font-bold tracking-[0.16em] text-[var(--edwin-coral)] uppercase">
             Contact
           </h4>
           <a
@@ -60,21 +59,24 @@ export function Footer() {
           </a>
           <p className="mt-4 flex items-start gap-2 text-sm text-white/55">
             <MapPin className="mt-0.5 h-4 w-4 shrink-0" />
-            Responses typically sent within minutes during active review hours.
+            Email only. Official follow-up comes from your assigned coordinator thread.
           </p>
           <nav className="mt-5 flex flex-col gap-2">
             <Link href="/privacy" className="text-sm text-white/75 hover:text-white">
-              Privacy Policy
+              Privacy
             </Link>
             <Link href="/terms" className="text-sm text-white/75 hover:text-white">
-              Terms of Service
+              Terms
+            </Link>
+            <Link href="/security" className="text-sm text-white/75 hover:text-white">
+              Security
             </Link>
           </nav>
         </div>
       </div>
 
-      <p className="container-page border-t border-white/10 py-6 text-sm text-white/50">
-        © {currentYear} Edwin Castro · The Uplift Program
+      <p className="container-wide border-t border-white/15 py-6 text-sm text-white/50">
+        © {currentYear} Edwin Castro Foundation · edwinmega.com
       </p>
     </footer>
   );

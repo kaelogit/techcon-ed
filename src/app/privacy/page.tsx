@@ -1,83 +1,79 @@
-'use client';
-
-import { View, Text } from '@/components/Themed';
-import Link from 'next/link';
-
 export default function PrivacyPage() {
   return (
-    <View className="min-h-screen bg-white">
-      
-      {/* HEADER SECTION */}
-      <View className="bg-[#F9F8F6] pt-32 pb-20 md:pt-48 md:pb-32 px-6 border-b border-stone-200">
-        <View className="max-w-4xl mx-auto text-center animate-on-load">
-          <Text className="block text-stone-500 text-sm font-bold tracking-[0.2em] uppercase mb-6">
-            Trust & Transparency
-          </Text>
-          <Text className="block text-4xl md:text-6xl font-bold text-edwin-black mb-8">
-            How we protect <br /> your privacy.
-          </Text>
-          <Text className="block text-lg md:text-xl text-stone-600 leading-relaxed max-w-2xl mx-auto">
-            We believe that your personal story is yours alone. Here is exactly how we handle and protect the information you share with us.
-          </Text>
-        </View>
-      </View>
+    <div className="bg-white">
+      <section className="page-hero">
+        <div className="container-wide max-w-3xl">
+          <p className="section-label">Privacy</p>
+          <h1 className="headline-lg mt-4 text-[var(--trust)]">
+            How we handle
+            <br />
+            your information
+          </h1>
+          <div className="accent-bar mt-5" />
+          <p
+            className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--edwin-muted)] md:text-lg normal-case tracking-normal"
+            style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
+          >
+            Your story is yours. This page explains what we collect on edwinmega.com and how it is
+            used.
+          </p>
+        </div>
+      </section>
 
-      {/* CONTENT SECTION */}
-      <View className="py-24 px-6">
-        <View className="max-w-3xl mx-auto">
-          
-          <PrivacySection 
-            title="1. What we collect"
-            desc="When you reach out to us, we collect your name, email, location, and the story you choose to share. This is the only information we use to understand your situation and determine how we can best support you."
-          />
+      <section className="container-wide max-w-3xl space-y-12 py-16 md:py-20">
+        {[
+          {
+            title: 'What we collect',
+            body: 'When you apply, we collect your name, email, location, and the goal or story you choose to share. If you email support, we keep that thread so we can answer you.',
+          },
+          {
+            title: 'How we use it',
+            body: 'Application details are used only to review your funding request, contact you, and keep an official file. We do not sell your information or use it for third-party advertising.',
+          },
+          {
+            title: 'Public stories',
+            body: 'Stories shown on this site are shared only with explicit permission. We will never publish your name or details without asking you first.',
+          },
+          {
+            title: 'Verification data',
+            body: 'If a request moves forward, we may ask for standard identification so funds reach the right person. Sensitive details are handled through secure channels and kept only as long as needed.',
+          },
+          {
+            title: 'Your rights',
+            body: 'You may request access, correction, or deletion of your personal information by emailing support@edwinmega.com.',
+          },
+          {
+            title: 'Questions',
+            body: 'Write support@edwinmega.com with any privacy question. If a message feels off, use the Verify page before you reply.',
+          },
+        ].map((section) => (
+          <div key={section.title}>
+            <h2 className="text-xl text-[var(--trust)]">{section.title}</h2>
+            <p
+              className="mt-3 text-sm leading-relaxed text-[var(--edwin-muted)] md:text-base normal-case tracking-normal"
+              style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
+            >
+              {section.body}
+            </p>
+          </div>
+        ))}
 
-          <PrivacySection 
-            title="2. How we use your story"
-            desc="Your story is used strictly for review by Edwin’s private support team. We do not sell your data, we do not share it with advertisers, and we do not use it for any purpose other than providing direct relief."
-          />
-
-          <PrivacySection 
-            title="3. Public Sharing"
-            desc="You will notice 'Real Stories' on our platform. These are only shared because those individuals gave us their explicit, written permission to inspire others. We will never share your name or story publicly without asking you first."
-          />
-
-          <PrivacySection 
-            title="4. Verification Data"
-            desc="If your request is approved for funding, we may ask for standard identification to ensure the funds reach the right person. This sensitive data is handled through secure, encrypted channels and is never stored longer than necessary."
-          />
-
-          <PrivacySection 
-            title="5. Your Rights"
-            desc="You are in total control. If you ever want us to delete your request or remove your information from our secure system, simply send an email to our support team and it will be handled immediately."
-          />
-
-          {/* Contact for Privacy Issues */}
-          <View className="mt-20 p-12 bg-edwin-navy rounded-[3rem] text-center shadow-xl">
-            <Text className="block text-amber-400 text-xs font-bold uppercase tracking-[0.2em] mb-4">Privacy Officer</Text>
-            <Text className="block text-xl text-white mb-8 leading-relaxed">
-              If you have any questions about your data or want to request a deletion, please contact us directly.
-            </Text>
-            <a href="mailto:support@edwinmega.com" className="text-2xl font-bold text-white hover:text-amber-400 transition-colors">
-              support@edwinmega.com
-            </a>
-          </View>
-
-        </View>
-      </View>
-
-    </View>
-  );
-}
-
-function PrivacySection({ title, desc }: { title: string; desc: string }) {
-  return (
-    <View className="mb-16 animate-on-load">
-      <Text className="block text-2xl font-bold text-edwin-black mb-6">
-        {title}
-      </Text>
-      <Text className="block text-lg text-stone-600 leading-relaxed font-light">
-        {desc}
-      </Text>
-    </View>
+        <div className="border border-[var(--edwin-line)] bg-[var(--trust)] p-8 text-white md:p-10">
+          <p className="section-label-light">Privacy contact</p>
+          <p
+            className="mt-4 text-base leading-relaxed text-white/80 normal-case tracking-normal"
+            style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
+          >
+            Questions about your data or a deletion request? Contact us directly.
+          </p>
+          <a
+            href="mailto:support@edwinmega.com"
+            className="mt-6 inline-block text-lg font-semibold text-white underline decoration-[var(--accent-gold)] underline-offset-4"
+          >
+            support@edwinmega.com
+          </a>
+        </div>
+      </section>
+    </div>
   );
 }

@@ -1,111 +1,60 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { Plus, Minus, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+import { useState } from 'react';
+import { Plus, Minus } from 'lucide-react';
 import { faqs } from '@/data/faqs';
 import { SectionHeader } from '@/components/layout/SectionHeader';
 
 export function FaqPreviewSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1, rootMargin: '-50px' }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const toggleFaq = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  const preview = faqs.slice(0, 6);
 
   return (
-    <section ref={sectionRef} id="faq" className="section-padding bg-white">
-      <div className="container-page max-w-4xl">
-        <div
-          className={`transition-all duration-1000 ${
-            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-          }`}
-        >
-          <SectionHeader
-            label="Common questions"
-            title="Clear answers before you apply"
-            description="What this funding is, who it is for, where to apply, and how to confirm official contact on edwinmega.com."
-          />
-        </div>
-
-        {/* FAQ Accordion List */}
-        <div className="space-y-4">
-          {faqs.map((faq, index) => {
+    <section id="faq" className="bg-white py-20 md:py-28">
+      <div className="container-wide max-w-4xl">
+        <SectionHeader
+          label="FAQ"
+          title="Clear answers first"
+          description="What this funding is, who it is for, and how to confirm official contact on edwinmega.com."
+        />
+        <div className="border border-[var(--edwin-line)]">
+          {preview.map((faq, index) => {
             const isOpen = openIndex === index;
-            
             return (
-              <div 
-                key={index} 
-                className={`card-flat overflow-hidden transition-all duration-300 ${
-                  isOpen ? 'border-[var(--accent-gold)]/40 bg-[var(--warm-cream)]' : 'hover:border-gray-300'
-                } ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}
-                style={{ transitionDelay: `${200 + index * 50}ms` }}
+              <div
+                key={faq.question}
+                className={index > 0 ? 'border-t border-[var(--edwin-line)]' : ''}
               >
                 <button
-                  onClick={() => toggleFaq(index)}
-                  className="w-full text-left px-6 py-6 md:px-8 md:py-7 flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-gold)] focus-visible:ring-offset-2 rounded-2xl"
+                  type="button"
+                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                  className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left md:px-7 md:py-6"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-lg md:text-xl font-semibold text-gray-900 pr-4">
+                  <span
+                    className="pr-4 text-base font-semibold text-[var(--trust)] md:text-lg normal-case tracking-normal"
+                    style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
+                  >
                     {faq.question}
                   </span>
-                  
-                  <span className={`w-10 h-10 rounded-full border-2 flex items-center justify-center transition-all duration-300 shrink-0 ${
-                    isOpen 
-                      ? 'bg-[var(--trust)] border-[var(--trust)] text-white rotate-0' 
-                      : 'bg-transparent border-gray-300 text-gray-500 hover:border-[var(--accent-gold)] hover:text-[var(--accent-gold)]'
-                  }`}>
-                    {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-[var(--edwin-line)] text-[var(--trust)]">
+                    {isOpen ? <Minus className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
                   </span>
                 </button>
-                
-                <div className={`grid transition-all duration-300 ease-in-out ${
-                  isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-                }`}>
-                  <div className="overflow-hidden">
-                    <p className="px-6 pb-6 md:px-8 md:pb-8 text-base text-gray-600 leading-relaxed">
+                {isOpen ? (
+                  <div className="px-5 pb-6 md:px-7">
+                    <p
+                      className="max-w-2xl text-sm leading-relaxed text-[var(--edwin-muted)] md:text-base normal-case tracking-normal"
+                      style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
+                    >
                       {faq.answer}
                     </p>
                   </div>
-                </div>
-
+                ) : null}
               </div>
             );
           })}
         </div>
-
-        {/* CTA */}
-        <div 
-          className={`text-center mt-16 transition-all duration-1000 delay-500 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-        >
-          <Link href="/apply" className="btn-accent">
-            Ready to apply? Start here.
-            <ArrowRight className="h-5 w-5" />
-          </Link>
-        </div>
-
       </div>
     </section>
   );

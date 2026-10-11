@@ -1,90 +1,78 @@
-'use client';
-
-import { View, Text } from '@/components/Themed';
 import Link from 'next/link';
 
 export default function TermsPage() {
   return (
-    <View className="min-h-screen bg-white">
-      
-      {/* HEADER SECTION */}
-      <View className="bg-white pt-32 pb-20 md:pt-48 md:pb-32 px-6 border-b border-stone-100">
-        <View className="max-w-4xl mx-auto text-center animate-on-load">
-          <Text className="block text-stone-500 text-sm font-bold tracking-[0.2em] uppercase mb-6">
-            Terms of service
-          </Text>
-          <Text className="block text-4xl md:text-6xl font-bold text-edwin-black mb-8">
-            Clear rules for the <br /> official funding site.
-          </Text>
-          <Text className="block text-lg md:text-xl text-stone-600 leading-relaxed max-w-2xl mx-auto">
-            These terms explain how Edwin Castro funding works on edwinmega.com — who can apply, how review works, and how to stay safe.
-          </Text>
-        </View>
-      </View>
+    <div className="bg-white">
+      <section className="page-hero">
+        <div className="container-wide max-w-3xl">
+          <p className="section-label">Terms</p>
+          <h1 className="headline-lg mt-4 text-[var(--trust)]">
+            Clear rules for the
+            <br />
+            official funding site
+          </h1>
+          <div className="accent-bar mt-5" />
+          <p
+            className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--edwin-muted)] md:text-lg normal-case tracking-normal"
+            style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
+          >
+            These terms explain how Edwin Castro funding works on edwinmega.com — who can apply, how
+            review works, and how to stay safe.
+          </p>
+        </div>
+      </section>
 
-      {/* CONTENT SECTION */}
-      <View className="py-24 px-6">
-        <View className="max-w-3xl mx-auto">
-          
-          <TermsSection 
-            title="A Personal Initiative"
-            desc="This platform is a private initiative by Edwin Castro to provide direct, debt-free funding to individuals, families, owners, and organizations. By using this site, you understand that any funding provided is a gift intended to advance a clear goal — not a loan, a debt, or a legal contract."
-          />
-
-          <TermsSection 
-            title="Who Can Reach Out"
-            desc="We welcome requests from people at every stage — crisis recovery, steady growth, and ambitious builds. Individuals, families, professionals, business owners, and community organizations with a clear purpose may apply. Income level is not the filter; clarity of goal is."
-          />
-
-          <TermsSection 
-            title="The Review Process"
-            desc="We read every request personally. Submitting does not guarantee funding. We decide based on purpose, readiness, fit with current funding capacity, and — when relevant — urgency. Crisis requests and growth or ambition requests are both considered."
-          />
-
-          <TermsSection 
-            title="The Importance of Honesty"
-            desc="Everything we do is built on trust. We ask that you provide 100% accurate and honest information in your story. If we discover that any part of a request is misleading or untrue, we will immediately stop the review process."
-          />
-
-          <TermsSection 
-            title="Protecting Your Safety"
-            desc="Your safety and privacy matter. We will never ask for your bank passwords or confidential financial login information, and a small internal team is the only group that reviews your story. If you ever receive a message that feels suspicious or does not come from an '@edwinmega.com' email address, please ignore it and contact our support team."
-          />
-
-          <TermsSection 
-            title="Changes to the Program"
-            desc="As the needs of our communities change, we may update how this program works or how we review requests. We reserve the right to pause or change the initiative at any time to ensure it remains effective and safe for everyone."
-          />
-
-          {/* Closing Confirmation */}
-          <View className="mt-20 p-12 bg-[#F9F8F6] rounded-[3rem] border border-stone-200">
-            <Text className="block text-lg text-stone-600 mb-10 leading-relaxed">
-              By submitting your request on this platform, you agree to these guidelines. We look forward to reading your goal and seeing whether we can fund what comes next.
-            </Text>
-            <Link 
-              href="/apply" 
-              className="inline-block px-10 py-4 bg-edwin-black text-white text-sm font-bold rounded-full hover:bg-edwin-navy transition-all uppercase tracking-widest"
+      <section className="container-wide max-w-3xl space-y-12 py-16 md:py-20">
+        {[
+          {
+            title: 'A personal initiative',
+            body: 'This site is a private initiative by Edwin Castro to provide direct, debt-free funding to individuals, families, owners, and organizations. Funding provided is a gift intended to advance a clear goal — not a loan or a debt.',
+          },
+          {
+            title: 'Who can apply',
+            body: 'We welcome requests from people at every stage — crisis recovery, steady growth, and ambitious builds. Individuals, families, professionals, business owners, and community organizations with a clear purpose may apply. Income level is not the filter; clarity of goal is.',
+          },
+          {
+            title: 'The review process',
+            body: 'We read every request. Submitting does not guarantee funding. Decisions consider purpose, readiness, fit with current capacity, and — when relevant — urgency.',
+          },
+          {
+            title: 'Honesty',
+            body: 'Provide accurate information. If any part of a request is misleading or untrue, review stops.',
+          },
+          {
+            title: 'Protecting your safety',
+            body: 'We will never ask for bank passwords or confidential financial logins. Official follow-up uses @edwinmega.com addresses. If a message feels suspicious, ignore it and contact support — or use the Verify page first.',
+          },
+          {
+            title: 'Program changes',
+            body: 'We may update how review works or pause the initiative when needed to keep the path effective and safe.',
+          },
+        ].map((section) => (
+          <div key={section.title}>
+            <h2 className="text-xl text-[var(--trust)]">{section.title}</h2>
+            <p
+              className="mt-3 text-sm leading-relaxed text-[var(--edwin-muted)] md:text-base normal-case tracking-normal"
+              style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
             >
-              Apply now
-            </Link>
-          </View>
+              {section.body}
+            </p>
+          </div>
+        ))}
 
-        </View>
-      </View>
-
-    </View>
-  );
-}
-
-function TermsSection({ title, desc }: { title: string; desc: string }) {
-  return (
-    <View className="mb-16 animate-on-load">
-      <Text className="block text-xl font-black text-edwin-black mb-6 uppercase tracking-tight">
-        {title}
-      </Text>
-      <Text className="block text-lg text-stone-600 leading-relaxed">
-        {desc}
-      </Text>
-    </View>
+        <div className="border border-[var(--edwin-line)] bg-[var(--edwin-paper)] p-8 md:p-10">
+          <p
+            className="text-sm leading-relaxed text-[var(--edwin-muted)] md:text-base normal-case tracking-normal"
+            style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
+          >
+            By submitting a request on this site, you agree to these guidelines. We look forward to
+            reading your goal.
+          </p>
+          <Link href="/apply" className="btn-primary mt-6">
+            Apply now
+          </Link>
+        </div>
+      </section>
+    </div>
   );
 }

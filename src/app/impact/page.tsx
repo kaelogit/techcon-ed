@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { View, Text } from '@/components/Themed';
 import Link from 'next/link';
 
 const categories = ["All", "Housing", "Education", "Health", "Business", "Community"];
@@ -272,98 +271,123 @@ export default function ImpactPage() {
     : stories.filter(s => s.category === filter);
 
   return (
-    <View className="min-h-screen bg-[#F9F8F6]">
-      
-      {/* HERO SECTION */}
-      <View className="pt-32 pb-16 md:pt-48 md:pb-24 px-6 bg-white border-b border-stone-100">
-        <View className="max-w-4xl mx-auto text-center animate-on-load">
-          <Text className="block text-stone-500 text-sm font-bold tracking-[0.2em] uppercase mb-6">
-            Real outcomes
-          </Text>
-          <Text className="block text-4xl md:text-7xl font-bold text-edwin-black mb-8 leading-tight">
-            Proof of what direct <br className="hidden md:block" />
-            funding can change.
-          </Text>
-          <Text className="block text-lg md:text-xl text-stone-600 leading-relaxed max-w-2xl mx-auto">
-            These are permissioned outcomes from people funded through the official path — recovery, growth, and ambition made concrete.
-          </Text>
-        </View>
-      </View>
+    <div className="min-h-screen bg-white">
+      <section className="page-hero">
+        <div className="container-wide max-w-3xl">
+          <p className="section-label">Real outcomes</p>
+          <h1 className="headline-lg mt-4 text-[var(--trust)]">
+            Proof of what
+            <br />
+            direct funding changes
+          </h1>
+          <div className="accent-bar mt-5" />
+          <p
+            className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--edwin-muted)] md:text-lg normal-case tracking-normal"
+            style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
+          >
+            Permissioned outcomes from people funded through the official path — recovery, growth,
+            and ambition made concrete.
+          </p>
+        </div>
+      </section>
 
-      {/* FILTER BAR */}
-      <View className="sticky top-[72px] z-30 bg-white/80 backdrop-blur-md border-b border-stone-100 py-4 px-6">
-        <View className="max-w-7xl mx-auto flex items-center justify-start md:justify-center gap-3 overflow-x-auto no-scrollbar">
+      <div className="sticky top-[64px] z-30 border-b border-[var(--edwin-line)] bg-white/95 backdrop-blur-sm">
+        <div className="container-wide flex items-center gap-2 overflow-x-auto py-3 no-scrollbar">
           {categories.map((cat) => (
             <button
               key={cat}
+              type="button"
               onClick={() => setFilter(cat)}
-              className={`px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap ${
-                filter === cat 
-                ? 'bg-edwin-navy text-white shadow-md' 
-                : 'bg-stone-100 text-stone-500 hover:bg-stone-200'
+              className={`shrink-0 px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] transition-colors ${
+                filter === cat
+                  ? 'bg-[var(--trust)] text-white'
+                  : 'border border-[var(--edwin-line)] text-[var(--edwin-muted)] hover:border-[var(--trust)] hover:text-[var(--trust)]'
               }`}
             >
               {cat}
             </button>
           ))}
-        </View>
-      </View>
+        </div>
+      </div>
 
-      {/* STORIES GRID */}
-      <View className="py-16 md:py-24 px-6">
-        <View className="max-w-7xl mx-auto">
-          <View className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
-            {filteredStories.map((story, index) => (
-              <StoryCard key={index} {...story} />
-            ))}
-          </View>
-        </View>
-      </View>
+      <section className="container-wide py-16 md:py-24">
+        <div className="grid grid-cols-1 gap-0 border border-[var(--edwin-line)] md:grid-cols-2">
+          {filteredStories.map((story, index) => (
+            <StoryCard key={index} {...story} index={index} />
+          ))}
+        </div>
+      </section>
 
-      {/* FINAL CALL TO ACTION */}
-      <View className="py-24 bg-edwin-navy text-center px-6">
-        <View className="max-w-3xl mx-auto">
-          <Text className="block text-3xl md:text-5xl font-bold text-white mb-8">
-            Your goal could be next.
-          </Text>
-          <Link 
-            href="/apply" 
-            className="inline-block px-12 py-5 bg-white text-edwin-navy text-lg font-bold rounded-full hover:bg-amber-400 hover:text-edwin-black transition-all shadow-xl hover:scale-105 active:scale-95"
-          >
+      <section className="border-t border-[var(--edwin-line)] bg-[var(--trust)] py-20 text-center text-white md:py-24">
+        <div className="container-wide max-w-3xl">
+          <p className="section-label-light">Next</p>
+          <h2 className="headline-lg mt-4 text-white">Your goal could be next</h2>
+          <Link href="/apply" className="btn-primary mt-8">
             Apply now
           </Link>
-        </View>
-      </View>
-
-    </View>
+        </div>
+      </section>
+    </div>
   );
 }
 
-function StoryCard({ name, location, category, amount, story }: any) {
+function StoryCard({
+  name,
+  location,
+  category,
+  amount,
+  story,
+  index,
+}: {
+  name: string;
+  location: string;
+  category: string;
+  amount: string;
+  story: string[];
+  index: number;
+}) {
   return (
-    <View className="bg-white rounded-[2.5rem] p-8 md:p-12 border border-stone-200 shadow-sm flex flex-col animate-on-load">
-      <View className="flex justify-between items-start mb-10">
-        <View>
-          <Text className="block text-[10px] font-black text-amber-600 uppercase tracking-[0.2em] mb-1">{category}</Text>
-          <Text className="block text-2xl font-black text-edwin-black tracking-tight">{name}</Text>
-          <Text className="block text-sm font-medium text-stone-400">{location}</Text>
-        </View>
-        <View className="bg-emerald-50 px-4 py-2 rounded-xl border border-emerald-100">
-          <Text className="block text-lg font-black text-emerald-700">{amount}</Text>
-        </View>
-      </View>
-      
-      <View className="space-y-6 flex-1">
-        {story.map((p: string, i: number) => {
-           // Highlight the closing quote if it exists
-           const isQuote = p.includes("“") || p.includes("”");
-           return (
-            <Text key={i} className={`block text-base leading-relaxed ${isQuote ? 'italic text-edwin-black font-semibold border-l-4 border-amber-400 pl-6 py-2 bg-stone-50 rounded-r-xl' : 'text-stone-600 font-light'}`}>
+    <article
+      className={`flex flex-col border-[var(--edwin-line)] bg-white p-8 md:p-10 ${
+        index > 0 ? 'border-t md:border-t-0' : ''
+      } ${index % 2 === 1 ? 'md:border-l' : ''} ${index >= 2 ? 'md:border-t' : ''}`}
+    >
+      <div className="mb-8 flex items-start justify-between gap-4">
+        <div>
+          <p className="font-display text-xs tracking-[0.16em] text-[var(--edwin-coral)]">
+            {category}
+          </p>
+          <h2 className="mt-2 text-2xl text-[var(--trust)]">{name}</h2>
+          <p
+            className="mt-1 text-sm text-[var(--edwin-muted)] normal-case tracking-normal"
+            style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
+          >
+            {location}
+          </p>
+        </div>
+        <p className="shrink-0 border border-[var(--edwin-line)] bg-[var(--edwin-paper)] px-3 py-2 text-sm font-bold text-[var(--trust)]">
+          {amount}
+        </p>
+      </div>
+
+      <div className="flex-1 space-y-5">
+        {story.map((p, i) => {
+          const isQuote = p.includes('“') || p.includes('”');
+          return (
+            <p
+              key={i}
+              className={`text-sm leading-relaxed md:text-base normal-case tracking-normal ${
+                isQuote
+                  ? 'border-l-4 border-[var(--edwin-coral)] bg-[var(--edwin-paper)] py-2 pl-5 font-medium text-[var(--trust)]'
+                  : 'text-[var(--edwin-muted)]'
+              }`}
+              style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
+            >
               {p}
-            </Text>
-           );
+            </p>
+          );
         })}
-      </View>
-    </View>
+      </div>
+    </article>
   );
 }

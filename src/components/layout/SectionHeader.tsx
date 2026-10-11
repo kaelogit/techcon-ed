@@ -12,27 +12,22 @@ export function SectionHeader({
   label,
   title,
   description,
-  align = 'center',
+  align = 'left',
   light = false,
 }: SectionHeaderProps) {
   const centered = align === 'center';
 
   return (
-    <div className={`mb-12 md:mb-16 ${centered ? 'mx-auto max-w-2xl text-center' : 'max-w-2xl'}`}>
+    <div className={`mb-12 md:mb-14 ${centered ? 'mx-auto max-w-2xl text-center' : 'max-w-3xl'}`}>
       <p className={light ? 'section-label-light' : 'section-label'}>{label}</p>
-      <h2
-        className={`mt-3 text-3xl font-bold leading-tight md:text-4xl ${
-          light ? 'text-white' : 'text-[var(--trust)]'
-        }`}
-      >
-        {title}
-      </h2>
-      <div className={`accent-bar mt-4 ${centered ? 'mx-auto' : ''}`} />
+      <h2 className={`headline-lg mt-4 ${light ? 'text-white' : 'text-[var(--trust)]'}`}>{title}</h2>
+      <div className={`accent-bar mt-5 ${centered ? 'mx-auto' : ''}`} />
       {description ? (
         <p
-          className={`mt-5 text-base leading-relaxed md:text-lg ${
-            light ? 'text-white/75' : 'text-gray-600'
+          className={`mt-6 text-base leading-relaxed md:text-lg normal-case tracking-normal ${
+            light ? 'text-white/75' : 'text-[var(--edwin-muted)]'
           }`}
+          style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
         >
           {description}
         </p>

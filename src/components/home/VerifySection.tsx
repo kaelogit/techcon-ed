@@ -4,46 +4,48 @@ import { OFFICIAL_EMAIL, OFFICIAL_SITE } from '@/data/verify';
 
 export function VerifySection() {
   return (
-    <section id="verify" className="border-y border-gray-200 bg-[var(--warm-cream)] px-6 py-24 md:py-32">
-      <div className="mx-auto max-w-3xl">
-        <div className="mb-4 flex items-center gap-3">
-          <span className="h-[2px] w-8 bg-[var(--accent-gold)]" />
-          <p className="text-xs font-bold tracking-[0.3em] text-[var(--accent-gold)] uppercase">
-            Official contact
-          </p>
-        </div>
-        <h2 className="font-serif text-3xl font-semibold text-[var(--trust)] md:text-4xl lg:text-5xl">
-          Confirm official Edwin Castro contact before you reply
+    <section id="verify" className="border-y border-[var(--edwin-line)] bg-[var(--edwin-paper)] py-20 md:py-28">
+      <div className="container-wide max-w-3xl">
+        <p className="section-label">Official contact</p>
+        <h2 className="headline-lg mt-4 text-[var(--trust)]">
+          Verify before
+          <br />
+          you reply
         </h2>
-        <p className="mt-5 text-lg leading-relaxed text-gray-600">
-          If someone reached out about funding, verify the channel first. Real follow-up comes from{' '}
+        <div className="accent-bar mt-5" />
+        <p
+          className="mt-6 text-base leading-relaxed text-[var(--edwin-muted)] md:text-lg normal-case tracking-normal"
+          style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
+        >
+          If someone reached out about funding, confirm the channel first. Real follow-up comes from{' '}
           <span className="font-semibold text-[var(--trust)]">{OFFICIAL_EMAIL}</span> on {OFFICIAL_SITE}.
-          This site is the place to confirm that — calmly, clearly, and before anything else.
         </p>
-        <div className="mt-8 border border-gray-200 bg-white p-6 sm:p-8">
-          <p className="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase">Official email</p>
+        <div className="mt-8 border border-[var(--edwin-line)] bg-white p-6 sm:p-8">
+          <p className="text-xs font-bold tracking-[0.16em] text-[var(--edwin-muted)] uppercase">
+            Official email
+          </p>
           <a
             href={`mailto:${OFFICIAL_EMAIL}?subject=Please%20verify%20this%20contact`}
-            className="mt-2 block font-serif text-xl font-semibold text-[var(--trust)] sm:text-2xl"
+            className="mt-2 block font-display text-2xl text-[var(--trust)] sm:text-3xl"
           >
             {OFFICIAL_EMAIL}
           </a>
-          <p className="mt-3 flex items-start gap-2 text-sm leading-relaxed text-gray-500">
-            <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[var(--accent-gold)]" />
+          <p
+            className="mt-3 flex items-start gap-2 text-sm leading-relaxed text-[var(--edwin-muted)] normal-case tracking-normal"
+            style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
+          >
+            <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[var(--edwin-coral)]" />
             If the address does not match exactly, pause and verify before you continue.
           </p>
         </div>
         <div className="mt-8 flex flex-wrap gap-3">
-          <Link
-            href="/verify"
-            className="inline-flex items-center gap-2 bg-[var(--trust)] px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--trust-light)]"
-          >
-            Open contact verification
+          <Link href="/verify" className="btn-navy">
+            Open verification
             <ArrowRight className="h-4 w-4" />
           </Link>
           <a
             href={`mailto:${OFFICIAL_EMAIL}?subject=Please%20verify%20this%20contact`}
-            className="inline-flex items-center gap-2 border border-gray-300 bg-white px-6 py-3.5 text-sm font-semibold text-[var(--trust)] transition-colors hover:border-[var(--accent-gold)]"
+            className="btn-outline"
           >
             <Mail className="h-4 w-4" />
             Email support

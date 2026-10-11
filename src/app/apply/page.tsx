@@ -367,67 +367,59 @@ export default function ApplyPage() {
       </div>
 
       {/* HERO */}
-      <section className="bg-[var(--warm-cream)] pt-20 pb-16 px-6 border-b border-gray-100">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
-            <p className="text-[var(--accent-gold)] text-xs font-bold tracking-[0.3em] uppercase">
-              Official application
-            </p>
-            <span className="w-8 h-[2px] bg-[var(--accent-gold)]" />
-          </div>
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6 leading-tight">
-            Apply on the official site. <br className="hidden sm:block" />
-            Tell us <span className="text-[var(--accent-gold)]">what comes next</span>.
+      <section className="page-hero">
+        <div className="container-wide max-w-3xl">
+          <p className="section-label">Apply</p>
+          <h1 className="headline-lg mt-4 text-[var(--trust)]">
+            Apply on the
+            <br />
+            official site
           </h1>
-          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed mb-8">
-            This is the official Edwin Castro funding application. Share a clear goal for housing, education, health, business, recovery, or community. Direct funding. No repayment.
+          <div className="accent-bar mt-5" />
+          <p
+            className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--edwin-muted)] md:text-lg normal-case tracking-normal"
+            style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
+          >
+            Share a clear goal for housing, education, health, business, recovery, or community.
+            Direct funding. No repayment.
           </p>
-
-          {/* Quick Stats */}
-          <div className="flex flex-wrap justify-center gap-6 text-sm">
-            <div className="flex items-center gap-2 text-gray-600">
-              <Award className="w-4 h-4 text-emerald-500" />
-              <span>Funding available</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-600">
-              <Clock className="w-4 h-4 text-blue-500" />
-              <span>Response within 24hrs</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-600">
-              <Lock className="w-4 h-4 text-[var(--trust)]" />
-              <span>100% confidential</span>
-            </div>
+          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-[var(--edwin-muted)]">
+            <span className="flex items-center gap-2">
+              <Award className="h-4 w-4 text-[var(--edwin-coral)]" />
+              Funding available
+            </span>
+            <span className="flex items-center gap-2">
+              <Clock className="h-4 w-4 text-[var(--edwin-coral)]" />
+              Response within 24hrs
+            </span>
+            <span className="flex items-center gap-2">
+              <Lock className="h-4 w-4 text-[var(--edwin-coral)]" />
+              100% confidential
+            </span>
           </div>
         </div>
       </section>
 
       {/* TIMELINE - What Happens Next */}
-      <section className="py-12 px-6 bg-white border-b border-gray-100">
-        <div className="max-w-5xl mx-auto">
-          <p className="text-center text-xs font-bold text-gray-400 uppercase tracking-widest mb-8">
-            What Happens Next
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <section className="border-b border-[var(--edwin-line)] bg-white py-12">
+        <div className="container-wide">
+          <p className="section-label mb-8 text-center">What happens next</p>
+          <div className="grid grid-cols-2 gap-0 border border-[var(--edwin-line)] md:grid-cols-4">
             {[
-              { step: "1", label: "Submit", desc: "Your application", icon: <Mail className="w-4 h-4" /> },
-              { step: "2", label: "Review", desc: "Within 24hrs", icon: <Clock className="w-4 h-4" /> },
-              { step: "3", label: "Verification", desc: "Quick ID check", icon: <Shield className="w-4 h-4" /> },
-              { step: "4", label: "Funding Sent", desc: "Direct to you", icon: <DollarSign className="w-4 h-4" /> },
+              { step: '01', label: 'Submit', desc: 'Your application' },
+              { step: '02', label: 'Review', desc: 'Within 24hrs' },
+              { step: '03', label: 'Verification', desc: 'Quick ID check' },
+              { step: '04', label: 'Funding sent', desc: 'Direct to you' },
             ].map((item, idx) => (
-              <div key={idx} className="relative">
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-12 h-12 rounded-full bg-[var(--trust)] text-white flex items-center justify-center font-bold text-lg mb-3 shadow-lg shadow-blue-200">
-                    {item.icon}
-                  </div>
-                  <p className="font-semibold text-gray-900">{item.label}</p>
-                  <p className="text-xs text-gray-500 mt-1">{item.desc}</p>
-                </div>
-                {idx < 3 && (
-                  <div className="hidden md:block absolute top-6 left-[60%] w-full">
-                    <ArrowRight className="w-4 h-4 text-gray-300" />
-                  </div>
-                )}
+              <div
+                key={item.step}
+                className={`p-6 text-center ${idx > 0 ? 'border-t border-[var(--edwin-line)] md:border-t-0 md:border-l' : ''}`}
+              >
+                <p className="font-display text-xs tracking-[0.16em] text-[var(--edwin-coral)]">
+                  {item.step}
+                </p>
+                <p className="mt-2 font-semibold text-[var(--trust)]">{item.label}</p>
+                <p className="mt-1 text-xs text-[var(--edwin-muted)]">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -435,12 +427,12 @@ export default function ApplyPage() {
       </section>
 
       {/* MAIN CONTENT: Form + Sidebar */}
-      <section className="py-16 md:py-20 px-6 bg-gray-50/50" id="request-form">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <section className="bg-[var(--edwin-paper)] py-16 md:py-20" id="request-form">
+        <div className="container-wide grid grid-cols-1 gap-8 lg:grid-cols-3">
 
           {/* LEFT: Form */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-3xl shadow-xl border border-gray-100 p-6 md:p-10">
+            <div className="card-flat p-6 md:p-10">
 
               {status === 'success' ? (
                 <SuccessState />
@@ -938,31 +930,28 @@ export default function ApplyPage() {
             </div>
 
             {/* FAQ Section - Below Form */}
-            <div className="mt-8 bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <HelpCircle className="w-6 h-6 text-[var(--accent-gold)]" />
-                <h3 className="font-serif text-xl font-semibold text-gray-900">
-                  Frequently Asked Questions
-                </h3>
+            <div className="card-flat mt-8 p-6 md:p-8">
+              <div className="mb-6 flex items-center gap-3">
+                <HelpCircle className="h-5 w-5 text-[var(--edwin-coral)]" />
+                <h3 className="text-xl text-[var(--trust)]">Frequently asked questions</h3>
               </div>
 
-              <div className="space-y-3">
+              <div className="divide-y divide-[var(--edwin-line)] border border-[var(--edwin-line)]">
                 {FAQS.map((faq, idx) => (
-                  <div 
-                    key={idx} 
-                    className="border border-gray-100 rounded-xl overflow-hidden"
-                  >
+                  <div key={idx}>
                     <button
                       type="button"
                       onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                      className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors"
+                      className="flex w-full items-center justify-between p-4 text-left transition-colors hover:bg-[var(--edwin-paper)]"
                     >
-                      <span className="font-semibold text-gray-900 text-sm">{faq.q}</span>
-                      <ChevronRight className={`w-4 h-4 text-gray-400 transition-transform ${openFaq === idx ? 'rotate-90' : ''}`} />
+                      <span className="text-sm font-semibold text-[var(--trust)]">{faq.q}</span>
+                      <ChevronRight
+                        className={`h-4 w-4 text-[var(--edwin-muted)] transition-transform ${openFaq === idx ? 'rotate-90' : ''}`}
+                      />
                     </button>
                     {openFaq === idx && (
                       <div className="px-4 pb-4">
-                        <p className="text-gray-600 text-sm leading-relaxed">{faq.a}</p>
+                        <p className="text-sm leading-relaxed text-[var(--edwin-muted)]">{faq.a}</p>
                       </div>
                     )}
                   </div>
@@ -972,118 +961,109 @@ export default function ApplyPage() {
           </div>
 
           {/* RIGHT: Sidebar with Testimonials */}
-          <div className="lg:col-span-1 space-y-6">
-
-            {/* Rotating Testimonial Card */}
-            <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 sticky top-6">
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider">
-                  Recently Supported
-                </p>
-              </div>
+          <div className="space-y-6 lg:col-span-1">
+            <div className="card-flat sticky top-24 p-6">
+              <p className="section-label mb-4">Recently supported</p>
 
               <div className="relative min-h-[200px]">
                 {TESTIMONIALS.map((testimonial, idx) => (
                   <div
                     key={idx}
                     className={`transition-all duration-500 ${
-                      currentTestimonial === idx 
-                        ? 'opacity-100 translate-x-0' 
-                        : 'opacity-0 absolute top-0 left-0 translate-x-4'
+                      currentTestimonial === idx
+                        ? 'translate-x-0 opacity-100'
+                        : 'absolute top-0 left-0 translate-x-4 opacity-0'
                     }`}
                   >
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--accent-gold)] to-orange-400 flex items-center justify-center text-white font-bold text-lg">
+                    <div className="mb-4 flex items-center gap-3">
+                      <div className="flex h-11 w-11 items-center justify-center border border-[var(--edwin-line)] bg-[var(--trust)] text-sm font-bold text-white">
                         {testimonial.name[0]}
                       </div>
                       <div>
-                        <p className="font-semibold text-gray-900">{testimonial.name}</p>
-                        <p className="text-xs text-gray-500">{testimonial.location} • {testimonial.timeAgo}</p>
+                        <p className="font-semibold text-[var(--trust)]">{testimonial.name}</p>
+                        <p className="text-xs text-[var(--edwin-muted)]">
+                          {testimonial.location} · {testimonial.timeAgo}
+                        </p>
                       </div>
                     </div>
 
-                    <div className="mb-3">
-                      <span className="inline-block bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full">
-                        Received {testimonial.amount}
-                      </span>
-                    </div>
+                    <p className="mb-3 inline-block border border-[var(--edwin-line)] bg-[var(--edwin-paper)] px-3 py-1 text-xs font-bold text-[var(--trust)]">
+                      Received {testimonial.amount}
+                    </p>
 
-                    <p className="text-gray-600 text-sm leading-relaxed italic">
-                      "{testimonial.story}"
+                    <p className="text-sm leading-relaxed text-[var(--edwin-muted)]">
+                      &ldquo;{testimonial.story}&rdquo;
                     </p>
                   </div>
                 ))}
               </div>
 
-              {/* Dots indicator */}
-              <div className="flex justify-center gap-2 mt-6">
+              <div className="mt-6 flex justify-center gap-2">
                 {TESTIMONIALS.map((_, idx) => (
                   <button
                     key={idx}
                     type="button"
                     onClick={() => setCurrentTestimonial(idx)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      currentTestimonial === idx ? 'bg-[var(--trust)] w-4' : 'bg-gray-300'
+                    className={`h-2 transition-all ${
+                      currentTestimonial === idx ? 'w-6 bg-[var(--trust)]' : 'w-2 bg-[var(--edwin-line)]'
                     }`}
+                    aria-label={`Show testimonial ${idx + 1}`}
                   />
                 ))}
               </div>
             </div>
 
-            {/* Quick Stats Card */}
-            <div className="bg-gradient-to-br from-[var(--trust)] to-blue-600 rounded-2xl shadow-lg p-6 text-white">
-              <h4 className="font-serif text-lg font-semibold mb-4">Why People Trust Us</h4>
-              <div className="space-y-4">
+            <div className="bg-[var(--trust)] p-6 text-white">
+              <h4 className="text-lg text-white">Why people trust us</h4>
+              <div className="mt-4 space-y-4">
                 <div className="flex items-center gap-3">
-                  <DollarSign className="w-5 h-5 text-blue-200" />
-                  <span className="text-sm">$50K+ funding range</span>
+                  <DollarSign className="h-5 w-5 text-[var(--accent-gold)]" />
+                  <span className="text-sm text-white/85">$50K+ funding range</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Clock className="w-5 h-5 text-blue-200" />
-                  <span className="text-sm">Avg. response: 6 hours</span>
+                  <Clock className="h-5 w-5 text-[var(--accent-gold)]" />
+                  <span className="text-sm text-white/85">Avg. response: 6 hours</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Shield className="w-5 h-5 text-blue-200" />
-                  <span className="text-sm">Bank-level security</span>
+                  <Shield className="h-5 w-5 text-[var(--accent-gold)]" />
+                  <span className="text-sm text-white/85">Bank-level security</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Heart className="w-5 h-5 text-blue-200" />
-                  <span className="text-sm">No repayment ever</span>
+                  <Heart className="h-5 w-5 text-[var(--accent-gold)]" />
+                  <span className="text-sm text-white/85">No repayment ever</span>
                 </div>
               </div>
             </div>
 
-            {/* Support Range Card */}
-            <div className="bg-[var(--warm-cream)] rounded-2xl border border-gray-100 p-6">
-              <h4 className="font-semibold text-gray-900 mb-2">Funding Range</h4>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-gray-600">Minimum</span>
-                <span className="font-bold text-gray-900">$50,000</span>
+            <div className="card-flat p-6">
+              <h4 className="font-semibold text-[var(--trust)]">Funding range</h4>
+              <div className="mt-3 flex items-center justify-between">
+                <span className="text-sm text-[var(--edwin-muted)]">Minimum</span>
+                <span className="font-bold text-[var(--trust)]">$50,000</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
-                <div className="bg-[var(--trust)] h-2 rounded-full" style={{ width: '100%' }} />
+              <div className="my-2 h-1 w-full bg-[var(--edwin-line)]">
+                <div className="h-1 w-full bg-[var(--edwin-coral)]" />
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Maximum</span>
-                <span className="font-bold text-gray-900">$5,000,000</span>
+                <span className="text-sm text-[var(--edwin-muted)]">Maximum</span>
+                <span className="font-bold text-[var(--trust)]">$5,000,000</span>
               </div>
-              <p className="text-xs text-gray-500 mt-3">
-                Every request is reviewed individually based on purpose, clarity, and readiness — across crisis, growth, and ambition.
+              <p className="mt-3 text-xs text-[var(--edwin-muted)]">
+                Every request is reviewed individually based on purpose, clarity, and readiness —
+                across crisis, growth, and ambition.
               </p>
             </div>
 
-            {/* Help Card */}
-            <div className="bg-[var(--warm-cream)] rounded-2xl border border-gray-100 p-6">
-              <h4 className="font-semibold text-gray-900 mb-2">Questions before you apply?</h4>
-              <p className="text-sm text-gray-600 mb-4">
+            <div className="card-flat p-6">
+              <h4 className="font-semibold text-[var(--trust)]">Questions before you apply?</h4>
+              <p className="mt-2 text-sm text-[var(--edwin-muted)]">
                 Our team can walk you through the process or answer any questions.
               </p>
-              <a 
-                href="mailto:support@edwinmega.com" 
-                className="inline-flex items-center gap-2 text-[var(--trust)] font-medium text-sm hover:underline"
+              <a
+                href="mailto:support@edwinmega.com"
+                className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--edwin-coral)] hover:underline"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="h-4 w-4" />
                 support@edwinmega.com
               </a>
             </div>
@@ -1092,24 +1072,21 @@ export default function ApplyPage() {
       </section>
 
       {/* PREP STEPS */}
-      <section className="py-16 md:py-20 px-6 border-t border-gray-100 bg-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
-          <PrepStep 
-            icon={<CheckCircle className="w-5 h-5" />}
-            number="01" 
-            title="Be Specific" 
+      <section className="border-t border-[var(--edwin-line)] bg-white py-16 md:py-20">
+        <div className="container-wide grid grid-cols-1 gap-0 border border-[var(--edwin-line)] md:grid-cols-3">
+          <PrepStep
+            number="01"
+            title="Be specific"
             desc="Share a clear goal, the exact amount, and what becomes possible — whether you are recovering, growing, or scaling."
           />
-          <PrepStep 
-            icon={<Mail className="w-5 h-5" />}
-            number="02" 
-            title="Check Your Email" 
-            desc="Our team replies personally within minutes. Keep your phone nearby and remember to check your junk folder."
+          <PrepStep
+            number="02"
+            title="Check your email"
+            desc="Our team replies personally. Keep your phone nearby and remember to check your junk folder."
           />
-          <PrepStep 
-            icon={<Shield className="w-5 h-5" />}
-            number="03" 
-            title="Have Your ID Ready" 
+          <PrepStep
+            number="03"
+            title="Have your ID ready"
             desc="Once we connect, we will ask for a standard ID so funding goes to the right person."
           />
         </div>
@@ -1119,71 +1096,71 @@ export default function ApplyPage() {
   );
 }
 
-function PrepStep({ icon, number, title, desc }: { icon: React.ReactNode; number: string; title: string; desc: string }) {
+function PrepStep({ number, title, desc }: { number: string; title: string; desc: string }) {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-[var(--trust)] flex items-center justify-center text-white">
-          {icon}
-        </div>
-        <span className="text-3xl font-light text-gray-300">{number}</span>
-      </div>
-      <h3 className="text-xl font-serif font-semibold text-gray-900">{title}</h3>
-      <p className="text-gray-500 leading-relaxed">{desc}</p>
+    <div
+      className={`flex flex-col gap-3 border-[var(--edwin-line)] p-8 ${
+        number !== '01' ? 'border-t md:border-t-0 md:border-l' : ''
+      }`}
+    >
+      <p className="font-display text-xs tracking-[0.16em] text-[var(--edwin-coral)]">{number}</p>
+      <h3 className="text-xl text-[var(--trust)]">{title}</h3>
+      <p className="text-sm leading-relaxed text-[var(--edwin-muted)]">{desc}</p>
     </div>
   );
 }
 
 function SuccessState() {
   return (
-    <div className="text-center py-8">
-      {/* Success Icon */}
-      <div className="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg shadow-emerald-200">
-        <CheckCircle className="w-10 h-10 text-white" />
+    <div className="py-8 text-center">
+      <div className="mx-auto mb-8 flex h-16 w-16 items-center justify-center bg-emerald-600 text-white">
+        <CheckCircle className="h-8 w-8" />
       </div>
 
-      <h2 className="font-serif text-3xl md:text-4xl font-semibold text-gray-900 mb-6">
-        Your application is safe <br /> with us.
+      <h2 className="headline-lg text-[var(--trust)]">
+        Your application
+        <br />
+        is with us
       </h2>
 
-      <p className="text-lg text-gray-500 leading-relaxed mb-10 max-w-md mx-auto">
-        Thank you for sharing your goal. Our team has received your application and is reviewing it personally right now.
+      <p className="mx-auto mt-6 mb-10 max-w-md text-base leading-relaxed text-[var(--edwin-muted)]">
+        Thank you for sharing your goal. Our team has received your application and is reviewing it
+        personally.
       </p>
 
-      {/* Next Steps */}
-      <div className="bg-[var(--warm-cream)] rounded-2xl p-8 text-left mb-10 border border-gray-100 max-w-lg mx-auto">
-        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">
-          Critical Next Steps
-        </p>
+      <div className="card-flat mx-auto mb-10 max-w-lg p-8 text-left">
+        <p className="section-label mb-6">Next steps</p>
 
         <div className="space-y-5">
           <div className="flex gap-4">
-            <div className="w-8 h-8 rounded-full bg-[var(--trust)] flex items-center justify-center shrink-0">
-              <Clock className="w-4 h-4 text-white" />
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center bg-[var(--trust)]">
+              <Clock className="h-4 w-4 text-white" />
             </div>
-            <p className="text-sm text-gray-600">
-              Check your email in <strong className="text-gray-900">5-10 minutes</strong> for our response.
+            <p className="text-sm text-[var(--edwin-muted)]">
+              Check your email in <strong className="text-[var(--trust)]">5–10 minutes</strong> for
+              our response.
             </p>
           </div>
 
           <div className="flex gap-4">
-            <div className="w-8 h-8 rounded-full bg-[var(--accent-gold)] flex items-center justify-center shrink-0">
-              <AlertCircle className="w-4 h-4 text-white" />
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center bg-[var(--edwin-coral)]">
+              <AlertCircle className="h-4 w-4 text-white" />
             </div>
-            <p className="text-sm text-gray-600">
-              Check your <strong className="text-gray-900">Spam or Junk</strong> folder immediately if you don't see our reply.
+            <p className="text-sm text-[var(--edwin-muted)]">
+              Check your <strong className="text-[var(--trust)]">Spam or Junk</strong> folder if you
+              do not see our reply.
             </p>
           </div>
 
           <div className="flex gap-4">
-            <div className="w-8 h-8 rounded-full bg-[var(--trust)] flex items-center justify-center shrink-0">
-              <Mail className="w-4 h-4 text-white" />
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center bg-[var(--trust)]">
+              <Mail className="h-4 w-4 text-white" />
             </div>
-            <p className="text-sm text-gray-600">
-              Add <strong className="text-gray-900">support@edwinmega.com</strong> to your contacts to ensure safe delivery.
-              Unsure if a message is real?{' '}
-              <Link href="/verify" className="font-semibold text-[var(--trust)] underline">
-                Check if this message is real
+            <p className="text-sm text-[var(--edwin-muted)]">
+              Add <strong className="text-[var(--trust)]">support@edwinmega.com</strong> to your
+              contacts. Unsure if a message is real?{' '}
+              <Link href="/verify" className="font-semibold text-[var(--edwin-coral)] underline">
+                Verify before you reply
               </Link>
               .
             </p>
@@ -1191,12 +1168,8 @@ function SuccessState() {
         </div>
       </div>
 
-      <Link 
-        href="/"
-        className="inline-flex items-center gap-2 text-sm font-bold text-gray-400 uppercase tracking-widest hover:text-gray-900 transition-colors"
-      >
-        Return to Home
-        <ArrowRight className="w-4 h-4" />
+      <Link href="/" className="btn-outline">
+        Return home
       </Link>
     </div>
   );

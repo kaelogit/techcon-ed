@@ -2,11 +2,12 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { MapPin, X, ChevronLeft, ChevronRight, Images } from 'lucide-react';
+import Link from 'next/link';
+import { MapPin, ChevronLeft, ChevronRight, Images, ArrowRight } from 'lucide-react';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import useEmblaCarousel from 'embla-carousel-react';
 import { communityWins, type CommunityWin } from '@/data/community-wins';
+import { SectionHeader } from '@/components/layout/SectionHeader';
 
 const INITIAL_COUNT = 9;
 const LOAD_MORE_COUNT = 9;
@@ -28,7 +29,9 @@ export function CommunityWinsSection() {
     if (!emblaApi) return;
     const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
     emblaApi.on('select', onSelect);
-    return () => { emblaApi.off('select', onSelect); };
+    return () => {
+      emblaApi.off('select', onSelect);
+    };
   }, [emblaApi]);
 
   useEffect(() => {
@@ -43,105 +46,89 @@ export function CommunityWinsSection() {
   };
 
   return (
-    <section className="py-24 md:py-32 px-6 bg-[var(--warm-cream)] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto relative z-10">
-        
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="w-10 h-[2px] bg-[var(--accent-gold)]" />
-            <p className="text-[var(--accent-gold)] text-xs font-bold tracking-[0.3em] uppercase">
-              Our Community
-            </p>
-            <span className="w-10 h-[2px] bg-[var(--accent-gold)]" />
-          </div>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-semibold text-[var(--deep-charcoal)] leading-tight mb-4">
-            Real people funded through the official path
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-            Families, professionals, and builders whose next chapter moved forward — from recovery to growth to scale.
-          </p>
-        </div>
+    <section className="bg-white py-20 md:py-28">
+      <div className="container-wide">
+        <SectionHeader
+          label="Community"
+          title="Real people. Real funding."
+          description="Families, professionals, and builders whose next chapter moved forward — from recovery to growth to scale."
+        />
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-12 grid grid-cols-1 gap-0 border border-[var(--edwin-line)] sm:grid-cols-2 lg:grid-cols-3">
           {visibleStories.map((story, idx) => (
-            <motion.div
+            <button
               key={story.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: (idx % 3) * 0.1 }}
-              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-[var(--border)] cursor-pointer"
+              type="button"
               onClick={() => setSelectedStory(story)}
+              className={`group cursor-pointer border-[var(--edwin-line)] bg-white text-left transition-colors hover:bg-[var(--edwin-paper)] ${
+                idx > 0 ? 'border-t' : ''
+              } ${idx % 2 === 1 ? 'sm:border-l' : ''} ${idx % 3 !== 0 ? 'lg:border-l' : ''} ${
+                idx >= 2 ? 'sm:border-t' : ''
+              } ${idx >= 3 ? 'lg:border-t' : ''}`}
             >
-              {/* Image */}
-              <div className="relative aspect-[3/4] overflow-hidden bg-gray-100">
+              <div className="relative aspect-[3/4] overflow-hidden bg-[var(--edwin-paper)]">
                 <Image
                   src={story.images[0]}
-                  alt={`${story.name}`}
+                  alt={story.name}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 {story.images.length > 1 && (
-                  <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-sm text-white text-xs px-2.5 py-1 rounded-full flex items-center gap-1.5">
-                    <Images className="w-3.5 h-3.5" />
+                  <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-[var(--trust)] px-2.5 py-1 text-xs text-white">
+                    <Images className="h-3.5 w-3.5" />
                     {story.images.length}
                   </div>
                 )}
               </div>
-
-              {/* Content */}
-              <div className="p-5">
-                <div className="flex items-start justify-between gap-3 mb-2">
+              <div className="p-5 md:p-6">
+                <div className="mb-2 flex items-start justify-between gap-3">
                   <div>
-                    <h3 className="font-semibold text-gray-900 leading-tight">{story.name}</h3>
-                    <div className="flex items-center gap-1 text-xs text-gray-500 mt-0.5">
-                      <MapPin className="w-3 h-3" />
+                    <h3 className="text-lg text-[var(--trust)]">{story.name}</h3>
+                    <div className="mt-0.5 flex items-center gap-1 text-xs text-[var(--edwin-muted)]">
+                      <MapPin className="h-3 w-3" />
                       {story.location}
                     </div>
                   </div>
-                  <span className="text-xs text-gray-400 shrink-0">{story.date}</span>
+                  <span className="shrink-0 text-xs text-[var(--edwin-muted)]">{story.date}</span>
                 </div>
-                <span className="inline-block px-2 py-0.5 bg-[var(--trust)]/10 text-[var(--trust)] text-[10px] font-bold uppercase tracking-wider rounded-full mb-3">
+                <p className="mb-3 font-display text-xs tracking-[0.14em] text-[var(--edwin-coral)]">
                   {story.category}
-                </span>
-                <p className="text-sm text-gray-700 leading-relaxed line-clamp-3">
+                </p>
+                <p
+                  className="line-clamp-3 text-sm leading-relaxed text-[var(--edwin-muted)] normal-case tracking-normal"
+                  style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
+                >
                   {story.caption}
                 </p>
               </div>
-            </motion.div>
+            </button>
           ))}
         </div>
 
-        {/* Load More */}
-        {hasMore && (
-          <div className="flex justify-center mt-12">
-            <button
-              onClick={handleLoadMore}
-              className="px-8 py-3 bg-[var(--trust)] text-white rounded-full font-medium hover:bg-[var(--trust-light)] transition-colors shadow-lg hover:shadow-xl"
-            >
+        <div className="mt-10 flex flex-wrap items-center gap-3">
+          {hasMore ? (
+            <button type="button" onClick={handleLoadMore} className="btn-navy">
               Load more stories
             </button>
-          </div>
-        )}
+          ) : null}
+          <Link href="/impact" className="btn-outline">
+            Read full stories
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
 
-        {/* Modal / Lightbox */}
         <Dialog open={!!selectedStory} onOpenChange={() => setSelectedStory(null)}>
-          <DialogContent className="max-w-3xl p-0 overflow-hidden bg-white rounded-2xl border-0 gap-0">
-            <DialogTitle className="sr-only">
-              {selectedStory?.name} - Community Story
-            </DialogTitle>
+          <DialogContent className="max-w-3xl gap-0 overflow-hidden rounded-none border border-[var(--edwin-line)] bg-white p-0">
+            <DialogTitle className="sr-only">{selectedStory?.name} — Community story</DialogTitle>
 
-            {/* Image Carousel */}
-            <div className="relative bg-gray-100">
+            <div className="relative bg-[var(--edwin-paper)]">
               <div ref={emblaRef} className="overflow-hidden">
                 <div className="flex">
                   {selectedStory?.images.map((img, idx) => (
                     <div
                       key={idx}
-                      className="flex-[0_0_100%] min-w-0 relative aspect-[3/4] max-h-[60vh]"
+                      className="relative aspect-[3/4] max-h-[60vh] min-w-0 flex-[0_0_100%]"
                     >
                       <Image
                         src={img}
@@ -159,40 +146,52 @@ export function CommunityWinsSection() {
               {selectedStory && selectedStory.images.length > 1 && (
                 <>
                   <button
-                    onClick={(e) => { e.stopPropagation(); scrollPrev(); }}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors"
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      scrollPrev();
+                    }}
+                    className="absolute top-1/2 left-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center border border-[var(--edwin-line)] bg-white text-[var(--trust)]"
                   >
-                    <ChevronLeft className="w-5 h-5" />
+                    <ChevronLeft className="h-5 w-5" />
                   </button>
                   <button
-                    onClick={(e) => { e.stopPropagation(); scrollNext(); }}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-colors"
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      scrollNext();
+                    }}
+                    className="absolute top-1/2 right-3 flex h-10 w-10 -translate-y-1/2 items-center justify-center border border-[var(--edwin-line)] bg-white text-[var(--trust)]"
                   >
-                    <ChevronRight className="w-5 h-5" />
+                    <ChevronRight className="h-5 w-5" />
                   </button>
-                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 text-white text-xs px-3 py-1 rounded-full">
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-[var(--trust)] px-3 py-1 text-xs text-white">
                     {selectedIndex + 1} / {selectedStory.images.length}
                   </div>
                 </>
               )}
             </div>
 
-            {/* Details */}
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-2">
+            <div className="p-6 md:p-8">
+              <div className="mb-2 flex items-center justify-between gap-4">
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900">{selectedStory?.name}</h3>
-                  <div className="flex items-center gap-1 text-sm text-gray-500">
-                    <MapPin className="w-4 h-4" />
+                  <h3 className="text-xl text-[var(--trust)]">{selectedStory?.name}</h3>
+                  <div className="mt-1 flex items-center gap-1 text-sm text-[var(--edwin-muted)]">
+                    <MapPin className="h-4 w-4" />
                     {selectedStory?.location}
                   </div>
                 </div>
-                <span className="text-sm text-gray-400">{selectedStory?.date}</span>
+                <span className="text-sm text-[var(--edwin-muted)]">{selectedStory?.date}</span>
               </div>
-              <span className="inline-block px-3 py-1 bg-[var(--trust)]/10 text-[var(--trust)] text-xs font-bold uppercase tracking-wider rounded-full mb-3">
+              <p className="mb-3 font-display text-xs tracking-[0.14em] text-[var(--edwin-coral)]">
                 {selectedStory?.category}
-              </span>
-              <p className="text-gray-700 leading-relaxed">{selectedStory?.caption}</p>
+              </p>
+              <p
+                className="leading-relaxed text-[var(--edwin-muted)] normal-case tracking-normal"
+                style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
+              >
+                {selectedStory?.caption}
+              </p>
             </div>
           </DialogContent>
         </Dialog>
