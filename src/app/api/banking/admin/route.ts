@@ -10,6 +10,7 @@ import {
   type ClearanceStepId,
   verifyClearanceStep,
 } from '@/lib/banking/clearance';
+import { requiresOwnershipCertificate } from '@/lib/banking/ownership';
 import {
   addSeedAccount,
   archiveAccount,
@@ -63,6 +64,13 @@ export async function GET(req: Request) {
       } catch {
         /* optional until SQL */
       }
+      const ownershipRequired = requiresOwnershipCertificate(accountNumber);
+      if (clearance && ownershipRequired) {
+        clearance = {
+          complete: false,
+          steps: clearance.steps.map((step) => ({ ...step, status: 'locked' as const })),
+        };
+      }
       return NextResponse.json({
         account: {
           ...(await toPublicView(seed)),
@@ -72,6 +80,7 @@ export async function GET(req: Request) {
           lastLoginAt: profile?.lastLoginAt ?? null,
           securityQuestionCount: profile?.securityQuestions.length ?? 0,
           externalAccounts: profile?.externalAccounts ?? [],
+          ownershipRequired,
           ...(clearance ? { clearanceComplete: clearance.complete } : {}),
         },
         balance,
