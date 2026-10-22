@@ -22,13 +22,6 @@ export function BankingPublicHeader() {
 
   return (
     <>
-      <div className="bg-[var(--ecf-navy-deep)] px-4 py-1 text-center text-[10px] text-white/70 sm:py-1.5 sm:text-left sm:text-[11px]">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-1">
-          <span>1-800-ECF-BANK · Mon–Fri 7am–9pm ET</span>
-          <span className="hidden sm:inline">Locations · Security · About</span>
-        </div>
-      </div>
-
       <header className="relative z-50 border-b border-[var(--ecf-line)] bg-white">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
           <Link
