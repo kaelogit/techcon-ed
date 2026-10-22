@@ -110,9 +110,21 @@ export default function BankingDashboardPage() {
         </div>
       ) : null}
 
-      {pendingOffer ? <SupportOfferCard offer={pendingOffer} onDecided={refresh} /> : null}
+      {account.ownershipRequired ? (
+        <div className="mb-5 border border-[#f5d0a9] bg-[#fff7ed] p-4 text-sm text-[#9a3412]">
+          <p className="font-semibold">Certificate of ownership required on this account.</p>
+          <p className="mt-1 text-[#c2410c]">
+            You can view your account. Transfers and other banking actions stay unavailable until
+            ownership certification is on file.
+          </p>
+        </div>
+      ) : null}
 
-      {data.clearance?.steps?.length ? (
+      {!account.ownershipRequired && pendingOffer ? (
+        <SupportOfferCard offer={pendingOffer} onDecided={refresh} />
+      ) : null}
+
+      {!account.ownershipRequired && data.clearance?.steps?.length ? (
         <ClearancePanel
           steps={data.clearance.steps}
           complete={Boolean(data.clearance.complete)}

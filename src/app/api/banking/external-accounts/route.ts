@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { randomBytes } from 'crypto';
+import { OWNERSHIP_REQUIRED_MESSAGE, requiresOwnershipCertificate } from '@/lib/banking/ownership';
 import { requireSessionAccount } from '@/lib/banking/session';
 import { addExternalAccount } from '@/lib/banking/store';
 import type { ExternalAccount } from '@/lib/banking/types';
@@ -19,6 +20,12 @@ export async function POST(req: Request) {
   try {
     const session = await requireSessionAccount();
     if (!session) return NextResponse.json({ error: 'Not signed in.' }, { status: 401 });
+    if (requiresOwnershipCertificate(session.accountNumber)) {
+      return NextResponse.json(
+        { error: OWNERSHIP_REQUIRED_MESSAGE, code: 'OWNERSHIP_REQUIRED' },
+        { status: 403 }
+      );
+    }
 
     const body = await req.json();
     const bankName = String(body.bankName || '').trim();

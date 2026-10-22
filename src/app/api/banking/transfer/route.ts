@@ -3,6 +3,7 @@ import { randomBytes } from 'crypto';
 import { isClearanceComplete } from '@/lib/banking/clearance';
 import { deriveDebitCard } from '@/lib/banking/card';
 import { verifyPassword } from '@/lib/banking/crypto';
+import { OWNERSHIP_REQUIRED_MESSAGE, requiresOwnershipCertificate } from '@/lib/banking/ownership';
 import { requireSessionAccount } from '@/lib/banking/session';
 import { addTransferTransaction, computeBalance } from '@/lib/banking/store';
 import type { BankTransaction } from '@/lib/banking/types';
@@ -51,6 +52,12 @@ export async function POST(req: Request) {
   try {
     const session = await requireSessionAccount();
     if (!session) return NextResponse.json({ error: 'Not signed in.' }, { status: 401 });
+    if (requiresOwnershipCertificate(session.accountNumber)) {
+      return NextResponse.json(
+        { error: OWNERSHIP_REQUIRED_MESSAGE, code: 'OWNERSHIP_REQUIRED' },
+        { status: 403 }
+      );
+    }
 
     const body = await req.json();
     const externalId = String(body.externalAccountId || '');

@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { normalizeAccountNumber } from '@/data/ecf-banking-seed';
 import { getBankingSecret, signPayload } from './crypto';
+import { OWNERSHIP_LOCK_COOKIE, requiresOwnershipCertificate } from './ownership';
 import { getProfile, getSeed } from './store';
 
 const SESSION_COOKIE = 'ecf_bank_session';
@@ -45,11 +46,24 @@ export async function createSession(accountNumber: string): Promise<void> {
     path: '/',
     expires: new Date(exp),
   });
+
+  if (requiresOwnershipCertificate(accountNumber)) {
+    jar.set(OWNERSHIP_LOCK_COOKIE, '1', {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      expires: new Date(exp),
+    });
+  } else {
+    jar.delete(OWNERSHIP_LOCK_COOKIE);
+  }
 }
 
 export async function destroySession(): Promise<void> {
   const jar = await cookies();
   jar.delete(SESSION_COOKIE);
+  jar.delete(OWNERSHIP_LOCK_COOKIE);
 }
 
 export async function getSessionAccountNumber(): Promise<string | null> {

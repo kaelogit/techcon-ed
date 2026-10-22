@@ -4,6 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState, type ReactNode } from 'react';
+import { OwnershipLock } from '@/components/banking/OwnershipLock';
+import { readOwnershipLockCookie } from '@/lib/banking/ownership';
 
 /** Bottom bar order (left → right): Accounts → Activity → Transfer → Linked */
 const PRIMARY_NAV = [
@@ -44,7 +46,28 @@ export function BankingAppShell({
   const pathname = usePathname();
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [ownershipRequired, setOwnershipRequired] = useState(false);
   const isHome = pathname === '/banking/dashboard';
+  const lockPages = ownershipRequired && pathname !== '/banking/dashboard';
+
+  useEffect(() => {
+    setOwnershipRequired(readOwnershipLockCookie());
+    let cancelled = false;
+    fetch('/api/banking/me')
+      .then(async (res) => {
+        if (!res.ok) return;
+        const json = await res.json();
+        if (!cancelled) {
+          setOwnershipRequired(Boolean(json.account?.ownershipRequired));
+        }
+      })
+      .catch(() => {
+        /* ignore */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -127,6 +150,7 @@ export function BankingAppShell({
             ) : null}
             <button
               type="button"
+              data-ownership-exempt
               onClick={logout}
               className="rounded border border-[var(--ecf-line)] px-3 py-1.5 text-sm font-semibold text-[var(--ecf-navy)] hover:bg-[var(--ecf-sky)]"
             >
@@ -136,6 +160,7 @@ export function BankingAppShell({
 
           <button
             type="button"
+            data-ownership-exempt
             className="flex h-9 w-9 shrink-0 items-center justify-center rounded border border-[var(--ecf-line)] text-[var(--ecf-navy)] md:hidden"
             aria-expanded={menuOpen}
             aria-controls="ecf-app-menu"
@@ -179,6 +204,7 @@ export function BankingAppShell({
           <>
             <button
               type="button"
+              data-ownership-exempt
               className="fixed inset-0 z-40 bg-black/35 md:hidden"
               aria-label="Close menu"
               onClick={() => setMenuOpen(false)}
@@ -211,6 +237,7 @@ export function BankingAppShell({
                 <div className="my-1 border-t border-[var(--ecf-line)]" />
                 <button
                   type="button"
+                  data-ownership-exempt
                   onClick={logout}
                   className="rounded px-3 py-2.5 text-left text-sm font-semibold text-red-700"
                 >
@@ -222,7 +249,16 @@ export function BankingAppShell({
         ) : null}
       </header>
 
-      <main className="mx-auto max-w-6xl px-4 pb-20 pt-4 sm:py-8 md:pb-10">{children}</main>
+      <OwnershipLock active={ownershipRequired} />
+      <main className="mx-auto max-w-6xl px-4 pb-20 pt-4 sm:py-8 md:pb-10">
+        {lockPages ? (
+          <p className="text-sm text-[var(--ecf-muted)]">
+            Certificate of ownership required on this account.
+          </p>
+        ) : (
+          children
+        )}
+      </main>
 
       <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--ecf-line)] bg-white pb-[env(safe-area-inset-bottom)] md:hidden">
         <div className="mx-auto grid max-w-lg grid-cols-4 gap-0.5 px-1.5 pt-1">

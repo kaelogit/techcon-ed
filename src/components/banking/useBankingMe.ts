@@ -35,6 +35,7 @@ export type BankingMe = {
     registeredAt: string;
     hasVaultKey: boolean;
     debitCardIssued: boolean;
+    ownershipRequired?: boolean;
     clearanceComplete?: boolean;
   };
   transactions: {

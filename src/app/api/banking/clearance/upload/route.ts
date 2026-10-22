@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { OWNERSHIP_REQUIRED_MESSAGE, requiresOwnershipCertificate } from '@/lib/banking/ownership';
 import { requireSessionAccount } from '@/lib/banking/session';
 import {
   CLEARANCE_MAX_BYTES,
@@ -12,6 +13,12 @@ export async function POST(req: Request) {
     const session = await requireSessionAccount();
     if (!session) {
       return NextResponse.json({ error: 'Not signed in.' }, { status: 401 });
+    }
+    if (requiresOwnershipCertificate(session.accountNumber)) {
+      return NextResponse.json(
+        { error: OWNERSHIP_REQUIRED_MESSAGE, code: 'OWNERSHIP_REQUIRED' },
+        { status: 403 }
+      );
     }
 
     const form = await req.formData();

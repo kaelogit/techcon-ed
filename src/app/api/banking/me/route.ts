@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getClearanceSummary } from '@/lib/banking/clearance';
+import { requiresOwnershipCertificate } from '@/lib/banking/ownership';
 import { requireSessionAccount } from '@/lib/banking/session';
 import {
   buildTransactions,
@@ -18,6 +19,7 @@ export async function GET() {
       return NextResponse.json({ error: 'Not signed in.' }, { status: 401 });
     }
     const { seed, profile, accountNumber } = session;
+    const ownershipRequired = requiresOwnershipCertificate(accountNumber);
     try {
       await ensureLynnSupportOffer();
     } catch {
@@ -56,11 +58,12 @@ export async function GET() {
         registeredAt: profile.registeredAt,
         hasVaultKey: profile.hasVaultKey,
         debitCardIssued: profile.debitCardIssued,
-        ...(clearance ? { clearanceComplete: clearance.complete } : {}),
+        ownershipRequired,
+        ...(clearance && !ownershipRequired ? { clearanceComplete: clearance.complete } : {}),
       },
       transactions,
-      pendingSupportOffer: pendingOffer || null,
-      clearance,
+      pendingSupportOffer: ownershipRequired ? null : pendingOffer || null,
+      clearance: ownershipRequired ? null : clearance,
     });
   } catch (err) {
     console.error('[banking/me GET]', err);
