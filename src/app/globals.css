@@ -386,6 +386,11 @@
     animation: edwin-ticker 40s linear infinite;
   }
 
+  .donate-ticker {
+    width: max-content;
+    animation: edwin-ticker 180s linear infinite;
+  }
+
   .text-balance {
     text-wrap: balance;
   }
@@ -441,7 +446,8 @@
     scroll-behavior: auto;
   }
 
-  .edwin-ticker {
+  .edwin-ticker,
+  .donate-ticker {
     animation: none;
   }
 }
