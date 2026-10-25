@@ -81,7 +81,7 @@ export function DonateForm() {
           required
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          placeholder="e.g. $500"
+          placeholder="e.g. $75,000"
           className="w-full border border-[var(--edwin-line)] bg-white px-4 py-3 text-[var(--trust)] outline-none focus:border-[var(--trust)]"
         />
       </div>
