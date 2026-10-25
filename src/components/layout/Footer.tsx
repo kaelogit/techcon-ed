@@ -32,6 +32,7 @@ export function Footer() {
               ['/areas', 'Funding areas'],
               ['/impact', 'Stories'],
               ['/apply', 'Apply'],
+              ['/donate', 'Donate'],
               ['/#faq', 'FAQ'],
               ['/verify', 'Verify contact'],
             ].map(([href, label]) => (

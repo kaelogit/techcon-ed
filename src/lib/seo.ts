@@ -16,6 +16,7 @@ export const PUBLIC_ROUTES = [
   '/areas',
   '/impact',
   '/verify',
+  '/donate',
 ] as const;
 
 export function pageUrl(path = '/'): string {

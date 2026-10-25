@@ -45,6 +45,11 @@ export const faqs = [
       'Yes, when the goal is genuine and the details are accurate. Provide enough information for the team to reach the person or organization directly and confirm the request.',
   },
   {
+    question: 'Can I donate instead of applying?',
+    answer:
+      'Yes. If you want to support the Foundation rather than request funding, go to edwinmega.com/donate or email support@edwinmega.com. We reply with official donation instructions. Do not send money to anyone who contacts you first.',
+  },
+  {
     question: 'Someone contacted me about Edwin Castro funding. How do I confirm it is real?',
     answer:
       'Use the official verification page at edwinmega.com/verify. Real follow-up comes only from support@edwinmega.com on edwinmega.com. Email support with who contacted you and what they asked before you reply, pay, or share documents.',

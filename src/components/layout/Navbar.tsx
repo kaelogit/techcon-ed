@@ -9,6 +9,7 @@ const navLinks = [
   { href: '/story', label: 'Vision' },
   { href: '/areas', label: 'Areas' },
   { href: '/impact', label: 'Stories' },
+  { href: '/donate', label: 'Donate' },
   { href: '/#faq', label: 'FAQ' },
   { href: '/verify', label: 'Verify' },
 ];

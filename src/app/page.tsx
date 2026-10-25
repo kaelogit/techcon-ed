@@ -7,6 +7,7 @@ import { ProcessSection } from '@/components/home/ProcessSection';
 import { CommunityWinsSection } from '@/components/home/CommunityWinsSection';
 import { FaqPreviewSection } from '@/components/home/FaqPreviewSection';
 import { VerifySection } from '@/components/home/VerifySection';
+import { DonateSection } from '@/components/home/DonateSection';
 import { ApplyCtaSection } from '@/components/home/ApplyCtaSection';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { faqs } from '@/data/faqs';
@@ -24,6 +25,7 @@ export default function HomePage() {
       <ProcessSection />
       <CommunityWinsSection />
       <FaqPreviewSection />
+      <DonateSection />
       <VerifySection />
       <ApplyCtaSection />
     </div>

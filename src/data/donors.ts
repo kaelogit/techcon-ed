@@ -1,0 +1,36 @@
+export const recentDonors = [
+  { name: 'Donald', place: 'Florida, USA', amount: '$250,000' },
+  { name: 'Rasheed', place: 'Riyadh, Saudi Arabia', amount: '$2,000,000' },
+  { name: 'Maria', place: 'Texas, USA', amount: '$25,000' },
+  { name: 'James', place: 'Ohio, USA', amount: '$120' },
+  { name: 'Priya', place: 'London, UK', amount: '$75,000' },
+  { name: 'Northline Logistics', place: 'Hamburg, Germany', amount: '$400,000' },
+  { name: 'Elena', place: 'Valencia, Spain', amount: '$5,000' },
+  { name: 'Harbor & Pine Holdings', place: 'Sydney, Australia', amount: '$850,000' },
+  { name: 'Michael', place: 'California, USA', amount: '$500,000' },
+  { name: 'Aisha', place: 'Nairobi, Kenya', amount: '$1,200' },
+  { name: 'Rivermark Family Office', place: 'Zurich, Switzerland', amount: '$1,500,000' },
+  { name: 'Chen', place: 'Singapore', amount: '$150,000' },
+  { name: 'Fatima', place: 'Dubai, UAE', amount: '$1,000,000' },
+  { name: 'Cedar Gate Partners', place: 'Manchester, UK', amount: '$320,000' },
+  { name: 'Robert', place: 'Ontario, Canada', amount: '$8,500' },
+  { name: 'Sofia', place: 'São Paulo, Brazil', amount: '$12,000' },
+  { name: 'Al-Noor Commerce Group', place: 'Jeddah, Saudi Arabia', amount: '$2,400,000' },
+  { name: 'Daniel', place: 'New York, USA', amount: '$3,500' },
+  { name: 'Pacific Rim Trading', place: 'Osaka, Japan', amount: '$275,000' },
+  { name: 'Amara', place: 'Lagos, Nigeria', amount: '$2,800' },
+  { name: 'Andes Peak Industries', place: 'Santiago, Chile', amount: '$180,000' },
+  { name: 'Helen', place: 'Ireland', amount: '$45,000' },
+  { name: 'Lumen & Co.', place: 'Amsterdam, Netherlands', amount: '$95,000' },
+  { name: 'Yusuf', place: 'Istanbul, Turkey', amount: '$18,000' },
+  { name: 'Silverbrook Ventures', place: 'Toronto, Canada', amount: '$5,000,000' },
+  { name: 'Grace', place: 'Georgia, USA', amount: '$600' },
+  { name: 'Oak & River Foundation', place: 'Cape Town, South Africa', amount: '$210,000' },
+  { name: 'Luis', place: 'Mexico City, Mexico', amount: '$7,400' },
+  { name: 'Meridian Steel Group', place: 'Busan, South Korea', amount: '$640,000' },
+  { name: 'Nora', place: 'Sweden', amount: '$9,200' },
+];
+
+export function donorLine(d: (typeof recentDonors)[number]): string {
+  return `${d.name} from ${d.place} donated ${d.amount}`;
+}
