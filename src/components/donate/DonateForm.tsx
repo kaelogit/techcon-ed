@@ -36,10 +36,10 @@ export function DonateForm() {
   if (status === 'ok') {
     return (
       <div className="card-flat mt-8 p-8">
-        <h3 className="text-xl text-[var(--trust)]">We have your inquiry</h3>
+        <h3 className="text-xl text-[var(--trust)]">Thank you</h3>
         <p className="mt-3 text-sm leading-relaxed text-[var(--edwin-muted)]">
-          Check your inbox for a receipt. A coordinator will follow from support@edwinmega.com with
-          official donation instructions. Stay on that thread.
+          We have received your donation inquiry. Please check your inbox. Our office will write you
+          from support@edwinmega.com with the next steps.
         </p>
       </div>
     );

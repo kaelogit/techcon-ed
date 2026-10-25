@@ -47,7 +47,7 @@ export const faqs = [
   {
     question: 'Can I donate instead of applying?',
     answer:
-      'Yes. If you want to support the Foundation rather than request funding, go to edwinmega.com/donate or email support@edwinmega.com. We reply with official donation instructions. Do not send money to anyone who contacts you first.',
+      'Yes. If you want to support the Foundation rather than request funding, go to edwinmega.com/donate or email support@edwinmega.com. Our office replies from that address with the next steps for your donation.',
   },
   {
     question: 'Someone contacted me about Edwin Castro funding. How do I confirm it is real?',

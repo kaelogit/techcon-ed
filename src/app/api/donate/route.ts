@@ -81,14 +81,15 @@ export async function POST(request: NextRequest) {
     await transporter.sendMail({
       from: `"Edwin Castro Foundation" <${zohoUser}>`,
       to: parsed.email,
-      replyTo: toEmail || zohoUser,
-      subject: 'We received your donation inquiry — Edwin Castro Foundation',
-      text: `Dear ${parsed.name},\n\nThank you for writing about a donation. We received your inquiry.\n\nA coordinator will reply from support@edwinmega.com with official donation instructions. Do not send money to anyone else using this name.\n\nEdwin Castro Foundation\nedwinmega.com`,
+      replyTo: 'support@edwinmega.com',
+      subject: 'Donation inquiry received — Edwin Castro Foundation',
+      text: `Dear ${parsed.name},\n\nThank you for your interest in supporting the Edwin Castro Foundation.\n\nWe have received your donation inquiry for ${parsed.amount}. Our office will write you from support@edwinmega.com with the next steps for your donation.\n\nPlease check your inbox and spam folder.\n\nWith thanks,\nEdwin Castro Foundation\nsupport@edwinmega.com\nwww.edwinmega.com`,
       html: `
         <p>Dear ${escapeHtml(parsed.name)},</p>
-        <p>Thank you for writing about a donation. We received your inquiry.</p>
-        <p>A coordinator will reply from <strong>support@edwinmega.com</strong> with official donation instructions. Do not send money to anyone else using this name.</p>
-        <p>Edwin Castro Foundation<br/>edwinmega.com</p>
+        <p>Thank you for your interest in supporting the Edwin Castro Foundation.</p>
+        <p>We have received your donation inquiry for <strong>${escapeHtml(parsed.amount)}</strong>. Our office will write you from <strong>support@edwinmega.com</strong> with the next steps for your donation.</p>
+        <p>Please check your inbox and spam folder.</p>
+        <p>With thanks,<br/>Edwin Castro Foundation<br/>support@edwinmega.com<br/>www.edwinmega.com</p>
       `,
     });
 
