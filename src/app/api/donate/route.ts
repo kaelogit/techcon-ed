@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
     });
 
     await transporter.sendMail({
-      from: '"Edwin Castro Foundation" <support@edwinmega.com>',
+      from: `"Edwin Castro Foundation" <${zohoUser}>`,
       to: parsed.email,
       replyTo: 'support@edwinmega.com',
       subject: 'Donation inquiry received — Edwin Castro Foundation',
