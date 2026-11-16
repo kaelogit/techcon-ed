@@ -5,7 +5,7 @@ import { breadcrumbJsonLd, pageMetadata } from '@/lib/seo';
 export const metadata = pageMetadata({
   title: 'Scam Recovery Mode',
   description:
-    'We feel your pain. If a fake claims agent or trustee took your money, begin recovery mode. Tell your story, report names like Ralph Montigny or Bobby Miller, and speak up for possible extra support.',
+    'We feel your pain. A dedicated $1,000,000,000 Recovery Fund is set aside for people scammed by fake claims agents. Tell your story, begin recovery, and speak up for possible extra support.',
   path: '/scam-report',
 });
 
