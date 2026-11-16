@@ -21,7 +21,7 @@ export function ScamAlertSection() {
               className="mt-6 max-w-xl text-base leading-relaxed text-[var(--edwin-muted)] md:text-lg normal-case tracking-normal"
               style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
             >
-              Fake claims agents, trustees, and coordinators keep borrowing Edwin Castro&apos;s name.
+              Fake claims agents and trustees keep borrowing Edwin Castro&apos;s name.
               Names like Ralph Montigny and Bobby Miller show up again and again. If they took from
               you, tell us the story. A dedicated $1,000,000,000 Recovery Fund is set aside for
               this. We restore from that Fund on an official file. We do not make you wait on a
