@@ -7,7 +7,7 @@ export const OG_IMAGE = `${SITE_URL}/hero-image.jpg`;
 
 export const HOME_TITLE = 'Edwin Castro — Official Direct Funding Site';
 export const HOME_DESCRIPTION =
-  'This is the official Edwin Castro funding website. Apply for direct, debt-free support for housing, education, health, business, and recovery — then verify every contact on edwinmega.com before you reply.';
+  'This is the official Edwin Castro funding website. Apply for direct, debt-free support for housing, education, health, business, and recovery. If someone texts or DMs you that you won funding and must claim it, verify on edwinmega.com/verify before you reply.';
 
 export const PUBLIC_ROUTES = [
   '/',
@@ -16,6 +16,7 @@ export const PUBLIC_ROUTES = [
   '/areas',
   '/impact',
   '/verify',
+  '/scam-report',
   '/donate',
 ] as const;
 

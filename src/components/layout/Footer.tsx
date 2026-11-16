@@ -34,6 +34,7 @@ export function Footer() {
               ['/apply', 'Apply'],
               ['/donate', 'Donate'],
               ['/#faq', 'FAQ'],
+              ['/scam-report', 'Report a scam'],
               ['/verify', 'Verify contact'],
             ].map(([href, label]) => (
               <Link

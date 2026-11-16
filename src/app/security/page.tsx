@@ -80,6 +80,9 @@ export default function SecurityPage() {
           <Link href="/verify" className="btn-primary">
             Go to Verify page
           </Link>
+          <Link href="/scam-report" className="btn-outline">
+            Report a fake agent
+          </Link>
           <a href="mailto:support@edwinmega.com" className="btn-outline">
             Email support
           </a>

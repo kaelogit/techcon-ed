@@ -20,8 +20,10 @@ export default function VerifyPage() {
             className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--edwin-muted)] md:text-lg normal-case tracking-normal"
             style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
           >
-            Did you receive a strange text, email, or message on Facebook or another social app?
-            Confirm the channel first. We never contact you out of the blue claiming you won a prize.
+            Did someone reach out randomly — by text, email, Facebook, Instagram, or another social
+            app — saying you won Edwin Castro funding and need to claim it? That may not be this
+            office. Tell us what happened and verify you are talking to the right person before you
+            reply or send anything.
           </p>
         </div>
       </section>
@@ -67,15 +69,15 @@ export default function VerifyPage() {
             className="mt-3 text-base leading-relaxed text-[var(--edwin-muted)] normal-case tracking-normal"
             style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
           >
-            We follow proper procedures after you apply on this site. We will not text, email, or
-            message you on social media first with a surprise prize claim. If that happened, treat it
-            as unofficial until you verify here.
+            Proper follow-up starts after you apply on this site. We do not cold-contact people by
+            text or social DM to say they won funding and must claim it. If that is how someone
+            reached you, treat it as unofficial until you verify here.
           </p>
         </div>
 
         <div className="space-y-0 border border-[var(--edwin-line)]">
           {verifyChecks.map((item, index) => {
-            const Icon = checkIcons[index];
+            const Icon = checkIcons[index % checkIcons.length];
             return (
               <div
                 key={item.title}
@@ -126,7 +128,10 @@ export default function VerifyPage() {
         ) : null}
 
         <div className="flex flex-wrap gap-3">
-          <Link href="/apply" className="btn-primary">
+          <Link href="/scam-report" className="btn-primary">
+            Begin scam recovery
+          </Link>
+          <Link href="/apply" className="btn-outline">
             Apply on this site
           </Link>
           <Link href="/" className="btn-outline">

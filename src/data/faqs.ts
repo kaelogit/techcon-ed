@@ -52,6 +52,6 @@ export const faqs = [
   {
     question: 'Someone contacted me about Edwin Castro funding. How do I confirm it is real?',
     answer:
-      'Use the official verification page at edwinmega.com/verify. Real follow-up comes only from support@edwinmega.com on edwinmega.com. Email support with who contacted you and what they asked before you reply, pay, or share documents.',
+      'If they texted you or messaged you on Facebook, Instagram, or another social app saying you won funding and need to claim it, that may not be this office. Use edwinmega.com/verify first. If a fake agent already took money, go to edwinmega.com/scam-report to begin recovery mode and tell your story. Real follow-up comes only from support@edwinmega.com on edwinmega.com. Email support with how you were contacted and what they asked before you reply, pay, or share documents.',
   },
 ];

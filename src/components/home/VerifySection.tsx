@@ -45,6 +45,9 @@ export function VerifySection() {
             Verify genuineness now
             <ArrowRight className="h-4 w-4" />
           </Link>
+          <Link href="/scam-report" className="btn-outline">
+            Report a fake agent
+          </Link>
           <a
             href={`mailto:${OFFICIAL_EMAIL}?subject=Please%20verify%20this%20contact`}
             className="btn-outline"

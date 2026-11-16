@@ -11,6 +11,7 @@ const navLinks = [
   { href: '/impact', label: 'Stories' },
   { href: '/donate', label: 'Donate' },
   { href: '/#faq', label: 'FAQ' },
+  { href: '/scam-report', label: 'Scam alert' },
   { href: '/verify', label: 'Verify' },
 ];
 

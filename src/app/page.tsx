@@ -6,6 +6,7 @@ import { SupportAreasSection } from '@/components/home/SupportAreasSection';
 import { ProcessSection } from '@/components/home/ProcessSection';
 import { CommunityWinsSection } from '@/components/home/CommunityWinsSection';
 import { FaqPreviewSection } from '@/components/home/FaqPreviewSection';
+import { ScamAlertSection } from '@/components/home/ScamAlertSection';
 import { VerifySection } from '@/components/home/VerifySection';
 import { DonateSection } from '@/components/home/DonateSection';
 import { ApplyCtaSection } from '@/components/home/ApplyCtaSection';
@@ -26,6 +27,7 @@ export default function HomePage() {
       <CommunityWinsSection />
       <FaqPreviewSection />
       <DonateSection />
+      <ScamAlertSection />
       <VerifySection />
       <ApplyCtaSection />
     </div>
