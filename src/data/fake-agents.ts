@@ -11,7 +11,7 @@ export type FakeAgent = {
 export const fakeAgents: FakeAgent[] = [
   {
     name: 'Marcus',
-    note: 'Texts people that they have a $750,000 gift to claim.',
+    note: 'Texts people that the Foundation picked them for a $750,000 gift, then tells them to send their information to +1-814-997-9715.',
   },
   {
     name: 'Ralph Montigny',
