@@ -10,6 +10,10 @@ export type FakeAgent = {
  */
 export const fakeAgents: FakeAgent[] = [
   {
+    name: 'Marcus',
+    note: 'Texts people that they have a $750,000 gift to claim.',
+  },
+  {
     name: 'Ralph Montigny',
     note: 'Often texts or leaves flyers as a “claims agent” or trustee with a winner code.',
   },
