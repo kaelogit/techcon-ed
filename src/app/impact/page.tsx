@@ -276,17 +276,17 @@ export default function ImpactPage() {
         <div className="container-wide max-w-3xl">
           <p className="section-label">Real outcomes</p>
           <h1 className="headline-lg mt-4 text-[var(--trust)]">
-            Proof of what
+            Real lives
             <br />
-            direct funding changes
+            this grant has helped
           </h1>
           <div className="accent-bar mt-5" />
           <p
             className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--edwin-muted)] md:text-lg normal-case tracking-normal"
             style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
           >
-            Permissioned outcomes from people funded through the official path — recovery, growth,
-            and ambition made concrete.
+            Homes, school, care, and businesses. People who asked the Foundation for help, and said
+            we could tell their story.
           </p>
         </div>
       </section>

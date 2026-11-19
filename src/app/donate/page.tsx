@@ -6,9 +6,9 @@ import { DonateTicker } from '@/components/home/DonateTicker';
 import { pageMetadata } from '@/lib/seo';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Donate to the Edwin Castro Foundation',
+  title: 'Help the Edwin Castro Foundation give grants',
   description:
-    'Support the Edwin Castro Foundation. Donations help keep debt-free funding going for housing, education, health, business, family, and community goals.',
+    'Give to the Edwin Castro Foundation. Your gift helps keep grant help going for a home, school, health, a business, a family, or a neighbor.',
   path: '/donate',
 });
 
@@ -97,9 +97,9 @@ export default function DonatePage() {
         <div className="container-wide max-w-3xl">
           <p className="section-label">Donate</p>
           <h1 className="headline-lg mt-4 text-[var(--trust)]">
-            Help us keep
+            Help the Foundation
             <br />
-            the good work going
+            keep giving grants
           </h1>
           <div className="accent-bar mt-5" />
           <p
@@ -107,8 +107,8 @@ export default function DonatePage() {
             style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
           >
             If you are here to give, you already understand something simple. This work changes
-            lives. Your gift helps it reach the next family, the next student, the next owner, the
-            next neighbor who is ready.
+            lives. Your gift helps the Edwin Castro Foundation reach the next family, the next
+            student, the next owner, the next neighbor who is ready.
           </p>
         </div>
       </section>

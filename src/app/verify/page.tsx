@@ -11,18 +11,17 @@ export default function VerifyPage() {
         <div className="container-wide max-w-3xl">
           <p className="section-label">Stay safe</p>
           <h1 className="headline-lg mt-4 text-[var(--trust)]">
-            Verify before
+            Is this Edwin Castro
             <br />
-            you reply
+            text real?
           </h1>
           <div className="accent-bar mt-5" />
           <p
             className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--edwin-muted)] md:text-lg normal-case tracking-normal"
             style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
           >
-            Did someone reach out randomly — by text, email, Facebook, Instagram, or another social
-            app — saying you won Edwin Castro funding and need to claim it? That may not be this
-            office. Tell us what happened and verify you are talking to the right person before you
+            If a text, a Facebook message, or an Instagram note says the Foundation picked you and
+            you must claim a grant, stop. That is not how we reach people. Read this before you
             reply or send anything.
           </p>
         </div>
@@ -31,7 +30,7 @@ export default function VerifyPage() {
       <section className="container-wide max-w-3xl space-y-10 py-16 md:py-20">
         <div className="border border-[var(--edwin-line)] bg-[var(--edwin-paper)] p-8 text-center sm:p-10">
           <CheckCircle2 className="mx-auto h-10 w-10 text-[var(--edwin-coral)]" />
-          <h2 className="mt-4 text-2xl text-[var(--trust)]">Verify genuineness now</h2>
+          <h2 className="mt-4 text-2xl text-[var(--trust)]">Check the message before you answer</h2>
           <p
             className="mt-3 text-sm leading-relaxed text-[var(--edwin-muted)] normal-case tracking-normal"
             style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
@@ -128,10 +127,7 @@ export default function VerifyPage() {
         ) : null}
 
         <div className="flex flex-wrap gap-3">
-          <Link href="/scam-report" className="btn-primary">
-            Begin scam recovery
-          </Link>
-          <Link href="/apply" className="btn-outline">
+          <Link href="/apply" className="btn-primary">
             Apply on this site
           </Link>
           <Link href="/" className="btn-outline">

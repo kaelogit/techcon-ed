@@ -5,9 +5,9 @@ export const SITE_NAME = 'Edwin Castro';
 export const CONTACT_EMAIL = 'support@edwinmega.com';
 export const OG_IMAGE = `${SITE_URL}/hero-image.jpg`;
 
-export const HOME_TITLE = 'Edwin Castro — Official Direct Funding Site';
+export const HOME_TITLE = 'Edwin Castro Foundation grant help from the lottery winner';
 export const HOME_DESCRIPTION =
-  'This is the official Edwin Castro funding website. Apply for direct, debt-free support for housing, education, health, business, and recovery. If someone texts or DMs you that you won funding and must claim it, verify on edwinmega.com/verify before you reply.';
+  'Edwin Castro won the Powerball lottery and started the Edwin Castro Foundation to give debt-free grant help for housing, school, health, a business, or a hard season. A text that says you were already picked is not how this works. Check edwinmega.com/verify before you reply.';
 
 export const PUBLIC_ROUTES = [
   '/',
@@ -16,7 +16,6 @@ export const PUBLIC_ROUTES = [
   '/areas',
   '/impact',
   '/verify',
-  '/scam-report',
   '/donate',
 ] as const;
 

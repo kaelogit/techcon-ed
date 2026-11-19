@@ -3,9 +3,9 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { breadcrumbJsonLd, pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'Real Funding Outcomes',
+  title: 'Edwin Castro Foundation help, in real lives',
   description:
-    'See real outcomes from Edwin Castro direct funding — homes rebuilt, education completed, care secured, and businesses grown. Stories appear only with permission on the official site.',
+    'Homes, school, care, and businesses. These are people the Edwin Castro Foundation grant has helped. Stories appear only when the person said we could tell them.',
   path: '/impact',
 });
 
@@ -15,7 +15,7 @@ export default function ImpactLayout({ children }: { children: ReactNode }) {
       <JsonLd
         data={breadcrumbJsonLd([
           { name: 'Home', path: '/' },
-          { name: 'Real Stories', path: '/impact' },
+          { name: 'Real help', path: '/impact' },
         ])}
       />
       {children}

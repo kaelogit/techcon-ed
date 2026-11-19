@@ -371,17 +371,17 @@ export default function ApplyPage() {
         <div className="container-wide max-w-3xl">
           <p className="section-label">Apply</p>
           <h1 className="headline-lg mt-4 text-[var(--trust)]">
-            Apply on the
+            Apply for
             <br />
-            official site
+            Edwin Castro grant help
           </h1>
           <div className="accent-bar mt-5" />
           <p
             className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--edwin-muted)] md:text-lg normal-case tracking-normal"
             style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
           >
-            Share a clear goal for housing, education, health, business, recovery, or community.
-            Direct funding. No repayment.
+            Tell us what the help is for. A home, school, health, a business, or a hard season.
+            This is a grant from the Foundation. You do not pay it back.
           </p>
           <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-[var(--edwin-muted)]">
             <span className="flex items-center gap-2">

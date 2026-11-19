@@ -3,9 +3,9 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { breadcrumbJsonLd, pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'Scam Recovery Mode',
+  title: 'Edwin Castro scam? Tell us about the text',
   description:
-    'We feel your pain. A dedicated $1,000,000,000 Recovery Fund is set aside for people scammed by fake claims agents. Tell your story, begin recovery, and speak up for possible extra support.',
+    'Got an Edwin Castro scam text about a grant or a gift you never applied for? Tell us what they said. The Foundation has a $1,000,000,000 Recovery Fund for people who lost money to a fake message.',
   path: '/scam-report',
 });
 
@@ -15,7 +15,7 @@ export default function ScamReportLayout({ children }: { children: ReactNode }) 
       <JsonLd
         data={breadcrumbJsonLd([
           { name: 'Home', path: '/' },
-          { name: 'Scam Recovery Mode', path: '/scam-report' },
+          { name: 'Edwin Castro scam', path: '/scam-report' },
         ])}
       />
       {children}

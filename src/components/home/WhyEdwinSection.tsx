@@ -18,7 +18,7 @@ const pillars = [
 
 export function WhyEdwinSection() {
   return (
-    <section className="bg-white py-20 md:py-28">
+    <section data-nosnippet className="bg-white py-20 md:py-28">
       <div className="container-wide">
         <div className="max-w-3xl">
           <p className="section-label">What we do</p>

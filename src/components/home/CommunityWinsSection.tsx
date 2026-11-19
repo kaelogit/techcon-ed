@@ -46,7 +46,7 @@ export function CommunityWinsSection() {
   };
 
   return (
-    <section className="bg-white py-20 md:py-28">
+    <section data-nosnippet className="bg-white py-20 md:py-28">
       <div className="container-wide">
         <SectionHeader
           label="Community"

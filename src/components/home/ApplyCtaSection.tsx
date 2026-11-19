@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react';
 
 export function ApplyCtaSection() {
   return (
-    <section className="relative overflow-hidden bg-[var(--trust)] py-20 text-white md:py-28">
+    <section data-nosnippet className="relative overflow-hidden bg-[var(--trust)] py-20 text-white md:py-28">
       <div
         className="absolute inset-y-0 right-0 w-1/2 bg-[var(--edwin-coral)] opacity-90 max-md:hidden"
         aria-hidden
@@ -12,16 +12,16 @@ export function ApplyCtaSection() {
         <div>
           <p className="section-label text-[var(--accent-gold)]">Apply now</p>
           <h2 className="headline-lg mt-4 text-white">
-            Start your
+            Apply for
             <br />
-            support file
+            grant help
           </h2>
           <p
             className="mt-6 max-w-md text-base leading-relaxed text-white/80 normal-case tracking-normal"
             style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
           >
-            Debt-free funding for recovery, growth, and ambition. Complete the form on this site. A
-            coordinator follows up on your official email thread.
+            Debt-free help from the Foundation. Fill out the form on this site. A real person writes
+            you back by email.
           </p>
         </div>
         <div className="lg:pl-10">
@@ -34,7 +34,7 @@ export function ApplyCtaSection() {
               Tell us what you need and why. Stay on edwinmega.com for every official step.
             </p>
             <Link href="/apply" className="btn-primary mt-7 bg-white text-[var(--trust)] hover:bg-[var(--accent-gold)] hover:text-[var(--trust)]">
-              Apply for support
+              Apply for help
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

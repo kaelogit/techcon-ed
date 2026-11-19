@@ -26,20 +26,22 @@ export function HeroSection() {
           Edwin Castro
         </p>
         <h1 className="headline-xl mt-4 max-w-3xl text-white">
-          The official page to apply for support.
+          Edwin Castro Foundation
+          <br />
+          grant help, from the lottery winner.
         </h1>
         <div className="accent-bar mx-auto mt-5 bg-[var(--accent-gold)]" />
         <p
           className="mt-6 max-w-2xl text-base leading-relaxed text-white/85 md:text-lg normal-case tracking-normal"
           style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
         >
-          Edwin Castro provides debt-free funding to individuals and families — for housing,
-          education, health, business, and community goals. No repayment. No interest. Apply here on
-          the official site.
+          Edwin Castro won the Powerball and started this Foundation so people could get debt-free
+          help. A home, school, health, a business, or a hard season. No repayment. No interest. If
+          you want that help, you apply here. We do not text you first.
         </p>
         <div className="mt-9 flex flex-wrap justify-center gap-3">
           <Link href="/apply" className="btn-primary">
-            Apply for support
+            Apply for help
             <ArrowRight className="h-4 w-4" />
           </Link>
           <Link href="/story" className="btn-outline-light">

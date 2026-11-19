@@ -22,7 +22,7 @@ const steps = [
 
 export function ProcessSection() {
   return (
-    <section className="border-y border-[var(--edwin-line)] bg-[var(--edwin-paper)] py-20 md:py-28">
+    <section data-nosnippet className="border-y border-[var(--edwin-line)] bg-[var(--edwin-paper)] py-20 md:py-28">
       <div className="container-wide">
         <SectionHeader
           label="How it works"

@@ -23,17 +23,17 @@ export default function StoryPage() {
         <div className="container-wide max-w-3xl">
           <p className="section-label">The vision</p>
           <h1 className="headline-lg mt-4 text-[var(--trust)]">
-            Why this funding
+            Why a lottery winner
             <br />
-            stays direct
+            started this Foundation
           </h1>
           <div className="accent-bar mt-5" />
           <p
             className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--edwin-muted)] md:text-lg normal-case tracking-normal"
             style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
           >
-            Edwin Castro built this official path so capital can reach clear human goals — recovery,
-            growth, and ambition — without forcing people through endless queues.
+            Edwin Castro won the Powerball and built the Foundation so help could reach a person
+            directly. A home, a degree, a business, a hard season. No long line. No loan.
           </p>
         </div>
       </section>

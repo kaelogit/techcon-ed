@@ -3,9 +3,9 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { breadcrumbJsonLd, pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'Why Edwin Castro Funds People Directly',
+  title: 'Why the lottery winner started the Foundation',
   description:
-    'Learn why Edwin Castro built a direct funding path on edwinmega.com. Capital goes to clear human goals — recovery, growth, and ambition — without turning people into paperwork.',
+    'Edwin Castro won the Powerball lottery and started the Edwin Castro Foundation so grant help could reach people directly. A home, school, health, a business, or a hard season.',
   path: '/story',
 });
 
@@ -15,7 +15,7 @@ export default function StoryLayout({ children }: { children: ReactNode }) {
       <JsonLd
         data={breadcrumbJsonLd([
           { name: 'Home', path: '/' },
-          { name: 'The Vision', path: '/story' },
+          { name: 'Why the Foundation', path: '/story' },
         ])}
       />
       {children}

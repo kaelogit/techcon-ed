@@ -11,9 +11,9 @@ export default function ScamReportPage() {
         <div className="container-wide max-w-3xl">
           <p className="section-label">You are not alone</p>
           <h1 className="headline-lg mt-4 text-[var(--trust)]">
-            We feel your pain.
+            Got an Edwin Castro
             <br />
-            Let us help you heal.
+            scam text?
           </h1>
           <div className="accent-bar mt-5" />
           <p

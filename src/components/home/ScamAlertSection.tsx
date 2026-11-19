@@ -6,23 +6,23 @@ const featured = fakeAgents.slice(0, 8);
 
 export function ScamAlertSection() {
   return (
-    <section id="scam-alert" className="border-y border-[var(--edwin-line)] bg-white py-20 md:py-28">
+    <section data-nosnippet className="border-y border-[var(--edwin-line)] bg-white py-20 md:py-28">
       <div className="container-wide">
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
           <div>
             <p className="section-label">You are not alone</p>
             <h2 className="headline-lg mt-4 text-[var(--trust)]">
-              We feel your pain.
+              Got an Edwin Castro
               <br />
-              Begin recovery.
+              scam text?
             </h2>
             <div className="accent-bar mt-5" />
             <p
               className="mt-6 max-w-xl text-base leading-relaxed text-[var(--edwin-muted)] md:text-lg normal-case tracking-normal"
               style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
             >
-              Fake claims agents and trustees keep borrowing Edwin Castro&apos;s name.
-              Names like Ralph Montigny and Bobby Miller show up again and again. If they took from
+              If a text said the Foundation picked you for a grant, that message was not us.
+              Names like Marcus, Ralph Montigny, and Bobby Miller show up again and again. If they took from
               you, tell us the story. A dedicated $1,000,000,000 Recovery Fund is set aside for
               this. We restore from that Fund on an official file. We do not make you wait on a
               years-long chase of the scammer. Extra support may also be added for speaking up.

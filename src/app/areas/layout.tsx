@@ -3,9 +3,9 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { breadcrumbJsonLd, pageMetadata } from '@/lib/seo';
 
 export const metadata = pageMetadata({
-  title: 'What Edwin Castro Funding Covers',
+  title: 'What an Edwin Castro grant can help with',
   description:
-    'Explore Edwin Castro funding areas on the official site: housing, education, health, business, family support, and community projects. Apply for the goal that actually moves your next chapter.',
+    'See what Edwin Castro Foundation grant help can cover: a home, school, health, a business, family, or a community project. Apply for the help that matches your life.',
   path: '/areas',
 });
 
@@ -15,7 +15,7 @@ export default function AreasLayout({ children }: { children: ReactNode }) {
       <JsonLd
         data={breadcrumbJsonLd([
           { name: 'Home', path: '/' },
-          { name: 'Funding Areas', path: '/areas' },
+          { name: 'What the grant can help with', path: '/areas' },
         ])}
       />
       {children}

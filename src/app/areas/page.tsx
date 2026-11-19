@@ -50,17 +50,17 @@ export default function AreasPage() {
         <div className="container-wide max-w-3xl">
           <p className="section-label">Funding areas</p>
           <h1 className="headline-lg mt-4 text-[var(--trust)]">
-            What support
+            What this grant
             <br />
-            can cover
+            can help with
           </h1>
           <div className="accent-bar mt-5" />
           <p
             className="mt-6 max-w-2xl text-base leading-relaxed text-[var(--edwin-muted)] md:text-lg normal-case tracking-normal"
             style={{ fontFamily: 'var(--font-sans)', textTransform: 'none' }}
           >
-            Choose the area that matches your real next step. Crisis recovery stays open — and so do
-            growth and scale.
+            Pick the part of life the help is for. A hard season, a steadier stretch, or something
+            you want to build.
           </p>
         </div>
       </section>
